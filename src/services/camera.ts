@@ -1,3 +1,18 @@
+import { StillCamera } from "pi-camera-connect";
+import path from 'path';
+import fs from 'fs';
+
+
+export async function takePhoto() {
+    const camera = new StillCamera();
+    const image = await camera.takeImage();
+    fs.writeFileSync('public/image.jpeg', image)
+}
+
+export async function takevideo() {}
+
+
+/*
 import PiCamera from 'pi-camera';
 import path from 'path';
 
@@ -45,3 +60,4 @@ export async function takevideo() {
         .then(data => console.log(data))
         .catch(e => console.log(e))
 }
+*/
