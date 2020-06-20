@@ -31,14 +31,14 @@ export async function takeVideo(): Promise<any> {
 }
 
 
-export async function readDirectory(directory: string): Promise<string[]> {
+async function readDirectory(directory: string): Promise<string[]> {
     return new Promise<string[]>(resolve => {
         fs.readdir(directory, (err, files) => {
             if (err) {
-                fs.mkdir(path.resolve(directory), { recursive: true }, err => err ? console.log() : null); 
+                fs.mkdir(path.resolve(directory), { recursive: true }, (err, res) => resolve([]))
+            } else {
+                resolve(files);
             }
-
-            resolve(files ? files : []);
         });
     });
 }
