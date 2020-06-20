@@ -1,14 +1,14 @@
-import { StillCamera, StreamCamera, Codec } from "pi-camera-connect";
+import { StillCamera, StreamCamera, Flip, Codec } from "pi-camera-connect";
 import { configuration } from '../config';
 import path from 'path';
 import fs from 'fs';
   
 
-export async function takePhoto(save?: boolean): Promise<string> {
-    const camera = new StillCamera();
+export async function takePhoto(options?: { save?: boolean, rotate?: boolean }): Promise<string> {
+    const camera = new StillCamera({ flip: options.rotate ? Flip.Both : Flip.None });
     const image = await camera.takeImage();
 
-    if (save) {
+    if (options.save) {
         const date = new Date();
         const name = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         const num = (await readDirectory(configuration.media.directory)).filter(item => name === item.split('_')[0]).length + 1;
