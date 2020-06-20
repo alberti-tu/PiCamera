@@ -31,7 +31,7 @@ interface cameraConfig {
 }
 
 export async function takePhoto() {
-    const options: cameraConfig = { mode: 'photo', output: path.resolve('../public/photo.jpeg'), width: 640, height: 480, nopreview: true };
+    const options: cameraConfig = { mode: 'photo', output: path.resolve('public/photo.jpeg'), width: 640, height: 480, nopreview: true };
     const camera = new PiCamera(options);
     camera.snap()
         .then(data => console.log(data))
@@ -39,7 +39,7 @@ export async function takePhoto() {
 }
 
 export async function takevideo() {
-    const options: cameraConfig = { mode: 'video', output: path.resolve('../public/video.h264'), width: 1920, height: 1080, timeout: 5000, nopreview: true };
+    const options: cameraConfig = { mode: 'video', output: path.resolve('public/video.h264'), width: 1920, height: 1080, timeout: 5000, nopreview: true };
     const camera = new PiCamera(options);
     camera.record()
         .then(data => console.log(data))
