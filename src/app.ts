@@ -18,8 +18,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 // Backend routes
-app.get('/photo', (req, res) => { camera.takePhoto(), res.send() });
-app.get('/video', (req, res) => { camera.takevideo(), res.send() });
+app.get('/photo', (req, res) => camera.takePhoto().then(() => res.send('Done')));
+app.get('/video', (req, res) => camera.takevideo().then(() => res.send('Done')));
 
 /*
 // Frontend routes
