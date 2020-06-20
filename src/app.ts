@@ -18,8 +18,4 @@ app.use(bodyParser.json());
 
 // Backend routes
 app.get('/', (req, res) => camera.takePhoto().then(data => res.send('<img src="' + data + '">')));
-
-app.get('/00', (req, res) => camera.takePhoto({ save: false, rotate: false }).then(data => res.send('<img src="' + data + '">')));
-app.get('/01', (req, res) => camera.takePhoto({ save: false, rotate: true }).then(data => res.send('<img src="' + data + '">')));
-app.get('/10', (req, res) => camera.takePhoto({ save: true, rotate: false }).then(data => res.send('<img src="' + data + '">')));
-app.get('/11', (req, res) => camera.takePhoto({ save: true, rotate: true }).then(data => res.send('<img src="' + data + '">')));
+app.get('/photo', (req, res) => camera.takePhoto({ save: true }).then(data => res.send('<img src="' + data + '">')));

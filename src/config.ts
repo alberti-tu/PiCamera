@@ -2,7 +2,12 @@ export const configuration = {
     server: {
         port: 3000
     },
-    media: {
-        directory: 'public'
+    photo: {
+        directory: 'public/photo',
+        rotate: true,
+    },
+    video: {
+        directory: 'public/video',
+        rotate: true,
     }
 };
