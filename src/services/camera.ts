@@ -9,9 +9,9 @@ export async function takePhoto(save?: boolean): Promise<Buffer> {
     const image = await camera.takeImage();
 
     if (save) {
-        const timestamp = new Date();
-        const date = timestamp.getFullYear() + '-' + (timestamp.getMonth() + 1) + '-' + timestamp.getDate();
-        const num = (await readDirectory(configuration.media.directory)).filter(item => date === item.split('_')[0]).length + 1;
+        const date = new Date();
+        const name = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        const num = (await readDirectory(configuration.media.directory)).filter(item => name === item.split('_')[0]).length + 1;
         fs.writeFileSync(configuration.media.directory + '/' + name + '_' + num + '.jpeg', image);
     }
 
