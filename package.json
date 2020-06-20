@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.23.1",
+    "moment": "^2.27.0",
     "path": "^0.12.7",
     "pi-camera-connect": "^0.3.0",
     "typescript": "^3.9.5"

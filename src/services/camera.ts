@@ -1,5 +1,6 @@
 import { StillCamera, StreamCamera, Flip, Codec } from "pi-camera-connect";
 import { configuration } from '../config';
+import moment from 'moment';
 import path from 'path';
 import fs from 'fs';
   
@@ -9,10 +10,9 @@ export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     const image = await camera.takeImage();
 
     if (options && options.save) {
-        const date = new Date();
-        const name = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        const num = (await readDirectory(configuration.photo.directory)).filter(item => name === item.split('_')[0]).length + 1;
-        fs.writeFileSync(configuration.photo.directory + '/' + name + '_' + num + '.jpeg', image);
+        const date = moment().format('YYYY-MM-DD');
+        const num = (await readDirectory(configuration.photo.directory)).filter(item => date === item.split('_')[0]).length + 1;
+        fs.writeFileSync(configuration.photo.directory + '/' + date + '_' + num + '.jpeg', image);
     }
 
     return 'data:image/jpeg;base64,' + image.toString('base64');
