@@ -5,10 +5,10 @@ import fs from 'fs';
   
 
 export async function takePhoto(options?: { save?: boolean, rotate?: boolean }): Promise<string> {
-    const camera = new StillCamera({ flip: options.rotate ? Flip.Both : Flip.None });
+    const camera = new StillCamera({ flip:  options && options.rotate ? Flip.Both : Flip.None });
     const image = await camera.takeImage();
 
-    if (options.save) {
+    if (options && options.save) {
         const date = new Date();
         const name = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         const num = (await readDirectory(configuration.media.directory)).filter(item => name === item.split('_')[0]).length + 1;
