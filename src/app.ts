@@ -17,4 +17,4 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 // Backend routes
-app.get('/', (req, res) => camera.takePhoto(true).then(data => res.send(data)));
+app.get('/', (req, res) => camera.takePhoto(true).then(data => res.send('<img src="' + data + '">')));
