@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
   
 
-export async function takePhoto(save?: boolean): Promise<Buffer> {
+export async function takePhoto(save?: boolean): Promise<string> {
     const camera = new StillCamera();
     const image = await camera.takeImage();
 
@@ -15,7 +15,7 @@ export async function takePhoto(save?: boolean): Promise<Buffer> {
         fs.writeFileSync(configuration.media.directory + '/' + name + '_' + num + '.jpeg', image);
     }
 
-    return image;
+    return 'data:image/jpeg;base64,' + image.toString('base64');
 }
 
 export async function takeVideo(): Promise<any> {
