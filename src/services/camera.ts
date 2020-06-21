@@ -14,9 +14,15 @@ export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     }
 
     if (options && options.save) {
+        let num = 0;
         const date = moment().format('YYYY-MM-DD');
-        const num = (await readDirectory(configuration.photo.directory)).filter(item => date === item.split('_')[0]).length + 1;
-        fs.writeFileSync(configuration.photo.directory + '/' + date + '_' + num + '.jpeg', image);
+        const files = await readDirectory(configuration.photo.directory);
+        files.forEach(item => {
+            if (date === item.split('_')[0]) {
+                num = Math.max(num, parseInt(item.split('_')[0].split('.')[0]));
+            }
+        })
+        fs.writeFileSync(configuration.photo.directory + '/' + date + '_' + (num + 1) + '.jpeg', image);
     }
 
     return 'data:image/jpeg;base64,' + image.toString('base64');
