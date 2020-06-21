@@ -19,7 +19,7 @@ export async function takePhoto(options?: { save?: boolean }): Promise<string> {
         const files = await readDirectory(configuration.photo.directory);
         files.forEach(item => {
             if (date === item.split('_')[0]) {
-                num = Math.max(num, parseInt(item.split('_')[0].split('.')[0]));
+                num = Math.max(num, parseInt(item.split('_')[1].split('.')[0]));
             }
         })
         fs.writeFileSync(configuration.photo.directory + '/' + date + '_' + (num + 1) + '.jpeg', image);
