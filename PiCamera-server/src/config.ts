@@ -3,11 +3,11 @@ export const configuration = {
         port: 3000
     },
     photo: {
-        directory: 'public/photo',
+        directory: 'camera/photo',
         rotate: true,
     },
     video: {
-        directory: 'public/video',
+        directory: 'camera/video',
         rotate: true,
     }
 };
