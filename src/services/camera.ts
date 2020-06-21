@@ -7,7 +7,11 @@ import fs from 'fs';
 
 export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     const camera = new StillCamera({ flip: configuration.photo.rotate ? Flip.Both : Flip.None });
-    const image = await camera.takeImage();
+    const image = await camera.takeImage().catch(err => err);
+
+    if (typeof image !== 'string') {
+        return null;
+    }
 
     if (options && options.save) {
         const date = moment().format('YYYY-MM-DD');
