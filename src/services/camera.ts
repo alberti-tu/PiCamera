@@ -9,7 +9,7 @@ export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     const camera = new StillCamera({ flip: configuration.photo.rotate ? Flip.Both : Flip.None });
     const image = await camera.takeImage().catch(err => err);
 
-    if (typeof image !== 'string') {
+    if (!Buffer.isBuffer(image)) {
         return null;
     }
 
