@@ -1,7 +1,9 @@
 import bodyParser from 'body-parser';
+import socket from 'socket.io';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import http from 'http';
 import path from 'path';
 
 import * as camera from './services/camera';
@@ -9,13 +11,23 @@ import { configuration } from './config';
 
 const app = express();
 
-app.listen(configuration.server.port, () => {
-    console.log('Server is listening on http://[...]:' + configuration.server.port);
-});
-
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
+
+const server = http.createServer(app).listen(configuration.server.port, () => console.log('Server is listening on http://[...]:' + configuration.server.port) );
+const io = socket(server);
+
+let connections = 0;
+io.on('connection', (socket: socket.Socket) => {
+    connections++;
+    console.log('Users: ' + connections);
+    socket.on('message', message => console.log(message));
+    socket.on('disconnect', () => {
+        connections--;
+        console.log('Users: ' + connections);
+    });
+});
 
 // Backend routes
 app.get('/api', (req, res) => camera.takePhoto().then(data => res.send('<img src="' + data + '">')));
