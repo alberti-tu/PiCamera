@@ -1,20 +1,15 @@
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body>
-    <button onClick="sendMsg()">Hit Me</button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-    <script>
-      const socket = io("http://localhost:3000");
-
-      function sendMsg() {
-        socket.emit("message", "HELLO WORLD");
-      }
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>PiCamera</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="styles.5f31589a2f5ddb4c8cc5.css"></head>
+<body>
+  <app-root></app-root>
+<script src="runtime-es2015.0dae8cbc97194c7caed4.js" type="module"></script><script src="runtime-es5.0dae8cbc97194c7caed4.js" nomodule defer></script><script src="polyfills-es5.a3f4239d933d07eeaee9.js" nomodule defer></script><script src="polyfills-es2015.451f47aa8b4f20da31ee.js" type="module"></script><script src="main-es2015.69401d6fa91c98e116e4.js" type="module"></script><script src="main-es5.69401d6fa91c98e116e4.js" nomodule defer></script></body>
 </html>
