@@ -1,1 +1,20 @@
-<p>login works!</p>
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm.form.value)">
+    <mat-card>
+        <mat-card-content>
+            <mat-card-title>Pi Camera</mat-card-title>
+
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input matInput name="username" type="text" ngModel required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput name="password" type="password" ngModel required>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
