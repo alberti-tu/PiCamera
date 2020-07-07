@@ -17,7 +17,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.socketService.connect();
     this.imageSuscription = this.socketService.getImage().subscribe(data => {
-      this.image = data;
+      if (data !== null) {
+        this.image = data;
+      }
     });
   }
 
