@@ -20,9 +20,11 @@ export class MainComponent implements OnInit {
   public ngOnInit(): void {
     this.pageList = [
       { name: 'Inicio', icon: 'home', action: () => this.navigateTo('/home') },
+      /*
       { name: 'Nuevo usuario', icon: 'person_add', action: () => this.navigateTo('/register') },
       { name: 'Gestión', icon: 'settings', action: () => this.navigateTo('/management') },
       { name: 'Cerrar sesión', icon: 'directions_run', action: () => this.closeSession() }
+      */
     ];
   }
 
