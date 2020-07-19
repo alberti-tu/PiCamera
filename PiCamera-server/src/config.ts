@@ -1,6 +1,6 @@
 export const configuration = {
     server: {
-        port: 3000,
+        port: 8080,
         eventInterval: 2000
     },
     photo: {
