@@ -25,7 +25,7 @@ export async function verifyToken(req: Request<any>, res: Response<Message<strin
         const result = await database.verifyAdmin(token.id);
 
         if (result) {
-            res.locals = token.id;
+            res.locals = { ...res.locals, id: token.id };
             next();
         } else {
             res.status(401).send({ code: 401, message: 'Unauthorized', result: null });
