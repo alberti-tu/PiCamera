@@ -27,6 +27,7 @@ export class Database {
             const connection = await mariadb.createConnection(this.configDB);
             await connection.query('USE ' + this.configDB.database);
             await connection.end();
+            console.log('Database connected');
             return true;
         } catch {
             return false;
