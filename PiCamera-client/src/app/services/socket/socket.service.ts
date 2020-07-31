@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { environment} from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { query } from '@angular/animations';
-import { AuthenticationService } from '../authentication/authentication.service';
+
+export enum SocketEvent {
+  disconnect = 'disconnect',
+  image = 'image'
+}
 
 @Injectable({ providedIn: 'root' })
 export class SocketService {
@@ -15,12 +19,17 @@ export class SocketService {
   public connect(): void {
     if (this.socket === null) {
       this.socket = io.connect(environment.url, { query: { token: this.authService.getToken() } });
+
+      this.socket.on(SocketEvent.disconnect, () => {
+        this.disconnect();
+        this.authService.removeToken();
+      });
     }
   }
 
   public getImage(): Observable<string> {
     return new Observable<string>(observer => {
-      this.socket.on('image', (message: string) => observer.next(message) );
+      this.socket.on(SocketEvent.image, (message: string) => observer.next(message) );
     });
   }
 
