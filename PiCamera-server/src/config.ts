@@ -11,7 +11,7 @@ export const configuration = {
         rotate: true,
     },
     server: {
-        port: 8080,
+        port: 80,
         eventInterval: 2000,
         secret: 'secret',                                           // Key to encrypt authentication tokens
         timeout: '1d'                                               // Expiration time of the authentication token
