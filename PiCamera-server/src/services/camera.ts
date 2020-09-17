@@ -1,9 +1,38 @@
+import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
+import { Observable } from 'rxjs';
 import { StillCamera, StreamCamera, Flip, Codec } from "pi-camera-connect";
 import { configuration } from '../config';
 import moment from 'moment';
 import path from 'path';
 import fs from 'fs';
-  
+
+export class Camera {
+
+    private child: ChildProcessWithoutNullStreams;
+
+    constructor() {}
+
+    public start(): Observable<string> {
+        return new Observable<string>(observer => {
+            if (!this.child) {
+                this.child = spawn('raspivid', ['-hf', '-w', '1280', '-h', '1024', '-t', '999999999', '-fps', '20', '-b', '5000000', '-o', '-']);
+            }
+
+            this.child.stdout.on('data', data => {
+                console.log(data.toString());
+                observer.next(data.toString());
+            });
+        });
+    }
+
+    public stop(): void {
+        if (this.child) {
+            this.child.kill();
+            this.child = null;
+        }
+    }
+}
+
 export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     const camera = new StillCamera({ flip: configuration.photo.rotate ? Flip.Both : Flip.None });
     const image = await camera.takeImage().catch(err => err);

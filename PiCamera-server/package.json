@@ -33,6 +33,7 @@
     "moment": "^2.27.0",
     "path": "^0.12.7",
     "pi-camera-connect": "^0.3.0",
+    "rxjs": "^6.6.3",
     "socket.io": "^2.3.0",
     "typescript": "^3.9.5"
   }

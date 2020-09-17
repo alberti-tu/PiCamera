@@ -1,10 +1,12 @@
 import { Server, Socket } from 'socket.io';
+import { Camera } from '../services/camera';
 import { configuration } from '../config';
-import * as camera from '../services/camera';
 import * as jwt from 'jsonwebtoken';
 import * as database from './db-middleware';
 
 let loop: NodeJS.Timeout = null;
+
+const camera = new Camera();
 
 export async function connection(io: Server, socket: Socket) {
 
@@ -17,19 +19,14 @@ export async function connection(io: Server, socket: Socket) {
         }
     }
 
-    if (loop === null) {
-        loop = setInterval(() => {
-            camera.takePhoto().then(data => {
-                io.sockets.emit('image', data);
-            });
-        }, configuration.server.eventInterval);
-    }
-    
-    // Close socket, stop photo stream if there are not more sockets
+    camera.start().subscribe(data => {
+        io.sockets.emit('image', data);
+    });
+
+    // Close socket, stop stream if there are not more sockets
     socket.on('disconnect', () => {
         if (Object.keys(io.sockets.sockets).length === 0) {
-            clearInterval(loop);
-            loop = null;
+            camera.stop();
         }
     });
 }
