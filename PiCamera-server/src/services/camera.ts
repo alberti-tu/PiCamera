@@ -15,19 +15,8 @@ export class Camera {
     public streamStart(): Observable<string> {
         return new Observable<string>(observer => {
             this.takePicture()
-                .then(data => {
-                    if (Buffer.isBuffer(data)) {
-                        observer.next('data:image/jpeg;base64,' + data.toString('base64'));
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                })
-                .finally(() => {
-                    if(this.child) {
-                        this.streamStart();
-                    }
-                });
+                .then(data => observer.next('data:image/jpeg;base64,' + data))
+                .catch(err => console.error(err))
         });
     }
 
@@ -38,18 +27,54 @@ export class Camera {
         }
     }
 
-    public takePicture(): Promise<Buffer> {
+    public takePicture(): Promise<string> {
         return new Promise((resolve, reject) => {
-            const raspistill = spawn('raspistill', ['-vf', '-hf', '-w', '640', '-h', '480', '-t', '800', '-o', '-']);
-            
+            const raspistill = spawn('raspistill', ['-vf', '-hf', '-w', '640', '-h', '480', '-q', '75', '-o', '-']);
+
             const raw = [];
 
             raspistill.stdout.on('data', (data: string) => raw.push(data));
-            raspistill.stdout.on('close', (code: number) => resolve(Buffer.concat(raw)));
+            raspistill.stdout.on('close', (code: number) => resolve(Buffer.concat(raw).toString('base64')));
             raspistill.stdout.on('error', (err: any) => reject(err));
         });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function takePhoto(options?: { save?: boolean }): Promise<string> {

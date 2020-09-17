@@ -1,1 +1,2 @@
-<img [src]="image">
+<mat-spinner *ngIf="!image"></mat-spinner>
+<img *ngIf="image" [src]="image">
