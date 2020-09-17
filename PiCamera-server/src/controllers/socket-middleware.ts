@@ -17,14 +17,14 @@ export async function connection(io: Server, socket: Socket) {
         }
     }
 
-    camera.start().subscribe(data => {
+    camera.streamStart().subscribe(data => {
         io.sockets.emit('image', data);
     });
 
     // Close socket, stop stream if there are not more sockets
     socket.on('disconnect', () => {
         if (Object.keys(io.sockets.sockets).length === 0) {
-            camera.stop();
+            camera.streamStop();
         }
     });
 }
