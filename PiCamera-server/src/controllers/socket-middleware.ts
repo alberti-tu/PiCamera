@@ -4,8 +4,6 @@ import { configuration } from '../config';
 import * as jwt from 'jsonwebtoken';
 import * as database from './db-middleware';
 
-let loop: NodeJS.Timeout = null;
-
 const camera = new Camera();
 
 export async function connection(io: Server, socket: Socket) {

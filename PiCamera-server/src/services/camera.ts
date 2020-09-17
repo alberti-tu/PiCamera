@@ -12,26 +12,45 @@ export class Camera {
 
     constructor() {}
 
-    public start(): Observable<string> {
+    public streamStart(): Observable<string> {
         return new Observable<string>(observer => {
-            if (!this.child) {
-                this.child = spawn('raspivid', ['-hf', '-w', '1280', '-h', '1024', '-t', '999999999', '-fps', '20', '-b', '5000000', '-o', '-']);
-            }
-
-            this.child.stdout.on('data', data => {
-                console.log(data.toString());
-                observer.next(data.toString());
-            });
+            this.takePicture()
+                .then(data => {
+                    if (Buffer.isBuffer(data)) {
+                        observer.next('data:image/jpeg;base64,' + data.toString('base64'));
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+                .finally(() => {
+                    if(this.child) {
+                        this.streamStart();
+                    }
+                });
         });
     }
 
-    public stop(): void {
+    public streamStop(): void {
         if (this.child) {
             this.child.kill();
             this.child = null;
         }
     }
+
+    public takePicture(): Promise<Buffer> {
+        return new Promise((resolve, reject) => {
+            const raspistill = spawn('raspistill', ['-vf', '-hf', '-w', '640', '-h', '480', '-t', '800', '-o', '-']);
+            
+            const raw = [];
+
+            raspistill.stdout.on('data', (data: string) => raw.push(data));
+            raspistill.stdout.on('close', (code: number) => resolve(Buffer.concat(raw)));
+            raspistill.stdout.on('error', (err: any) => reject(err));
+        });
+    }
 }
+
 
 export async function takePhoto(options?: { save?: boolean }): Promise<string> {
     const camera = new StillCamera({ flip: configuration.photo.rotate ? Flip.Both : Flip.None });
