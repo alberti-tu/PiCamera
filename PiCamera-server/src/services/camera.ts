@@ -61,6 +61,8 @@ export class Camera {
 
     public takePicture(options?: PictureOptions): Promise<string> {
         return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(this.args.join(' ')), 1000);
+            /*
             const child = spawn('raspistill', this.args);
 
             const raw = [];
@@ -81,7 +83,7 @@ export class Camera {
 
                 resolve(image);
             });
-            
+            */
         });
     }
 

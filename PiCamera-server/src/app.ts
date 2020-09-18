@@ -7,9 +7,9 @@ import http from 'http';
 import path from 'path';
 
 import * as authController from './controllers/auth-middleware';
+import * as cameraController from './controllers/camera-middleware';
 import * as databaseController from './controllers/db-middleware';
 import * as socketController from './controllers/socket-middleware';
-import * as camera from './services/camera';
 import { configuration } from './config';
 
 const app = express();
@@ -31,8 +31,7 @@ app.post('/api/login', authController.login);
 app.post('/api/user', authController.verifyToken, authController.registerAdmin);
 app.delete('/api/user', authController.verifyToken, authController.deleteAdmin);
 
-// app.get('/api', authController.verifyToken, (req, res) => camera.takePhoto().then(data => res.send('<img src="' + data + '">')));
-// app.get('/api/photo', authController.verifyToken, (req, res) => camera.takePhoto({ save: true }).then(data => res.send('<img src="' + data + '">')));
+app.post('/api/camera/settings', authController.verifyToken, cameraController.cameraSettings);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
