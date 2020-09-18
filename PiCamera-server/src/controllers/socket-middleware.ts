@@ -4,7 +4,7 @@ import { Camera } from '../services/camera';
 import * as jwt from 'jsonwebtoken';
 import * as database from './db-middleware';
 
-const camera = new Camera(configuration.camera);
+const camera = Camera.getInstance(configuration.camera);
 
 export async function connection(io: Server, socket: Socket) {
 

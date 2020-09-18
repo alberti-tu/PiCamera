@@ -4,7 +4,7 @@ import { configuration } from '../config';
 import readline from 'readline';
 import crypto from 'crypto';
 
-const database = new Database(configuration.database);
+const database = Database.getInstance(configuration.database);
 
 export async function init() {
     const result: boolean = await database.checkDatabase();

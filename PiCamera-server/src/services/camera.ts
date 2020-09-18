@@ -9,15 +9,24 @@ const argsDefault: string[] = ['-w', '640', '-h', '480', '-o', '-'];
 
 export class Camera {
 
+    private static instance: Camera = null;
+
     private args: string[];
     private configuration: CameraOptions;
     private loop: NodeJS.Timeout;
     private isAvailable: boolean;
 
-    constructor(configuration: CameraOptions) {
+    protected constructor(configuration: CameraOptions) {
         this.configuration = configuration;
         this.args = argsDefault;
         this.isAvailable = true;
+    }
+
+    public static getInstance(configuration: CameraOptions): Camera {
+        if (!Camera.instance) {
+            Camera.instance = new Camera(configuration);
+        }
+        return Camera.instance;
     }
 
     public streamStart(): Observable<string> {

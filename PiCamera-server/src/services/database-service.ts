@@ -1,25 +1,26 @@
 import mariadb from 'mariadb';
-
-export interface ConfigurationDB {
-    database: string;
-    user?: string;
-    password?: string;
-    host?: string;
-    port?: number;
-}
+import { DatabaseOptions } from '../models/options.model';
 
 export class Database {
 
-    private configDB: ConfigurationDB; 
+    private static instance: Database = null;
+    private configDB: DatabaseOptions; 
 
-    constructor (config: ConfigurationDB) {
-        config.database = config.database !== undefined ? config.database : null;
-        config.user = config.user !== undefined ? config.user : 'root';
-        config.password = config.password !== undefined ? config.password : null;
-        config.host = config.host !== undefined ? config.host : 'localhost';
-        config.port = config.port !== undefined ? config.port : 3306;
+    constructor (config: DatabaseOptions) {
+        config.database = config.database != null ? config.database : null;
+        config.user = config.user != null ? config.user : 'root';
+        config.password = config.password != null ? config.password : null;
+        config.host = config.host != null ? config.host : 'localhost';
+        config.port = config.port != null ? config.port : 3306;
         
         this.configDB = config;
+    }
+
+    public static getInstance(configuration: DatabaseOptions): Database {
+        if (!Database.instance) {
+            Database.instance = new Database(configuration);
+        }
+        return Database.instance;
     }
 
     public async checkDatabase(): Promise<boolean> {
