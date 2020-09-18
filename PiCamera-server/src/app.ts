@@ -31,8 +31,8 @@ app.post('/api/login', authController.login);
 app.post('/api/user', authController.verifyToken, authController.registerAdmin);
 app.delete('/api/user', authController.verifyToken, authController.deleteAdmin);
 
-app.get('/api', authController.verifyToken, (req, res) => camera.takePhoto().then(data => res.send('<img src="' + data + '">')));
-app.get('/api/photo', authController.verifyToken, (req, res) => camera.takePhoto({ save: true }).then(data => res.send('<img src="' + data + '">')));
+// app.get('/api', authController.verifyToken, (req, res) => camera.takePhoto().then(data => res.send('<img src="' + data + '">')));
+// app.get('/api/photo', authController.verifyToken, (req, res) => camera.takePhoto({ save: true }).then(data => res.send('<img src="' + data + '">')));
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

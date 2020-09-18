@@ -4,7 +4,7 @@ import { configuration } from '../config';
 import readline from 'readline';
 import crypto from 'crypto';
 
-const database = new Database(configuration.mariaDB);
+const database = new Database(configuration.database);
 
 export async function init() {
     const result: boolean = await database.checkDatabase();

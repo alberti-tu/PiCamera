@@ -1,10 +1,10 @@
 import { Server, Socket } from 'socket.io';
-import { Camera } from '../services/camera';
 import { configuration } from '../config';
+import { Camera } from '../services/camera';
 import * as jwt from 'jsonwebtoken';
 import * as database from './db-middleware';
 
-const camera = new Camera();
+const camera = new Camera(configuration.camera);
 
 export async function connection(io: Server, socket: Socket) {
 

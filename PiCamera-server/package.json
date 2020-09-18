@@ -32,7 +32,6 @@
     "mariadb": "^2.4.2",
     "moment": "^2.28.0",
     "path": "^0.12.7",
-    "pi-camera-connect": "^0.3.3",
     "rxjs": "^6.6.3",
     "socket.io": "^2.3.0",
     "typescript": "^3.9.7"
