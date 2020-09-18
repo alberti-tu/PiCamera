@@ -16,8 +16,10 @@ export class Camera {
     private loop: NodeJS.Timeout;
     private isAvailable: boolean;
 
-    protected constructor(configuration: CameraOptions) {
-        this.configuration = configuration;
+    protected constructor(config: CameraOptions) {
+        config.directory = config.directory != null ? config.directory : 'camera';
+        this.configuration = config;
+        
         this.args = argsDefault;
         this.isAvailable = true;
     }
@@ -61,8 +63,6 @@ export class Camera {
 
     public takePicture(options?: PictureOptions): Promise<string> {
         return new Promise((resolve, reject) => {
-            setTimeout(() => resolve(this.args.join(' ')), 1000);
-            /*
             const child = spawn('raspistill', this.args);
 
             const raw = [];
@@ -83,7 +83,6 @@ export class Camera {
 
                 resolve(image);
             });
-            */
         });
     }
 

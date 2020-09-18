@@ -9,7 +9,7 @@ export const configuration: Configuration = {
         port: 3306
     },
     camera: {
-        directory: 'camera/photo',
+        directory: 'camera',
     },
     server: {
         port: 80,

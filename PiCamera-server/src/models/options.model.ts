@@ -5,7 +5,7 @@ export interface Configuration {
 }
 
 export interface CameraOptions {
-    directory: string;
+    directory?: string;
 }
 
 export interface DatabaseOptions {
