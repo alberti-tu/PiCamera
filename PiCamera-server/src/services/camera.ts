@@ -8,34 +8,41 @@ import fs from 'fs';
 
 export class Camera {
 
-    private child: ChildProcessWithoutNullStreams;
+    private loop: NodeJS.Timeout;
+    private isAvailable: boolean;
 
-    constructor() {}
+    constructor() {
+        this.isAvailable = true;
+    }
 
     public streamStart(): Observable<string> {
         return new Observable<string>(observer => {
-            this.takePicture()
-                .then(data => observer.next('data:image/jpeg;base64,' + data))
-                .catch(err => console.error(err))
+            this.loop = setInterval(() => {
+                if (this.isAvailable) {
+                    this.isAvailable = false;
+                    this.takePicture()
+                        .then(data => observer.next('data:image/jpeg;base64,' + data))
+                        .catch(err => console.error(err))
+                        .finally(() => this.isAvailable = true);
+                }
+            }, 1);
         });
     }
 
     public streamStop(): void {
-        if (this.child) {
-            this.child.kill();
-            this.child = null;
-        }
+        this.isAvailable = true;
+        clearInterval(this.loop);
     }
 
     public takePicture(): Promise<string> {
         return new Promise((resolve, reject) => {
-            const raspistill = spawn('raspistill', ['-vf', '-hf', '-w', '640', '-h', '480', '-q', '75', '-o', '-']);
+            const child = spawn('raspistill', ['-vf', '-hf', '-w', '640', '-h', '480', '-q', '75', '-o', '-']);
 
             const raw = [];
 
-            raspistill.stdout.on('data', (data: string) => raw.push(data));
-            raspistill.stdout.on('close', (code: number) => resolve(Buffer.concat(raw).toString('base64')));
-            raspistill.stdout.on('error', (err: any) => reject(err));
+            child.stdout.on('data', (data: string) => raw.push(data));
+            child.stdout.on('close', (code: number) => resolve(Buffer.concat(raw).toString('base64')));
+            child.stdout.on('error', (err: any) => reject(err));
         });
     }
 }

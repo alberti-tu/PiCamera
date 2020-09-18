@@ -17,9 +17,13 @@ export async function connection(io: Server, socket: Socket) {
         }
     }
 
-    camera.streamStart().subscribe(data => {
-        io.sockets.emit('image', data);
-    });
+    // First user start the stream
+    if (Object.keys(io.sockets.sockets).length === 1) {
+        camera.streamStart().subscribe(data => {
+            console.log(data);
+            io.sockets.emit('image', data);
+        });
+    }
 
     // Close socket, stop stream if there are not more sockets
     socket.on('disconnect', () => {
