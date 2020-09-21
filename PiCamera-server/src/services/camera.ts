@@ -23,8 +23,8 @@ export class Camera {
         options.rotation = options.rotation != null ? options.rotation : '0';
         
         this.cameraOptions = options;
+        this.setPictureOptions(options);
         
-        this.args = argsDefault;
         this.isAvailable = true;
     }
 
@@ -66,15 +66,13 @@ export class Camera {
         this.args = [];
 
         options.rotation = options.rotation || this.cameraOptions.rotation;
-        this.args.concat([ '-rot', options.rotation ])
+        this.args = this.args.concat([ '-rot', options.rotation ])
 
         options.quality = options.quality || this.cameraOptions.quality;
-        this.args.concat([ '-q', options.quality.toString() ])
+        this.args = this.args.concat([ '-q', options.quality.toString() ])
 
         this.pictureOptions = options;
         this.args = this.args.concat(argsDefault);
-
-        console.log(this.args);
     }
 
     public takePicture(options?: PictureOptions): Promise<string> {

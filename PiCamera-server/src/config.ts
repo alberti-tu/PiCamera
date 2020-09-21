@@ -10,7 +10,7 @@ export const configuration: Configuration = {
     },
     camera: {
         directory: 'camera',
-        rotation: '90'
+        rotation: '180'
     },
     server: {
         port: 80,
