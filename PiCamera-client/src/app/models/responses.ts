@@ -4,8 +4,8 @@ export interface Response<T> {
     result: T;
 }
 
-export interface Settings {
-    filter: string;
-    quality: number | string;
-    rotation: '0' | '90' | '180' | '270';
+export interface PictureOptions {
+    filter?: string;
+    quality?: number;
+    rotation?: number;
 }

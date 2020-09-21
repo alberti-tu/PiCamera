@@ -26,8 +26,8 @@ export class Camera {
         };
 
         this.pictureOptions = {
-            quality: options.quality != null ? options.quality: '100',
-            rotation: options.rotation != null ? options.rotation : '0'
+            quality: options.quality != null ? options.quality: 100,
+            rotation: options.rotation != null ? options.rotation : 0
         };
         
         this.setPictureOptions(this.pictureOptions);
@@ -92,7 +92,7 @@ export class Camera {
         this.args = [];
 
         options.rotation = options.rotation || this.cameraOptions.rotation;
-        this.args = this.args.concat([ '-rot', options.rotation ])
+        this.args = this.args.concat([ '-rot', options.rotation.toString() ])
 
         options.quality = options.quality || this.cameraOptions.quality;
         this.args = this.args.concat([ '-q', options.quality.toString() ])

@@ -18,8 +18,8 @@ export interface DatabaseOptions {
 
 export interface PictureOptions {
     filter?: string;
-    quality?: number | string;
-    rotation?: '0' | '90' | '180' | '270';
+    quality?: number;
+    rotation?: number;
 }
 
 export interface ServerOptions {

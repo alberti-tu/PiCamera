@@ -1,4 +1,5 @@
-<form #settingsForm="ngForm" (ngSubmit)="setSettings(settingsForm.form.value)">
+<!--
+<form>
     <mat-form-field>
         <mat-label>Filtro</mat-label>
         <mat-select ngModel name="filter">
@@ -15,7 +16,18 @@
         <mat-label>Rotation</mat-label>
         <mat-slider ngModel name="rotation" color="primary" min="0" max="270" step="90" thumbLabel value="0"></mat-slider>
     </div>
-    
-    
-    <button mat-raised-button color="primary" type="submit" [disabled]="!settingsForm.form.valid">Guardar</button>
 </form>
+-->
+
+
+<div *ngIf="pictureOptions">
+    <mat-slider 
+        [(ngModel)]="pictureOptions.quality" color="primary" min="0" max="100" step="5" thumbLabel>
+    </mat-slider>
+
+    <mat-slider
+        [(ngModel)]="pictureOptions.rotation" color="primary" min="0" max="270" step="90" thumbLabel>
+    </mat-slider>
+</div>
+
+<button mat-raised-button color="primary" (click)="setSettings()">Entrar</button>
