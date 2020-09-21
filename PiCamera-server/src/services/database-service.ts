@@ -7,7 +7,7 @@ export class Database {
     private databaseOptions: DatabaseOptions; 
 
     constructor (options: DatabaseOptions) {
-        options.name = options.name != null ? options.name : null;
+        options.database = options.database != null ? options.database : null;
         options.user = options.user != null ? options.user : 'root';
         options.password = options.password != null ? options.password : null;
         options.host = options.host != null ? options.host : 'localhost';
@@ -26,7 +26,7 @@ export class Database {
     public async checkDatabase(): Promise<boolean> {
         try {
             const connection = await mariadb.createConnection(this.databaseOptions);
-            await connection.query('USE ' + this.databaseOptions.name);
+            await connection.query('USE ' + this.databaseOptions.database);
             await connection.end();
             console.log('Database connected');
             return true;
@@ -54,8 +54,8 @@ export class Database {
             const connection = await mariadb.createConnection({ ...this.databaseOptions, database: null });
 
             // Creating database
-            await connection.query('CREATE DATABASE ' + this.databaseOptions.name);
-            await connection.query('USE ' + this.databaseOptions.name);
+            await connection.query('CREATE DATABASE ' + this.databaseOptions.database);
+            await connection.query('USE ' + this.databaseOptions.database);
 
             for (let query of tables) {
                 await connection.query(query);
@@ -66,10 +66,10 @@ export class Database {
             console.log('Database created');
         } catch {
             const connection = await mariadb.createConnection(this.databaseOptions);
-            await connection.query('DROP DATABASE ' + this.databaseOptions.name);
+            await connection.query('DROP DATABASE ' + this.databaseOptions.database);
             await connection.end();
 
-            console.log('Drop database ' + this.databaseOptions.name);
+            console.log('Drop database ' + this.databaseOptions.database);
 
             process.exit(1);
         }

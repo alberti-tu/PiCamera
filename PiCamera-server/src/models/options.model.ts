@@ -9,7 +9,7 @@ export interface CameraOptions extends PictureOptions {
 }
 
 export interface DatabaseOptions {
-    name: string;
+    database: string;
     user: string;
     password: string;
     host: string;
