@@ -2,7 +2,7 @@ import { Configuration } from './models/options.model';
 
 export const configuration: Configuration = {
     database: {
-        database: 'PiCamera',
+        name: 'PiCamera',
         user: 'root',
         password: null,
         host: 'localhost',
@@ -10,6 +10,7 @@ export const configuration: Configuration = {
     },
     camera: {
         directory: 'camera',
+        rotation: '90'
     },
     server: {
         port: 80,

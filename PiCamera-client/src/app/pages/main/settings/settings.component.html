@@ -1,0 +1,21 @@
+<form #settingsForm="ngForm" (ngSubmit)="setSettings(settingsForm.form.value)">
+    <mat-form-field>
+        <mat-label>Filtro</mat-label>
+        <mat-select ngModel name="filter">
+            <mat-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div>
+        <mat-label>Quality</mat-label>
+        <mat-slider ngModel name="quality" color="primary" min="0" max="100" step="5" thumbLabel value="100"></mat-slider>
+    </div>
+    
+    <div>
+        <mat-label>Rotation</mat-label>
+        <mat-slider ngModel name="rotation" color="primary" min="0" max="270" step="90" thumbLabel value="0"></mat-slider>
+    </div>
+    
+    
+    <button mat-raised-button color="primary" type="submit" [disabled]="!settingsForm.form.valid">Guardar</button>
+</form>

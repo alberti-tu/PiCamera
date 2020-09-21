@@ -4,12 +4,12 @@ export interface Configuration {
     server: ServerOptions;
 }
 
-export interface CameraOptions {
+export interface CameraOptions extends PictureOptions {
     directory?: string;
 }
 
 export interface DatabaseOptions {
-    database: string;
+    name: string;
     user: string;
     password: string;
     host: string;
@@ -17,9 +17,10 @@ export interface DatabaseOptions {
 }
 
 export interface PictureOptions {
+    filter?: string;
+    quality?: number | string;
+    rotation?: '0' | '90' | '180' | '270';
     save?: boolean;
-    quality?: string;
-    rotate?: '0' | '90' | '180' | '270';
 }
 
 export interface ServerOptions {

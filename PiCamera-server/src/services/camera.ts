@@ -12,13 +12,17 @@ export class Camera {
     private static instance: Camera = null;
 
     private args: string[];
-    private configuration: CameraOptions;
+    private cameraOptions: CameraOptions;
+    private pictureOptions: PictureOptions;
     private loop: NodeJS.Timeout;
     private isAvailable: boolean;
 
-    protected constructor(config: CameraOptions) {
-        config.directory = config.directory != null ? config.directory : 'camera';
-        this.configuration = config;
+    protected constructor(options: CameraOptions) {
+        options.directory = options.directory != null ? options.directory : 'camera';
+        options.quality = options.quality != null ? options.quality: '100';
+        options.rotation = options.rotation != null ? options.rotation : '0';
+        
+        this.cameraOptions = options;
         
         this.args = argsDefault;
         this.isAvailable = true;
@@ -50,15 +54,27 @@ export class Camera {
         clearInterval(this.loop);
     }
 
-    public setPictureOptions(options: PictureOptions) {
-        this.args = [];
+    public getPictureOptions(): PictureOptions {
+        return this.pictureOptions;
+    }
 
-        if (options) {
-            this.args = options.rotate ? this.args.concat([ '-rot', options.rotate ]) : this.args.concat([]);
-            this.args = options.quality ? this.args.concat([ '-q', options.quality ]) : this.args.concat([]);
+    public setPictureOptions(options: PictureOptions) {
+        if (!options) {
+            return;
         }
 
+        this.args = [];
+
+        options.rotation = options.rotation || this.cameraOptions.rotation;
+        this.args.concat([ '-rot', options.rotation ])
+
+        options.quality = options.quality || this.cameraOptions.quality;
+        this.args.concat([ '-q', options.quality.toString() ])
+
+        this.pictureOptions = options;
         this.args = this.args.concat(argsDefault);
+
+        console.log(this.args);
     }
 
     public takePicture(options?: PictureOptions): Promise<string> {
@@ -74,8 +90,8 @@ export class Camera {
                 const image = Buffer.concat(raw).toString('base64');
 
                 if (options && options.save) {
-                    this.getName(this.configuration.directory).then(name => {
-                        fs.writeFileSync(this.configuration.directory + '/' + name + '.jpeg', image);
+                    this.getName(this.cameraOptions.directory).then(name => {
+                        fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', image);
                     });
 
                     this.setPictureOptions({ ...options, save: false });

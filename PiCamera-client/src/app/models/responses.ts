@@ -3,3 +3,9 @@ export interface Response<T> {
     message: string;
     result: T;
 }
+
+export interface Settings {
+    filter: string;
+    quality: number | string;
+    rotation: '0' | '90' | '180' | '270';
+}

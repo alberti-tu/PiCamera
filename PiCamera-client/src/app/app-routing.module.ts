@@ -4,11 +4,13 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { HomeComponent } from './pages/main/home/home.component';
+import { SettingsComponent } from './pages/main/settings/settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: MainComponent, canActivate: [AuthenticationService], children: [
       { path: 'home', component: HomeComponent },
+      { path: 'settings', component: SettingsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   },
