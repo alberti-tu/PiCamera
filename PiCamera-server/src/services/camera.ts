@@ -67,7 +67,7 @@ export class Camera {
             const loop = setInterval(() => {
                 if (this.isAvailable) {
                     this.isAvailable = false;
-                    this.takePicture()
+                    this.takePicture(true)
                         .then(data => resolve('data:image/jpeg;base64,' + data))
                         .catch(err => reject(err))
                         .finally(() => {
