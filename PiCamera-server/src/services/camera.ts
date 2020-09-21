@@ -5,26 +5,32 @@ import moment from 'moment';
 import path from 'path';
 import fs from 'fs';
 
-const argsDefault: string[] = ['-w', '640', '-h', '480', '-n', '-o', '-'];
+const argsDefault: string[] = ['-w', '640', '-h', '480', '-t', '800', '-n', '-o', '-'];
 
 export class Camera {
 
     private static instance: Camera = null;
 
     private args: string[];
+
     private cameraOptions: CameraOptions;
     private pictureOptions: PictureOptions;
-    private loop: NodeJS.Timeout;
+    
     private isAvailable: boolean;
+    private loop: NodeJS.Timeout;
+    private save: boolean;
 
     protected constructor(options: CameraOptions) {
-        options.directory = options.directory != null ? options.directory : 'camera';
-        options.quality = options.quality != null ? options.quality: '100';
-        options.rotation = options.rotation != null ? options.rotation : '0';
+        this.cameraOptions = {
+            directory: options.directory != null ? options.directory : 'camera'
+        };
+
+        this.pictureOptions = {
+            quality: options.quality != null ? options.quality: '100',
+            rotation: options.rotation != null ? options.rotation : '0'
+        };
         
-        this.cameraOptions = options;
-        this.setPictureOptions(options);
-        
+        this.setPictureOptions(this.pictureOptions);
         this.isAvailable = true;
     }
 
@@ -38,7 +44,7 @@ export class Camera {
     public streamStart(): Observable<string> {
         return new Observable<string>(observer => {
             this.loop = setInterval(() => {
-                if (this.isAvailable) {
+                if (this.isAvailable && !this.save) {
                     this.isAvailable = false;
                     this.takePicture()
                         .then(data => observer.next('data:image/jpeg;base64,' + data))
@@ -52,6 +58,26 @@ export class Camera {
     public streamStop(): void {
         this.isAvailable = true;
         clearInterval(this.loop);
+    }
+
+    public savePicture(): Promise<string> {
+        return new Promise((resolve, reject) => {
+            this.save = true;
+            
+            while (this.save) {
+                if (this.isAvailable) {
+                    this.isAvailable = false;
+
+                    this.takePicture(true)
+                        .then(data => resolve('data:image/jpeg;base64,' + data))
+                        .catch(err => reject(err))
+                        .finally(() => {
+                            this.save = false;
+                            this.isAvailable = true;
+                        });
+                }
+            }
+        });
     }
 
     public getPictureOptions(): PictureOptions {
@@ -75,7 +101,7 @@ export class Camera {
         this.args = this.args.concat(argsDefault);
     }
 
-    public takePicture(options?: PictureOptions): Promise<string> {
+    public takePicture(save?: boolean): Promise<string> {
         return new Promise((resolve, reject) => {
             const child = spawn('raspistill', this.args);
 
@@ -87,12 +113,10 @@ export class Camera {
             child.stdout.on('close', (code: number) => {
                 const image = Buffer.concat(raw).toString('base64');
 
-                if (options && options.save) {
+                if (save) {
                     this.getName(this.cameraOptions.directory).then(name => {
                         fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', image);
                     });
-
-                    this.setPictureOptions({ ...options, save: false });
                 }
 
                 resolve(image);

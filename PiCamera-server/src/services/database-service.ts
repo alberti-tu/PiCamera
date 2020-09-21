@@ -7,13 +7,13 @@ export class Database {
     private databaseOptions: DatabaseOptions; 
 
     constructor (options: DatabaseOptions) {
-        options.database = options.database != null ? options.database : null;
-        options.user = options.user != null ? options.user : 'root';
-        options.password = options.password != null ? options.password : null;
-        options.host = options.host != null ? options.host : 'localhost';
-        options.port = options.port != null ? options.port : 3306;
-        
-        this.databaseOptions = options;
+        this.databaseOptions = {
+            database: options.database != null ? options.database : null,
+            user: options.user != null ? options.user : 'root',
+            password: options.password != null ? options.password : null,
+            host: options.host != null ? options.host : 'localhost',
+            port: options.port != null ? options.port : 3306,
+        };
     }
 
     public static getInstance(options: DatabaseOptions): Database {

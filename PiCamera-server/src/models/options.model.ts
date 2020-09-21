@@ -20,7 +20,6 @@ export interface PictureOptions {
     filter?: string;
     quality?: number | string;
     rotation?: '0' | '90' | '180' | '270';
-    save?: boolean;
 }
 
 export interface ServerOptions {

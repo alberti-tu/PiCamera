@@ -31,6 +31,7 @@ app.post('/api/login', authController.login);
 app.post('/api/user', authController.verifyToken, authController.registerAdmin);
 app.delete('/api/user', authController.verifyToken, authController.deleteAdmin);
 
+app.get('/api/camera/picture', authController.verifyToken, cameraController.savePicture);
 app.get('/api/camera/settings', authController.verifyToken, cameraController.getCameraSettings);
 app.post('/api/camera/settings', authController.verifyToken, cameraController.setCameraSettings);
 
