@@ -5,7 +5,7 @@ import moment from 'moment';
 import path from 'path';
 import fs from 'fs';
 
-const argsDefault: string[] = ['-w', '640', '-h', '480', '-o', '-'];
+const argsDefault: string[] = ['-w', '640', '-h', '480', '-n', '-o', '-'];
 
 export class Camera {
 
