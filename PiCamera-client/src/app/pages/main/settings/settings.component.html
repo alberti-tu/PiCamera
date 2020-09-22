@@ -1,33 +1,13 @@
-<!--
-<form>
-    <mat-form-field>
-        <mat-label>Filtro</mat-label>
-        <mat-select ngModel name="filter">
-            <mat-option *ngFor="let food of foods" [value]="food.value">{{ food.viewValue }}</mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <div>
-        <mat-label>Quality</mat-label>
-        <mat-slider ngModel name="quality" color="primary" min="0" max="100" step="5" thumbLabel value="100"></mat-slider>
-    </div>
-    
-    <div>
-        <mat-label>Rotation</mat-label>
-        <mat-slider ngModel name="rotation" color="primary" min="0" max="270" step="90" thumbLabel value="0"></mat-slider>
-    </div>
-</form>
--->
-
-
 <div *ngIf="pictureOptions">
+    <mat-label>Calidad</mat-label>
     <mat-slider 
-        [(ngModel)]="pictureOptions.quality" color="primary" min="0" max="100" step="5" thumbLabel>
+        [(ngModel)]="pictureOptions.quality" color="primary" min="1" max="100" step="1" thumbLabel>
     </mat-slider>
 
+    <mat-label>Rotación</mat-label>
     <mat-slider
         [(ngModel)]="pictureOptions.rotation" color="primary" min="0" max="270" step="90" thumbLabel>
     </mat-slider>
 </div>
 
-<button mat-raised-button color="primary" (click)="setSettings()">Entrar</button>
+<button mat-raised-button color="primary" (click)="setSettings()">Guardar</button>

@@ -23,6 +23,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": [ "crypto-js", "socket.io-client" ],
             "assets": [ "src/favicon.ico", "src/assets" ],
             "styles": [ "src/styles.scss" ],
             "scripts": []

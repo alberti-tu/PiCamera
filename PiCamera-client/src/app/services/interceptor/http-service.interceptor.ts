@@ -5,6 +5,7 @@ import { tap, catchError } from "rxjs/operators";
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AdviceService } from 'src/app/services/advice/advice.service';
 import { Response } from 'src/app/models/responses'; 
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpServiceInterceptor implements HttpInterceptor {
@@ -20,7 +21,7 @@ export class HttpServiceInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       tap((response: HttpResponse<Response<any>>) => {
-        if (response instanceof HttpResponse) {
+        if (response instanceof HttpResponse && !environment.production) {
           console.log(response.body);
         }
       }),
