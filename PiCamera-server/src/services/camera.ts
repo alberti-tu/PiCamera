@@ -84,18 +84,20 @@ export class Camera {
         return this.pictureOptions;
     }
 
-    public setPictureOptions(options: PictureOptions) {
+    public setPictureOptions(options: PictureOptions): void {
         if (!options) {
             return;
         }
 
         this.args = [];
 
-        options.rotation = options.rotation || this.cameraOptions.rotation;
-        this.args = this.args.concat([ '-rot', options.rotation.toString() ])
+        if (options.quality) {
+            this.args = this.args.concat(['-q', options.quality.toString()]);
+        }
 
-        options.quality = options.quality || this.cameraOptions.quality;
-        this.args = this.args.concat([ '-q', options.quality.toString() ])
+        if (options.rotation) {
+            this.args = this.args.concat(['-rot', options.rotation.toString()]);
+        }
 
         this.pictureOptions = options;
         this.args = this.args.concat(argsDefault);
