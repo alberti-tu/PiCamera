@@ -9,8 +9,10 @@
 
     .imageViewer{
         img {
+            max-height: 100%;
+            max-width: 100%;
+
             height: auto;
-            width: 100%;
         }
     }
     

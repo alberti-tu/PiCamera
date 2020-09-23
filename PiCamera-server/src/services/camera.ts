@@ -5,7 +5,7 @@ import moment from 'moment';
 import path from 'path';
 import fs from 'fs';
 
-const argsDefault: string[] = ['-w', '640', '-h', '480', '-t', '800', '-n', '-o', '-'];
+const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-t', '800', '-n', '-o', '-'];
 
 export class Camera {
 
@@ -114,10 +114,6 @@ export class Camera {
 
             child.stdout.on('close', (code: number) => {
                 const image = Buffer.concat(raw).toString('base64');
-
-                if (image == null || image == '') {
-                    reject(new Date().toLocaleString() + ' --> Image error');
-                }
 
                 if (save) {
                     this.getName(this.cameraOptions.directory).then(name => {
