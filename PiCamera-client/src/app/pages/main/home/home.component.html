@@ -1,2 +1,15 @@
-<mat-spinner *ngIf="!image"></mat-spinner>
-<img *ngIf="image" [src]="image">
+<div class="imageContainer">
+    <div class="imageSpinner">
+        <mat-spinner *ngIf="!image"></mat-spinner>
+    </div>
+    
+    <div class="imageViewer">
+        <img *ngIf="image" [src]="image">
+    </div>
+
+    <div class="imageButton">
+        <button *ngIf="image" mat-raised-button color="primary" (click)="savePicture()">
+            <mat-icon>photo_camera</mat-icon>
+        </button>
+    </div>
+</div>

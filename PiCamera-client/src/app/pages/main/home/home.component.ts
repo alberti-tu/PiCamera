@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AdviceService } from 'src/app/services/advice/advice.service';
+import { HttpService } from 'src/app/services/http/http.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   private imageSuscription: Subscription = null;
 
-  constructor(private socketService: SocketService) { }
+  constructor(private adviceService: AdviceService, private httpService: HttpService, private socketService: SocketService) { }
 
   public ngOnInit(): void {
     this.socketService.connect();
@@ -28,6 +30,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.imageSuscription.unsubscribe();
     this.socketService.disconnect();
+  }
+
+  public async savePicture(): Promise<void> {
+    const response = await this.httpService.savePicture();
+    response.subscribe(data => {
+      if (data.code === 200) {
+        this.adviceService.showToast('Foto guardada correctamente');
+      }
+    });
   }
 
 }

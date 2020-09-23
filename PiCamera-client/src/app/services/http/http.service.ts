@@ -14,6 +14,10 @@ export class HttpService {
     return this.http.post<Response<string>>(environment.url + '/api/login', body);
   }
 
+  public async savePicture(): Promise<Observable<Response<PictureOptions>>> {
+    return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera/picture');
+  }
+
   public async getCameraSettings(): Promise<Observable<Response<PictureOptions>>> {
     return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera/settings');
   }

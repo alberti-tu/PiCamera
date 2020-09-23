@@ -27,7 +27,11 @@ export class SettingsComponent implements OnInit {
     form.rotation = form.rotation % 360;
 
     const response = await this.httpService.setCameraSettings(form);
-    response.subscribe(data => {});
+    response.subscribe(data => {
+      if (data.code === 200) {
+        this.adviceService.showToast('Configuración guardada correctamente');
+      }
+    });
   }
 
 }
