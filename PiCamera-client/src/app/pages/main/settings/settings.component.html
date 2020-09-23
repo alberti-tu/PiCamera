@@ -1,13 +1,23 @@
-<div *ngIf="pictureOptions">
-    <mat-label>Calidad</mat-label>
-    <mat-slider 
-        [(ngModel)]="pictureOptions.quality" color="primary" min="1" max="100" step="1" thumbLabel>
-    </mat-slider>
+<form #settingsForm="ngForm" (ngSubmit)="setSettings(settingsForm.form.value)">
+    <div class="formHeader">
+        <h2>Configuración</h2>
+    </div>
 
-    <mat-label>Rotación</mat-label>
-    <mat-slider
-        [(ngModel)]="pictureOptions.rotation" color="primary" min="0" max="270" step="90" thumbLabel>
-    </mat-slider>
-</div>
+    <div class="formField">
+        <mat-label>Calidad</mat-label>
+        <mat-slider 
+            [(ngModel)]="pictureOptions.quality" name="quality" color="primary" min="1" max="100" step="1" thumbLabel>
+        </mat-slider>
+    </div>
 
-<button mat-raised-button color="primary" (click)="setSettings()">Guardar</button>
+    <div class="formField">
+        <mat-label>Rotación</mat-label>
+        <mat-slider 
+            [(ngModel)]="pictureOptions.rotation" name="rotation" color="primary" min="0" max="360" step="90" thumbLabel>
+        </mat-slider>
+    </div>
+
+    <div class="formButton">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!settingsForm.form.valid">Guardar</button>
+    </div>
+</form>

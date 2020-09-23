@@ -1,0 +1,30 @@
+form {
+    margin: 0px 32px;
+    padding: 0px;
+
+    .formHeader {
+        h2 {
+            margin: 24px 0px;
+        }
+    }
+
+    .formField {
+        display: flex;
+        justify-content: space-between;
+
+        mat-label {
+            margin: auto 0px;
+            font-size: 18px;
+        }
+    }
+
+    .formButton {
+        text-align: right;
+        margin: 24px 0px;
+    
+        button {
+            padding: 8px 16px;
+            font-size: 18px;
+        }
+    }
+}

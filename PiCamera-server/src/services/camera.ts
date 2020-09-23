@@ -115,6 +115,10 @@ export class Camera {
             child.stdout.on('close', (code: number) => {
                 const image = Buffer.concat(raw).toString('base64');
 
+                if (image == null || image == '') {
+                    reject(new Date().toLocaleString() + ' --> Image error');
+                }
+
                 if (save) {
                     this.getName(this.cameraOptions.directory).then(name => {
                         fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', image);

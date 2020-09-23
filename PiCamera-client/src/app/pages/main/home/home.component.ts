@@ -10,17 +10,19 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public image: string = null;
+  
   private imageSuscription: Subscription = null;
 
   constructor(private socketService: SocketService) { }
 
   public ngOnInit(): void {
     this.socketService.connect();
-    this.imageSuscription = this.socketService.getImage().subscribe(data => {
-      if (data !== null) {
-        this.image = data;
-      }
-    });
+    this.imageSuscription = this.socketService.getImage()
+      .subscribe(data => {
+        if (data !== null) {
+          this.image = data;
+        }
+      });
   }
 
   public ngOnDestroy(): void {

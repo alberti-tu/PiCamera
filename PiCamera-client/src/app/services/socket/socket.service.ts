@@ -20,7 +20,10 @@ export class SocketService {
     if (this.socket === null) {
       this.socket = io.connect(environment.url, { query: { token: this.authService.getToken() } });
 
-      this.socket.on(SocketEvent.disconnect, () => this.disconnect());
+      this.socket.on(SocketEvent.disconnect, () => {
+        this.disconnect();
+        this.authService.removeToken();
+      });
     }
   }
 
@@ -31,15 +34,12 @@ export class SocketService {
   }
 
   public disconnect(): void {
-    /*
     if (this.socket === null) {
       return;
     }
 
     this.socket.disconnect();
     this.socket = null;
-    this.authService.removeToken();
-    */
   }
 
 }

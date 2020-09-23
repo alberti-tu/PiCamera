@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PictureOptions } from 'src/app/models/responses';
 import { AdviceService } from 'src/app/services/advice/advice.service';
 import { HttpService } from 'src/app/services/http/http.service';
-import { PictureOptions } from 'src/app/models/responses';
 
 @Component({
   selector: 'app-settings',
@@ -23,8 +23,11 @@ export class SettingsComponent implements OnInit {
     response.subscribe(data => this.pictureOptions = data.result);
   }
 
-  public async setSettings(): Promise<void> {
-    const response = await this.httpService.setCameraSettings(this.pictureOptions);
+  public async setSettings(form: PictureOptions): Promise<void> {
+    form.rotation = form.rotation % 360;
+    console.log(form);
+    
+    const response = await this.httpService.setCameraSettings(form);
     response.subscribe(data => {});
   }
 
