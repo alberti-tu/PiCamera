@@ -44,12 +44,20 @@ export class Camera {
     public streamStart(): Observable<string> {
         return new Observable<string>(observer => {
             this.loop = setInterval(() => {
-                if (this.isAvailable && !this.save) {
+                if (this.isAvailable) {
                     this.isAvailable = false;
-                    this.takePicture()
+                    const saveState: boolean = this.save;
+
+                    this.takePicture(this.save)
                         .then(data => observer.next('data:image/jpeg;base64,' + data))
                         .catch(err => console.error(err))
-                        .finally(() => this.isAvailable = true);
+                        .finally(() => {
+                            if (saveState) {
+                                this.save = false;
+                            }
+
+                            this.isAvailable = true
+                        });
                 }
             }, 1);
         });
@@ -60,24 +68,8 @@ export class Camera {
         clearInterval(this.loop);
     }
 
-    public savePicture(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            this.save = true;
-            
-            const loop = setInterval(() => {
-                if (this.isAvailable) {
-                    this.isAvailable = false;
-                    this.takePicture(true)
-                        .then(data => resolve('data:image/jpeg;base64,' + data))
-                        .catch(err => reject(err))
-                        .finally(() => {
-                            this.save = false;
-                            this.isAvailable = true;
-                            clearInterval(loop);
-                        });
-                }
-            }, 1);
-        });
+    public savePicture(): void {
+        this.save = true;
     }
 
     public getPictureOptions(): PictureOptions {

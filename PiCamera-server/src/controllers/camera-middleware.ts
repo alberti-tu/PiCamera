@@ -1,15 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { Message } from '../models/http.model';
 import { Camera } from '../services/camera';
-import { configuration } from '../config';
 import { PictureOptions } from '../models/options.model';
+import { configuration } from '../config';
 
 export async function savePicture(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
-        const camera = Camera.getInstance(configuration.camera);
-        const result = await camera.savePicture();
-
-        res.status(200).send({ code: 200, message: 'Successful', result: result });
+        Camera.getInstance(configuration.camera).savePicture();
+        res.status(200).send({ code: 200, message: 'Successful', result: null });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
@@ -17,9 +15,8 @@ export async function savePicture(req: Request<any>, res: Response<Message<strin
 
 export async function getCameraSettings(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
     try {
-        const camera = Camera.getInstance(configuration.camera);
-
-        res.status(200).send({ code: 200, message: 'Successful', result: camera.getPictureOptions() });
+        const settins: PictureOptions = Camera.getInstance(configuration.camera).getPictureOptions();
+        res.status(200).send({ code: 200, message: 'Successful', result: settins });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
@@ -27,11 +24,7 @@ export async function getCameraSettings(req: Request<any>, res: Response<Message
 
 export async function setCameraSettings(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const camera = Camera.getInstance(configuration.camera);
-        const options: PictureOptions = req.body;
-
-        camera.setPictureOptions(options);
-
+        Camera.getInstance(configuration.camera).setPictureOptions(req.body);
         res.status(200).send({ code: 200, message: 'Successful', result: true });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
