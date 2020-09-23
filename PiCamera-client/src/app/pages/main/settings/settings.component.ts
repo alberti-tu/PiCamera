@@ -25,8 +25,7 @@ export class SettingsComponent implements OnInit {
 
   public async setSettings(form: PictureOptions): Promise<void> {
     form.rotation = form.rotation % 360;
-    console.log(form);
-    
+
     const response = await this.httpService.setCameraSettings(form);
     response.subscribe(data => {});
   }
