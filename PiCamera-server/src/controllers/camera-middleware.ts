@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Message } from '../models/http.model';
-import { Camera } from '../services/camera';
+import { Camera } from '../services/camera-service';
 import { PictureOptions } from '../models/options.model';
 import { configuration } from '../config';
 

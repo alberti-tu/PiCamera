@@ -10,14 +10,12 @@ const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-t', '800', '-n', '-
 export class Camera {
 
     private static instance: Camera = null;
-
-    private args: string[];
-
     private cameraOptions: CameraOptions;
     private pictureOptions: PictureOptions;
-    
-    private isAvailable: boolean;
+
+    private args: string[];
     private loop: NodeJS.Timeout;
+    private isAvailable: boolean;
     private save: boolean;
 
     protected constructor(options: CameraOptions) {

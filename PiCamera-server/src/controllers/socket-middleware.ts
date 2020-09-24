@@ -1,6 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import { configuration } from '../config';
-import { Camera } from '../services/camera';
+import { Camera } from '../services/camera-service';
 import * as jwt from 'jsonwebtoken';
 import * as database from './db-middleware';
 
