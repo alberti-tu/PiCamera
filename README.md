@@ -4,9 +4,9 @@ This project was generated with:
 
 Package                               | Version | Optional
 --------------------------------------|---------|---------
-[Node JS](https://nodejs.org)         | 12.16.1 | &#x2718;
+[Node JS](https://nodejs.org)         | 12.18.4 | &#x2718;
 [Maria DB](https://mariadb.org)       | 10.1.44 | &#x2718;
-[Angular CLI](https://cli.angular.io) | 9.1.0   | &#x2714;
+[Angular CLI](https://cli.angular.io) | 10.1.3  | &#x2714;
 
 ## 1. Installation
 
@@ -33,7 +33,7 @@ mysql --user="root" --database="mysql" --execute="update user set plugin='' wher
 Installing Angular CLI (optional)
 
 ```bash
-sudo npm install -g @angular/cli@9.1.0
+sudo npm install -g @angular/cli@10.1.3
 ```
 
 ## 2. User interface (optional)
