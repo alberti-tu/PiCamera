@@ -33,7 +33,9 @@ app.delete('/api/user', authController.verifyToken, authController.deleteAdmin);
 
 app.get('/api/camera', authController.verifyToken, cameraController.savePicture);
 
-app.get('/api/files', authController.verifyToken, cameraController.getPictureDirectory);
+app.get('/api/directory', authController.verifyToken, cameraController.getPictureDirectory);
+app.get('/api/directory/count', authController.verifyToken, cameraController.getPictureDirectoryCount);
+
 app.get('/api/files/:id', authController.verifyToken, cameraController.getPictureFile);
 
 app.get('/api/settings', authController.verifyToken, cameraController.getCameraSettings);

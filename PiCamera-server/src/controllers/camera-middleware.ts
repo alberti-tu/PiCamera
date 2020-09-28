@@ -14,7 +14,11 @@ export async function savePicture(req: Request<any>, res: Response<Message<strin
 }
 
 export async function getPictureDirectory(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
-    res.status(200).send({ code: 200, message: 'Successful', result: req });
+    res.status(200).send({ code: 200, message: 'Successful', result: req.query });
+}
+
+export async function getPictureDirectoryCount(req: Request<any>, res: Response<Message<number>>, next: NextFunction) {
+    res.status(200).send({ code: 200, message: 'Successful', result: 10 });
 }
 
 export async function getPictureFile(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {

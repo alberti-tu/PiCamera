@@ -13,6 +13,7 @@ import { HttpServiceInterceptor } from './services/interceptor/http-service.inte
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { HomeComponent } from './pages/main/home/home.component';
+import { AlbumComponent } from './pages/main/album/album.component';
 import { SettingsComponent } from './pages/main/settings/settings.component';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +39,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     LoginComponent,
     MainComponent,
     HomeComponent,
+    AlbumComponent,
     SettingsComponent
   ],
   imports: [

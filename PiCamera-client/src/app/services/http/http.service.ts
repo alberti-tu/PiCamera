@@ -20,7 +20,11 @@ export class HttpService {
 
   public async getPictureDirectory(page: number, size: number): Promise<Observable<Response<any>>> {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    return this.http.get<Response<any>>(environment.url + '/api/files', { params });
+    return this.http.get<Response<any>>(environment.url + '/api/directory', { params });
+  }
+
+  public async getPictureDirectoryCount(): Promise<Observable<Response<number>>> {
+    return this.http.get<Response<any>>(environment.url + '/api/directory/count');
   }
 
   public async getPictureFile(id: string): Promise<Observable<Response<any>>> {
