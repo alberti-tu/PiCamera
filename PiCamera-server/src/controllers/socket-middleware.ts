@@ -13,7 +13,6 @@ const enum SocketEvent {
 
 export async function connection(io: Server, socket: Socket) {
 
-    /*
     if (socket.handshake.query && socket.handshake.query.token) {
         try {
             const token: { id: string, iat: number, exp: number } = JSON.parse(JSON.stringify(jwt.verify(socket.handshake.query.token, configuration.server.secret)));
@@ -22,7 +21,6 @@ export async function connection(io: Server, socket: Socket) {
             socket.disconnect(true);
         }
     }
-    */
 
     // First user start the stream
     if (Object.keys(io.sockets.sockets).length === 1) {
@@ -33,6 +31,7 @@ export async function connection(io: Server, socket: Socket) {
 
     // Last user stop the stream
     socket.on(SocketEvent.disconnect, () => {
+        console.log('DISCONNECT');
         if (Object.keys(io.sockets.sockets).length === 0) {
             camera.streamStop();
         }

@@ -13,6 +13,14 @@ export async function savePicture(req: Request<any>, res: Response<Message<strin
     }
 }
 
+export async function getPictureDirectory(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+    res.status(200).send({ code: 200, message: 'Successful', result: req });
+}
+
+export async function getPictureFile(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+    res.status(200).send({ code: 200, message: 'Successful', result: req });
+}
+
 export async function getCameraSettings(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
     try {
         const settins: PictureOptions = Camera.getInstance(configuration.camera).getPictureOptions();

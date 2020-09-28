@@ -17,9 +17,11 @@ export class SocketService {
   constructor(private authService: AuthenticationService) { }
 
   public connect(): void {
-    if (this.socket === null) {
+    if (this.socket == null) {
       this.socket = io.connect(environment.url, { query: { token: this.authService.getToken() } });
-      this.socket.on(SocketEvent.disconnect, () => this.disconnect());
+      this.socket.on(SocketEvent.disconnect, () => this.socket = null);
+    } else {
+      console.error('There is a previous socket connected');
     }
   }
 
@@ -30,12 +32,11 @@ export class SocketService {
   }
 
   public disconnect(): void {
-    if (this.socket === null) {
-      return;
+    if (this.socket == null) {
+      console.error('Not found any socket to disconnect');
+    } else {
+      this.socket.close();
     }
-
-    this.socket.disconnect();
-    this.socket = null;
   }
 
 }

@@ -31,9 +31,13 @@ app.post('/api/login', authController.login);
 app.post('/api/user', authController.verifyToken, authController.registerAdmin);
 app.delete('/api/user', authController.verifyToken, authController.deleteAdmin);
 
-app.get('/api/camera/picture', authController.verifyToken, cameraController.savePicture);
-app.get('/api/camera/settings', authController.verifyToken, cameraController.getCameraSettings);
-app.post('/api/camera/settings', authController.verifyToken, cameraController.setCameraSettings);
+app.get('/api/camera', authController.verifyToken, cameraController.savePicture);
+
+app.get('/api/files', authController.verifyToken, cameraController.getPictureDirectory);
+app.get('/api/files/:id', authController.verifyToken, cameraController.getPictureFile);
+
+app.get('/api/settings', authController.verifyToken, cameraController.getCameraSettings);
+app.post('/api/settings', authController.verifyToken, cameraController.setCameraSettings);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

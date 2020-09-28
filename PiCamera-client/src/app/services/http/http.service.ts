@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Response, PictureOptions } from 'src/app/models/responses'; 
@@ -15,14 +15,23 @@ export class HttpService {
   }
 
   public async savePicture(): Promise<Observable<Response<PictureOptions>>> {
-    return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera/picture');
+    return this.http.get<Response<PictureOptions>>(environment.url + '/api/files');
+  }
+
+  public async getPictureDirectory(page: number, size: number): Promise<Observable<Response<any>>> {
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.http.get<Response<any>>(environment.url + '/api/files', { params });
+  }
+
+  public async getPictureFile(id: string): Promise<Observable<Response<any>>> {
+    return this.http.get<Response<any>>(environment.url + '/api/files/' + id);
   }
 
   public async getCameraSettings(): Promise<Observable<Response<PictureOptions>>> {
-    return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera/settings');
+    return this.http.get<Response<PictureOptions>>(environment.url + '/api/settings');
   }
 
   public async setCameraSettings(body: PictureOptions): Promise<Observable<Response<boolean>>> {
-    return this.http.post<Response<boolean>>(environment.url + '/api/camera/settings', body);
+    return this.http.post<Response<boolean>>(environment.url + '/api/settings', body);
   }
 }
