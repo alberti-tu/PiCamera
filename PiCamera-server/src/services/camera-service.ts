@@ -1,8 +1,7 @@
 import { CameraOptions, PictureOptions } from '../models/options.model';
+import { File } from './file-service';
 import { spawn } from 'child_process';
 import { Observable } from 'rxjs';
-import moment from 'moment';
-import path from 'path';
 import fs from 'fs';
 
 const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-t', '800', '-n', '-o', '-'];
@@ -110,40 +109,14 @@ export class Camera {
                 const image = Buffer.concat(raw).toString('base64');
 
                 if (save) {
-                    this.getName(this.cameraOptions.directory).then(name => {
-                        fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', image);
+                    File.getName(this.cameraOptions.directory).then(name => {
+                        const jpeg = image.replace(/^data:image\/png;base64,/, "");
+                        fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', jpeg, 'base64');
                     });
                 }
 
                 resolve(image);
             });
         });
-    }
-
-    private async readDirectory(directory: string): Promise<string[]> {
-        return new Promise<string[]>(resolve => {
-            fs.readdir(directory, (err, files) => {
-                if (err) {
-                    fs.mkdir(path.resolve(directory), { recursive: true }, (err, res) => resolve([]))
-                } else {
-                    resolve(files);
-                }
-            });
-        });
-    }
-
-    private async getName(directory: string): Promise<string> {
-        let num = 0;
-        
-        const date = moment().format('YYYY-MM-DD');
-        const files = await this.readDirectory(directory);
-        
-        files.forEach(item => {
-            if (date === item.split('_')[0]) {
-                num = Math.max(num, parseInt(item.split('_')[1].split('.')[0]));
-            }
-        });
-
-        return date + '_' + (num + 1);
     }
 }
