@@ -62,5 +62,5 @@ Install the dependences and start the program.
 ```bash
 cd PiCamera-server
 npm install
-sudo npm start
+npm start
 ```
