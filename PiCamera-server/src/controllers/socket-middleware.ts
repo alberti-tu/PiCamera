@@ -8,7 +8,8 @@ const camera = Camera.getInstance(configuration.camera);
 
 const enum SocketEvent {
     disconnect = 'disconnect',
-    image = 'image'
+    image = 'image',
+    unauthorized = 'unauthorized'
 }
 
 export async function connection(io: Server, socket: Socket) {
@@ -18,6 +19,7 @@ export async function connection(io: Server, socket: Socket) {
             const token: { id: string, iat: number, exp: number } = JSON.parse(JSON.stringify(jwt.verify(socket.handshake.query.token, configuration.server.secret)));
             const result = await database.verifyAdmin(token.id);
         } catch {
+            socket.emit(SocketEvent.unauthorized);
             socket.disconnect(true);
         }
     }
@@ -31,7 +33,6 @@ export async function connection(io: Server, socket: Socket) {
 
     // Last user stop the stream
     socket.on(SocketEvent.disconnect, () => {
-        console.log('DISCONNECT');
         if (Object.keys(io.sockets.sockets).length === 0) {
             camera.streamStop();
         }

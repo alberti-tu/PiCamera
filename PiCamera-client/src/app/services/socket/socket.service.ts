@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 
 export enum SocketEvent {
   disconnect = 'disconnect',
-  image = 'image'
+  image = 'image',
+  unauthorized = 'unauthorized'
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +20,7 @@ export class SocketService {
   public connect(): void {
     if (this.socket == null) {
       this.socket = io.connect(environment.url, { query: { token: this.authService.getToken() } });
+      this.socket.on(SocketEvent.unauthorized, () => this.authService.removeToken());
       this.socket.on(SocketEvent.disconnect, () => this.socket = null);
     } else {
       console.error('There is a previous socket connected');
