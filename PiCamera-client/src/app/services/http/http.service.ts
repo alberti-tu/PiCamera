@@ -15,7 +15,7 @@ export class HttpService {
   }
 
   public async savePicture(): Promise<Observable<Response<PictureOptions>>> {
-    return this.http.get<Response<PictureOptions>>(environment.url + '/api/files');
+    return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera');
   }
 
   public async getPictureDirectory(page: number, size: number): Promise<Observable<Response<any>>> {
