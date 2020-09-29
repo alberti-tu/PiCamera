@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { Message } from '../models/http.model';
+import { File } from '../services/file-service';
 import { Camera } from '../services/camera-service';
-import { PictureOptions } from '../models/options.model';
+import { CameraOptions, PictureOptions } from '../models/options.model';
 import { configuration } from '../config';
 
 export async function savePicture(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
@@ -14,11 +15,23 @@ export async function savePicture(req: Request<any>, res: Response<Message<strin
 }
 
 export async function getPictureDirectory(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
-    res.status(200).send({ code: 200, message: 'Successful', result: req.query });
+    try {
+        const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
+        const files: string[] = await File.readDirectory(options.directory, parseInt(req.query.page.toString()), parseInt(req.query.size.toString()));
+        res.status(200).send({ code: 200, message: 'Successful', result: files });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
 }
 
 export async function getPictureDirectoryCount(req: Request<any>, res: Response<Message<number>>, next: NextFunction) {
-    res.status(200).send({ code: 200, message: 'Successful', result: 10 });
+    try {
+        const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
+        const files: string[] = await File.readDirectory(options.directory);
+        res.status(200).send({ code: 200, message: 'Successful', result: files.length });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
 }
 
 export async function getPictureFile(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {

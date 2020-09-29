@@ -12,7 +12,7 @@ export class AlbumComponent implements OnInit {
   public length: number = 0;
   public sizeOptions: number[] = [ 5, 10, 25, 50, 100 ];
 
-  public files: any[] = [];
+  public files: string[] = [];
 
   private pageConfig: { page: number, size: number } = { page: 0, size: 10 };
 
@@ -31,7 +31,7 @@ export class AlbumComponent implements OnInit {
   }
 
   public pager(event: { length: number, pageIndex: number, pageSize: number, previousPageIndex: number }): void {
-    this.pageConfig = { page: event.pageIndex * event.pageSize, size: event.pageSize };
+    this.pageConfig = { page: event.pageIndex, size: event.pageSize };
     this.getData(this.pageConfig.page, this.pageConfig.size);
   }
 

@@ -1,1 +1,11 @@
-<p>album works!</p>
+<div class="cardContainer">
+    <div class="card" *ngFor="let file of files">
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        
+        <div class="content">
+            Nombre de la foto
+        </div>
+    </div>
+</div>
+
+<mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="sizeOptions" (page)="pager($event)"></mat-paginator>

@@ -66,10 +66,10 @@ export class Camera {
         clearInterval(this.loop);
     }
 
-    public savePicture(): void {
-        this.save = true;
+    public getCameraOptions(): CameraOptions {
+        return this.cameraOptions;
     }
-
+    
     public getPictureOptions(): PictureOptions {
         return this.pictureOptions;
     }
@@ -91,6 +91,10 @@ export class Camera {
 
         this.pictureOptions = options;
         this.args = this.args.concat(argsDefault);
+    }
+
+    public savePicture(): void {
+        this.save = true;
     }
 
     public takePicture(save?: boolean): Promise<string> {
