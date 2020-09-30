@@ -18,17 +18,17 @@ export class HttpService {
     return this.http.get<Response<PictureOptions>>(environment.url + '/api/camera');
   }
 
-  public async getPictureDirectory(page: number, size: number): Promise<Observable<Response<any>>> {
+  public async getPictureDirectory(page: number, size: number): Promise<Observable<Response<string[]>>> {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    return this.http.get<Response<any>>(environment.url + '/api/directory', { params });
+    return this.http.get<Response<string[]>>(environment.url + '/api/directory', { params });
   }
 
   public async getPictureDirectoryCount(): Promise<Observable<Response<number>>> {
-    return this.http.get<Response<any>>(environment.url + '/api/directory/count');
+    return this.http.get<Response<number>>(environment.url + '/api/directory/count');
   }
 
-  public async getPictureFile(id: string): Promise<Observable<Response<any>>> {
-    return this.http.get<Response<any>>(environment.url + '/api/file/' + id);
+  public async getPictureFile(id: string): Promise<Observable<Response<string>>> {
+    return this.http.get<Response<string>>(environment.url + '/api/file/' + id);
   }
 
   public async getCameraSettings(): Promise<Observable<Response<PictureOptions>>> {
