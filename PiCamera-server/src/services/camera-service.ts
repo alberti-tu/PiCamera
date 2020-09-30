@@ -2,7 +2,6 @@ import { CameraOptions, PictureOptions } from '../models/options.model';
 import { File } from './file-service';
 import { spawn } from 'child_process';
 import { Observable } from 'rxjs';
-import fs from 'fs';
 
 const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-t', '800', '-n', '-o', '-'];
 
@@ -65,12 +64,25 @@ export class Camera {
         clearInterval(this.loop);
     }
 
-    public getCameraOptions(): CameraOptions {
-        return this.cameraOptions;
-    }
-    
-    public getPictureOptions(): PictureOptions {
-        return this.pictureOptions;
+    public takePicture(save?: boolean): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const child = spawn('raspistill', this.args);
+
+            const raw = [];
+
+            child.stdout.on('data', (data: string) => raw.push(data));
+            child.stdout.on('error', (err: any) => reject(err));
+
+            child.stdout.on('close', (code: number) => {
+                const image = Buffer.concat(raw).toString('base64');
+
+                if (save) {
+                    File.writeFile(this.cameraOptions.directory, image, 'jpg');
+                }
+
+                resolve(image);
+            });
+        });
     }
 
     public setPictureOptions(options: PictureOptions): void {
@@ -91,32 +103,16 @@ export class Camera {
         this.pictureOptions = options;
         this.args = this.args.concat(argsDefault);
     }
+   
+    public getPictureOptions(): PictureOptions {
+        return this.pictureOptions;
+    }
+
+    public getCameraOptions(): CameraOptions {
+        return this.cameraOptions;
+    }
 
     public savePicture(): void {
         this.save = true;
-    }
-
-    public takePicture(save?: boolean): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const child = spawn('raspistill', this.args);
-
-            const raw = [];
-
-            child.stdout.on('data', (data: string) => raw.push(data));
-            child.stdout.on('error', (err: any) => reject(err));
-
-            child.stdout.on('close', (code: number) => {
-                const image = Buffer.concat(raw).toString('base64');
-
-                if (save) {
-                    File.getName(this.cameraOptions.directory).then(name => {
-                        const jpeg = image.replace(/^data:image\/png;base64,/, "");
-                        fs.writeFileSync(this.cameraOptions.directory + '/' + name + '.jpeg', jpeg, 'base64');
-                    });
-                }
-
-                resolve(image);
-            });
-        });
     }
 }

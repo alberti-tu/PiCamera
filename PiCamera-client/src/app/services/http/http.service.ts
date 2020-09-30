@@ -28,7 +28,7 @@ export class HttpService {
   }
 
   public async getPictureFile(id: string): Promise<Observable<Response<any>>> {
-    return this.http.get<Response<any>>(environment.url + '/api/files/' + id);
+    return this.http.get<Response<any>>(environment.url + '/api/file/' + id);
   }
 
   public async getCameraSettings(): Promise<Observable<Response<PictureOptions>>> {

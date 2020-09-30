@@ -6,32 +6,46 @@ export class File {
 
     constructor() {}
 
-    public static async readDirectory(directory: string, page?: number, size?: number): Promise<string[]> {
-        return new Promise<string[]>(resolve => {
-            fs.readdir(directory, (err, files) => {
-                if (err) {
-                    fs.mkdir(path.resolve(directory), { recursive: true }, (err, res) => resolve([]))
-                } else {
+    public static readDirectory(directory: string, page?: number, size?: number): string[] {
+        try {
+            let files: string[] = fs.readdirSync(directory);
+            files = files.reverse();
 
-                    if (page != null && size != null) {
-                        files = files.slice(page * size, (page + 1) * size);
-                    }
+            if (page != null && size != null && page >= 0 && size >= 0) {
+                files = files.slice(page * size, (page + 1) * size);
+            }
 
-                    resolve(files);
-                }
-            });
-        });
+            return files;
+        } catch {
+            fs.mkdirSync(path.resolve(directory), { recursive: true });
+            return [];
+        }
     }
 
-    public static async readFile(directory: string, name: string): Promise<string> {
-        return null;
+    public static readFile(directory: string, name: string, encode?: 'ascii' | 'base64'): string {
+        try {
+            const file: Buffer = fs.readFileSync(directory + '/' + name);
+            return file.toString(encode != null ? encode : 'ascii');
+        } catch {
+            return null;
+        }
     }
 
-    public static async getName(directory: string): Promise<string> {
+    public static writeFile(directory: string, data: string, extension: 'txt' | 'jpg' | 'png', name?: string): void {
+        if (name == null || name.replace(/ /g, '') == '') {
+            name = this.getName(directory);
+        } else {
+            this.readDirectory(directory);
+        }
+
+        fs.writeFileSync(directory + '/' + name + '.' + extension, data, extension != 'txt' ? 'base64' : null);
+    }
+
+    private static getName(directory: string): string {
         let num = 0;
         
         const date = moment().format('YYYY-MM-DD');
-        const files = await File.readDirectory(directory);
+        const files = File.readDirectory(directory);
         
         files.forEach(item => {
             if (date === item.split('_')[0]) {

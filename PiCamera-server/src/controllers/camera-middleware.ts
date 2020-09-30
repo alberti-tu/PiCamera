@@ -17,8 +17,17 @@ export async function savePicture(req: Request<any>, res: Response<Message<strin
 export async function getPictureDirectory(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
     try {
         const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
-        const files: string[] = await File.readDirectory(options.directory, parseInt(req.query.page.toString()), parseInt(req.query.size.toString()));
-        res.status(200).send({ code: 200, message: 'Successful', result: files });
+
+        try {
+            const page: number = parseInt(req.query.page.toString());
+            const size: number = parseInt(req.query.size.toString());
+
+            const files: string[] = File.readDirectory(options.directory, page, size);
+            res.status(200).send({ code: 200, message: 'Successful', result: files });
+        } catch {
+            const files: string[] = File.readDirectory(options.directory);
+            res.status(200).send({ code: 200, message: 'Successful', result: files });
+        }
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
@@ -27,15 +36,26 @@ export async function getPictureDirectory(req: Request<any>, res: Response<Messa
 export async function getPictureDirectoryCount(req: Request<any>, res: Response<Message<number>>, next: NextFunction) {
     try {
         const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
-        const files: string[] = await File.readDirectory(options.directory);
+        const files: string[] = File.readDirectory(options.directory);
         res.status(200).send({ code: 200, message: 'Successful', result: files.length });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
 }
 
-export async function getPictureFile(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
-    res.status(200).send({ code: 200, message: 'Successful', result: req });
+export async function getPictureFile(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
+    try {
+        const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
+        const data: string = File.readFile(options.directory, req.params.id, 'base64');
+
+        if (data == null) {
+            res.status(200).send({ code: 404, message: 'Not found', result: null });
+        } else {
+            res.status(200).send({ code: 200, message: 'Successful', result: 'data:image/jpeg;base64,' + data });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
 }
 
 export async function getCameraSettings(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
