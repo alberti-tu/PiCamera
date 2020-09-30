@@ -11,25 +11,27 @@
         transition: 0.3s;
     
         width: 560px;
-
         margin: 16px;
     
         &:hover {
             box-shadow: 0 12px 24px 0 #00000033;
         }
-    
+
         img {
             border-radius: 32px 32px 0px 0px;
-            width: 100%;
         }
-    
-        .imageSpinner {
-            height: 315px;
-            
-            mat-spinner {
-                top: 25%;
-                margin: 0px auto;
-            }
+
+        mat-spinner {
+            top: 25%;
+            margin: 0px auto;
+        }
+
+        .imageViewer {
+            max-height: 315px;
+            max-width: 560px;
+
+            height: calc(100vw * 9 / 16);
+            width: 100%;
         }
 
         .content {
