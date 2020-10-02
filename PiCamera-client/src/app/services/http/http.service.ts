@@ -42,4 +42,5 @@ export class HttpService {
   public setCameraSettings(body: PictureOptions): Observable<Response<boolean>> {
     return this.http.post<Response<boolean>>(environment.url + '/api/settings', body);
   }
+  
 }

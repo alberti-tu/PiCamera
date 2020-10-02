@@ -10,7 +10,7 @@ export class AuthenticationService implements CanActivate {
   constructor(private router: Router) { }
 
   public canActivate(): boolean {
-    if (this.getToken() !== null) {
+    if (this.getToken() != null) {
       return true;
     } else {
       this.removeToken();
@@ -35,4 +35,5 @@ export class AuthenticationService implements CanActivate {
   public hash(value: string): string {
     return crypto.SHA256(value).toString(crypto.enc.Hex);
   } 
+
 }

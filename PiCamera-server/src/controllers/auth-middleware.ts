@@ -8,7 +8,7 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
     try {
         const result = await database.selectUserAdmin(req.body.username, req.body.password);
         
-        if (result.length === 1) {
+        if (result.length == 1) {
             const token = jwt.sign(result[0], configuration.server.secret, { expiresIn: configuration.server.timeout });
             res.status(200).send({ code: 200, message: 'Successful', result: token });
         } else {
@@ -48,7 +48,7 @@ export async function deleteAdmin(req: Request<any>, res: Response<Message<boole
     try {
         const result = await database.deleteUserAdmin(req.query.id.toString());
 
-        if (result.affectedRows === 1) {
+        if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: 'User deleted', result: true });
         } else {
             res.status(200).send({ code: 404, message: 'User not found', result: false });

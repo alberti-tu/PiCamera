@@ -115,4 +115,5 @@ export class Camera {
     public savePicture(): void {
         this.save = true;
     }
+
 }

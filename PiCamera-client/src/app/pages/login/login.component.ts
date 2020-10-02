@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     const passwordHash = this.authService.hash(form.password);
     const response = this.httpService.login(form.username, passwordHash);
     response.subscribe(data => {
-      if (data.code === 200) {
+      if (data.code == 200) {
         this.authService.saveToken(data.result);
       } else {
         this.authService.removeToken();

@@ -15,7 +15,7 @@ export class HttpServiceInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Response<any>>> {
     const token = this.authService.getToken();
 
-    if (token !== null) {
+    if (token != null) {
       request = request.clone({ setHeaders: { authorization: token } });
     }
 
@@ -44,4 +44,5 @@ export class HttpServiceInterceptor implements HttpInterceptor {
       })
     );
   }
+  
 }

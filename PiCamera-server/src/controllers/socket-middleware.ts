@@ -25,7 +25,7 @@ export async function connection(io: Server, socket: Socket) {
     }
 
     // First user start the stream
-    if (Object.keys(io.sockets.sockets).length === 1) {
+    if (Object.keys(io.sockets.sockets).length == 1) {
         camera.streamStart().subscribe(data => {
             io.sockets.emit(SocketEvent.image, data);
         });
@@ -33,8 +33,9 @@ export async function connection(io: Server, socket: Socket) {
 
     // Last user stop the stream
     socket.on(SocketEvent.disconnect, () => {
-        if (Object.keys(io.sockets.sockets).length === 0) {
+        if (Object.keys(io.sockets.sockets).length == 0) {
             camera.streamStop();
         }
     });
+
 }

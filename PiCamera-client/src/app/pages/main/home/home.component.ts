@@ -19,12 +19,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.socketService.connect();
-    this.imageSuscription = this.socketService.getImage()
-      .subscribe(data => {
-        if (data !== null) {
-          this.image = data;
-        }
-      });
+
+    const stream = this.socketService.getImage();
+    this.imageSuscription = stream.subscribe(data => {
+      if (data != null) {
+        this.image = data;
+      }
+    });
   }
 
   public ngOnDestroy(): void {
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public savePicture(): void {
     const response = this.httpService.savePicture();
     response.subscribe(data => {
-      if (data.code === 200) {
+      if (data.code == 200) {
         this.adviceService.showToast('Foto guardada correctamente');
       }
     });

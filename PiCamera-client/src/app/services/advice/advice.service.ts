@@ -10,10 +10,10 @@ export class AdviceService {
   constructor(private toast: MatSnackBar, private dialog: MatDialog) { }
 
   public showToast(message: string, action?: string, config?: MatSnackBarConfig<any>): MatSnackBarRef<SimpleSnackBar> {
-    if (action !== undefined) {
-      config = config !== undefined ? config : { verticalPosition: 'top', horizontalPosition: 'right' };
+    if (action != null) {
+      config = config != null ? config : { verticalPosition: 'top', horizontalPosition: 'right' };
     } else {
-      config = config !== undefined ? config : { duration: 3000, verticalPosition: 'top', horizontalPosition: 'right' };
+      config = config != null ? config : { duration: 3000, verticalPosition: 'top', horizontalPosition: 'right' };
     }
     return this.toast.open(message, action, config);
   }
@@ -21,4 +21,5 @@ export class AdviceService {
   public showAlert(data: AlertData): Observable<string> {
     return this.dialog.open(AlertComponent, { data }).afterClosed();
   }
+
 }

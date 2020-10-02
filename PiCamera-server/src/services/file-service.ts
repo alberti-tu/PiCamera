@@ -63,11 +63,12 @@ export class File {
         const files = File.readDirectory(directory);
         
         files.forEach(item => {
-            if (date === item.split('_')[0]) {
+            if (date == item.split('_')[0]) {
                 num = Math.max(num, parseInt(item.split('_')[1].split('.')[0]));
             }
         });
 
         return date + '_' + (num + 1);
     }
+
 }

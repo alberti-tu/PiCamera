@@ -74,4 +74,5 @@ export class Database {
             process.exit(1);
         }
     }
+
 }

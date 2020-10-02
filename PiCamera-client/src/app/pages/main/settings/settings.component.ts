@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
 
     const response = this.httpService.setCameraSettings(form);
     response.subscribe(data => {
-      if (data.code === 200) {
+      if (data.code == 200) {
         this.adviceService.showToast('Configuración guardada correctamente');
       }
     });

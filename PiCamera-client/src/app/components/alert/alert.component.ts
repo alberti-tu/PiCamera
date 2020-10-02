@@ -27,4 +27,5 @@ export class AlertComponent implements OnInit {
   public onClick(item: AlertButton): void {
     this.alert.close(item.value);
   }
+
 }

@@ -24,7 +24,7 @@ export async function init() {
 
                 const result = await insertUserAdmin(username, password);
                 
-                if (result.affectedRows === 1) {
+                if (result.affectedRows == 1) {
                     console.log('User added to database\n');
                 } else {
                     console.log('Error: User not added\n');
@@ -43,7 +43,7 @@ export async function selectUserAdmin(username: string, password: string): Promi
 
 export async function verifyAdmin(id: string): Promise<boolean> {
     const result = await database.query('SELECT COUNT(*) FROM users WHERE id = ?', [ id ]);
-    return result[0]['COUNT(*)'] === 1 ? true : false;
+    return result[0]['COUNT(*)'] == 1 ? true : false;
 }
 
 export async function insertUserAdmin(username: string, password: string): Promise<StatusDatabase> {
