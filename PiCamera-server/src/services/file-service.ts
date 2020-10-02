@@ -31,14 +31,29 @@ export class File {
         }
     }
 
-    public static writeFile(directory: string, data: string, extension: 'txt' | 'jpg' | 'png', name?: string): void {
-        if (name == null || name.replace(/ /g, '') == '') {
-            name = this.getName(directory);
-        } else {
-            this.readDirectory(directory);
+    public static removeFile(directory: string, name: string): boolean {
+        try {
+            fs.unlinkSync(directory + '/' + name);
+            return true;
+        } catch {
+            return false;
         }
+    }
 
-        fs.writeFileSync(directory + '/' + name + '.' + extension, data, extension != 'txt' ? 'base64' : null);
+    public static writeFile(directory: string, data: string, extension: 'txt' | 'jpg' | 'png', name?: string): boolean {
+        try {
+            if (name == null || name.replace(/ /g, '') == '') {
+                name = this.getName(directory);
+            } else {
+                this.readDirectory(directory);
+            }
+    
+            fs.writeFileSync(directory + '/' + name + '.' + extension, data, extension != 'txt' ? 'base64' : null);
+
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     private static getName(directory: string): string {

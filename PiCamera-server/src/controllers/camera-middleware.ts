@@ -48,10 +48,26 @@ export async function getPictureFile(req: Request<any>, res: Response<Message<st
         const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
         const data: string = File.readFile(options.directory, req.params.id, 'base64');
 
-        if (data == null) {
-            res.status(200).send({ code: 404, message: 'Not found', result: null });
-        } else {
+        if (data != null) {
             res.status(200).send({ code: 200, message: 'Successful', result: 'data:image/jpeg;base64,' + data });
+        } else {
+            res.status(200).send({ code: 404, message: 'Not found', result: null });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
+}
+
+
+export async function deletePictureFile(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
+        const result: boolean = File.removeFile(options.directory, req.params.id);
+
+        if (result) {
+            res.status(200).send({ code: 200, message: 'Successful', result: result });
+        } else {
+            res.status(200).send({ code: 404, message: 'Not found', result: result });
         }
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
