@@ -31,6 +31,10 @@ export class HttpService {
     return this.http.get<Response<string>>(environment.url + '/api/file/' + id);
   }
 
+  public removePictureFile(id: string): Observable<Response<boolean>> {
+    return this.http.delete<Response<boolean>>(environment.url + '/api/file/' + id);
+  }
+
   public getCameraSettings(): Observable<Response<PictureOptions>> {
     return this.http.get<Response<PictureOptions>>(environment.url + '/api/settings');
   }

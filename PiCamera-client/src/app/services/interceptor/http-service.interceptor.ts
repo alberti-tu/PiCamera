@@ -32,8 +32,11 @@ export class HttpServiceInterceptor implements HttpInterceptor {
               this.adviceService.showToast('No se ha podido realizar esa acción, por favor, vuelva a intentarlo'); 
               break;
             case 401: 
-              this.authService.removeToken();
               this.adviceService.showToast('La sesión ha expirado, por favor, vuelva a iniciar sesión');
+              this.authService.removeToken();
+              break;
+            case 404:
+              this.adviceService.showToast('No se ha podido encontrar la información solicitada'); 
               break;
           }
         }

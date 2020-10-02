@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdviceService } from 'src/app/services/advice/advice.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class AlbumComponent implements OnInit {
 
   private pageConfig: { page: number, size: number } = { page: 0, size: 10 };
 
-  constructor(private httpService: HttpService) { }
+  constructor(private adviceService: AdviceService, private httpService: HttpService) { }
 
   public ngOnInit(): void {
     this.getData(this.pageConfig.page, this.pageConfig.size);
@@ -39,6 +40,17 @@ export class AlbumComponent implements OnInit {
           }
         });
       });
+    });
+  }
+
+  public removeFile(name: string): void {
+    const response = this.httpService.removePictureFile(name);
+    response.subscribe(data => {
+      if (data.code == 404) {
+        this.adviceService.showToast('No se ha encontrado el fichero, sincronizando cambios');
+      }
+
+      this.getData(this.pageConfig.page, this.pageConfig.size);
     });
   }
 
