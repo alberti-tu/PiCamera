@@ -18,15 +18,15 @@ export class SettingsComponent implements OnInit {
     this.getSettings();
   }
 
-  public async getSettings(): Promise<void> {
-    const response = await this.httpService.getCameraSettings();
+  public getSettings(): void {
+    const response = this.httpService.getCameraSettings();
     response.subscribe(data => this.pictureOptions = data.result);
   }
 
-  public async setSettings(form: PictureOptions): Promise<void> {
+  public setSettings(form: PictureOptions): void {
     form.rotation = form.rotation % 360;
 
-    const response = await this.httpService.setCameraSettings(form);
+    const response = this.httpService.setCameraSettings(form);
     response.subscribe(data => {
       if (data.code === 200) {
         this.adviceService.showToast('Configuración guardada correctamente');

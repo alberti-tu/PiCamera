@@ -14,9 +14,9 @@ export class LoginComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public async login(form: { username: string, password: string }): Promise<void> {
+  public login(form: { username: string, password: string }): void {
     const passwordHash = this.authService.hash(form.password);
-    const response = await this.httpService.login(form.username, passwordHash);
+    const response = this.httpService.login(form.username, passwordHash);
     response.subscribe(data => {
       if (data.code === 200) {
         this.authService.saveToken(data.result);

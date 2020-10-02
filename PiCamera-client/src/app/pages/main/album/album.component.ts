@@ -21,24 +21,22 @@ export class AlbumComponent implements OnInit {
     this.getData(this.pageConfig.page, this.pageConfig.size);
   }
 
-  public async getData(page: number, size: number): Promise<void> {
-    const response1 = await this.httpService.getPictureDirectoryCount();
+  public getData(page: number, size: number): void {
+    const response1 = this.httpService.getPictureDirectoryCount();
     response1.subscribe(data => this.length = data.result);
 
-    const response2 = await this.httpService.getPictureDirectory(page, size);
+    const response2 = this.httpService.getPictureDirectory(page, size);
     response2.subscribe(data => {
       this.files = data.result.map(item => ({ name: item, image: null, isError: false }));
 
       this.files.forEach(item => {
-        this.httpService.getPictureFile(item.name)
-        .then(response => {
-          response.subscribe(data => {
-            if (data.code == 404 || data.result == null) {
-              item.isError = true;
-            } else {
-              item.image = data.result;
-            }
-          });
+        const response = this.httpService.getPictureFile(item.name);
+        response.subscribe(data => {
+          if (data.code == 404 || data.result == null) {
+            item.isError = true;
+          } else {
+            item.image = data.result;
+          }
         });
       });
     });

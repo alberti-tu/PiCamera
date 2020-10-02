@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.socketService.disconnect();
   }
 
-  public async savePicture(): Promise<void> {
-    const response = await this.httpService.savePicture();
+  public savePicture(): void {
+    const response = this.httpService.savePicture();
     response.subscribe(data => {
       if (data.code === 200) {
         this.adviceService.showToast('Foto guardada correctamente');
