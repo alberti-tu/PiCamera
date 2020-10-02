@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { ComponentType } from '@angular/cdk/portal';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent, AlertData } from 'src/app/components/alert/alert.component';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AdviceService {
@@ -17,7 +18,7 @@ export class AdviceService {
     return this.toast.open(message, action, config);
   }
 
-  public showDialog(component: ComponentType<unknown>, options: MatDialogConfig): MatDialogRef<unknown, any> {
-    return this.dialog.open(component, options)
+  public showAlert(data: AlertData): Observable<string> {
+    return this.dialog.open(AlertComponent, { data }).afterClosed();
   }
 }

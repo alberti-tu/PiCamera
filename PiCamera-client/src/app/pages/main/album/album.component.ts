@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdviceService } from 'src/app/services/advice/advice.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { AlertData } from 'src/app/components/alert/alert.component';
 
 @Component({
   selector: 'app-album',
@@ -44,13 +45,29 @@ export class AlbumComponent implements OnInit {
   }
 
   public removeFile(name: string): void {
-    const response = this.httpService.removePictureFile(name);
-    response.subscribe(data => {
-      if (data.code == 404) {
-        this.adviceService.showToast('No se ha encontrado el fichero, sincronizando cambios');
+    const options: AlertData = {
+      header: '¿Quieres borrar esta foto?',
+      message: 'Esta acción no se puede revertir',
+      buttons: [
+        { name: 'Cancelar', value: 'cancel' },
+        { name: 'Aceptar', value: 'ok', isPrimary: true },
+      ]
+    };
+
+    const result = this.adviceService.showAlert(options);
+    result.subscribe(data => {
+      if (data == null || data == 'cancel') {
+        return;
       }
 
-      this.getData(this.pageConfig.page, this.pageConfig.size);
+      const response = this.httpService.removePictureFile(name);
+      response.subscribe(data => {
+        if (data.code == 404) {
+          this.adviceService.showToast('No se ha encontrado el fichero, sincronizando cambios');
+        }
+  
+        this.getData(this.pageConfig.page, this.pageConfig.size);
+      });
     });
   }
 

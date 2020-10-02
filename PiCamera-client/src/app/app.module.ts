@@ -16,6 +16,8 @@ import { HomeComponent } from './pages/main/home/home.component';
 import { AlbumComponent } from './pages/main/album/album.component';
 import { SettingsComponent } from './pages/main/settings/settings.component';
 
+import { AlertComponent } from './components/alert/alert.component';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -40,7 +42,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MainComponent,
     HomeComponent,
     AlbumComponent,
-    SettingsComponent
+    SettingsComponent,
+
+    AlertComponent
   ],
   imports: [
     AppRoutingModule,
