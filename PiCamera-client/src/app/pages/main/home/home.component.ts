@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class HomeComponent implements OnInit, OnDestroy {
 
   public image: string = null;
-  
+
   private imageSuscription: Subscription = null;
 
   constructor(private adviceService: AdviceService, private httpService: HttpService, private socketService: SocketService) { }

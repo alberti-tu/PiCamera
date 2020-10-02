@@ -25,11 +25,11 @@ export class AlbumComponent implements OnInit {
 
   public getData(page: number, size: number): void {
     const response1 = this.httpService.getPictureDirectoryCount();
-    response1.subscribe(data => this.length = data.result);
+    response1.subscribe(data1 => this.length = data1.result);
 
     const response2 = this.httpService.getPictureDirectory(page, size);
-    response2.subscribe(data => {
-      this.files = data.result.map(item => ({ name: item, image: null, isError: false }));
+    response2.subscribe(data2 => {
+      this.files = data2.result.map(item => ({ name: item, image: null, isError: false }));
 
       this.files.forEach(item => {
         const response = this.httpService.getPictureFile(item.name);
@@ -55,8 +55,8 @@ export class AlbumComponent implements OnInit {
     };
 
     const result = this.adviceService.showAlert(options);
-    result.subscribe(data => {
-      if (data == null || data == 'cancel') {
+    result.subscribe(button => {
+      if (button == null || button == 'cancel') {
         return;
       }
 
@@ -65,7 +65,7 @@ export class AlbumComponent implements OnInit {
         if (data.code == 404) {
           this.adviceService.showToast('No se ha encontrado el fichero, sincronizando cambios');
         }
-  
+
         this.getData(this.pageConfig.page, this.pageConfig.size);
       });
     });

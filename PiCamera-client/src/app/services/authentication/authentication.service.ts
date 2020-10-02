@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import * as crypto from 'crypto-js';
 
-const key = 'token'; 
+const key = 'token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements CanActivate {
@@ -34,6 +34,6 @@ export class AuthenticationService implements CanActivate {
 
   public hash(value: string): string {
     return crypto.SHA256(value).toString(crypto.enc.Hex);
-  } 
+  }
 
 }

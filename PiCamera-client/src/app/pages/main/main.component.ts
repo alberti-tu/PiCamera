@@ -43,11 +43,11 @@ export class MainComponent implements OnInit {
     };
 
     const result = this.adviceService.showAlert(options);
-    result.subscribe(data => {
-      if (data == null || data == 'cancel') {
+    result.subscribe(button => {
+      if (button == null || button == 'cancel') {
         return;
       }
-            
+
       this.authService.removeToken();
       this.adviceService.showToast('La sesión se ha cerrado correctamente');
     });

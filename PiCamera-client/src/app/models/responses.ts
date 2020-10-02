@@ -1,5 +1,5 @@
 export interface Response<T> {
-    code: number; 
+    code: number;
     message: string;
     result: T;
 }

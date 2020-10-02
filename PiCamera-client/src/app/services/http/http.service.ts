@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Response, PictureOptions } from 'src/app/models/responses'; 
+import { Response, PictureOptions } from 'src/app/models/responses';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -42,5 +42,5 @@ export class HttpService {
   public setCameraSettings(body: PictureOptions): Observable<Response<boolean>> {
     return this.http.post<Response<boolean>>(environment.url + '/api/settings', body);
   }
-  
+
 }

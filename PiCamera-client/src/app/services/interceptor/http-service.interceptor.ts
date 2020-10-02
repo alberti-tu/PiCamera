@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from "rxjs";
-import { tap, catchError } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AdviceService } from 'src/app/services/advice/advice.service';
-import { Response } from 'src/app/models/responses'; 
+import { Response } from 'src/app/models/responses';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -29,14 +29,14 @@ export class HttpServiceInterceptor implements HttpInterceptor {
         if (response instanceof HttpErrorResponse) {
           switch (response.status) {
             case 400:
-              this.adviceService.showToast('No se ha podido realizar esa acción, por favor, vuelva a intentarlo'); 
+              this.adviceService.showToast('No se ha podido realizar esa acción, por favor, vuelva a intentarlo');
               break;
-            case 401: 
+            case 401:
               this.adviceService.showToast('La sesión ha expirado, por favor, vuelva a iniciar sesión');
               this.authService.removeToken();
               break;
             case 404:
-              this.adviceService.showToast('No se ha podido encontrar la información solicitada'); 
+              this.adviceService.showToast('No se ha podido encontrar la información solicitada');
               break;
           }
         }
@@ -44,5 +44,5 @@ export class HttpServiceInterceptor implements HttpInterceptor {
       })
     );
   }
-  
+
 }
