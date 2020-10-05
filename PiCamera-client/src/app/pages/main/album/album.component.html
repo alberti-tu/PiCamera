@@ -3,7 +3,7 @@
 
         <div class="content" *ngIf="file.name">{{ file.name }}</div>
         
-        <div class="imageViewer" *ngIf="!file.image && !file.isError">
+        <div class="imageViewer_loader" *ngIf="!file.image && !file.isError">
             <mat-spinner></mat-spinner>
         </div>
         
