@@ -43,7 +43,7 @@ If you want to add a different user interface (UI) in order to manage the system
 ```bash
 cd PiCamera-client
 npm install
-npm run-script build
+npm run build
 ```
 
 ## 3. Configuration
