@@ -44,7 +44,19 @@ export class AlbumComponent implements OnInit {
     });
   }
 
-  public removeFile(name: string): void {
+  public openFile(image: string): void {
+    if (image == null) {
+      return;
+    }
+
+    this.adviceService.openImageViewer(image);
+  }
+
+  public removeFile(name: string, event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+    }
+
     const options: AlertData = {
       header: '¿Quieres borrar esta foto?',
       message: 'Esta acción no se puede revertir',

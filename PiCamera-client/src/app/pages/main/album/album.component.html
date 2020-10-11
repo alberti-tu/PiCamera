@@ -1,5 +1,5 @@
 <div class="cardContainer">
-    <div class="card" *ngFor="let file of files">
+    <div class="card" *ngFor="let file of files" (click)="openFile(file.image)">
 
         <div class="content" *ngIf="file.name">{{ file.name }}</div>
         
@@ -12,7 +12,7 @@
         
 
         <div class="actionButtons">
-            <button mat-raised-button color="primary" (click)="removeFile(file.name)">Eliminar</button>
+            <button mat-raised-button color="primary" (click)="removeFile(file.name, $event)">Eliminar</button>
         </div>
     </div>
 </div>

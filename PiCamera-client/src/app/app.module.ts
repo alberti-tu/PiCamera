@@ -17,6 +17,7 @@ import { AlbumComponent } from './pages/main/album/album.component';
 import { SettingsComponent } from './pages/main/settings/settings.component';
 
 import { AlertComponent } from './components/alert/alert.component';
+import { ImageViewerComponent } from './components/image-viewer/image-viewer.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -44,7 +45,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AlbumComponent,
     SettingsComponent,
 
-    AlertComponent
+    AlertComponent,
+    ImageViewerComponent
   ],
   imports: [
     AppRoutingModule,
