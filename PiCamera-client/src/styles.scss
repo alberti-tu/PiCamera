@@ -18,6 +18,11 @@ body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+img {
+    display: block;
+    width: 100%;
+}
+
 mat-icon {
     -webkit-user-select: none;  // Chrome / Safari
     -moz-user-select: none;     // Firefox

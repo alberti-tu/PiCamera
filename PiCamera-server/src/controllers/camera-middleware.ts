@@ -47,9 +47,10 @@ export async function getPictureFile(req: Request<any>, res: Response<Message<st
     try {
         const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
         const data: string = File.readFile(options.directory, req.params.id, 'base64');
+        const file: string = 'data:image/jpg;df:' + req.params.id + ';base64,' + data;
 
         if (data != null) {
-            res.status(200).send({ code: 200, message: 'Successful', result: 'data:image/jpeg;base64,' + data });
+            res.status(200).send({ code: 200, message: 'Successful', result: file });
         } else {
             res.status(200).send({ code: 404, message: 'Not found', result: null });
         }

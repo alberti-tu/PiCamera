@@ -11,11 +11,11 @@ export class AdviceService {
   constructor(private toast: MatSnackBar, private dialog: MatDialog) { }
 
   public openImageViewer(data: string): Observable<string> {
-    return this.dialog.open(ImageViewerComponent, { data }).afterClosed();
+    return this.dialog.open(ImageViewerComponent, { data, maxWidth: '100%' }).afterClosed();
   }
 
   public showAlert(data: AlertData): Observable<string> {
-    return this.dialog.open(AlertComponent, { data }).afterClosed();
+    return this.dialog.open(AlertComponent, { data, autoFocus: false }).afterClosed();
   }
 
   public showToast(message: string, action?: string, config?: MatSnackBarConfig<any>): MatSnackBarRef<SimpleSnackBar> {

@@ -45,7 +45,7 @@ export class Camera {
                     const saveState: boolean = this.save;
 
                     this.takePicture(this.save)
-                        .then(data => observer.next('data:image/jpeg;base64,' + data))
+                        .then(data => observer.next('data:image/jpg;base64,' + data))
                         .catch(err => console.error(err))
                         .finally(() => {
                             if (saveState) {
