@@ -24,6 +24,7 @@
     "@types/crypto-js": "^3.1.47",
     "@types/socket.io-client": "^1.4.33",
     "crypto-js": "^4.0.0",
+    "ngx-pinch-zoom": "^2.5.4",
     "rxjs": "~6.5.4",
     "socket.io-client": "^2.3.0",
     "tslib": "^2.0.0",

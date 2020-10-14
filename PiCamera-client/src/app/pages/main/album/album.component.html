@@ -1,15 +1,13 @@
 <div class="cardContainer">
     <div class="card" *ngFor="let file of files" (click)="openFile(file.image)">
-
         <div class="content" *ngIf="file.name">{{ file.name }}</div>
         
         <div class="imageViewer_loader" *ngIf="!file.image && !file.isError">
             <mat-spinner></mat-spinner>
         </div>
-        
+
         <img class="imageViewer" *ngIf="!file.isError && file.image" [src]="file.image">
         <img class="imageViewer" *ngIf="file.isError" src="assets/images/error_404.jpg">
-        
 
         <div class="actionButtons">
             <button mat-raised-button color="primary" (click)="removeFile(file.name, $event)">Eliminar</button>

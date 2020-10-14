@@ -11,7 +11,7 @@ export class AdviceService {
   constructor(private toast: MatSnackBar, private dialog: MatDialog) { }
 
   public openImageViewer(data: string): Observable<string> {
-    return this.dialog.open(ImageViewerComponent, { data, maxWidth: '100%' }).afterClosed();
+    return this.dialog.open(ImageViewerComponent, { data, maxWidth: '90%' }).afterClosed();
   }
 
   public showAlert(data: AlertData): Observable<string> {

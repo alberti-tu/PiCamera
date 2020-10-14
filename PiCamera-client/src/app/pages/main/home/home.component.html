@@ -2,10 +2,10 @@
     <div *ngIf="!image" class="imageSpinner">
         <mat-spinner></mat-spinner>
     </div>
-    
-    <div *ngIf="image" class="imageViewer">
+
+    <pinch-zoom *ngIf="image" class="imageViewer" [limit-zoom]="10">
         <img [src]="image">
-    </div>
+    </pinch-zoom>
 
     <div *ngIf="image" class="imageButton">
         <button mat-raised-button color="primary" (click)="savePicture()">
