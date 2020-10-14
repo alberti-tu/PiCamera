@@ -7,6 +7,10 @@
         }
     }
     
+    .imageViewer {
+        max-height: calc(100vh - 64px);
+    }
+
     .imageButton{
         position: absolute;
         top: 16px;
