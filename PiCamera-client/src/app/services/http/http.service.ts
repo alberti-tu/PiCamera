@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Response, PictureOptions } from 'src/app/models/responses';
+import { Response, FilterOptions, PictureOptions } from 'src/app/models/responses';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {
@@ -33,6 +33,10 @@ export class HttpService {
 
   public removePictureFile(id: string): Observable<Response<boolean>> {
     return this.http.delete<Response<boolean>>(environment.url + '/api/file/' + id);
+  }
+
+  public getFilterOptionsList(): Observable<Response<FilterOptions>> {
+    return this.http.get<Response<FilterOptions>>(environment.url + '/api/settings/filters');
   }
 
   public getCameraSettings(): Observable<Response<PictureOptions>> {

@@ -4,6 +4,11 @@ export interface Response<T> {
     result: T;
 }
 
+export interface FilterOptions {
+    name?: string;
+    value?: string;
+}
+
 export interface PictureOptions {
     filter?: string;
     quality?: number;
