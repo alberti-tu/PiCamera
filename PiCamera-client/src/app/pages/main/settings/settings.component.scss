@@ -10,16 +10,15 @@ form {
 
     .formField {
         display: flex;
-        justify-content: space-between;
+        height: 48px;
 
-        mat-label {
+        div {
             margin: auto 0px;
             font-size: 18px;
-        }
+            width: 50%;
 
-        mat-select {
-            width: 128px;
-            font-size: 18px;
+            &:first-child { text-align: left }
+            &:last-child { text-align: right }
         }
     }
 
