@@ -13,7 +13,7 @@ export const configuration: Configuration = {
         port: 3306
     },
     enviroment: {
-        production: false
+        production: true
     },
     server: {
         port: 8080,
