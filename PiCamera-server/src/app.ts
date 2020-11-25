@@ -42,6 +42,8 @@ app.delete('/api/file/:id', authController.verifyToken, cameraController.deleteP
 app.get('/api/settings', authController.verifyToken, cameraController.getCameraSettings);
 app.post('/api/settings', authController.verifyToken, cameraController.setCameraSettings);
 
+app.get('/api/settings/filters', authController.verifyToken, cameraController.getFilterOptionsList);
+
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 app.get('*', (req, res) => {

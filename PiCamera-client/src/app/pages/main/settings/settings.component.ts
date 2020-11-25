@@ -10,19 +10,12 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class SettingsComponent implements OnInit {
 
-  public pictureOptions: PictureOptions = { filter: null, quality: 0, rotation: 0 };
+  public pictureOptions: PictureOptions = { filter: '', quality: 0, rotation: 0 };
   public filters: FilterOptions[] = [];
 
   constructor(private adviceService: AdviceService, private httpService: HttpService) { }
 
   public ngOnInit(): void {
-    this.filters = [
-      { name: 'Seleccionar filtro', value: null },
-      { name: 'Opción 1', value: 'op1' },
-      { name: 'Opción 2', value: 'op2' },
-      { name: 'Opción 3', value: 'op3' }
-    ];
-
     this.getSettings();
   }
 
@@ -30,8 +23,8 @@ export class SettingsComponent implements OnInit {
     const response1 = this.httpService.getCameraSettings();
     response1.subscribe(data => this.pictureOptions = data.result);
 
-    // const response2 = this.httpService.getFilterOptionsList();
-    // response2.subscribe(data => this.filters = data.result);
+    const response2 = this.httpService.getFilterOptionsList();
+    response2.subscribe(data => this.filters = data.result);
   }
 
   public setSettings(form: PictureOptions): void {

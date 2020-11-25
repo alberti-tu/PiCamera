@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-import { Message } from '../models/http.model';
+import { HttpMessage, Message } from '../models/http.model';
 import { File } from '../services/file-service';
 import { Camera } from '../services/camera-service';
-import { CameraOptions, PictureOptions } from '../models/options.model';
-import { configuration } from '../config';
+import { CameraOptions, FilterOptions, PictureOptions } from '../models/options.model';
+import { configuration, filters } from '../config';
 
 export async function savePicture(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
         Camera.getInstance(configuration.camera).savePicture();
-        res.status(200).send({ code: 200, message: 'Successful', result: null });
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: null });
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
@@ -23,13 +23,13 @@ export async function getPictureDirectory(req: Request<any>, res: Response<Messa
             const size: number = parseInt(req.query.size.toString());
 
             const files: string[] = File.readDirectory(options.directory, page, size);
-            res.status(200).send({ code: 200, message: 'Successful', result: files });
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: files });
         } catch {
             const files: string[] = File.readDirectory(options.directory);
-            res.status(200).send({ code: 200, message: 'Successful', result: files });
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: files });
         }
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
@@ -37,9 +37,9 @@ export async function getPictureDirectoryCount(req: Request<any>, res: Response<
     try {
         const options: CameraOptions = Camera.getInstance(configuration.camera).getCameraOptions();
         const files: string[] = File.readDirectory(options.directory);
-        res.status(200).send({ code: 200, message: 'Successful', result: files.length });
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: files.length });
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
@@ -49,12 +49,12 @@ export async function getPictureFile(req: Request<any>, res: Response<Message<st
         const data: string = File.readFile(options.directory, req.params.id, 'base64');
 
         if (data != null) {
-            res.status(200).send({ code: 200, message: 'Successful', result: 'data:image/jpg;base64,' + data });
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: 'data:image/jpg;base64,' + data });
         } else {
-            res.status(200).send({ code: 404, message: 'Not found', result: null });
+            res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
         }
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
@@ -65,29 +65,37 @@ export async function deletePictureFile(req: Request<any>, res: Response<Message
         const result: boolean = File.removeFile(options.directory, req.params.id);
 
         if (result) {
-            res.status(200).send({ code: 200, message: 'Successful', result: result });
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: result });
         } else {
-            res.status(200).send({ code: 404, message: 'Not found', result: result });
+            res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: result });
         }
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
 export async function getCameraSettings(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
     try {
         const settins: PictureOptions = Camera.getInstance(configuration.camera).getPictureOptions();
-        res.status(200).send({ code: 200, message: 'Successful', result: settins });
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: settins });
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
 
 export async function setCameraSettings(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         Camera.getInstance(configuration.camera).setPictureOptions(req.body);
-        res.status(200).send({ code: 200, message: 'Successful', result: true });
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
     } catch {
-        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
+export async function getFilterOptionsList(req: Request<any>, res: Response<Message<FilterOptions[]>>, next: NextFunction) {
+    try {
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: filters });
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }

@@ -35,8 +35,8 @@ export class HttpService {
     return this.http.delete<Response<boolean>>(environment.url + '/api/file/' + id);
   }
 
-  public getFilterOptionsList(): Observable<Response<FilterOptions>> {
-    return this.http.get<Response<FilterOptions>>(environment.url + '/api/settings/filters');
+  public getFilterOptionsList(): Observable<Response<FilterOptions[]>> {
+    return this.http.get<Response<FilterOptions[]>>(environment.url + '/api/settings/filters');
   }
 
   public getCameraSettings(): Observable<Response<PictureOptions>> {

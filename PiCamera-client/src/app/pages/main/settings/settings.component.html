@@ -10,7 +10,7 @@
 
         <div>
             <mat-select [(ngModel)]="pictureOptions.filter" name="filter">
-                <mat-option *ngFor="let option of filters" value="option.value">{{ option.name }}</mat-option>
+                <mat-option *ngFor="let option of filters" value="{{ option.value }}">{{ option.name }}</mat-option>
             </mat-select>
         </div>
     </div>

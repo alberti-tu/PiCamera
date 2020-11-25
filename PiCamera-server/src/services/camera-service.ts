@@ -2,6 +2,7 @@ import { CameraOptions, PictureOptions } from '../models/options.model';
 import { File } from './file-service';
 import { spawn } from 'child_process';
 import { Observable } from 'rxjs';
+import { configuration } from '../config';
 
 const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-t', '800', '-n', '-o', '-'];
 
@@ -22,6 +23,7 @@ export class Camera {
         };
 
         this.pictureOptions = {
+            filter: options.filter != null ? options.filter : '',
             quality: options.quality != null ? options.quality: 100,
             rotation: options.rotation != null ? options.rotation : 0
         };
@@ -65,24 +67,28 @@ export class Camera {
     }
 
     public takePicture(save?: boolean): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const child = spawn('raspistill', this.args);
-
-            const raw = [];
-
-            child.stdout.on('data', (data: string) => raw.push(data));
-            child.stdout.on('error', (err: any) => reject(err));
-
-            child.stdout.on('close', (code: number) => {
-                const image = Buffer.concat(raw).toString('base64');
-
-                if (save) {
-                    File.writeFile(this.cameraOptions.directory, image, 'jpg');
-                }
-
-                resolve(image);
+        if (configuration.enviroment.production) {
+            return new Promise((resolve, reject) => {
+                const child = spawn('raspistill', this.args);
+    
+                const raw = [];
+    
+                child.stdout.on('data', (data: string) => raw.push(data));
+                child.stdout.on('error', (err: any) => reject(err));
+    
+                child.stdout.on('close', (code: number) => {
+                    const image = Buffer.concat(raw).toString('base64');
+    
+                    if (save) {
+                        File.writeFile(this.cameraOptions.directory, image, 'jpg');
+                    }
+    
+                    resolve(image);
+                });
             });
-        });
+        } else {
+            return new Promise(resolve => resolve(null));
+        }
     }
 
     public setPictureOptions(options: PictureOptions): void {
@@ -91,6 +97,10 @@ export class Camera {
         }
 
         this.args = [];
+
+        if (options.filter) {
+            this.args = this.args.concat(['-ex', options.filter.toString()]);
+        }
 
         if (options.quality) {
             this.args = this.args.concat(['-q', options.quality.toString()]);

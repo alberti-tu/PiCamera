@@ -1,6 +1,7 @@
 export interface Configuration {
-    database: DatabaseOptions;    
     camera: CameraOptions;
+    database: DatabaseOptions;
+    enviroment: Enviroment;   
     server: ServerOptions;
 }
 
@@ -14,6 +15,15 @@ export interface DatabaseOptions {
     password: string;
     host: string;
     port: number;
+}
+
+export interface Enviroment {
+    production: boolean
+}
+
+export interface FilterOptions {
+    name?: string;
+    value?: string;
 }
 
 export interface PictureOptions {
