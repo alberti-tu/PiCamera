@@ -23,7 +23,7 @@ export const configuration: Configuration = {
 };
 
 export const filters: FilterOptions[] = [
-    { name: 'Seleccionar filtro', value: '' },
+    { name: 'Sin filtro', value: '' },
     { name: 'Automático', value: 'auto' },
     { name: 'Noche', value: 'night' },
     { name: 'Contraluz', value: 'backlight' },
