@@ -16,8 +16,9 @@ Installing NodeJS and NPM for Linux systems
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install nodejs -y
+sudo apt install nodejs npm -y
 
+sudo npm install -g npm
 sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
@@ -27,7 +28,7 @@ Installing MariaDB server and set execution permitions
 
 ```bash
 sudo apt install mariadb-server -y
-mysql --user="root" --database="mysql" --execute="update user set plugin='' where User='root'; flush privileges;"
+sudo mysql --user="root" --database="mysql" --execute="update user set plugin='' where User='root'; flush privileges;"
 ```
 
 Installing Angular CLI (optional)
