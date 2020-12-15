@@ -1,0 +1,26 @@
+{
+  "name": "picamera-client",
+  "version": "2.0.0",
+  "description": "",
+  "main": "out/app.js",
+  "scripts": {
+    "start": "tsc && node out/app.js",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alberti-tu/PiCamera.git"
+  },
+  "author": "alberti-tu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alberti-tu/PiCamera/issues"
+  },
+  "homepage": "https://github.com/alberti-tu/PiCamera#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "tslint": "^6.1.3",
+    "typescript": "^4.1.3"
+  }
+}
