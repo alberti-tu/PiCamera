@@ -13,7 +13,7 @@ export async function init() {
         const queries: string[] = [
             "CREATE TABLE users (id VARCHAR(64) NOT NULL PRIMARY KEY, username VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL)",
             "CREATE TABLE cameras (id VARCHAR(64) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT '', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0)",
-            "CREATE TABLE suscriptions (user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(64) NOT NULL, CONSTRAINT 'fk_user_id' FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT 'fk_camera_id' FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
+            "CREATE TABLE suscriptions (user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(64) NOT NULL, CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT fk_camera_id FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
         ];
 
         await database.createDatabase(queries);

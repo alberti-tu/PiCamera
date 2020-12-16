@@ -73,7 +73,9 @@ export class Database {
             console.log('Database created');
             await connection.query('USE ' + this.databaseOptions.database);
 
-            tables.forEach(async query => await connection.query(query));
+            for (const query of tables) {
+                await connection.query(query)
+            }
 
             await connection.end();
         } catch {
