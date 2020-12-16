@@ -1,4 +1,4 @@
-import { UserDatabase } from '../models/database.models';
+import { UserDTO } from '../models/database.models';
 import { Database, StatusDatabase } from '../services/database.services';
 import { configuration } from '../config';
 import readline from 'readline';
@@ -11,7 +11,9 @@ export async function init() {
 
     if (!isCreated) {
         const queries: string[] = [
-            'CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY, password VARCHAR(64) NOT NULL)'
+            "CREATE TABLE users (id VARCHAR(64) NOT NULL PRIMARY KEY, username VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL)",
+            "CREATE TABLE cameras (id VARCHAR(64) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT '', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0)",
+            "CREATE TABLE suscriptions (user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(64) NOT NULL, CONSTRAINT 'fk_user_id' FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT 'fk_camera_id' FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
         ];
 
         await database.createDatabase(queries);
@@ -38,8 +40,8 @@ export async function init() {
     }
 }
 
-export async function selectUser(username: string, password: string): Promise<UserDatabase[]> {
-    return await database.query<UserDatabase[]>('SELECT id FROM users WHERE username = ? AND password = ?', [ username, password ]);
+export async function selectUser(username: string, password: string): Promise<UserDTO[]> {
+    return await database.query<UserDTO[]>('SELECT id FROM users WHERE username = ? AND password = ?', [ username, password ]);
 }
 
 export async function checkUser(id: string): Promise<boolean> {
