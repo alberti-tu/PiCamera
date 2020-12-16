@@ -3,12 +3,16 @@ import helmet from 'helmet';
 import cors from 'cors';
 import path from 'path';
 
+import { configuration } from './config';
+
 const app = express();
+
+app.listen(configuration.server.port, () => {
+    console.log('Server is listening on http://[...]:' + configuration.server.port);
+});
 
 app.use(cors());
 app.use(helmet());
-
-app.listen(3000, () => console.log('server is listening'));
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

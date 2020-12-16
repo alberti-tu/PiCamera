@@ -6,7 +6,7 @@
     "outDir": "out",
     "removeComments": true,
     "sourceMap": true,
-    "strict": true,
+    // "strict": true,
     "target": "ESNext",
   }
 }
