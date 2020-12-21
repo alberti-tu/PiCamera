@@ -12,8 +12,8 @@ export async function init() {
     if (!isCreated) {
         const queries: string[] = [
             "CREATE TABLE users (id VARCHAR(64) NOT NULL PRIMARY KEY, username VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL)",
-            "CREATE TABLE cameras (id VARCHAR(64) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT '', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0)",
-            "CREATE TABLE subscriptions (id VARCHAR(64) NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL, user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(64) NOT NULL, CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT fk_camera_id FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
+            "CREATE TABLE cameras (id VARCHAR(8) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT '', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0)",
+            "CREATE TABLE subscriptions (id VARCHAR(64) NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL, user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(8) NOT NULL, CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT fk_camera_id FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
         ];
 
         await database.createDatabase(queries);
@@ -27,7 +27,7 @@ export async function init() {
 
                 const result = await insertUser(username, password);
 
-                if (result.affectedRows == 1) {
+                if (result != null) {
                     console.log('User added to database\n');
                 } else {
                     console.log('Error: User not added\n');
@@ -52,10 +52,15 @@ export async function selectUser(username: string, password: string): Promise<Us
     return users != null ? users[0] : null;
 }
 
-export async function insertUser(username: string, password: string): Promise<StatusDatabase> {
-    const id = crypto.createHash('sha256').update(new Date().getTime().toString()).digest('hex');
-    const hash = crypto.createHash('sha256').update(password).digest('hex');
-    return await database.query<StatusDatabase>('INSERT INTO users VALUES (?,?,?)', [ id, username, hash ]);
+export async function insertUser(username: string, password: string): Promise<string> {
+    try {
+        const id = crypto.createHash('sha256').update(new Date().getTime().toString()).digest('hex');
+        const hash = crypto.createHash('sha256').update(password).digest('hex');
+        await database.query<StatusDatabase>('INSERT INTO users VALUES (?,?,?)', [ id, username, hash ]);
+        return id;
+    } catch {
+        return null;
+    }
 }
 
 export async function updateUser(id: string, username: string, password: string) {
@@ -73,9 +78,14 @@ export async function selectCamera(id: string): Promise<CameraDTO> {
     return cameras != null ? cameras[0] : null;
 }
 
-export async function insertCamera(serialNumber: string): Promise<StatusDatabase> {
-    const id = crypto.createHash('sha256').update(serialNumber).digest('hex');
-    return await database.query<StatusDatabase>('INSERT INTO cameras (id) VALUES (?)', [ id ]);
+export async function insertCamera(serialNumber: string): Promise<string> {
+    try {
+        const id = crypto.createHash('sha256').update(serialNumber).digest('hex').substring(56, 64);
+        await database.query<StatusDatabase>('INSERT INTO cameras (id) VALUES (?)', [ id ]);
+        return id;
+    } catch {
+        return null;
+    }
 }
 
 export async function updateCamera(camera: CameraDTO) {
@@ -92,10 +102,15 @@ export async function selectSubscriptions(userId: string): Promise<SubscriptionD
     return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ?', [ userId ]);
 }
 
-export async function insertSubscriptions(userId: string, cameraId: string): Promise<StatusDatabase> {
-    const id = crypto.createHash('sha256').update(userId + cameraId).digest('hex');
-    const name = 'camera-' + id.substring(58, 64);
-    return await database.query<StatusDatabase>('INSERT INTO subscriptions VALUES (?, ?, ?, ?)', [ id, name, userId, cameraId ]);
+export async function insertSubscriptions(userId: string, cameraId: string): Promise<string> {
+    try {
+        const id = crypto.createHash('sha256').update(userId + cameraId).digest('hex');
+        const name = 'camera-' + cameraId;
+        const result = await database.query<StatusDatabase>('INSERT INTO subscriptions VALUES (?, ?, ?, ?)', [ id, name, userId, cameraId ]);
+        return id;
+    } catch {
+        return null;
+    }
 }
 
 export async function updateSubscriptions(id: string, name: string) {
