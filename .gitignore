@@ -10,5 +10,4 @@
 # PiCamera-server
 /Server/package-lock.json
 /Server/node_modules
-/Server/camera
 /Server/out
