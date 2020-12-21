@@ -7,10 +7,10 @@ import * as database from './database.middlewares';
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
-        const result = await database.selectUser(req.body.username, req.body.password);
+        const user = await database.selectUser(req.body.username, req.body.password);
 
-        if (result.length == 1) {
-            const token = jwt.sign(result[0], configuration.server.secret, { expiresIn: configuration.server.timeout });
+        if (user != null) {
+            const token = jwt.sign(user, configuration.server.secret, { expiresIn: configuration.server.timeout });
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: token });
         } else {
             res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });

@@ -11,7 +11,9 @@ export interface CameraDTO {
     rotation: number
 }
 
-export interface SuscriptionDTO {
+export interface SubscriptionDTO {
+    id: string;
+    name: string;
     user_id: string;
     camera_id: string;
 }

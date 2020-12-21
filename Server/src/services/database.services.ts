@@ -51,7 +51,7 @@ export class Database {
         }
     }
 
-    public query<T>(sql: string, params: string[] = null): Promise<T> {
+    public query<T>(sql: string, params: any[] = null): Promise<T> {
         return new Promise(async (resolve, reject) => {
             try {
                 const connection = await mariadb.createConnection(this.databaseOptions);
