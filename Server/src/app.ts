@@ -14,6 +14,11 @@ app.listen(configuration.server.port, () => {
 app.use(cors());
 app.use(helmet());
 
+app.get('/camera/setup', (req, res) => {
+    console.log(req.headers.key);
+    res.send('OK');
+});
+
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 app.get('*', (req, res) => {

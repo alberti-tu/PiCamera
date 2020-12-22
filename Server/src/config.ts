@@ -16,6 +16,7 @@ export const configuration: Configuration = {
     },
     server: {
         port: 8080,
+        sharedKey: 'mycamera',  // Password to accept camera registration
         secret: 'secret',       // Key to encrypt authentication tokens
         timeout: '1d'           // Expiration time of the authentication token
     }
