@@ -6,7 +6,7 @@ import * as database from './database.middlewares';
 
 export async function register(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.insertCamera(req.params.id);
+        const result = await database.insertCamera(res.locals.cameraId);
 
         if (result.affectedRows == 1) {
             res.status(201).send({ code: 200, message: HttpMessage.NewItem, result: true });
@@ -20,7 +20,7 @@ export async function register(req: Request<any>, res: Response<Message<boolean>
 
 export async function setup(req: Request<any>, res: Response<Message<CameraDTO>>, next: NextFunction) {
     try {
-        const camera = await database.selectCamera(req.params.id);
+        const camera = await database.selectCamera(res.locals.cameraId);
 
         if (camera != null) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: camera });
@@ -48,7 +48,7 @@ export async function update(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.deleteCamera(req.params.id);
+        const result = await database.deleteCamera(res.locals.cameraId);
 
         if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });

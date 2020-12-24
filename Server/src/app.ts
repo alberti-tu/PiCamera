@@ -20,10 +20,10 @@ app.listen(configuration.server.port, () => {
 app.use(cors());
 app.use(helmet());
 
-app.get('/camera/:id', authentication.verifyCameraToken, camera.setup);
-app.post('/camera/:id', authentication.verifyCameraToken, camera.register);
-app.put('/camera/:id', authentication.verifyUserToken, camera.update);
-app.delete('/camera/:id', authentication.verifyUserToken, camera.remove);
+app.get('/camera/:id', authentication.getCameraId, camera.setup);
+app.post('/camera/:id', authentication.getCameraId, camera.register);
+app.put('/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
+app.delete('/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.remove);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
