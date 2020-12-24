@@ -24,6 +24,6 @@ console.log('camera-' + getSerialNumber());
 
 const psk = crypto.createHash('sha256').update(configuration.sharedKey).digest('hex');
 
-axios.get(configuration.host + '/camera/setup', { headers: { key: psk } })
+axios.get(configuration.host + '/camera/' + getSerialNumber(), { headers: { authorization: psk } })
     .then(result => console.log(result.data))
-    .catch(err => console.log('No connection'));
+    .catch(err => console.log(err.response.data));

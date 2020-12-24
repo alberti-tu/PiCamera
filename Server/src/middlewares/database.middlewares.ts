@@ -78,17 +78,11 @@ export async function selectCamera(id: string): Promise<CameraDTO> {
     return cameras != null ? cameras[0] : null;
 }
 
-export async function insertCamera(serialNumber: string): Promise<string> {
-    try {
-        const id = crypto.createHash('sha256').update(serialNumber).digest('hex').substring(56, 64);
-        await database.query<StatusDatabase>('INSERT INTO cameras (id) VALUES (?)', [ id ]);
-        return id;
-    } catch {
-        return null;
-    }
+export async function insertCamera(id: string): Promise<StatusDatabase> {
+    return await database.query<StatusDatabase>('INSERT INTO cameras (id) VALUES (?)', [ id ]);
 }
 
-export async function updateCamera(camera: CameraDTO) {
+export async function updateCamera(camera: CameraDTO): Promise<StatusDatabase> {
     return await database.query<StatusDatabase>('UPDATE cameras SET filter = ?, quality = ?, rotation = ?  WHERE id = ?', [camera.filter, camera.quality, camera.rotation, camera.id]);
 }
 
