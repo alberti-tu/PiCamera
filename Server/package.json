@@ -22,7 +22,8 @@
     "express": "^4.17.1",
     "helmet": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mariadb": "^2.5.2"
+    "mariadb": "^2.5.2",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",
