@@ -16,7 +16,6 @@ export enum HttpMessage {
 export interface ServerOptions {
     port: number;
     sharedKey: string;
-    secret: string;
     timeout: string;
 }
 

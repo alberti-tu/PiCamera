@@ -1,17 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import { HttpMessage, Message, Token } from '../models/http.models';
-import { decrypt } from '../services/authentication.services';
+import { decrypt, hash } from '../services/authentication.services';
 import { configuration } from '../config';
 import jwt from 'jsonwebtoken';
 
 import * as database from './database.middlewares';
+
+const secret: string = hash( new Date().getTime().toString() ); 
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
         const user = await database.selectUser(req.body.username, req.body.password);
 
         if (user != null) {
-            const token = jwt.sign(user, configuration.server.secret, { expiresIn: configuration.server.timeout });
+            const token = jwt.sign(user, secret, { expiresIn: configuration.server.timeout });
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: token });
         } else {
             res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
@@ -23,7 +25,7 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
 
 export async function verifyToken(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
-        const token: Token = JSON.parse(JSON.stringify(jwt.verify(req.headers.authorization, configuration.server.secret)));
+        const token: Token = JSON.parse(JSON.stringify(jwt.verify(req.headers.authorization, secret)));
         const result = await database.checkUser(token.id);
 
         if (result) {
