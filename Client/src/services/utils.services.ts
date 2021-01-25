@@ -1,6 +1,34 @@
 import os, { NetworkInterfaceInfo } from 'os';
 
-export default function getSerialNumber(): string {
+export interface State {
+    name: string;
+    resolve: string;
+    reject: string;
+    action: () => Promise<any>;
+    result: any
+}
+
+export async function stateMachine(states: State[], start?: string): Promise<void> {
+    let current = start || states[0].name;
+
+    while (true) {
+        const index = states.findIndex(item => item.name == current);
+
+        try {
+            states[index].result = await states[index].action();
+            current = states[index].resolve;
+        } catch {
+            states[index].result = null;
+            current = states[index].reject;
+        }
+        
+        if (current == null) {
+            process.exit(0);
+        }
+    }
+}
+
+export function getSerialNumber(): string {
     const mac: string[] = getArray<NetworkInterfaceInfo[]>(os.networkInterfaces())
         .filter(item => !item[0].internal)
         .map<string>(item => item[0].mac);
