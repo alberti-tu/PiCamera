@@ -1,18 +1,18 @@
 import { createSocket, Socket } from 'dgram';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-interface OptionsUDP {
+export interface OptionsUDP {
     logs?: boolean;
     port?: number;
 }
 
-interface PayloadUDP {
+export interface PayloadUDP {
     message: string | null;
     address: string;
     port: number;
 }
 
-enum ServiceTypeUDP {
+export enum ServiceTypeUDP {
     Client = 'UDP Client',
     Server = 'UDP Server'
 }
