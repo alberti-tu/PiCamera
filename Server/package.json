@@ -1,7 +1,7 @@
 {
   "name": "picamera-server",
   "version": "2.0.0",
-  "description": "",
+  "description": "Security camera network on NodeJS and Raspberry Pi",
   "main": "out/app.js",
   "scripts": {
     "start": "tsc && node out/app.js",
