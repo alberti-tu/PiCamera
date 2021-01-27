@@ -4,11 +4,11 @@ import { CameraDTO } from '../models/http.models';
 import { ServiceUDP } from './udp.services';
 
 const client = new ServiceUDP();
-const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-fps', '30', '-t', '0', '-o', '-'];
+const argsDefault: string[] = ['-t', '0', '-o', '-'];
 
 export function stream(options: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        const child = spawn('raspivid', argsDefault);
+        const child = spawn('raspivid', setCameraOptions(options));
 
         child.stdout.on('data', (data: Buffer) => {
             client.send(configuration.host, configuration.port, data.toString());
@@ -44,5 +44,6 @@ function setCameraOptions(options: CameraDTO): string[] {
         args = args.concat(['-rot', options.rotation.toString()]);
     }
 
-    return args.concat(argsDefault);
+    // return args.concat(argsDefault);
+    return argsDefault;
 }
