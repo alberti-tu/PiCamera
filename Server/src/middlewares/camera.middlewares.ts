@@ -23,7 +23,7 @@ export async function setup(req: Request<any>, res: Response<Message<CameraDTO>>
         const camera = await database.selectCamera(res.locals.cameraId);
 
         if (camera != null) {
-            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: camera });
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: {...camera, id: null} });
         } else {
             res.status(404).send({ code: 404, message: HttpMessage.NotFound, result: null });
         }
