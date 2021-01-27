@@ -8,21 +8,22 @@ const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-fps', '30', '-t', '
 
 export function stream(options: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-        const child = spawn('raspivid', setCameraOptions(options));
-        
+        const child = spawn('raspivid', argsDefault);
+
         child.stdout.on('data', (data: Buffer) => {
             client.send(configuration.host, configuration.port, data.toString());
         });
-        
+
         child.stdout.on('error', () => {
             reject(null);
         });
-        
+
         child.stdout.on('close', () => {
             resolve(null);
         });
     });
 }
+
 
 function setCameraOptions(options: CameraDTO): string[] {
     if (!options) {
