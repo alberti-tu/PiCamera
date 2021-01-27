@@ -4,7 +4,7 @@ import { CameraDTO } from '../models/http.models';
 import { ServiceUDP } from './udp.services';
 
 const client = new ServiceUDP();
-const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-fps', '30', '-t', '1000', '-o', '-'];
+const argsDefault: string[] = ['-w', '1920', '-h', '1080', '-fps', '30', '-t', '0', '-o', '-'];
 
 export function stream(options: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {

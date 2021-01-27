@@ -14,6 +14,10 @@ export async function stateMachine(states: State[], start?: string): Promise<voi
     while (true) {
         const index = states.findIndex(item => item.name == current);
 
+        if (index < 0) {
+            process.exit(0);
+        }
+
         try {
             states[index].result = await states[index].action();
             current = states[index].resolve;
