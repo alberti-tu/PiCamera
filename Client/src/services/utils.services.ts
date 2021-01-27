@@ -19,6 +19,7 @@ export async function stateMachine(states: State[], start?: string): Promise<voi
         }
 
         try {
+            console.log('[' + new Date().toLocaleString() + '] --> ' + current);
             states[index].result = await states[index].action();
             current = states[index].resolve;
         } catch {
