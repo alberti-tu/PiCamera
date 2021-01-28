@@ -15,6 +15,7 @@ export async function stateMachine(states: State[], start?: string): Promise<voi
         const index = states.findIndex(item => item.name == current);
 
         if (index < 0) {
+            console.log('[' + new Date().toLocaleString() + '] --> exit');
             process.exit(0);
         }
 
@@ -25,10 +26,6 @@ export async function stateMachine(states: State[], start?: string): Promise<voi
         } catch {
             states[index].result = null;
             current = states[index].reject;
-        }
-        
-        if (current == null) {
-            process.exit(0);
         }
     }
 }
