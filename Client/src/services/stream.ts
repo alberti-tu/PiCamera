@@ -2,14 +2,7 @@ import { spawn } from 'child_process';
 import { configuration } from '../config';
 import { CameraDTO } from '../models/http.models';
 
-const argsDefault: string[] = [
-    '-w', '640',
-    '-h', '480',
-    '-fps', '30',
-    '-n', 
-    '-t', '0',
-    '-o', 'udp://' + configuration.host + ':' + configuration.port 
-];
+const argsDefault: string[] = [ '-w', '640', '-h', '480', '-fps', '30', '-n',  '-t', '0', '-o', 'udp://' + configuration.host + ':' + configuration.port ];
 
 export function stream(options: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {

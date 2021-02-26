@@ -1,7 +1,7 @@
 interface Configuration {
     host: string;
     port: number;
-    protocol: string;
+    protocol: 'http' | 'https';
     sharedKey: string;
 }
 
