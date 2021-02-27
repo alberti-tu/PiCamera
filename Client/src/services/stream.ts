@@ -1,15 +1,28 @@
 import { spawn } from 'child_process';
 import { configuration } from '../config';
 import { CameraDTO } from '../models/http.models';
+import { ServiceUDP } from './udp.services';
+import { getSerialNumber } from './utils.services';
 
-const argsDefault: string[] = [ '-w', '640', '-h', '480', '-fps', '30', '-n',  '-t', '0', '-o', 'udp://' + configuration.host + ':' + configuration.port ];
+const argsDefault: string[] = [ '-w', '640', '-h', '480', '-fps', '25', '-n',  '-t', '0', '-o', '-' ];
+const udp = new ServiceUDP();
+const id = getSerialNumber();
 
 export function stream(options: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const child = spawn('raspivid', setCameraOptions(options));
 
-        child.stdout.on('error', () => reject(null));
-        child.stdout.on('close', () => resolve(null));
+        child.stdout.on('data', (data: string) => {
+            udp.send(configuration.host, configuration.port, JSON.stringify({ id: id, payload: data }));
+        });
+
+        child.stdout.on('error', () => {
+            reject(null);
+        });
+
+        child.stdout.on('close', () => {
+            resolve(null);
+        });
     });
 }
 

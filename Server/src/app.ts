@@ -35,5 +35,6 @@ app.get('*', (req, res) => {
 });
 
 udp.stream().subscribe(data => {
-    console.log( Buffer.from(data.message) );
+    const stream = JSON.parse(data.message);
+    console.log(new Date().toLocaleTimeString() + ' - ID: ' + stream.id + ' -> ' + Buffer.from(stream.payload).byteLength + ' Bytes');
 });
