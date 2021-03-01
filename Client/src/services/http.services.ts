@@ -2,14 +2,14 @@ import axios from 'axios';
 import { getSerialNumber } from './utils.services';
 import { configuration } from '../config';
 import { encrypt } from './authentication.services';
-import { CameraDTO, Message } from '../models/http.models';
+import { Message, PictureOptions } from '../models/http.models';
 
 const url = configuration.protocol + '://' + configuration.host + ':' + configuration.port;
 const id = getSerialNumber();
 
-export function setup(): Promise<CameraDTO> {
-    return new Promise<CameraDTO>((resolve, reject) => {
-        axios.get<Message<CameraDTO>>(url + '/api/camera/' + encrypt(id, configuration.sharedKey))
+export function setup(): Promise<PictureOptions> {
+    return new Promise<PictureOptions>((resolve, reject) => {
+        axios.get<Message<PictureOptions>>(url + '/api/camera/' + encrypt(id, configuration.sharedKey))
             .then(body => resolve(body.data ? body.data.result : null))
             .catch(err => reject(err.response ? err.response.data.result : null));
     });

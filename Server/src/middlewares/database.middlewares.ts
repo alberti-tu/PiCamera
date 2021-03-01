@@ -100,7 +100,7 @@ export async function insertSubscriptions(userId: string, cameraId: string): Pro
     try {
         const id = crypto.createHash('sha256').update(userId + cameraId).digest('hex');
         const name = 'camera-' + cameraId;
-        const result = await database.query<StatusDatabase>('INSERT INTO subscriptions VALUES (?, ?, ?, ?)', [ id, name, userId, cameraId ]);
+        await database.query<StatusDatabase>('INSERT INTO subscriptions VALUES (?, ?, ?, ?)', [ id, name, userId, cameraId ]);
         return id;
     } catch {
         return null;
