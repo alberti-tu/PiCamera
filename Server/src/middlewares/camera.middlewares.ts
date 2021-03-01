@@ -59,3 +59,11 @@ export async function remove(req: Request<any>, res: Response<Message<boolean>>,
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
 }
+
+export async function picture(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: false });
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}

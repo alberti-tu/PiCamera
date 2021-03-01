@@ -7,9 +7,13 @@ export function stream(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         if (camera.isAvailable()) {
             camera.takePicture()
-                .then(data => sendPicture(data != null ? 'data:image/jpg;base64,' + data : null))
-                .catch(() => reject(null))
-                .finally(() => resolve(null))
+                .then(async data => {
+                    const getSettings = await sendPicture(data != null ? 'data:image/jpg;base64,' + data : null);
+                    getSettings ? reject(null) : resolve(null);
+                })
+                .catch(() => {
+                    reject(null);
+                })
         }
     });
 }
