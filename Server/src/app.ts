@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -19,13 +20,16 @@ app.listen(configuration.server.port, () => {
 
 app.use(cors());
 app.use(helmet());
+app.use(bodyParser.json());
 
 app.get('/api/camera/:id', authentication.getCameraId, camera.setup);
 app.post('/api/camera/:id', authentication.getCameraId, camera.register);
 app.put('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
 app.delete('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.remove);
 
-app.post('/api/camera/picture/:id', authentication.getCameraId, (req, res) => res.send({ code: 200, message: 'okay', result: null }));
+app.post('/api/camera/picture/:id', authentication.getCameraId, (req, res) => {
+    res.send({ code: 200, result: null });
+});
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
