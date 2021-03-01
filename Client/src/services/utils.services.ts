@@ -2,31 +2,48 @@ import os, { NetworkInterfaceInfo } from 'os';
 
 export interface State {
     name: string;
-    resolve: string;
-    reject: string;
-    action: () => Promise<any>;
-    result: any
+    transition1: string;
+    transition2: string;
+    action: (data?: any) => Promise<any>;
+    input?: string;
+    output?: any;
 }
 
-export async function stateMachine(states: State[], start?: string): Promise<void> {
-    let current = start || states[0].name;
+export class StateMachine {
 
-    while (true) {
-        const index = states.findIndex(item => item.name == current);
+    private _states: State[] = [];
 
-        if (index < 0) {
-            console.log('[' + new Date().toLocaleString() + '] --> exit');
-            process.exit(0);
+    constructor(states: State[]) {
+        this._states = states;
+    }
+
+    public async run(start?: string): Promise<void> {
+        let currentState: string = start || this._states[0].name;
+
+        while (true) {
+            const state: State = this._states.find(item => item.name == currentState);
+
+            if (state == undefined) {
+                console.log('[' + new Date().toLocaleString() + '] --> exit');
+                break;
+            }
+
+            console.log('[' + new Date().toLocaleString() + '] --> ' + currentState);
+
+            try {
+                const input = this.selectState(state.input);
+                state.output = await state.action(input);
+                currentState = state.transition1;
+            } catch {
+                state.output = null;
+                currentState = state.transition2;
+            }
         }
+    }
 
-        try {
-            console.log('[' + new Date().toLocaleString() + '] --> ' + current);
-            states[index].result = await states[index].action();
-            current = states[index].resolve;
-        } catch {
-            states[index].result = null;
-            current = states[index].reject;
-        }
+    public selectState(name: string): any {
+        const state: State = this._states.find(item => item.name == name);
+        return state != null ? state.output : null;
     }
 }
 

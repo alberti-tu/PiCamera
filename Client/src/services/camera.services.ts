@@ -7,16 +7,14 @@ const argsDefault: string[] = ['-w', '640', '-h', '480', '-t', '800', '-n', '-o'
 export class Camera {
 
     private static instance: Camera = null;
-    private _pictureOptions: PictureOptions;
     private _isAvailable: boolean = true;
+    private _args: string[] = [];
 
-    protected constructor(options: PictureOptions) {
-        this._pictureOptions = options;
-    }
+    protected constructor() { }
 
-    public static getInstance(configuration: PictureOptions): Camera {
+    public static getInstance(): Camera {
         if (!Camera.instance) {
-            Camera.instance = new Camera(configuration);
+            Camera.instance = new Camera();
         }
         return Camera.instance;
     }
@@ -29,7 +27,7 @@ export class Camera {
         this._isAvailable = false;
         if (configuration.production) {
             return new Promise((resolve, reject) => {
-                const child = spawn('raspistill', argsDefault);
+                const child = spawn('raspistill', this._args);
     
                 const raw = [];
     
@@ -54,6 +52,28 @@ export class Camera {
                 }, 1000);
             });
         }
+    }
+
+    public setPictureOptions(options: PictureOptions): void {
+        if (!options) {
+            return;
+        }
+
+        this._args = [];
+
+        if (options.filter) {
+            this._args = this._args.concat(['-ex', options.filter.toString()]);
+        }
+
+        if (options.quality) {
+            this._args = this._args.concat(['-q', options.quality.toString()]);
+        }
+
+        if (options.rotation) {
+            this._args = this._args.concat(['-rot', options.rotation.toString()]);
+        }
+
+        this._args = this._args.concat(argsDefault);
     }
 }
         

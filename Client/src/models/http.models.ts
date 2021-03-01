@@ -13,11 +13,6 @@ export enum HttpMessage {
     NotFound = 'Not found'          // code: 404
 }
 
-export interface FilterOptions {
-    name?: string;
-    value?: string;
-}
-
 export interface PictureOptions {
     filter?: string;
     quality?: number;
