@@ -10,41 +10,32 @@ const id = getSerialNumber();
 export function setup(): Promise<CameraDTO> {
     return new Promise<CameraDTO>((resolve, reject) => {
         axios.get<Message<CameraDTO>>(url + '/api/camera/' + encrypt(id, configuration.sharedKey))
-            .then(body => {
-                const result = body.data ? body.data.result : null;
-                resolve(result);
-            })
-            .catch(err => {
-                const result = err.response ? err.response.data.result : null;
-                reject(result);
-            });
+            .then(body => resolve(body.data ? body.data.result : null))
+            .catch(err => reject(err.response ? err.response.data.result : null));
     });
 }
 
 export function register(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
         axios.post<Message<boolean>>(url + '/api/camera/' + encrypt(id, configuration.sharedKey))
-            .then(body => {
-                const result = body.data ? body.data.result : null;
-                resolve(result);
-            })
-            .catch(err => {
-                const result = err.response ? err.response.data.result : null;
-                reject(result);
-            });
+            .then(body => resolve(body.data ? body.data.result : null))
+            .catch(err => reject(err.response ? err.response.data.result : null));
     });
 }
 
 export function remove(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
         axios.delete<Message<boolean>>(url + '/api/camera/' + encrypt(id, configuration.sharedKey))
-            .then(body => {
-                const result = body.data ? body.data.result : null;
-                resolve(result);
-            })
-            .catch(err => {
-                const result = err.response ? err.response.data.result : null;
-                reject(result);
-            });
+            .then(body => resolve(body.data ? body.data.result : null))
+            .catch(err => reject(err.response ? err.response.data.result : null));
+    });
+}
+
+export function sendPicture(data: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+        const body = { date: new Date().getTime(), data: data};
+        axios.post<Message<boolean>>(url + '/api/camera/picture/' + encrypt(id, configuration.sharedKey), body)
+            .then(body => resolve(body.data ? body.data.result : null))
+            .catch(err => reject(err.response ? err.response.data.result : null));
     });
 }

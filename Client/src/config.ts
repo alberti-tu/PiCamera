@@ -1,13 +1,15 @@
 interface Configuration {
-    host: string;
-    port: number;
-    protocol: 'http' | 'https';
-    sharedKey: string;
+    host: string;                       // Base URL to host camera's hub
+    port: number;                       // TCP/UDP server port
+    production: boolean;                // Different enviroment configuration
+    protocol: 'http' | 'https';         // http or https connection
+    sharedKey: string;                  // Password to accept camera registration
 }
 
 export const configuration: Configuration = {
-    host: 'localhost',                  // Base URL to host camera's hub
-    port: 8080,                         // TCP/UDP server port
-    protocol: 'http',                   // http or https connection
-    sharedKey: 'mycamera',              // Password to accept camera registration
+    host: 'localhost',
+    port: 8080,
+    production: true,
+    protocol: 'http',
+    sharedKey: 'mycamera',
 }

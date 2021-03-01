@@ -13,9 +13,17 @@ export enum HttpMessage {
     NotFound = 'Not found'          // code: 404
 }
 
-export interface CameraDTO {
+export interface CameraDTO extends PictureOptions {
     id: string;
-    filter: string;
-    quality: number;
-    rotation: number
+}
+
+export interface FilterOptions {
+    name?: string;
+    value?: string;
+}
+
+export interface PictureOptions {
+    filter?: string;
+    quality?: number;
+    rotation?: number;
 }
