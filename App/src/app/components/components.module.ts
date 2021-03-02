@@ -1,15 +1,9 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { TranslateModule } from "@ngx-translate/core";
+import { SharedModule } from "../shared.module";
 
 @NgModule({
     declarations: [],
-    imports: [
-        CommonModule,
-        TranslateModule.forChild()
-    ],
-    exports: [
-        CommonModule
-    ]
+    exports: [],
+    imports: [ SharedModule ]
 })
 export class ComponentsModule { }

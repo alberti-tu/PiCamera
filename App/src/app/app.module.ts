@@ -1,23 +1,47 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ComponentsModule } from './components/components.module';
-import { ServicesModule } from './services/services.module';
+import { HttpService } from './services/http/http.service';
+import { HttpServiceInterceptor } from './services/interceptor/http-service.interceptor';
+import { TranslationService } from './services/translation/translation.service';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
+const routes: Routes = [
+	{ path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+	{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+	{ path: '**', redirectTo: '', pathMatch: 'full' }
+];
 
 @NgModule({
 	declarations: [ AppComponent ],
+	bootstrap: [ AppComponent ],
 	imports: [
-		AppRoutingModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		ComponentsModule,
-		ServicesModule
+		HttpClientModule,
+		RouterModule.forRoot(routes),
+		TranslateModule.forRoot({
+			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
+		})
 	],
-	providers: [],
-	bootstrap: [ AppComponent ]
+	exports: [
+		RouterModule,
+		TranslateModule
+	],
+	providers: [
+		HttpService,
+        TranslationService,
+        { provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true }
+	]
 })
 export class AppModule { }
