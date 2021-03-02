@@ -22,6 +22,8 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb' }))
 
+app.post('/api/user/login', authentication.login)
+
 app.get('/api/camera/:id', authentication.getCameraId, camera.setup);
 app.post('/api/camera/:id', authentication.getCameraId, camera.register);
 app.put('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
