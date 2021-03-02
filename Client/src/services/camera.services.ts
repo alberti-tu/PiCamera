@@ -31,14 +31,8 @@ export class Camera {
     
                 const raw = [];
     
-                child.stdout.on('data', (data: string) => {
-                    raw.push(data);
-                });
-
-                child.stdout.on('error', (err: any) => {
-                    reject(err);
-                });
-
+                child.stdout.on('data', (data: string) => raw.push(data));
+                child.stdout.on('error', (err: any) => reject(err));
                 child.stdout.on('close', () => {
                     this._isAvailable = true;
                     resolve(Buffer.concat(raw).toString('base64'));
