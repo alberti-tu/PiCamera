@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -15,13 +14,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [],
     imports: [
-        CommonModule,
         HttpClientModule,
-        TranslateModule.forRoot({
-            loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
-        })
+        TranslateModule.forRoot({ loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient]} })
     ],
-    exports: [ TranslateModule ],
+    exports: [
+        TranslateModule
+    ],
     providers: [
         HttpService,
         TranslationService,
