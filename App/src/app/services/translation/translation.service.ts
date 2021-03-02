@@ -21,9 +21,13 @@ export class TranslationService {
 	}
 
 	public useLanguage(language: string): void {
-		language = Object.values(Locale).find(item => item == language) != null ? language : Locale.english;
+		language = this.availableLanguages().find(item => item == language) != null ? language : Locale.english;
 
 		this.document.documentElement.lang = language;
 		this.translate.use(language);
+	}
+
+	public availableLanguages(): string[] {
+		return Object.values(Locale);
 	}
 }
