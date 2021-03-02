@@ -34,10 +34,6 @@ const routes: Routes = [
 			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
 		})
 	],
-	exports: [
-		RouterModule,
-		TranslateModule
-	],
 	providers: [
 		HttpService,
         TranslationService,

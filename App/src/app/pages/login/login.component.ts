@@ -11,4 +11,8 @@ export class LoginComponent implements OnInit {
 
 	public ngOnInit(): void { }
 
+	public async sendForm(form: { username: string, password: string }): Promise<void> {
+		console.log(form);
+	}
+
 }

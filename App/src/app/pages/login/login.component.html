@@ -1,0 +1,6 @@
+<form #login="ngForm" (ngSubmit)="sendForm(login.form.value)">
+    <input name="username" type="text" ngModel required>
+    <input name="username" type="password" ngModel required>
+
+    <button color="primary" type="submit" [disabled]="!login.form.valid" translate>login.button</button>
+</form>
