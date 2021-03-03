@@ -1,6 +1,15 @@
-<form #login="ngForm" (ngSubmit)="sendForm(login.form.value)">
-    <input name="username" type="text" ngModel required>
-    <input name="username" type="password" ngModel required>
+<form [formGroup]="form" (submit)="sendForm()">
+    <div>
+        <label translate>login.username</label>
+        <input formControlName="username" type="text">
+        <div *ngIf="hasError('username') == 'required'" translate>error.required</div>
+    </div>
 
-    <button color="primary" type="submit" [disabled]="!login.form.valid" translate>login.button</button>
+    <div>
+        <label translate>login.password</label>
+        <input formControlName="password" type="password">
+        <div *ngIf="hasError('password') == 'required'" translate>error.required</div>
+    </div>
+
+    <button type="submit" [disabled]="!form.valid" translate>login.button</button>
 </form>

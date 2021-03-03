@@ -18,7 +18,7 @@ export class AuthenticationService implements CanActivate {
 		}
 	}
 
-	public saveToken(value: string): void {
+	public setToken(value: string): void {
 		localStorage.setItem(key, value);
 		this.router.navigateByUrl('/home');
 	}
