@@ -1,5 +1,6 @@
 {
-    "login.username": "Nombre de usuario",
+    "error.required": "Campo necesario",
+    "login.button": "Entrar",
     "login.password": "Contraseña",
-    "login.button": "Entrar"
+    "login.username": "Nombre de usuario"
 }

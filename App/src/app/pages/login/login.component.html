@@ -1,15 +1,25 @@
-<form [formGroup]="form" (submit)="sendForm()">
-    <div>
-        <label translate>login.username</label>
-        <input formControlName="username" type="text">
-        <div *ngIf="hasError('username') == 'required'" translate>error.required</div>
+<div class="login-container">
+    <div class="logo">
+        <img src="assets/icons/raspberry.svg">
     </div>
 
-    <div>
-        <label translate>login.password</label>
-        <input formControlName="password" type="password">
-        <div *ngIf="hasError('password') == 'required'" translate>error.required</div>
-    </div>
-
-    <button type="submit" [disabled]="!form.valid" translate>login.button</button>
-</form>
+    <form [formGroup]="form" (submit)="sendForm()">
+        <div class="formField">
+            <label translate>login.username</label>
+            <input formControlName="username" type="text">
+            <div *ngIf="hasError('username') == 'required'" class="errorMessage" translate>error.required</div>
+        </div>
+    
+        <div class="formField">
+            <label translate>login.password</label>
+            <input formControlName="password" type="password">
+            <div *ngIf="hasError('password') == 'required'" class="errorMessage" translate>error.required</div>
+        </div>
+    
+        <div class="formButton">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+                <span translate>login.button</span>
+            </button>
+        </div>
+    </form>
+</div>

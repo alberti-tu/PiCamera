@@ -10,7 +10,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class LoginComponent implements OnInit {
 
-	form: FormGroup;
+	public form: FormGroup;
 
 	constructor(private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) { }
 
