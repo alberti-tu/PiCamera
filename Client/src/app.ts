@@ -1,7 +1,9 @@
 import { State, StateMachine } from "./services/state-machine.services";
+import { getSerialNumber } from "./services/utils.services";
 import { PictureOptions } from "./models/http.models";
 import { Camera } from "./services/camera.services";
 import * as http from "./services/http.services";
+import { configuration } from "./config";
 
 function stream(options?: PictureOptions): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -26,4 +28,9 @@ const states: State[] = [
     { name: 'camera', transition1: 'camera', transition2: 'setup', action: (data) => stream(data), input: 'setup' }
 ];
 
-new StateMachine(states).run();
+console.log('Camera Id: ' + getSerialNumber());
+console.log('Camera hub: ' + configuration.protocol + '://' + configuration.host + ':' + configuration.port + '\n');
+
+const stateMachine = new StateMachine(states);
+stateMachine.logs = !configuration.production;
+stateMachine.run();

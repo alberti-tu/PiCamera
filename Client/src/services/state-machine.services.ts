@@ -9,8 +9,9 @@ export interface State {
 
 export class StateMachine {
 
+    public logs: boolean = false;
     private _states: State[] = [];
-
+    
     constructor(states: State[]) {
         this._states = states;
     }
@@ -22,14 +23,14 @@ export class StateMachine {
             const state: State = this._states.find(item => item.name == currentState);
 
             if (state == undefined) {
-                console.log('[' + new Date().toLocaleString() + '] --> exit');
+                this._print('exit');
                 break;
             }
 
-            console.log('[' + new Date().toLocaleString() + '] --> ' + currentState);
+            this._print(currentState);
 
             try {
-                const input = this.selectState(state.input);
+                const input = this.selectInputState(state.input);
                 state.output = await state.action(input);
                 currentState = state.transition1;
             } catch {
@@ -39,8 +40,14 @@ export class StateMachine {
         }
     }
 
-    public selectState(name: string): any {
+    public selectInputState(name: string): any {
         const state: State = this._states.find(item => item.name == name);
         return state != null ? state.output : null;
+    }
+
+    private _print(name: string) {
+        if (this.logs == true) {
+            console.log('[' + new Date().toLocaleString() + '] --> ' + name);  
+        }
     }
 }
