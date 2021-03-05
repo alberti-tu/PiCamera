@@ -17,9 +17,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 const routes: Routes = [
-	// { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+	{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
 	{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
-	{ path: '**', redirectTo: 'login', pathMatch: 'full' }
+	{ path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -27,7 +27,11 @@ export class HttpServiceInterceptor implements HttpInterceptor {
 			}),
 			catchError((response: HttpResponse<Message<any>>) => {
 				if (response instanceof HttpErrorResponse) {
-					switch (response.status) {}
+					switch (response.status) {
+						case 401:
+							this.authService.removeToken();
+						break;
+					}
 				}
 				return of(response);
 			})
