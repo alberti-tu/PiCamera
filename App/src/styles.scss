@@ -22,3 +22,18 @@ body {
 img {
 	user-select: none;
 }
+
+.primary {
+	background-color: mat-color($PiCamera-primary);
+	color: white;
+}
+
+.accent {
+	background-color: mat-color($PiCamera-accent);
+	color: white;
+}
+
+.warn {
+	background-color: mat-color($PiCamera-warn);
+	color: white;
+}

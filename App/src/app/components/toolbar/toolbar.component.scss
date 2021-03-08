@@ -1,11 +1,18 @@
-mat-toolbar {
+.toolbar-container {
+    display: flex;
+    flex-direction: row;
+
+    padding: 1em;
+    width: 100vw;
+
     img {
-        vertical-align: middle;
         height: 32px;
     }
 
     p {
         padding-left: 1em;
+        line-height: 32px;
+        font-size: 1.5em;
         margin: 0;
     }
 }
