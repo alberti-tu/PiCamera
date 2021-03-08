@@ -1,6 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+
+export interface MenuItem {
+	name: string;
+	icon: string;
+	path: string;
+}
 
 @Component({
 	selector: 'app-side-menu',
@@ -9,22 +15,31 @@ import { Router } from '@angular/router';
 })
 export class SideMenuComponent implements OnInit {
 
-	@ViewChild('sideMenu') sideMenu: MatSidenav;
+	@ViewChild('sideMenu') sideMenu: MatSidenav = null;
 
-	public pageList: { name: string, icon: string, action: () => void }[] = [];
+	@Input() public pages: MenuItem[] = [];
+	@Input() public top: number = 0;
 
 	constructor(private _router: Router) { }
 
-	public ngOnInit(): void {
-		this.pageList = [
-			{ name: 'Inicio', icon: 'home', action: () => this.navigateTo('/home') },
-			{ name: 'Álbum', icon: 'folder', action: () => this.navigateTo('/album') },
-			{ name: 'Ajustes', icon: 'settings', action: () => this.navigateTo('/settings') }
-		];
-	}
+	public ngOnInit(): void { }
 
 	public navigateTo(url: string): void {
 		this.sideMenu.close();
 		this._router.navigateByUrl(url);
+	}
+
+	public sideMenuContainer(): any {
+		let style: any = { };
+
+		if (this.sideMenu == null || this.sideMenu.opened == false) {
+			style = { ...style, 'z-index': '-1' }
+		}
+
+		if (this.top > 0) {
+			style = { ...style, top: this.top + 'px', height: 'calc(100vh - ' + this.top + 'px)' }
+		}
+
+		return style;
 	}
 }

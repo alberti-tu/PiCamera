@@ -2,5 +2,10 @@
     "error.required": "Required field",
     "login.button": "Log in",
     "login.password": "Password",
-    "login.username": "Username"
+    "login.username": "Username",
+    "menu.home": "Home",
+    "menu.logout": "Logout",
+    "menu.photos": "Photos",
+    "menu.settings": "Settings",
+    "menu.subscriptions": "Suscripciones"
 }
