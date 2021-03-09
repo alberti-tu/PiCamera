@@ -17,6 +17,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 const routes: Routes = [
+	{ path: 'cameras', loadChildren: () => import('./pages/cameras/cameras.module').then(m => m.CamerasModule) },
 	{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
 	{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full' }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MenuItem } from '../side-menu/side-menu.component';
 
@@ -9,14 +9,14 @@ import { MenuItem } from '../side-menu/side-menu.component';
 })
 export class ToolbarComponent implements OnInit, AfterViewInit {
 
-	@ViewChild('toolbar') toolbar: MatToolbar;
+	@ViewChild('toolbar') toolbar: ElementRef;
 
 	public height: number = 0;
 
 	public pages: MenuItem[] = [
 		{ name: 'menu.home', icon: 'home.svg', path: 'home' },
+		{ name: 'menu.cameras', icon: 'camera.svg', path: 'cameras' },
 		{ name: 'menu.photos', icon: 'file.svg', path: null },
-		{ name: 'menu.subscriptions', icon: 'camera.svg', path: null },
 		{ name: 'menu.settings', icon: 'settings.svg', path: null },
 		{ name: 'menu.logout', icon: 'logout.svg', path: null },
 	];
@@ -26,6 +26,6 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 	public ngOnInit(): void { }
 
 	public ngAfterViewInit() {
-		setTimeout(() => this.height = this.toolbar._elementRef.nativeElement.offsetHeight);
+		setTimeout(() => this.height = this.toolbar.nativeElement.offsetHeight);
 	}
 }
