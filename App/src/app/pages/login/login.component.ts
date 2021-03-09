@@ -11,6 +11,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class LoginComponent implements OnInit {
 
 	public form: FormGroup;
+	public showPassword: boolean;
 
 	constructor(private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) { }
 
@@ -30,6 +31,10 @@ export class LoginComponent implements OnInit {
 				this._auth.setToken(data.result);
 			}
 		});
+	}
+
+	public passwordButton(): any {
+		this.showPassword = !this.showPassword;
 	}
 
 	public hasError(name: string): string {

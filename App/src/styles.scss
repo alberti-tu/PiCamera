@@ -19,6 +19,14 @@ body {
 	margin: 0;
 }
 
+input {
+	border-style: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
 img {
 	user-select: none;
 }

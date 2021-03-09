@@ -25,11 +25,25 @@
             label {
                 font-size: 18px;
             }
-    
-            input {
+
+            .inputRow {
+                position: relative;
+                display: flex;
                 border-style: none none solid none;
-                font-size: 18px;
-                padding: 1em;
+
+                justify-content: space-between;
+
+                input {
+                    font-size: 18px;
+                    padding: 1em;
+                    width: 100%;
+                }
+    
+                img {
+                    height: 32px;
+                    align-self: center;
+                    cursor: pointer;
+                }
             }
         }
 
