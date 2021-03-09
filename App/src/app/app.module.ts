@@ -20,6 +20,7 @@ const routes: Routes = [
 	{ path: 'cameras', loadChildren: () => import('./pages/cameras/cameras.module').then(m => m.CamerasModule) },
 	{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
 	{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+	{ path: 'photos', loadChildren: () => import('./pages/photos/photos.module').then(m => m.PhotosModule) },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 

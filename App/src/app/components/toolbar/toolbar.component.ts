@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 	public pages: MenuItem[] = [
 		{ name: 'menu.home', icon: 'home.svg', path: 'home' },
 		{ name: 'menu.cameras', icon: 'camera.svg', path: 'cameras' },
-		{ name: 'menu.photos', icon: 'file.svg', path: null },
+		{ name: 'menu.photos', icon: 'file.svg', path: 'photos' },
 		{ name: 'menu.settings', icon: 'settings.svg', path: null },
 		{ name: 'menu.logout', icon: 'logout.svg', path: null },
 	];
