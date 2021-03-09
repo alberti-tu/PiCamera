@@ -3,9 +3,9 @@
     "login.button": "Entrar",
     "login.password": "Contraseña",
     "login.username": "Nombre de usuario",
+    "menu.cameras": "Cameras",
     "menu.home": "Inicio",
     "menu.logout": "Cerrar sesión",
     "menu.photos": "Fotos",
-    "menu.settings": "Ajustes",
-    "menu.subscriptions": "Suscripciones"
+    "menu.settings": "Ajustes"
 }

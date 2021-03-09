@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatToolbar } from '@angular/material/toolbar';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({
