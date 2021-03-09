@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({
@@ -10,14 +10,16 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('toolbar') toolbar: ElementRef;
 
+	@Input() public header: string = null;
+
 	public height: number = 0;
 
 	public pages: MenuItem[] = [
-		{ name: 'menu.home', icon: 'home.svg', path: 'home' },
-		{ name: 'menu.cameras', icon: 'camera.svg', path: 'cameras' },
-		{ name: 'menu.photos', icon: 'file.svg', path: 'photos' },
-		{ name: 'menu.settings', icon: 'settings.svg', path: null },
-		{ name: 'menu.logout', icon: 'logout.svg', path: null },
+		{ name: 'page.home', icon: 'home.svg', path: 'home' },
+		{ name: 'page.cameras', icon: 'camera.svg', path: 'cameras' },
+		{ name: 'page.photos', icon: 'file.svg', path: 'photos' },
+		// { name: 'page.settings', icon: 'settings.svg', path: null },
+		// { name: 'page.logout', icon: 'logout.svg', path: null },
 	];
 
 	constructor() { }

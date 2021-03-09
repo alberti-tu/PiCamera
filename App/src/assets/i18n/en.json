@@ -1,11 +1,12 @@
 {
+    "app.name": "PiCamera",
     "error.required": "Required field",
     "login.button": "Log in",
     "login.password": "Password",
     "login.username": "Username",
-    "menu.cameras": "Camaras",
-    "menu.home": "Home",
-    "menu.logout": "Logout",
-    "menu.photos": "Photos",
-    "menu.settings": "Settings"
+    "page.cameras": "Cameras",
+    "page.home": "Home",
+    "page.logout": "Logout",
+    "page.photos": "Photos",
+    "page.settings": "Settings"
 }

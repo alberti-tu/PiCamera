@@ -3,5 +3,6 @@
         <img src="assets/icons/menu.svg">
     </app-side-menu>
 
-    <p>Pi Camera</p>
+    <p *ngIf="header != null" translate>{{ header }}</p>
+    <p *ngIf="header == null" translate>app.name</p>
 </div>
