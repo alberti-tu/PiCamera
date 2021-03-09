@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CameraSubscription } from 'src/app/models/http.models';
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
 	selector: 'app-cameras',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CamerasComponent implements OnInit {
 
-	constructor() { }
+	public cameras: CameraSubscription[] = [];
 
-	public ngOnInit(): void { }
+	constructor(private _http: HttpService) { }
+
+	public ngOnInit(): void {
+		this._http.getSubscriptions().subscribe(data => this.cameras = data.result);
+	}
 
 }

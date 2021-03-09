@@ -1,4 +1,37 @@
 .cameras-container {
     position: relative;
     height: 100%;
+
+    .camera-list {
+        padding: 1em;
+
+        .camera-item {
+            background-color: rgb(240, 240, 240);
+            border-radius: 8px;
+            padding: 1em;
+
+            box-shadow: 0px 5px 10px #00000033;
+
+            max-width: 500px;
+            cursor: pointer;
+
+            &:hover {
+                box-shadow: 0px 5px 20px #00000066;
+            }
+
+            p {
+                text-align: center;
+                margin: 0;
+            }
+
+            .header {
+                font-size: 18px;
+                font-weight: 500;
+            }
+
+            .description {
+                font-size: 18px;
+            }
+        }
+    }
 }

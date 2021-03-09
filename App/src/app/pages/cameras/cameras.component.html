@@ -1,3 +1,12 @@
 <div class="cameras-container">
     <app-toolbar [header]="'page.cameras'"></app-toolbar>
+
+    <div *ngFor="let item of cameras" class="camera-list">
+        
+        <div class="camera-item">
+            <p class="header">{{ item.name }}</p>
+            <p class="description">{{ item.camera_id }}</p>
+        </div>
+        
+    </div>
 </div>
