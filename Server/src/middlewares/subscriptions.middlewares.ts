@@ -1,19 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { PictureOptions } from '../models/database.models';
+import { CameraSubscription } from '../models/database.models';
 import { HttpMessage, Message } from '../models/http.models';
 
 import * as database from './database.middlewares';
 
-export async function selectOne(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
+export async function selectAll(req: Request<any>, res: Response<Message<CameraSubscription[]>>, next: NextFunction) {
     try {
-        const camera = await database.selectCamera(res.locals.cameraId);
-
-        if (camera != null) {
-            delete camera.id;
-            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: camera });
-        } else {
-            res.status(404).send({ code: 404, message: HttpMessage.NotFound, result: null });
-        }
+        const subscriptions = await database.selectSubscriptions(res.locals.userId);
+        subscriptions.forEach(item => delete item.user_id);
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscriptions });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
@@ -21,9 +16,9 @@ export async function selectOne(req: Request<any>, res: Response<Message<Picture
 
 export async function insert(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.insertCamera(res.locals.cameraId);
+        const result = await database.insertSubscriptions(res.locals.userId, req.params.id);
 
-        if (result.affectedRows == 1) {
+        if (result != null) {
             res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
         } else {
             res.status(204).send({ code: 404, message: HttpMessage.NoContent, result: false });
@@ -35,7 +30,7 @@ export async function insert(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.updateCamera(req.body);
+        const result = await database.updateSubscriptions(req.body.id, req.body.name);
 
         if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
@@ -49,21 +44,13 @@ export async function update(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.deleteCamera(res.locals.cameraId);
+        const result = await database.deleteSubscriptions(req.params.id);
 
         if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
         } else {
             res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
         }
-    } catch {
-        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
-    }
-}
-
-export async function picture(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
-    try {
-        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: false });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }

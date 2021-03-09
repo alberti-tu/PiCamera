@@ -9,6 +9,7 @@ import { configuration } from './config';
 import * as authentication from './middlewares/authentication.middlewares';
 import * as camera from './middlewares/camera.middlewares';
 import * as database from './middlewares/database.middlewares';
+import * as subscriptions from './middlewares/subscriptions.middlewares';
 
 database.init();
 
@@ -22,12 +23,17 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb' }))
 
-app.post('/api/user/login', authentication.login)
+app.post('/api/user/login', authentication.login);
 
-app.get('/api/camera/:id', authentication.getCameraId, camera.setup);
-app.post('/api/camera/:id', authentication.getCameraId, camera.register);
-app.put('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
-app.delete('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.remove);
+app.get('/api/subscription', authentication.verifyToken, subscriptions.selectAll);
+app.post('/api/subscription/:id', authentication.verifyToken, subscriptions.insert);
+app.put('/api/subscription', authentication.verifyToken, subscriptions.update);
+app.delete('/api/subscription/:id', authentication.verifyToken, subscriptions.remove);
+
+app.get('/api/camera/:id', authentication.getCameraId, camera.selectOne);
+app.post('/api/camera/:id', authentication.getCameraId, camera.insert);
+// app.put('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
+// app.delete('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.remove);
 
 app.post('/api/camera/picture/:id', authentication.getCameraId, camera.picture);
 

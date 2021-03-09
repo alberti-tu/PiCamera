@@ -107,7 +107,7 @@ export async function insertSubscriptions(userId: string, cameraId: string): Pro
     }
 }
 
-export async function updateSubscriptions(id: string, name: string) {
+export async function updateSubscriptions(id: string, name: string): Promise<StatusDatabase> {
     return await database.query<StatusDatabase>('UPDATE subscriptions SET name = ? WHERE id = ?', [ name, id ]);
 }
 

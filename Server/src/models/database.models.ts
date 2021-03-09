@@ -8,20 +8,23 @@ export interface CameraDTO extends PictureOptions {
     id?: string;
 }
 
-export interface FilterOptions {
-    name?: string;
-    value?: string;
-}
-
 export interface PictureOptions {
     filter?: string;
     quality?: number;
     rotation?: number;
 }
 
-export interface SubscriptionDTO {
+export interface FilterOptions {
+    name?: string;
+    value?: string;
+}
+
+export interface SubscriptionDTO extends CameraSubscription {
+    user_id?: string;
+}
+
+export interface CameraSubscription {
     id?: string;
     name?: string;
-    user_id?: string;
     camera_id?: string;
 }

@@ -3,3 +3,9 @@ export interface Message<T> {
     message: string;
     result: T;
 }
+
+export interface CameraSubscription {
+    id: string;
+    name: string;
+    camera_id: string;
+}
