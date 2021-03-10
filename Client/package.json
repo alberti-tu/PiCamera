@@ -1,11 +1,11 @@
 {
 	"name": "picamera-client",
 	"version": "2.0.0",
-	"description": "Security camera network on NodeJS and Raspberry Pi",
+	"description": "responsive client of PiCamera project",
 	"main": "out/app.js",
 	"scripts": {
 		"start": "tsc && node out/app.js",
-		"tsc": "tsc"
+		"build": "tsc"
 	},
 	"repository": {
 		"type": "git",

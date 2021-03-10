@@ -1,6 +1,7 @@
 {
 	"name": "picamera-app",
 	"version": "2.0.0",
+	"description": "Camera node of PiCamera project",
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve --host 0.0.0.0",
