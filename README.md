@@ -1,4 +1,4 @@
-# PiCamera
+# **PiCamera**
 
 This project was generated with:
 
@@ -35,6 +35,7 @@ sudo mysql --user="root" --database="mysql" --execute="update user set plugin=''
 ```
 
 ### 1.2 Project setup
+
 Installing all NPM dependences
 ```bash
 cd PiCamera
@@ -64,7 +65,23 @@ Set URL connection and server password
 nano Client/src/config.ts
 ```
 
-## 3. Launch project
+## 3. Build project
+
+Build all projects
+```bash
+npm run build
+```
+
+Or build a selected project
+```bash
+npm run build:server
+npm run build:client
+npm run build:app
+```
+
+NOTE: You have to build at least the **App** project with the global build command or with the specific one.
+
+## 4. Launch project
 
 Command to launch server
 ```bash
