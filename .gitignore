@@ -1,6 +1,7 @@
 # PiCamera-app
 /App/package-lock.json
 /App/node_modules
+/App/out
 
 # PiCamera-client
 /Client/package-lock.json

@@ -40,6 +40,13 @@ app.post('/api/camera/picture/:id', authentication.getCameraId, camera.picture);
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 app.get('*', (req, res) => {
-    if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) res.sendFile(path.resolve('public/' + req.url));
-    else res.sendFile(path.resolve('public/index.html'));
+    if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) res.sendFile( resolveClient('App/out/' + req.url, 1) );
+    else res.sendFile( resolveClient('App/out/index.html', 1) );
 });
+
+function resolveClient(url: string, back: number = 0): string {
+    back = back >= 0 ? back : (-1) * back; 
+    const base = path.resolve().split('/');
+    base.splice(base.length - back)
+    return base.join('/') + '/' + url;
+}
