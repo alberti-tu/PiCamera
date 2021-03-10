@@ -16,6 +16,7 @@ html, body {
 
 body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 1em!important;
 	margin: 0;
 }
 
@@ -29,6 +30,18 @@ input {
 
 img {
 	user-select: none;
+}
+
+button {
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:active {
+		transform: translateY(2px);
+	}
 }
 
 .primary {

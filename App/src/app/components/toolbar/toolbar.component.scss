@@ -6,13 +6,16 @@
 
     padding: 1em;
 
+    app-side-menu {
+        align-self: center;
+    }
     img {
         height: 32px;
     }
 
     p {
         padding-left: 1em;
-        line-height: 32px;
+        line-height: 2em;
         font-size: 1.5em;
         font-weight: 500;
         margin: 0;

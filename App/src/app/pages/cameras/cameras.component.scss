@@ -2,21 +2,91 @@
     position: relative;
     height: 100%;
 
-    .camera-list {
-        padding: 1em;
+    form {
+        max-width: 1000px;
+        margin: 0 auto;
 
-        .camera-item {
+        .formField {
+            display: flex;
+            flex-direction: column;
+            padding: 1em 2em;
+
+            label {
+                font-size: 1.125em;
+            }
+
+            .inputRow {
+                position: relative;
+                display: flex;
+                border-style: none none solid none;
+
+                justify-content: space-between;
+
+                input {
+                    font-size: 1.125em;
+                    padding: 1em;
+                    width: 100%;
+                }
+    
+                img {
+                    height: 2em;
+                    align-self: center;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .formButton {
+            display: flex;
+            flex-direction: column;
+            padding: 1em 2em;
+
+            button {
+                text-transform: uppercase;
+                padding: 0.75em 1em;
+                font-size: 1.25em;
+            }
+        }
+    }
+
+    .camera {
+        &-list {
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            justify-content: center;
+
+            margin: 3em 0;
+        }
+
+        &-item {
             background-color: rgb(240, 240, 240);
             border-radius: 8px;
             padding: 1em;
+            margin: 1em;
 
+            width: 300px;
             box-shadow: 0px 5px 10px #00000033;
-
-            max-width: 500px;
-            cursor: pointer;
 
             &:hover {
                 box-shadow: 0px 5px 20px #00000066;
+            }
+
+            .header {
+                font-size: 1.25em;
+                font-weight: 500;
+                margin: 1em 1em 0.5em;
+            }
+
+            .description {
+                font-size: 1em;
+                margin: 0.5em 1em 1em;
+            }
+
+            .actions {
+                display: flex;
+                justify-content: space-around;
+                margin: 1em;
             }
 
             p {
@@ -24,13 +94,13 @@
                 margin: 0;
             }
 
-            .header {
-                font-size: 18px;
-                font-weight: 500;
-            }
+            img {
+                cursor: pointer;
+                height: 2em;
 
-            .description {
-                font-size: 18px;
+                &:active {
+                    transform: translateY(2px);
+                }
             }
         }
     }

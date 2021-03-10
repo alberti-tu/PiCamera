@@ -1,5 +1,7 @@
 {
     "app.name": "PiCamera",
+    "cameras.input": "Identificador de cámara",
+    "cameras.button": "Añadir",
     "error.required": "Campo necesario",
     "login.button": "Entrar",
     "login.password": "Contraseña",

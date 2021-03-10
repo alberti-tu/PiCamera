@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 		this._http.login(username, password).subscribe(data => {
 			if (data.result) {
 				this._auth.setToken(data.result);
+				this.form.reset();
 			}
 		});
 	}

@@ -34,6 +34,7 @@
 
                 p {
                     padding-left: 1em;
+                    font-size: 1em;
                     margin: 0;
                 }
             }
@@ -42,5 +43,6 @@
 }
 
 .side-menu-content {
+    position: relative;
     cursor: pointer;
 }
