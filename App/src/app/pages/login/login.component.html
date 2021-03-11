@@ -6,7 +6,7 @@
     <form [formGroup]="form" (submit)="sendForm()">
         <div class="formField">
             <label translate>login.username</label>
-            <div class="inputRow">
+            <div class="input-row">
                 <input formControlName="username" type="text">
             </div>
             <div *ngIf="hasError('username') == 'required'" class="errorMessage" translate>error.required</div>
@@ -14,7 +14,7 @@
     
         <div class="formField">
             <label translate>login.password</label>
-            <div class="inputRow">
+            <div class="input-row">
                 <input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
                 <img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
             </div>

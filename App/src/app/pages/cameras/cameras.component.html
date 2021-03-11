@@ -2,14 +2,9 @@
     <app-toolbar [header]="'page.cameras'"></app-toolbar>
 
     <form [formGroup]="form" (submit)="sendForm()">
-        <div class="formField">
-            <label translate>cameras.input</label>
-            <div class="inputRow">
-                <input formControlName="camera" type="text">
-            </div>
-        </div>
-    
-        <div class="formButton">
+        <div class="input-row">
+            <input formControlName="camera" type="text" [placeholder]="'cameras.input' | translate">
+
             <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
                 <span translate>cameras.button</span>
             </button>

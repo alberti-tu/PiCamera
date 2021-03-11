@@ -4,47 +4,30 @@
 
     form {
         max-width: 1000px;
-        margin: 0 auto;
+        margin: 1em auto;
+        padding: 1em;
 
-        .formField {
+        .input-row {
             display: flex;
-            flex-direction: column;
-            padding: 1em 2em;
+            justify-content: space-between;
 
-            label {
+            border-radius: 57px;
+            box-shadow: 0px 5px 10px #00000033;
+
+            input {
                 font-size: 1.125em;
+                margin: 0.5em 1em;
+                padding: 0.5em;
+                width: 100%;
             }
 
-            .inputRow {
-                position: relative;
-                display: flex;
-                border-style: none none solid none;
-
-                justify-content: space-between;
-
-                input {
-                    font-size: 1.125em;
-                    padding: 1em;
-                    width: 100%;
-                }
-    
-                img {
-                    height: 2em;
-                    align-self: center;
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .formButton {
-            display: flex;
-            flex-direction: column;
-            padding: 1em 2em;
 
             button {
+                border-radius: 0px 57px 57px 0px;
                 text-transform: uppercase;
-                padding: 0.75em 1em;
-                font-size: 1.25em;
+                font-size: 1em;
+                padding: 0em;
+                width: 20%;
             }
         }
     }
