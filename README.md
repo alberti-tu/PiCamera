@@ -92,3 +92,13 @@ Command to launch camera node
 ```bash
 npm run start:client
 ```
+
+If you want to finish execution press **ctrl + c** on the linux shell
+
+## 5. Update project
+In the near future will be new updates, in order to download the new features execute the following commands:
+
+```bash
+git pull
+```
+After downloaded the features execute steps [1.2](#1.2-Project-setup), [3](#3.-Build-project) and [4](#4.-Launch-project)
