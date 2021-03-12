@@ -16,6 +16,7 @@
     "page.photos": "Photos",
     "page.settings": "Settings",
     "toast.error.badRequest": "This action could not be performed, please try again",
+    "toast.error.login": "Incorrect username and / or password",
     "toast.error.logout": "The session has expired, please log in again",
     "toast.error.notFound": "The requested information could not be found",
     "toast.info.logout": "The session has been successfully closed"
