@@ -52,17 +52,19 @@ npm run install:app
 
 ## 2. Configuration
 
+The commands in steps [2.1 Server](#2.1-Server) and [2.2 Camera node](#2.2-Camera-node) will open a nano shell editor. After editing the document press **ctrl + o** to save changes and **ctrl + x** to close.
+
 ### 2.1 Server
 
 Set HTTP server, database and server password
 ```bash
-nano Server/src/config.ts
+npm run config:server
 ```
 ### 2.2 Camera node
 
 Set URL connection and server password
 ```bash
-nano Client/src/config.ts
+npm run config:client
 ```
 
 ## 3. Build project
@@ -101,4 +103,10 @@ In the near future will be new updates, in order to download the new features ex
 ```bash
 git pull
 ```
-After downloaded the features execute steps [1.2](#1.2-Project-setup), [3](#3.-Build-project) and [4](#4.-Launch-project)
+After downloaded the features execute steps [1.2 Project setup](#1.2-Project-setup), [3. Build project](#3.-Build-project) and [4. Launch project](#4.-Launch-project).
+
+NOTE: If the changes only affect to App project is not necessary stop the server instance. Just execute this:
+
+```bash
+npm run build:app
+```

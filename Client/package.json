@@ -5,7 +5,8 @@
 	"main": "out/app.js",
 	"scripts": {
 		"start": "tsc && node out/app.js",
-		"build": "tsc"
+		"build": "tsc",
+		"config": "nano src/config.ts"
 	},
 	"repository": {
 		"type": "git",
