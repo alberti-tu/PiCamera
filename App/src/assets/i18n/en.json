@@ -14,5 +14,9 @@
     "page.home": "Home",
     "page.logout": "Logout",
     "page.photos": "Photos",
-    "page.settings": "Settings"
+    "page.settings": "Settings",
+    "toast.error.badRequest": "This action could not be performed, please try again",
+    "toast.error.logout": "The session has expired, please log in again",
+    "toast.error.notFound": "The requested information could not be found",
+    "toast.info.logout": "The session has been successfully closed"
 }

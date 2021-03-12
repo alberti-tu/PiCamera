@@ -6,14 +6,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { AlertService } from './services/alert/alert.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HttpService } from './services/http/http.service';
 import { HttpServiceInterceptor } from './services/interceptor/http-service.interceptor';
 import { TranslationService } from './services/translation/translation.service';
 
-import { AppComponent } from './app.component';
-
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { AppComponent } from './app.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -35,12 +37,14 @@ const routes: Routes = [
 		BrowserAnimationsModule,
 		HttpClientModule,
 		MatDialogModule,
+		MatSnackBarModule,
 		RouterModule.forRoot(routes),
 		TranslateModule.forRoot({
 			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
 		})
 	],
 	providers: [
+		AlertService,
 		HttpService,
         TranslationService,
         { provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true }

@@ -15,7 +15,7 @@ export class TranslationService {
 	}
 
 	public get(key: string): Promise<string> {
-		return new Promise<string>((resolve) => {
+		return new Promise<string>(resolve => {
 			this.translate.stream(key).subscribe(data => resolve(data));
 		});
 	}

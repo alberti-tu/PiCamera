@@ -14,5 +14,10 @@
     "page.home": "Inicio",
     "page.logout": "Cerrar sesión",
     "page.photos": "Fotos",
-    "page.settings": "Ajustes"
+    "page.settings": "Ajustes",
+    "toast.error.badRequest": "No se ha podido realizar esa acción, por favor, vuelva a intentarlo",
+    "toast.error.login": "Usuario y/o contraseña incorrecto",
+    "toast.error.logout": "La sesión ha expirado, por favor, vuelva a iniciar sesión",
+    "toast.error.notFound": "No se ha podido encontrar la información solicitada",
+    "toast.info.logout": "La sesión se ha cerrado correctamente"
 }

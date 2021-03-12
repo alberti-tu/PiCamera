@@ -46,6 +46,7 @@ export class SideMenuComponent implements OnInit {
 					return;
 				}
 
+				this._alert.showToast('toast.info.logout');
 				this._auth.removeToken();
 			});
 		}
