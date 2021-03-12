@@ -33,7 +33,7 @@ export class HttpServiceInterceptor implements HttpInterceptor {
 							this._alert.showToast('toast.error.badRequest');
 							break;
 						case 401:
-							this._alert.showToast('toast.logout.error');
+							this._alert.showToast('toast.error.logout');
 							this._auth.removeToken();
 							break;
 						case 404:

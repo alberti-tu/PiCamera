@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DialogData } from 'src/app/components/dialog/dialog.component';
 import { CameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -47,10 +48,24 @@ export class CamerasComponent implements OnInit {
 	}
 
 	public remove(camera: CameraSubscription) {
-		this._http.removeSubscription(camera.id).subscribe(data => {
-			if (data.result) {
-				this.cameras = this.cameras.filter(item => item.camera_id != camera.camera_id);
+		const options: DialogData = {
+			header: 'cameras.header',
+			message: 'cameras.message',
+			buttons: [
+				{ name: 'cameras.button.cancel', value: 'cancel' },
+				{ name: 'cameras.button.accept', value: 'ok', isPrimary: true }
+			]
+		};
+		this._alert.showDialog(options).subscribe(button => {
+			if (button == null || button == 'cancel') {
+				return;
 			}
+
+			this._http.removeSubscription(camera.id).subscribe(data => {
+				if (data.result) {
+					this.cameras = this.cameras.filter(item => item.camera_id != camera.camera_id);
+				}
+			});
 		});
 	}
 }
