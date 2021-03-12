@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CameraSubscription } from 'src/app/models/http.models';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class CamerasComponent implements OnInit {
 	public cameras: CameraSubscription[] = [];
 	public form: FormGroup;
 
-	constructor(private _formBuilder: FormBuilder, private _http: HttpService) {
+	constructor(private _alert: AlertService, private _formBuilder: FormBuilder, private _http: HttpService) {
 		this.form = this._formBuilder.group({
 			camera: [ '', Validators.required ]
 		});
@@ -26,8 +27,10 @@ export class CamerasComponent implements OnInit {
 	public sendForm(): void {
 		const camera = this.form.value.camera;
 		this._http.addSubscription(camera).subscribe(data => {
-			if (data.result) {
+			if (data && data.result) {
 				this.getData();
+			} else {
+				this._alert.showToast('toast.error.notAdded');
 			}
 		});
 		this.form.reset();

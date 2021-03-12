@@ -11,11 +11,14 @@
         </div>
     </form>
 
-    <div class="camera-list">
-        <div class="camera-item card" *ngFor="let item of cameras">
-            <p class="header">{{ item.name }}</p>
-            <p class="description">{{ item.camera_id }}</p>
-            <div class="actions">
+    <div class="list">
+        <div class="card item" *ngFor="let item of cameras">
+            <div class="row-left">
+                <p class="header">{{ item.name }}</p>
+                <p class="description">{{ item.camera_id }}</p>
+            </div>
+
+            <div class="row-right">
                 <img src="assets/icons/edit.svg" (click)="edit(item)">
                 <img src="assets/icons/trash.svg" (click)="remove(item)">
             </div>

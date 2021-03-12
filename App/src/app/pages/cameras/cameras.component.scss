@@ -32,53 +32,67 @@
         }
     }
 
-    .camera {
-        &-list {
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
-            justify-content: center;
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        justify-content: center;
 
-            margin: 3em 0;
+        margin: 3em 0em;
+    }
+
+    .item {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+
+        border-radius: 8px;
+        margin: 1em;
+
+        width: 300px;
+
+        .row-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            background-color: #f0f0f0;
+
+            width: 75%;
         }
 
-        &-item {
-            background-color: #f0f0ff;
-            border-radius: 8px;
-            padding: 1em;
-            margin: 1em;
+        .row-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
 
-            width: 300px;
+            background-color: #cdcddd;
 
-            .header {
-                font-size: 1.25em;
-                font-weight: 500;
-                margin: 1em 1em 0.5em;
+            width: 25%;
+        }
+
+        .header {
+            font-size: 1.25em;
+            font-weight: 500;
+            margin: 1em 1em 0.5em;
+        }
+
+        .description {
+            font-size: 1em;
+            margin: 0.5em 1em 1em;
+        }
+
+        img {
+            cursor: pointer;
+            padding: 1em 0em;
+            height: 2em;
+
+            &:hover {
+                transform: scale(1.25);
             }
 
-            .description {
-                font-size: 1em;
-                margin: 0.5em 1em 1em;
-            }
-
-            .actions {
-                display: flex;
-                justify-content: space-around;
-                margin: 1em;
-            }
-
-            p {
-                text-align: center;
-                margin: 0;
-            }
-
-            img {
-                cursor: pointer;
-                height: 2em;
-
-                &:active {
-                    transform: translateY(2px);
-                }
+            &:active {
+                transform: translateY(2px);
             }
         }
     }
