@@ -1,0 +1,41 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 1em!important;
+	margin: 0;
+}
+
+button {
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:active {
+		transform: translateY(2px);
+	}
+}
+
+img {
+	user-select: none;
+}
+
+input {
+	border-style: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.card {
+	box-shadow: 0px 5px 10px #00000033;
+
+	&:hover {
+		box-shadow: 0px 5px 20px #00000066;
+	}
+}

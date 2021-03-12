@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import 'src/theme/colors.scss';
+@import 'src/theme/global.scss';
 
 @include mat-core();
 
@@ -9,40 +10,6 @@ $PiCamera-warn: mat-palette($warn-palette);
 $PiCamera-theme: mat-light-theme($PiCamera-primary, $PiCamera-accent, $PiCamera-warn);
 
 @include angular-material-theme($PiCamera-theme);
-
-html, body {
-	height: 100%;
-}
-
-body {
-	font-family: Roboto, "Helvetica Neue", sans-serif;
-	font-size: 1em!important;
-	margin: 0;
-}
-
-input {
-	border-style: none;
-
-	&:focus {
-		outline: none;
-	}
-}
-
-img {
-	user-select: none;
-}
-
-button {
-	cursor: pointer;
-
-	&:focus {
-		outline: none;
-	}
-
-	&:active {
-		transform: translateY(2px);
-	}
-}
 
 .primary {
 	background-color: mat-color($PiCamera-primary);
