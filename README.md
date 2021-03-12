@@ -105,7 +105,7 @@ git pull
 ```
 After downloaded the features execute steps [1.2 Project setup](#1.2-Project-setup), [3. Build project](#3.-Build-project) and [4. Launch project](#4.-Launch-project).
 
-NOTE: If the changes only affect to App project is not necessary stop the server instance. Just execute this:
+NOTE: If the changes only affect to **App** project is not necessary stop the server instance. Just execute this:
 
 ```bash
 npm run build:app
