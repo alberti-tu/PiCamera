@@ -39,6 +39,10 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
+	public edit(camera: CameraSubscription) {
+
+	}
+
 	public remove(camera: CameraSubscription) {
 		this._http.removeSubscription(camera.id).subscribe(data => {
 			if (data.result) {

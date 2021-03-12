@@ -16,7 +16,7 @@
             <p class="header">{{ item.name }}</p>
             <p class="description">{{ item.camera_id }}</p>
             <div class="actions">
-                <img src="assets/icons/edit.svg">
+                <img src="assets/icons/edit.svg" (click)="edit(item)">
                 <img src="assets/icons/trash.svg" (click)="remove(item)">
             </div>
         </div>

@@ -5,6 +5,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { RouterModule } from "@angular/router";
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         TranslateModule,
 
         MatButtonModule,
+        MatDialogModule,
         MatListModule,
         MatSidenavModule,
         MatToolbarModule

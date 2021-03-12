@@ -1,0 +1,12 @@
+<div class="alertComponent">
+    <h1 *ngIf="data.header" class="alertHeader" translate>{{ data.header }}</h1>
+    
+    <p *ngIf="data.message" class="alertMessage" translate>{{ data.message }}</p>
+    
+    <div *ngIf="data.buttons" class="alertButtons">
+        <div *ngFor="let button of data.buttons">
+            <button *ngIf="button.isPrimary" mat-raised-button color="primary" (click)="onClick(button)">{{ button.name | translate }}</button>
+            <button *ngIf="!button.isPrimary" mat-button (click)="onClick(button)">{{ button.name | translate }}</button>
+        </div>
+    </div>
+</div>

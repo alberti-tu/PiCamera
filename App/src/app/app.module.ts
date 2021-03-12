@@ -13,6 +13,8 @@ import { TranslationService } from './services/translation/translation.service';
 
 import { AppComponent } from './app.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
@@ -32,6 +34,7 @@ const routes: Routes = [
 		BrowserModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		MatDialogModule,
 		RouterModule.forRoot(routes),
 		TranslateModule.forRoot({
 			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }

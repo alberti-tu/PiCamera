@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { DialogData } from '../dialog/dialog.component';
 
 export interface MenuItem {
 	name: string;
@@ -20,13 +23,32 @@ export class SideMenuComponent implements OnInit {
 	@Input() public pages: MenuItem[] = [];
 	@Input() public top: number = 0;
 
-	constructor(private _router: Router) { }
+	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _router: Router) { }
 
 	public ngOnInit(): void { }
 
 	public navigateTo(url: string): void {
 		this.sideMenu.close();
-		this._router.navigateByUrl(url);
+
+		if (url != null) {
+			this._router.navigateByUrl(url);
+		} else {
+			const options: DialogData = {
+				header: 'logout.header',
+				message: 'logout.message',
+				buttons: [
+					{ name: 'logout.button.cancel', value: 'cancel' },
+					{ name: 'logout.button.accept', value: 'ok', isPrimary: true }
+				]
+			};
+			this._alert.showDialog(options).subscribe(button => {
+				if (button == null || button == 'cancel') {
+					return;
+				}
+
+				this._auth.removeToken();
+			});
+		}
 	}
 
 	public sideMenuContainer(): any {
