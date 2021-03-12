@@ -2,7 +2,7 @@
     <app-toolbar [header]="'page.cameras'"></app-toolbar>
 
     <form [formGroup]="form" (submit)="sendForm()">
-        <div class="input-row card">
+        <div class="input-row shadow">
             <input formControlName="camera" type="text" [placeholder]="'cameras.input' | translate">
 
             <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
@@ -12,7 +12,7 @@
     </form>
 
     <div class="list">
-        <div class="card item" *ngFor="let item of cameras">
+        <div class="item shadow" *ngFor="let item of cameras">
             <div class="row-left">
                 <p class="header">{{ item.name }}</p>
                 <p class="description">{{ item.camera_id }}</p>
