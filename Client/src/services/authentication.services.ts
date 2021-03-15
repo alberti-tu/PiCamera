@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-export function encrypt(data: string, key: string): string {
+export function encryptAES(data: string, key: string): string {
     key = crypto.createHash('sha256').update(key).digest('base64').substring(0, 32);
 
     const iv = crypto.randomBytes(16);
@@ -12,7 +12,7 @@ export function encrypt(data: string, key: string): string {
     return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
-export function decrypt(data: string, key: string): string {
+export function decryptAES(data: string, key: string): string {
     key = crypto.createHash('sha256').update(key).digest('base64').substring(0, 32);
 
     const iv = Buffer.from(data.split(':')[0], 'hex');
