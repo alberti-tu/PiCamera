@@ -1,6 +1,11 @@
+import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { Token } from '../models/http.models';
+import { configuration } from '../config';
 
-export function encrypt(data: string, key: string): string {
+const secret: string = hash( new Date().getTime().toString() ); 
+
+export function encryptAES(data: string, key: string): string {
     key = crypto.createHash('sha256').update(key).digest('base64').substring(0, 32);
 
     const iv = crypto.randomBytes(16);
@@ -12,7 +17,7 @@ export function encrypt(data: string, key: string): string {
     return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
-export function decrypt(data: string, key: string): string {
+export function decryptAES(data: string, key: string): string {
     key = crypto.createHash('sha256').update(key).digest('base64').substring(0, 32);
 
     const iv = Buffer.from(data.split(':')[0], 'hex');
@@ -22,6 +27,14 @@ export function decrypt(data: string, key: string): string {
     decrypted = Buffer.concat([ decrypted, decipher.final() ]);
 
     return decrypted.toString();
+}
+
+export function encodeToken(data: object): string {
+    return jwt.sign(data, secret, { expiresIn: configuration.server.timeout });
+}
+
+export function decodeToken(token: string): Token {
+    return JSON.parse(JSON.stringify( jwt.verify(token, secret) ));
 }
 
 export function hash(data: string): string {

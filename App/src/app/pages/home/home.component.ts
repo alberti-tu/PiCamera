@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
@@ -6,10 +6,16 @@ import { SocketService } from 'src/app/services/socket/socket.service';
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
 	constructor(private _socket: SocketService) { }
 
-	public ngOnInit(): void { }
+	public ngOnInit(): void {
+		this._socket.connect()
+	}
+
+	public ngOnDestroy(): void {
+		this._socket.disconnect();
+	}
 
 }

@@ -1,7 +1,9 @@
+import SocketIO, { Server, Socket } from 'socket.io';
 import bodyParser from 'body-parser';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import http from 'http';
 import path from 'path';
 
 import { configuration } from './config';
@@ -10,19 +12,24 @@ import * as authentication from './middlewares/authentication.middlewares';
 import * as camera from './middlewares/camera.middlewares';
 import * as database from './middlewares/database.middlewares';
 import * as subscriptions from './middlewares/subscriptions.middlewares';
+import * as socket from './middlewares/socket.middlewares';
 
 database.init();
 
 const app = express();
 
-app.listen(configuration.server.port, () => {
+app.use(cors());
+app.use(helmet());
+app.use(bodyParser.json({ limit: '50mb' }));
+
+const server = http.createServer(app).listen(configuration.server.port, () => {
     console.log('Server is listening on http://[...]:' + configuration.server.port);
 });
 
-app.use(cors());
-app.use(helmet());
-app.use(bodyParser.json({ limit: '50mb' }))
+const io: Server = SocketIO(server);
+io.on('connection', (client: Socket) => socket.connection(io, client));
 
+// Backend routes
 app.post('/api/user/login', authentication.login);
 
 app.get('/api/subscription', authentication.verifyToken, subscriptions.selectAll);
@@ -32,8 +39,6 @@ app.delete('/api/subscription/:id', authentication.verifyToken, subscriptions.re
 
 app.get('/api/camera/:id', authentication.getCameraId, camera.selectOne);
 app.post('/api/camera/:id', authentication.getCameraId, camera.insert);
-// app.put('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.update);
-// app.delete('/api/camera/:id', authentication.verifyToken, authentication.getCameraId, camera.remove);
 
 app.post('/api/camera/picture/:id', authentication.getCameraId, camera.picture);
 
