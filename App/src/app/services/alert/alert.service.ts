@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { DialogComponent, DialogData } from 'src/app/components/dialog/dialog.component';
+import { DialogComponent, DialogData, DialogResult } from 'src/app/components/dialog/dialog.component';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +10,7 @@ export class AlertService {
 
 	constructor(private _dialog: MatDialog, private _toast: MatSnackBar, private _translate: TranslateService) { }
 
-	public showDialog(data: DialogData): Observable<string> {
+	public showDialog(data: DialogData): Observable<DialogResult> {
 		return this._dialog.open(DialogComponent, { data, autoFocus: false }).afterClosed();
 	}
 

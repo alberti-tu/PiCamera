@@ -44,20 +44,41 @@ export class CamerasComponent implements OnInit {
 	}
 
 	public edit(camera: CameraSubscription) {
+		const options: DialogData = {
+			header: 'cameras.edit.header',
+			message: 'cameras.edit.message',
+			inputs: [
+				{ text: 'cameras.edit.input.text', value: camera.name }
+			],
+			buttons: [
+				{ text: 'cameras.edit.button.cancel', value: 'cancel' },
+				{ text: 'cameras.edit.button.accept', value: 'ok', isPrimary: true }
+			]
+		};
+		this._alert.showDialog(options).subscribe(result => {
+			if (result == null || result.inputs[0].value == '' || result.button == 'cancel') {
+				return;
+			}
 
+			this._http.updateSubscription(camera.id, result.inputs[0].value).subscribe(data => {
+				if (data.result) {
+					camera.name = result.inputs[0].value;
+				}
+			});
+		});
 	}
 
 	public remove(camera: CameraSubscription) {
 		const options: DialogData = {
-			header: 'cameras.header',
-			message: 'cameras.message',
+			header: 'cameras.remove.header',
+			message: 'cameras.remove.message',
 			buttons: [
-				{ name: 'cameras.button.cancel', value: 'cancel' },
-				{ name: 'cameras.button.accept', value: 'ok', isPrimary: true }
+				{ text: 'cameras.remove.button.cancel', value: 'cancel' },
+				{ text: 'cameras.remove.button.accept', value: 'ok', isPrimary: true }
 			]
 		};
-		this._alert.showDialog(options).subscribe(button => {
-			if (button == null || button == 'cancel') {
+		this._alert.showDialog(options).subscribe(result => {
+			if (result == null || result.button == 'cancel') {
 				return;
 			}
 

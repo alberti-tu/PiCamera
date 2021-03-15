@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogButton {
-	name: string;
+	text: string;
 	value: string;
 	isPrimary?: boolean;
 }
@@ -10,7 +10,18 @@ export interface DialogButton {
 export interface DialogData {
 	header?: string;
 	message?: string;
+	inputs?: DialogInput[];
 	buttons?: DialogButton[];
+}
+
+export interface DialogInput {
+	text?: string;
+	value?: string;
+}
+
+export interface DialogResult {
+	inputs?: DialogInput[];
+	button: string;
 }
 
 @Component({
@@ -25,7 +36,8 @@ export class DialogComponent implements OnInit {
 	public ngOnInit(): void { }
 
 	public onClick(item: DialogButton): void {
-		this.alert.close(item.value);
+		const result: DialogResult = { inputs: this.data.inputs, button: item.value };
+		this.alert.close(result);
 	}
 
 }

@@ -1,21 +1,32 @@
-.alertComponent {
+.dialogComponent {
     max-height: 80vh;
     max-width: 80vw;
 
     padding: 1.5rem;
 
-    .alertHeader{
+    .dialogHeader{
         font-size: 1.5em;
         font-weight: bold;
         margin: 0rem 0.75rem 0.75rem;
     }
 
-    .alertMessage {
+    .dialogMessage {
         font-size: 1.125em;
         margin: 0rem 0.75rem 0.75rem;
     }
+
+    .dialogInputs {
+        display: flex;
+
+        input {
+            border-style: none none solid none;
+            margin: 0.75rem;
+            padding: 0.5rem;
+            width: 100%;
+        }
+    }
     
-    .alertButtons {
+    .dialogButtons {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;

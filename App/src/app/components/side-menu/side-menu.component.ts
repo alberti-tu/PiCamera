@@ -37,12 +37,12 @@ export class SideMenuComponent implements OnInit {
 				header: 'logout.header',
 				message: 'logout.message',
 				buttons: [
-					{ name: 'logout.button.cancel', value: 'cancel' },
-					{ name: 'logout.button.accept', value: 'ok', isPrimary: true }
+					{ text: 'logout.button.cancel', value: 'cancel' },
+					{ text: 'logout.button.accept', value: 'ok', isPrimary: true }
 				]
 			};
-			this._alert.showDialog(options).subscribe(button => {
-				if (button == null || button == 'cancel') {
+			this._alert.showDialog(options).subscribe(result => {
+				if (result == null || result.button == 'cancel') {
 					return;
 				}
 
