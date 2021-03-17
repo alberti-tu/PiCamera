@@ -9,8 +9,14 @@
         justify-content: center;
 
         img {
-            width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+    
+            border-radius: 0.5rem;
             margin: 1rem;
+    
+            width: 1280px;
         }
     }
 }

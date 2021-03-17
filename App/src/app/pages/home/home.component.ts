@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._socket.connect();
 
 		this._socket.getSubscriptions().subscribe(data => {
-			this.pictures = data.map<FrameStream>(item => ({ id: item, data: null }));
+			this.pictures = data.map<FrameStream>(item => ({ id: item, data: 'assets/images/error_404.jpg' }));
 		});
 
 		this._socket.getImage().subscribe(image => {
@@ -25,8 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 			if (frame != null && image.data != null) {
 				frame.data = 'data:image/jpg;base64,' + image.data;
-			} else {
-				frame.data = 'assets/images/error_404.jpg';
 			}
 		});
 	}
