@@ -12,5 +12,6 @@ export interface CameraSubscription {
 
 export interface FrameStream {
     id: string;
+    name: string;
     data: string;
 }
