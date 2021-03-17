@@ -12,7 +12,7 @@ function stream(options?: PictureOptions): Promise<void> {
         if (camera.isAvailable()) {
             camera.takePicture()
                 .then(async data => {
-                    const getSettings = await http.sendPicture(data != null ? 'data:image/jpg;base64,' + data : null);
+                    const getSettings = await http.sendPicture(data != null ? data : null);
                     getSettings ? reject(null) : resolve(null);
                 })
                 .catch(() => reject(null));

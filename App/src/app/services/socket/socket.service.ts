@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 
 export enum SocketEvent {
 	disconnect = 'disconnect',
+	image = 'image',
+	subscriptions = 'subscriptions',
 	unauthorized = 'unauthorized'
 }
 
@@ -26,6 +29,18 @@ export class SocketService {
 		}
 	}
 	
+	public getImage(): Observable<string> {
+		return new Observable<string>(observer => {
+			this.socket.on(SocketEvent.image, (message: string) => observer.next(message) );
+		});
+	}
+
+	public getSubscriptions(): Observable<string[]> {
+		return new Observable<string[]>(observer => {
+			this.socket.on(SocketEvent.subscriptions, (list: string[]) => observer.next(list) );
+		});
+	}
+
 	public disconnect(): void {
 		if (this.socket != null) {
 			this.socket.close();

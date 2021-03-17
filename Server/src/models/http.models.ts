@@ -24,3 +24,8 @@ export interface Token {
     iat: number;
     exp: number;
 }
+
+export interface FrameStream {
+    id: string;
+    data: string;
+}

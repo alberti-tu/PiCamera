@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { CameraSubscription } from '../models/database.models';
 import { HttpMessage, Message } from '../models/http.models';
+import { setSubscriptionList } from './socket.middlewares';
 
 import * as database from './database.middlewares';
 
@@ -17,6 +18,7 @@ export async function selectAll(req: Request<any>, res: Response<Message<CameraS
 export async function insert(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         const result = await database.insertSubscriptions(res.locals.userId, req.params.id);
+        setSubscriptionList(res.locals.userId);
 
         if (result != null) {
             res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
@@ -45,6 +47,7 @@ export async function update(req: Request<any>, res: Response<Message<boolean>>,
 export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         const result = await database.deleteSubscriptions(req.params.id);
+        setSubscriptionList(res.locals.userId);
 
         if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
