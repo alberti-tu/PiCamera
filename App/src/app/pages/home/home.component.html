@@ -1,3 +1,7 @@
 <div class="home-container">
     <app-toolbar [header]="'page.home'"></app-toolbar>
+
+    <div class="image-grid">
+        <img *ngFor="let image of pictures" [src]="image.data">
+    </div>
 </div>

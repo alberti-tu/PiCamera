@@ -49,7 +49,7 @@ export async function connection(io: Server, socket: Socket) {
         const subscription = list.find(item => item == image.id)
 
         if (subscription != null) {
-            image.data = image.data != null ? 'data:image/jpg;base64,' + image.data : null;
+            image.data = image.data != null ? image.data : null;
             socket.emit(SocketEvent.image, image);
         }
     });

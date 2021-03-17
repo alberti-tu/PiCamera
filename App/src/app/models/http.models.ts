@@ -9,3 +9,8 @@ export interface CameraSubscription {
     name: string;
     camera_id: string;
 }
+
+export interface FrameStream {
+    id: string;
+    data: string;
+}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { environment } from 'src/environments/environment';
+import { FrameStream } from 'src/app/models/http.models';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 
@@ -29,9 +30,9 @@ export class SocketService {
 		}
 	}
 	
-	public getImage(): Observable<string> {
-		return new Observable<string>(observer => {
-			this.socket.on(SocketEvent.image, (message: string) => observer.next(message) );
+	public getImage(): Observable<FrameStream> {
+		return new Observable<FrameStream>(observer => {
+			this.socket.on(SocketEvent.image, (message: FrameStream) => observer.next(message) );
 		});
 	}
 
