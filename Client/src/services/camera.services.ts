@@ -2,7 +2,7 @@ import { spawn } from 'child_process';
 import { configuration } from '../config';
 import { PictureOptions } from '../models/http.models';
 
-const argsDefault: string[] = ['-w', '640', '-h', '480', '-t', '800', '-n', '-o', '-'];
+const argsDefault: string[] = ['-w', '1280', '-h', '720', '-t', '800', '-n', '-o', '-'];
 
 export class Camera {
 
