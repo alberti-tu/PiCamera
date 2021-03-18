@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
 	templateUrl: './detail.component.html',
@@ -6,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-	constructor() { }
+	public camera_id: string = null;
+	public camera_name: string = '';
 
-	public ngOnInit(): void { }
+	constructor(private _http: HttpService, private _route: ActivatedRoute) { }
+
+	public ngOnInit(): void {
+		this.camera_id = this._route.snapshot.params.id;
+		this.camera_name = this.camera_id;
+	}
 
 }
