@@ -12,7 +12,7 @@ export async function init() {
     if (!isCreated) {
         const queries: string[] = [
             "CREATE TABLE users (id VARCHAR(64) NOT NULL PRIMARY KEY, username VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL)",
-            "CREATE TABLE cameras (id VARCHAR(6) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT 'auto', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0)",
+            "CREATE TABLE cameras (id VARCHAR(6) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT 'auto', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0, timestamp DATETIME)",
             "CREATE TABLE subscriptions (id VARCHAR(64) NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL, user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(6) NOT NULL, CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT fk_camera_id FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
         ];
 
@@ -79,11 +79,11 @@ export async function selectCamera(id: string): Promise<CameraDTO> {
 }
 
 export async function insertCamera(id: string): Promise<StatusDatabase> {
-    return await database.query<StatusDatabase>('INSERT INTO cameras (id) VALUES (?)', [ id ]);
+    return await database.query<StatusDatabase>('INSERT INTO cameras (id, timestamp) VALUES (?, NOW())', [ id ]);
 }
 
 export async function updateCamera(camera: CameraDTO): Promise<StatusDatabase> {
-    return await database.query<StatusDatabase>('UPDATE cameras SET filter = ?, quality = ?, rotation = ?  WHERE id = ?', [camera.filter, camera.quality, camera.rotation, camera.id]);
+    return await database.query<StatusDatabase>('UPDATE cameras SET filter = ?, quality = ?, rotation = ?, timestamp = NOW() WHERE id = ?', [camera.filter, camera.quality, camera.rotation, camera.id]);
 }
 
 export async function deleteCamera(id: string): Promise<StatusDatabase> {

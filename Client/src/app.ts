@@ -1,18 +1,19 @@
 import { State, StateMachine } from "./services/state-machine.services";
 import { getSerialNumber } from "./services/utils.services";
-import { PictureOptions } from "./models/http.models";
+import { CameraDTO } from "./models/http.models";
 import { Camera } from "./services/camera.services";
-import * as http from "./services/http.services";
 import { configuration } from "./config";
 
-function stream(options?: PictureOptions): Promise<void> {
+import * as http from "./services/http.services";
+
+function stream(options?: CameraDTO): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         camera.setPictureOptions(options);
 
         if (camera.isAvailable()) {
             camera.takePicture()
                 .then(async data => {
-                    const getSettings = await http.sendPicture(data != null ? data : null);
+                    const getSettings = await http.sendPicture(options.timestamp, data != null ? data : null);
                     getSettings ? reject(null) : resolve(null);
                 })
                 .catch(() => reject(null));

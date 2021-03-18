@@ -31,9 +31,9 @@ export function remove(): Promise<boolean> {
     });
 }
 
-export function sendPicture(data: string): Promise<boolean> {
+export function sendPicture(timestamp: Date, data: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-        const body = { date: new Date().getTime(), data: data};
+        const body = { timestamp: timestamp, data: data };
         axios.post<Message<boolean>>(url + '/api/camera/picture/' + encryptAES(id, configuration.sharedKey), body)
             .then(body => resolve(body.data ? body.data.result : null))
             .catch(err => reject(err.response ? err.response.data.result : null));

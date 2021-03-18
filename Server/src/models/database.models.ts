@@ -6,6 +6,7 @@ export interface UserDTO {
 
 export interface CameraDTO extends PictureOptions {
     id?: string;
+    timestamp?: Date;
 }
 
 export interface PictureOptions {

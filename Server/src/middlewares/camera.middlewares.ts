@@ -67,7 +67,11 @@ export async function remove(req: Request<any>, res: Response<Message<boolean>>,
 export async function picture(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         setStream(res.locals.cameraId, req.body.data);
-        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: false });
+        
+        const camera = await database.selectCamera(res.locals.cameraId);
+        const hasChanges: boolean = req.body.timestamp != camera.timestamp;
+        
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: hasChanges });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }
