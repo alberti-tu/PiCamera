@@ -30,6 +30,5 @@ export const filters: string[] = [
     'snow',
     'beach',
     'verylong',
-    'verylong',
     'fireworks'
 ];

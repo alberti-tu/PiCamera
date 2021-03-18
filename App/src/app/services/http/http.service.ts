@@ -35,8 +35,12 @@ export class HttpService {
 		return this.http.delete<Message<boolean>>(environment.url + '/api/subscription/' + id);
 	}
 
-	public getCamera(id: string): Observable<Message<PictureOptions>> {
+	public getSettings(id: string): Observable<Message<PictureOptions>> {
 		return this.http.get<Message<PictureOptions>>(environment.url + '/api/settings/camera/' + id);
+	}
+
+	public saveSettings(id: string, body: PictureOptions): Observable<Message<boolean>> {
+		return this.http.post<Message<boolean>>(environment.url + '/api/settings/camera/' + id, body);
 	}
 
 	public getFilters(): Observable<Message<string[]>> {

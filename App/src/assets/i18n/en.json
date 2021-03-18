@@ -8,6 +8,15 @@
     "cameras.edit.input.text": "Name of the camera",
     "cameras.edit.message": "",
     "cameras.detail.filter": "Filter",
+    "cameras.detail.list.auto": "Auto",
+    "cameras.detail.list.backlight": "Backlight",
+    "cameras.detail.list.beach": "Beach",
+    "cameras.detail.list.fireworks": "Fireworks",
+    "cameras.detail.list.night": "Night",
+    "cameras.detail.list.sports": "Sports",
+    "cameras.detail.list.spotlight": "Spotlight",
+    "cameras.detail.list.snow": "Snow",
+    "cameras.detail.list.verylong": "Very long",
     "cameras.detail.quality": "Quality",
     "cameras.detail.rotation": "Rotation",
     "cameras.detail.button": "Save",
@@ -33,5 +42,6 @@
     "toast.error.logout": "The session has expired, please log in again",
     "toast.error.notAdded": "The requested item could not be added",
     "toast.error.notFound": "The requested information could not be found",
-    "toast.info.logout": "The session has been successfully closed"
+    "toast.info.logout": "The session has been successfully closed",
+    "toast.info.success": "Data saved successfuly"
 }

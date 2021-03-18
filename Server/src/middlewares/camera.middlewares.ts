@@ -37,6 +37,7 @@ export async function insert(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
+        req.body.id = res.locals.cameraId;
         const result = await database.updateCamera(req.body);
 
         if (result.affectedRows == 1) {

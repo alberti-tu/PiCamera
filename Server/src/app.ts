@@ -39,6 +39,8 @@ app.put('/api/subscription', authentication.getUserId, subscriptions.update);
 app.delete('/api/subscription/:id', authentication.getUserId, subscriptions.remove);
 
 app.get('/api/settings/camera/:id', authentication.getUserId, authentication.getCameraId, camera.selectOne);
+app.post('/api/settings/camera/:id', authentication.getUserId, authentication.getCameraId, camera.update);
+
 app.get('/api/settings/filters', authentication.getUserId, camera.filtersList);
 
 app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
