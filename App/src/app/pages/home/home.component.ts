@@ -4,7 +4,6 @@ import { HttpService } from 'src/app/services/http/http.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
 
 @Component({
-	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })

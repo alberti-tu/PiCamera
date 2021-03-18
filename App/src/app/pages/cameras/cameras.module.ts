@@ -4,14 +4,17 @@ import { ComponentsModule } from "src/app/components/components.module";
 import { SharedModule } from "src/app/shared.module";
 
 import { CamerasComponent } from "./cameras.component";
+import { DetailComponent } from './detail/detail.component';
 
 const routes: Routes = [
-    { path: '', component: CamerasComponent }
+    { path: '', component: CamerasComponent },
+    { path: ':id', component: DetailComponent }
 ];
 
 @NgModule({
     declarations: [
-        CamerasComponent
+        CamerasComponent,
+        DetailComponent
     ],
     imports: [
         ComponentsModule,

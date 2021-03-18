@@ -7,7 +7,6 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
-	selector: 'app-cameras',
 	templateUrl: './cameras.component.html',
 	styleUrls: ['./cameras.component.scss']
 })
