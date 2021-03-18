@@ -18,6 +18,7 @@ export async function selectAll(req: Request<any>, res: Response<Message<CameraS
 export async function selectOne(req: Request<any>, res: Response<Message<CameraSubscription>>, next: NextFunction) {
     try {
         const subscription = await database.selectOneSubscription(res.locals.userId, res.locals.cameraId);
+        delete subscription.user_id;
         res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscription });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });

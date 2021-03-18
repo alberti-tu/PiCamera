@@ -7,7 +7,9 @@ import { RouterModule } from "@angular/router";
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatButtonModule,
         MatDialogModule,
         MatListModule,
+        MatSelectModule,
         MatSidenavModule,
+        MatSliderModule,
         MatToolbarModule
     ]
 })

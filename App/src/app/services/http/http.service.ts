@@ -36,6 +36,10 @@ export class HttpService {
 	}
 
 	public getCamera(id: string): Observable<Message<PictureOptions>> {
-		return this.http.get<Message<PictureOptions>>(environment.url + '/api/camera/settings/' + id);
+		return this.http.get<Message<PictureOptions>>(environment.url + '/api/settings/camera/' + id);
 	}
+
+	public getFilters(): Observable<Message<string[]>> {
+		return this.http.get<Message<string[]>>(environment.url + '/api/settings/filters');
+	} 
 }

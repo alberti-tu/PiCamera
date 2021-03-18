@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { PictureOptions } from '../models/database.models';
 import { HttpMessage, Message } from '../models/http.models';
 import { setStream } from './socket.middlewares';
+import { filters } from '../config';
 
 import * as database from './database.middlewares';
 
@@ -66,6 +67,14 @@ export async function picture(req: Request<any>, res: Response<Message<boolean>>
     try {
         setStream(res.locals.cameraId, req.body.data);
         res.status(200).send({ code: 200, message: HttpMessage.Successful, result: false });
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
+export async function filtersList(req: Request<any>, res: Response<Message<string[]>>, next: NextFunction) {
+    try {
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: filters });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }

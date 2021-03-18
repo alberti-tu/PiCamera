@@ -96,10 +96,11 @@ export async function selectAllSubscriptions(userId: string): Promise<Subscripti
     return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ?', [ userId ]);
 }
 
-export async function selectOneSubscription(userId: string, cameraId: string) {
+export async function selectOneSubscription(userId: string, cameraId: string): Promise<SubscriptionDTO> {
     const subscriptions = await database.query<SubscriptionDTO>('SELECT * FROM subscriptions WHERE user_id = ? AND camera_id = ? LIMIT 1', [ userId, cameraId ]);
     return subscriptions != null ? subscriptions[0] : null;
 }
+
 export async function insertSubscriptions(userId: string, cameraId: string): Promise<string> {
     try {
         const id = crypto.createHash('sha256').update(userId + cameraId).digest('hex');

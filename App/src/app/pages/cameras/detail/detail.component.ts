@@ -9,10 +9,12 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class DetailComponent implements OnInit {
 
-	public camera: PictureOptions = null;
+	public camera: PictureOptions = { filter: '', quality: 0, rotation: 0 };;
 
 	public cameraId: string = null;
 	public cameraName: string = '';
+
+	public filtersList: string[] = [];
 
 	constructor(private _http: HttpService, private _route: ActivatedRoute) { }
 
@@ -26,6 +28,15 @@ export class DetailComponent implements OnInit {
 		this._http.getCamera(this.cameraId).subscribe(data => {
 			this.camera = data.result;
 		});
+
+		this._http.getFilters().subscribe(data => {
+			this.filtersList = data.result;
+		});
 	}
 
+	public saveSettings(form: PictureOptions): void {
+		form.rotation = form.rotation % 360;
+
+		console.log(form)
+	}
 }
