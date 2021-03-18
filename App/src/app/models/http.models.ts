@@ -15,3 +15,9 @@ export interface FrameStream {
     name: string;
     data: string;
 }
+
+export interface PictureOptions {
+    filter?: string;
+    quality?: number;
+    rotation?: number;
+}

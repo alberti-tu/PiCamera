@@ -32,15 +32,18 @@ io.on('connection', (client: Socket) => socket.connection(io, client));
 // Backend routes
 app.post('/api/user/login', authentication.login);
 
-app.get('/api/subscription', authentication.verifyToken, subscriptions.selectAll);
-app.post('/api/subscription/:id', authentication.verifyToken, subscriptions.insert);
-app.put('/api/subscription', authentication.verifyToken, subscriptions.update);
-app.delete('/api/subscription/:id', authentication.verifyToken, subscriptions.remove);
+app.get('/api/subscription', authentication.getUserId, subscriptions.selectAll);
+app.get('/api/subscription/:id', authentication.getUserId, authentication.getCameraId, subscriptions.selectOne);
+app.post('/api/subscription/:id', authentication.getUserId, subscriptions.insert);
+app.put('/api/subscription', authentication.getUserId, subscriptions.update);
+app.delete('/api/subscription/:id', authentication.getUserId, subscriptions.remove);
 
-app.get('/api/camera/:id', authentication.getCameraId, camera.selectOne);
-app.post('/api/camera/:id', authentication.getCameraId, camera.insert);
+app.get('/api/camera/settings/:id', authentication.getUserId, authentication.getCameraId, camera.selectOne);
 
-app.post('/api/camera/picture/:id', authentication.getCameraId, camera.picture);
+app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
+app.post('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.insert);
+
+app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.decodeCameraId, camera.picture);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

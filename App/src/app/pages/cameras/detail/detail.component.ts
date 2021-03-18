@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PictureOptions } from 'src/app/models/http.models';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -8,14 +9,23 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class DetailComponent implements OnInit {
 
-	public camera_id: string = null;
-	public camera_name: string = '';
+	public camera: PictureOptions = null;
+
+	public cameraId: string = null;
+	public cameraName: string = '';
 
 	constructor(private _http: HttpService, private _route: ActivatedRoute) { }
 
 	public ngOnInit(): void {
-		this.camera_id = this._route.snapshot.params.id;
-		this.camera_name = this.camera_id;
+		this.cameraId = this._route.snapshot.params.id;
+
+		this._http.getOneSubscription(this.cameraId).subscribe(data => {
+			this.cameraName = data.result.name;
+		});
+
+		this._http.getCamera(this.cameraId).subscribe(data => {
+			this.camera = data.result;
+		});
 	}
 
 }

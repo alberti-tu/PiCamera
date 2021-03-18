@@ -7,9 +7,18 @@ import * as database from './database.middlewares';
 
 export async function selectAll(req: Request<any>, res: Response<Message<CameraSubscription[]>>, next: NextFunction) {
     try {
-        const subscriptions = await database.selectSubscriptions(res.locals.userId);
+        const subscriptions = await database.selectAllSubscriptions(res.locals.userId);
         subscriptions.forEach(item => delete item.user_id);
         res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscriptions });
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
+export async function selectOne(req: Request<any>, res: Response<Message<CameraSubscription>>, next: NextFunction) {
+    try {
+        const subscription = await database.selectOneSubscription(res.locals.userId, res.locals.cameraId);
+        res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscription });
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
     }

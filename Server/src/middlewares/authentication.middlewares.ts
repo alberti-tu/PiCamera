@@ -19,7 +19,7 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
     }
 }
 
-export async function verifyToken(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
+export async function getUserId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
     try {
         const token: Token = decodeToken(req.headers.authorization);
         const result = await database.checkUser(token.id);
@@ -35,9 +35,18 @@ export async function verifyToken(req: Request<any>, res: Response<Message<strin
     }
 }
 
-export async function getCameraId(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
+export async function getCameraId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
     try {
-        res.locals = { ...res.locals, cameraId: decryptAES(req.params.id, configuration.server.sharedKey) };
+        res.locals = { ...res.locals, cameraId: req.params.id };
+        next();
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
+export async function decodeCameraId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+    try {
+        res.locals = { ...res.locals, cameraId: decryptAES(res.locals.cameraId, configuration.server.sharedKey) };
         next();
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });

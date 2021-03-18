@@ -33,13 +33,13 @@ export async function connection(io: Server, socket: Socket) {
         socket.disconnect(true);
     }
 
-    const subscriptions = await database.selectSubscriptions(userId);
+    const subscriptions = await database.selectAllSubscriptions(userId);
     list = subscriptions.map<string>(item => item.camera_id);
     socket.emit(SocketEvent.subscriptions, list);
 
     getSubscriptionList().subscribe(async user_id => {
         if (userId == user_id) {
-            const subscriptions = await database.selectSubscriptions(user_id);
+            const subscriptions = await database.selectAllSubscriptions(user_id);
             list = subscriptions.map<string>(item => item.camera_id);
             socket.emit(SocketEvent.subscriptions, list);
         }

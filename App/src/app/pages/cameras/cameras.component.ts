@@ -38,7 +38,7 @@ export class CamerasComponent implements OnInit {
 	}
 
 	public getData(): void {
-		this._http.getSubscriptions().subscribe(data => {
+		this._http.getAllSubscriptions().subscribe(data => {
 			this.cameras = data.result;
 		});
 	}

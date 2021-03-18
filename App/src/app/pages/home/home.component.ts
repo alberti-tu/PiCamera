@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._socket.getSubscriptions().subscribe(event => {
 			this.imageList = event.map<FrameStream>(item => ({ id: item, name: null, data: 'assets/images/error_404.jpg' }));
 
-			this._http.getSubscriptions().subscribe(data => {
+			this._http.getAllSubscriptions().subscribe(data => {
 				this.imageList.forEach(image => {
 					const subscription = data.result.find(item => item.camera_id == image.id);
 
