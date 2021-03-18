@@ -13,7 +13,7 @@
 
     <div class="list">
         <div class="item shadow" *ngFor="let item of cameras">
-            <div class="row-left">
+            <div class="row-left" (click)="open(item)">
                 <p class="header">{{ item.name }}</p>
                 <p class="description">{{ item.camera_id }}</p>
             </div>

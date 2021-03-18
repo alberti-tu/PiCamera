@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DialogData } from 'src/app/components/dialog/dialog.component';
 import { CameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -15,7 +16,7 @@ export class CamerasComponent implements OnInit {
 	public cameras: CameraSubscription[] = [];
 	public form: FormGroup;
 
-	constructor(private _alert: AlertService, private _formBuilder: FormBuilder, private _http: HttpService) {
+	constructor(private _alert: AlertService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) {
 		this.form = this._formBuilder.group({
 			camera: [ '', Validators.required ]
 		});
@@ -37,13 +38,17 @@ export class CamerasComponent implements OnInit {
 		this.form.reset();
 	}
 
-	public getData() {
+	public getData(): void {
 		this._http.getSubscriptions().subscribe(data => {
 			this.cameras = data.result;
 		});
 	}
 
-	public edit(camera: CameraSubscription) {
+	public open(camera: CameraSubscription): void {
+		this._router.navigateByUrl('cameras/' + camera.camera_id);
+	}
+
+	public edit(camera: CameraSubscription): void {
 		const options: DialogData = {
 			header: 'cameras.edit.header',
 			message: 'cameras.edit.message',
@@ -68,7 +73,7 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
-	public remove(camera: CameraSubscription) {
+	public remove(camera: CameraSubscription): void {
 		const options: DialogData = {
 			header: 'cameras.remove.header',
 			message: 'cameras.remove.message',
