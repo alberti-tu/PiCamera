@@ -1,7 +1,6 @@
 import { CameraDTO, SubscriptionDTO, UserDTO } from '../models/database.models';
 import { Database, StatusDatabase } from '../services/database.services';
 import { configuration } from '../config';
-import readline from 'readline';
 import crypto from 'crypto';
 
 const database = Database.getInstance(configuration.database);
@@ -17,26 +16,6 @@ export async function init() {
         ];
 
         await database.createDatabase(queries);
-
-        const read = readline.createInterface({ input: process.stdin, output: process.stdout });
-
-        console.log('\n+----- REGISTER ADMIN USER -----+\n');
-        read.question('Username: ', async username => {
-            read.question('Password: ', async password => {
-                console.log('\n+--------------------------------+\n');
-
-                const result = await insertUser(username, password);
-
-                if (result != null) {
-                    console.log('User added to database\n');
-                } else {
-                    console.log('Error: User not added\n');
-                    process.exit(2);
-                }
-
-                read.close();
-            });
-        });
     }
 }
 
