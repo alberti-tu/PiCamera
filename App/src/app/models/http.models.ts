@@ -16,7 +16,7 @@ export interface FrameStream {
     data: string;
 }
 
-export interface PictureOptions {
+export interface CameraOptions {
     filter?: string;
     quality?: number;
     rotation?: number;

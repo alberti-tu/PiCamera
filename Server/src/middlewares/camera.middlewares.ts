@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { PictureOptions } from '../models/database.models';
+import { CameraOptions } from '../models/database.models';
 import { HttpMessage, Message } from '../models/http.models';
 import { setStream } from './socket.middlewares';
 import { filters } from '../config';
 
 import * as database from './database.middlewares';
 
-export async function selectOne(req: Request<any>, res: Response<Message<PictureOptions>>, next: NextFunction) {
+export async function selectOne(req: Request<any>, res: Response<Message<CameraOptions>>, next: NextFunction) {
     try {
         const camera = await database.selectCamera(res.locals.cameraId);
 

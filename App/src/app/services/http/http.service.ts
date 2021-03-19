@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CameraSubscription, Message, PictureOptions } from 'src/app/models/http.models';
+import { CameraOptions, CameraSubscription, Message } from 'src/app/models/http.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -35,15 +35,19 @@ export class HttpService {
 		return this.http.delete<Message<boolean>>(environment.url + '/api/subscription/' + id);
 	}
 
-	public getSettings(id: string): Observable<Message<PictureOptions>> {
-		return this.http.get<Message<PictureOptions>>(environment.url + '/api/settings/camera/' + id);
+	public getSettings(id: string): Observable<Message<CameraOptions>> {
+		return this.http.get<Message<CameraOptions>>(environment.url + '/api/settings/camera/' + id);
 	}
 
-	public saveSettings(id: string, body: PictureOptions): Observable<Message<boolean>> {
+	public saveSettings(id: string, body: CameraOptions): Observable<Message<boolean>> {
 		return this.http.post<Message<boolean>>(environment.url + '/api/settings/camera/' + id, body);
 	}
 
 	public getFilters(): Observable<Message<string[]>> {
 		return this.http.get<Message<string[]>>(environment.url + '/api/settings/filters');
-	} 
+	}
+	
+	public savePicture(): Observable<Message<boolean>> {
+		return this.http.get<Message<boolean>>(environment.url + '/api/settings/filters');
+	}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PictureOptions } from 'src/app/models/http.models';
+import { CameraOptions } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
@@ -10,7 +10,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class DetailComponent implements OnInit {
 
-	public camera: PictureOptions = { filter: 'auto', quality: 0, rotation: 0 };
+	public camera: CameraOptions = { filter: 'auto', quality: 0, rotation: 0 };
 
 	public cameraId: string = null;
 	public cameraName: string = '';
@@ -35,7 +35,7 @@ export class DetailComponent implements OnInit {
 		});
 	}
 
-	public saveSettings(form: PictureOptions): void {
+	public saveSettings(form: CameraOptions): void {
 		form.rotation = form.rotation % 360;
 
 		this._http.saveSettings(this.cameraId, form).subscribe(data => {

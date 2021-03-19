@@ -4,12 +4,12 @@ export interface UserDTO {
     password?: string;
 }
 
-export interface CameraDTO extends PictureOptions {
+export interface CameraDTO extends CameraOptions {
     id?: string;
     timestamp?: Date;
 }
 
-export interface PictureOptions {
+export interface CameraOptions {
     filter?: string;
     quality?: number;
     rotation?: number;
