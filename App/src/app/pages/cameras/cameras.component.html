@@ -11,7 +11,7 @@
         </div>
     </form>
 
-    <div class="list">
+    <div *ngIf="cameras.length != 0" class="list">
         <div class="item shadow" *ngFor="let item of cameras">
             <div class="row-left" (click)="open(item)">
                 <p class="header">{{ item.name }}</p>
@@ -23,5 +23,10 @@
                 <img src="assets/icons/trash.svg" (click)="remove(item)">
             </div>
         </div>
+    </div>
+
+    <div *ngIf="cameras.length == 0" class="empty">
+        <img src="assets/icons/camera.svg">
+        <p translate>cameras.empty</p>
     </div>
 </div>

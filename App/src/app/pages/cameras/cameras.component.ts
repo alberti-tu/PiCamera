@@ -50,7 +50,6 @@ export class CamerasComponent implements OnInit {
 	public edit(camera: CameraSubscription): void {
 		const options: DialogData = {
 			header: 'cameras.edit.header',
-			message: 'cameras.edit.message',
 			inputs: [
 				{ text: 'cameras.edit.input.text', value: camera.name }
 			],

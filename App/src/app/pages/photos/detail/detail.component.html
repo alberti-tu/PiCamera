@@ -11,4 +11,9 @@
             <img [src]="image.data">
         </div>
     </div>
+
+    <div *ngIf="imageList.length == 0" class="empty">
+        <img src="assets/icons/picture.svg">
+        <p>{{ 'cameras.detail.empty' | translate }} <a href="/home" translate>cameras.detail.link</a></p>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="home-container">
     <app-toolbar [header]="'page.home'"></app-toolbar>
 
-    <div class="list">
+    <div *ngIf="imageList.length != 0" class="list">
         <div class="item shadow" *ngFor="let image of imageList">
             <div class="header">
                 <p>{{ image.name }}</p>
@@ -10,5 +10,10 @@
             
             <img [src]="image.data">
         </div>
+    </div>
+
+    <div *ngIf="imageList.length == 0" class="empty">
+        <img src="assets/icons/camera.svg">
+        <p>{{ 'home.empty' | translate }} <a href="/cameras" translate>home.link</a></p>
     </div>
 </div>
