@@ -3,7 +3,7 @@
     "cameras.input": "Identificador de cámara",
     "cameras.button": "Añadir",
     "cameras.detail.filter": "Filtro",
-    "cameras.detail.empty": "Parece que no tienes imágenes guardadas.\nPara tomar una accede aquí.",
+    "cameras.detail.empty": "Parece que no tienes imágenes guardadas.\nPara tomar una accede",
     "cameras.detail.link": "aquí.",
     "cameras.detail.list.auto": "Auto",
     "cameras.detail.list.backlight": "Luz de fondo",
