@@ -5,7 +5,7 @@
         <div class="item shadow" *ngFor="let image of imageList">
             <div class="header">
                 <p>{{ image.name }}</p>
-                <!--<img src="assets/icons/save.svg">-->
+                <img *ngIf="errorImage != image.data" src="assets/icons/save.svg" (click)="savePicture(image)">
             </div>
             
             <img [src]="image.data">
