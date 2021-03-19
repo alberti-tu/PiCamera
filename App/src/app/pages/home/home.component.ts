@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public savePicture(frame: FrameStream): void {
-		this._http.savePicture(frame.id, frame.data).subscribe(data => {
+		const data = frame.data.replace('data:image/jpg;base64,', '');
+		this._http.savePicture(frame.id, data).subscribe(data => {
 			if (data.result) {
 				this._alert.showToast('toast.info.success');
 			}

@@ -22,7 +22,7 @@ export async function getFolderId(req: Request<any>, res: Response<Message<strin
 
 export async function savePicture(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result: boolean = File.writeFile(configuration.server.directory + '/' + res.locals.cameraId, req.body.data, 'txt');
+        const result: boolean = File.writeFile(configuration.server.directory + '/' + res.locals.cameraId, req.body.data, 'jpg');
 
         if (result) {
             res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
