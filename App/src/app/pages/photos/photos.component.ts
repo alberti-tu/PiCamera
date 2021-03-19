@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
 	templateUrl: './photos.component.html',
@@ -6,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-	constructor() { }
+	constructor(private _alert: AlertService, private _http: HttpService) { }
 
 	public ngOnInit(): void { }
 

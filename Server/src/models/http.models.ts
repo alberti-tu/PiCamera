@@ -14,6 +14,7 @@ export enum HttpMessage {
 }
 
 export interface ServerOptions {
+    directory: string;
     port: number;
     sharedKey: string;
     timeout: string;
