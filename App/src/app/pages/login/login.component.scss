@@ -4,12 +4,20 @@
 
     .logo {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
 
-        padding: 3rem 2rem;
+        padding: 2rem;
         
         img {
             height: 10em;
+        }
+
+        p {
+            align-self: center;
+            line-height: 2em;
+            font-size: 2em;
+    
+            margin: 0;
         }
     }
 

@@ -11,34 +11,29 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class RegisterComponent implements OnInit {
 
 	public form: FormGroup;
-	public showPassword: boolean;
+	public showPassword1: boolean;
+	public showPassword2: boolean;
 
 	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) { }
 
 	public ngOnInit(): void {
 		this.form = this._formBuilder.group({
 			username: [ '', Validators.required ],
-			password: [ '', Validators.required ]
+			password1: [ '', Validators.required ],
+			password2: [ '', Validators.required ],
 		});
 	}
 
 	public async sendForm(): Promise<void> {
-		const username = this.form.value.username;
-		const password = this._auth.hash(this.form.value.password);
-
-		this._http.login(username, password).subscribe(data => {
-			if (data.result) {
-				this._auth.setToken(data.result);
-				this.form.reset();
-			} else {
-				this._auth.removeToken();
-				this._alert.showToast('toast.error.login');
-			}
-		});
+		console.log(this.form.value);
 	}
 
-	public passwordButton(): any {
-		this.showPassword = !this.showPassword;
+	public password1Button(): any {
+		this.showPassword1 = !this.showPassword1;
+	}
+
+	public password2Button(): any {
+		this.showPassword2 = !this.showPassword2;
 	}
 
 	public hasError(name: string): string {
