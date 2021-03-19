@@ -34,9 +34,9 @@ app.post('/api/user/login', authentication.login);
 
 app.get('/api/subscription', authentication.getUserId, subscriptions.selectAll);
 app.get('/api/subscription/:id', authentication.getUserId, authentication.getCameraId, subscriptions.selectOne);
-app.post('/api/subscription/:id', authentication.getUserId, subscriptions.insert);
+app.post('/api/subscription/:id', authentication.getUserId, authentication.getCameraId, subscriptions.insert);
 app.put('/api/subscription', authentication.getUserId, subscriptions.update);
-app.delete('/api/subscription/:id', authentication.getUserId, subscriptions.remove);
+app.delete('/api/subscription/:subscription', authentication.getUserId, subscriptions.remove);
 
 app.get('/api/settings/camera/:id', authentication.getUserId, authentication.getCameraId, camera.selectOne);
 app.post('/api/settings/camera/:id', authentication.getUserId, authentication.getCameraId, camera.update);

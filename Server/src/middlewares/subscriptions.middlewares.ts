@@ -27,7 +27,7 @@ export async function selectOne(req: Request<any>, res: Response<Message<CameraS
 
 export async function insert(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.insertSubscriptions(res.locals.userId, req.params.id);
+        const result = await database.insertSubscriptions(res.locals.userId, res.locals.cameraId);
         setSubscriptionList(res.locals.userId);
 
         if (result != null) {
@@ -56,7 +56,7 @@ export async function update(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.deleteSubscriptions(req.params.id);
+        const result = await database.deleteSubscriptions(req.params.subscription);
         setSubscriptionList(res.locals.userId);
 
         if (result.affectedRows == 1) {
