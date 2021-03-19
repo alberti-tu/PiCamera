@@ -10,7 +10,9 @@
             <div class="input-row">
                 <input formControlName="username" type="text">
             </div>
-            <div *ngIf="hasError('username') == 'required'" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('username', 'required')" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('username', 'minlength')" class="errorMessage" translate>error.minLength</div>
+            <div *ngIf="hasError('username', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
         </div>
     
         <div class="formField">
@@ -19,8 +21,9 @@
                 <input formControlName="password1" type="{{ showPassword1 ? 'text' : 'password' }}">
                 <img src="assets/icons/eye-{{ showPassword1 ? 'close' : 'open'}}.svg" (click)="password1Button()">
             </div>
-
-            <div *ngIf="hasError('password1') == 'required'" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('password1', 'required')" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('password1', 'minlength')" class="errorMessage" translate>error.minLength</div>
+            <div *ngIf="hasError('password1', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
         </div>
 
         <div class="formField">
@@ -30,7 +33,9 @@
                 <img src="assets/icons/eye-{{ showPassword2 ? 'close' : 'open'}}.svg" (click)="password2Button()">
             </div>
 
-            <div *ngIf="hasError('password2') == 'required'" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('password2', 'required')" class="errorMessage" translate>error.required</div>
+            <div *ngIf="hasError('password2', 'minlength')" class="errorMessage" translate>error.minLength</div>
+            <div *ngIf="hasError('password2', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
         </div>
     
         <div class="formButton">

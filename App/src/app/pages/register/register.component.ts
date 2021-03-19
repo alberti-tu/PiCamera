@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
+import { CustomValidator } from 'src/app/components/utils';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './register.component.html',
@@ -14,18 +16,30 @@ export class RegisterComponent implements OnInit {
 	public showPassword1: boolean;
 	public showPassword2: boolean;
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) { }
+	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) { }
 
 	public ngOnInit(): void {
 		this.form = this._formBuilder.group({
-			username: [ '', Validators.required ],
-			password1: [ '', Validators.required ],
-			password2: [ '', Validators.required ],
+			username: [ '', [ Validators.required, Validators.minLength(2), CustomValidator.whiteSpace ] ],
+			password1: [ '', [ Validators.required, Validators.minLength(2), CustomValidator.whiteSpace ] ],
+			password2: [ '', [ Validators.required, Validators.minLength(2), CustomValidator.whiteSpace ] ],
 		});
 	}
 
-	public async sendForm(): Promise<void> {
-		console.log(this.form.value);
+	public sendForm(): void {
+		if (this.form.value.password1 != this.form.value.password2) {
+			this._alert.showToast('toast.error.differentPassword');
+			return;
+		}
+
+		const username = this.form.value.username;
+		const password = this._auth.hash(this.form.value.password1);
+
+		console.log(username, password);
+
+		// TODO: http POST /api/register
+
+		this._router.navigateByUrl('login')
 	}
 
 	public password1Button(): any {
@@ -36,9 +50,9 @@ export class RegisterComponent implements OnInit {
 		this.showPassword2 = !this.showPassword2;
 	}
 
-	public hasError(name: string): string {
+	public hasError(name: string, error: string): boolean {
 		const control = this.form.get(name);
-		return control && control.touched && control.errors ? Object.keys(control.errors).join() : null;	
+		return control && control.touched && control.errors && control.errors[error];
 	}
 
 }
