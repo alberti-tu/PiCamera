@@ -1,9 +1,0 @@
-# PiCamera-server
-/PiCamera-server/package-lock.json
-/PiCamera-server/node_modules
-/PiCamera-server/camera
-/PiCamera-server/out
-
-# PiCamera-client
-/PiCamera-client/package-lock.json
-/PiCamera-client/node_modules
