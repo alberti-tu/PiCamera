@@ -1,0 +1,39 @@
+<div class="detail-container">
+    <app-toolbar [header]="cameraName" [back]="true"></app-toolbar>
+
+    <form #detailForm="ngForm" (ngSubmit)="saveSettings(detailForm.form.value)">
+        <div class="formField">
+            <div translate>cameras.detail.filter</div>
+    
+            <div>
+                <mat-select [(ngModel)]="camera.filter" name="filter">
+                    <mat-option *ngFor="let option of filtersList" value="{{ option }}">
+                        <span translate>cameras.detail.list.{{ option }}</span>
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="formField">
+            <div translate>cameras.detail.quality</div>
+    
+            <div>
+                <mat-slider [(ngModel)]="camera.quality" name="quality" color="primary" min="1" max="100" step="1" thumbLabel></mat-slider>
+            </div>
+        </div>
+    
+        <div class="formField">
+            <div translate>cameras.detail.rotation</div>
+    
+            <div>
+                <mat-slider [(ngModel)]="camera.rotation" name="rotation" color="primary" min="0" max="360" step="90" thumbLabel></mat-slider>
+            </div>
+        </div>
+
+        <div class="formButton">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!detailForm.form.valid">
+                <span translate>cameras.detail.button</span>
+            </button>
+        </div>
+    </form>
+</div>

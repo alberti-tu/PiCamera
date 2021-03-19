@@ -1,0 +1,33 @@
+{
+	"name": "picamera",
+	"version": "2.0.0",
+	"description": "Security camera network on NodeJS and Raspberry Pi",
+	"scripts": {
+		"start:app": "cd App && npm start",
+		"start:client": "cd Client && npm start",
+		"start:server": "cd Server && npm start",
+		
+		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
+		"build:app": "cd App && npm run build",
+		"build:client": "cd Client && npm run build",
+		"build:server": "cd Server && npm run build",
+
+		"config:client": "cd Client && npm run config",
+		"config:server": "cd Server && npm run config",
+		
+		"install": "cd Server && npm i && cd ../Client && npm i && cd ../App && npm i",
+		"install:app": "cd App && npm i",
+		"install:client": "cd Client && npm i",
+		"install:server": "cd Server && npm i"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/alberti-tu/PiCamera.git"
+	},
+	"author": "alberti-tu",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/alberti-tu/PiCamera/issues"
+	},
+	"homepage": "https://github.com/alberti-tu/PiCamera#readme"
+}

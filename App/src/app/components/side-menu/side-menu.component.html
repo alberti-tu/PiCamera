@@ -1,0 +1,18 @@
+<div class="side-menu-container" [ngStyle]="sideMenuContainer()">
+    <mat-sidenav-container>
+        <mat-sidenav #sideMenu mode="over">
+            <mat-list>
+                <mat-list-item *ngFor="let page of pages" (click)="navigateTo(page.path)">
+                    <img src="assets/icons/{{ page.icon }}">
+                    <p translate>{{ page.name }}</p>
+                </mat-list-item>
+            </mat-list>
+        </mat-sidenav>
+    
+        <mat-sidenav-content></mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
+
+<div class="side-menu-content" (click)="sideMenu.toggle()">
+    <ng-content></ng-content>
+</div>

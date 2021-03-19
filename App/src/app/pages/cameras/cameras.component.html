@@ -1,0 +1,32 @@
+<div class="cameras-container">
+    <app-toolbar [header]="'page.cameras'"></app-toolbar>
+
+    <form [formGroup]="form" (submit)="sendForm()">
+        <div class="input-row shadow">
+            <input formControlName="camera" type="text" [placeholder]="'cameras.input' | translate">
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+                <span translate>cameras.button</span>
+            </button>
+        </div>
+    </form>
+
+    <div *ngIf="cameras.length != 0" class="list">
+        <div class="item shadow" *ngFor="let item of cameras">
+            <div class="row-left" (click)="open(item)">
+                <p class="header">{{ item.name }}</p>
+                <p class="description">{{ item.camera_id }}</p>
+            </div>
+
+            <div class="row-right">
+                <img src="assets/icons/edit.svg" (click)="edit(item)">
+                <img src="assets/icons/trash.svg" (click)="remove(item)">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="cameras.length == 0" class="empty">
+        <img src="assets/icons/camera.svg">
+        <p translate>cameras.empty</p>
+    </div>
+</div>

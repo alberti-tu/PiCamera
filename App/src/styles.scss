@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+@import 'src/theme/colors.scss';
+@import 'src/theme/global.scss';
+
+@include mat-core();
+
+$PiCamera-primary: mat-palette($primary-palette);
+$PiCamera-accent: mat-palette($secondary-palette);
+$PiCamera-warn: mat-palette($warn-palette);
+$PiCamera-theme: mat-light-theme($PiCamera-primary, $PiCamera-accent, $PiCamera-warn);
+
+@include angular-material-theme($PiCamera-theme);
+
+.primary {
+	background-color: mat-color($PiCamera-primary);
+	color: white;
+}
+
+.accent {
+	background-color: mat-color($PiCamera-accent);
+	color: white;
+}
+
+.warn {
+	background-color: mat-color($PiCamera-warn);
+	color: white;
+}

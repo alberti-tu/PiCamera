@@ -1,0 +1,35 @@
+.photos-container {
+    position: relative;
+    height: 100vh;
+
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        justify-content: center;
+
+        margin: 3rem 0rem;
+    }
+
+    .item {
+        border-radius: 0.5rem;
+        margin: 1rem;
+
+        width: 300px;
+
+        background-color: #f0f0f0;
+
+        cursor: pointer;
+
+        .header {
+            font-size: 1.25em;
+            font-weight: 500;
+            margin: 1rem 1rem 0.5rem;
+        }
+
+        .description {
+            font-size: 1em;
+            margin: 0.5rem 1rem 1rem;
+        }
+    }
+}

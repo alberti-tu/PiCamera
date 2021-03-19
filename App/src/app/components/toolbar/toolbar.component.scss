@@ -1,0 +1,25 @@
+.toolbar-container {
+    position: static;
+
+    display: flex;
+    flex-direction: row;
+
+    padding: 0.5rem 1.5rem;
+
+    .action {
+        align-self: center;
+
+        img {
+            height: 2em;
+            cursor: pointer;
+        }
+    }
+
+    p {
+        padding-left: 1rem;
+        line-height: 2em;
+        font-size: 1.5em;
+        font-weight: 500;
+        margin: 0;
+    }
+}

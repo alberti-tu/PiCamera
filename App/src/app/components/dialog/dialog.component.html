@@ -1,0 +1,16 @@
+<div class="dialogComponent">
+    <h1 *ngIf="data.header" class="dialogHeader" translate>{{ data.header }}</h1>
+    
+    <p *ngIf="data.message" class="dialogMessage" translate>{{ data.message }}</p>
+
+    <div *ngIf="data.inputs" class="dialogInputs">
+        <input *ngFor="let input of data.inputs" [(ngModel)]="input.value" type="text" [placeholder]="input.text | translate">
+    </div>
+    
+    <div *ngIf="data.buttons" class="dialogButtons">
+        <div *ngFor="let button of data.buttons">
+            <button *ngIf="button.isPrimary" mat-raised-button color="primary" (click)="onClick(button)">{{ button.text | translate }}</button>
+            <button *ngIf="!button.isPrimary" mat-button (click)="onClick(button)">{{ button.text | translate }}</button>
+        </div>
+    </div>
+</div>
