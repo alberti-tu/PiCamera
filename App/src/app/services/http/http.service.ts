@@ -22,8 +22,8 @@ export class HttpService {
 		return this.http.get<any>(environment.url + '/api/subscription/' + cameraId);
 	}
 
-	public addSubscription(id: string): Observable<Message<boolean>> {
-		return this.http.post<any>(environment.url + '/api/subscription/' + id, null);
+	public addSubscription(cameraId: string): Observable<Message<boolean>> {
+		return this.http.post<any>(environment.url + '/api/subscription/' + cameraId, null);
 	}
 
 	public updateSubscription(id: string, name: string): Observable<Message<boolean>> {
@@ -35,32 +35,32 @@ export class HttpService {
 		return this.http.delete<any>(environment.url + '/api/subscription/' + id);
 	}
 
-	public getSettings(id: string): Observable<Message<CameraOptions>> {
-		return this.http.get<any>(environment.url + '/api/settings/camera/' + id);
+	public getSettings(cameraId: string): Observable<Message<CameraOptions>> {
+		return this.http.get<any>(environment.url + '/api/settings/camera/' + cameraId);
 	}
 
-	public saveSettings(id: string, body: CameraOptions): Observable<Message<boolean>> {
-		return this.http.post<any>(environment.url + '/api/settings/camera/' + id, body);
+	public saveSettings(cameraId: string, body: CameraOptions): Observable<Message<boolean>> {
+		return this.http.post<any>(environment.url + '/api/settings/camera/' + cameraId, body);
 	}
 
 	public getFilters(): Observable<Message<string[]>> {
 		return this.http.get<any>(environment.url + '/api/settings/filters');
 	}
 
-	public getFolderId(id: string): Observable<Message<string[]>> {
-		return this.http.get<any>(environment.url + '/api/picture/' + id);
+	public getFolderId(cameraId: string): Observable<Message<string[]>> {
+		return this.http.get<any>(environment.url + '/api/picture/' + cameraId);
 	}
 
-	public savePicture(id: string, data: string): Observable<Message<boolean>> {
+	public savePicture(cameraId: string, data: string): Observable<Message<boolean>> {
 		const body = { data };
-		return this.http.post<any>(environment.url + '/api/picture/' + id, body);
+		return this.http.post<any>(environment.url + '/api/picture/' + cameraId, body);
 	}
 
-	public getPicture(id: string, name: string): Observable<Message<string>> {
-		return this.http.get<any>(environment.url + '/api/picture/' + id + '/' + name);
+	public getPicture(cameraId: string, name: string): Observable<Message<string>> {
+		return this.http.get<any>(environment.url + '/api/picture/' + cameraId + '/' + name);
 	}
 
-	public removePicture(id: string, name: string): Observable<Message<boolean>> {
-		return this.http.delete<any>(environment.url + '/api/picture/' + id + '/' + name);
+	public removePicture(cameraId: string, name: string): Observable<Message<boolean>> {
+		return this.http.delete<any>(environment.url + '/api/picture/' + cameraId + '/' + name);
 	}
 }
