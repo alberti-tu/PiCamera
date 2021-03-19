@@ -50,7 +50,7 @@
         .formButton {
             display: flex;
             flex-direction: column;
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 2rem;
 
             button {
                 text-transform: uppercase;
@@ -63,6 +63,15 @@
             font-weight: bold;
             font-size: 1em;
             color: red;
+        }
+
+        .register {
+            p {
+                line-height: 1.125em;
+                text-align: center;
+                font-size: 1.125em;
+                margin: 1rem;
+            }
         }
     }
 }
