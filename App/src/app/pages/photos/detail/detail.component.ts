@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DialogData } from 'src/app/components/dialog/dialog.component';
 import { Image } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -30,10 +31,23 @@ export class DetailComponent implements OnInit {
 	}
 
 	public remove(image: Image) {
-		this._http.removePicture(this.cameraId, image.name).subscribe(data => {
-			if (data.result) {
-				this._alert.showToast('toast.info.success');
+		const options: DialogData = {
+			header: 'photos.remove.header',
+			buttons: [
+				{ text: 'photos.remove.button.cancel', value: 'cancel' },
+				{ text: 'photos.remove.button.accept', value: 'ok', isPrimary: true }
+			]
+		};
+		this._alert.showDialog(options).subscribe(result => {
+			if (result == null || result.button == 'cancel') {
+				return;
 			}
+
+			this._http.removePicture(this.cameraId, image.name).subscribe(data => {
+				if (data.result) {
+					this.imageList = this.imageList.filter(item => item.name != image.name);
+				}
+			});
 		});
 	}
 }

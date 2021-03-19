@@ -53,7 +53,7 @@ export async function removePicture(req: Request<any>, res: Response<Message<boo
         const result: boolean = File.removeFile(configuration.server.directory + '/' + res.locals.cameraId, req.params.name);
 
         if (result) {
-            res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
+            res.status(201).send({ code: 200, message: HttpMessage.Successful, result: true });
         } else {
             res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
         }

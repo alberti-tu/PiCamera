@@ -75,7 +75,6 @@ export class CamerasComponent implements OnInit {
 	public remove(camera: CameraSubscription): void {
 		const options: DialogData = {
 			header: 'cameras.remove.header',
-			message: 'cameras.remove.message',
 			buttons: [
 				{ text: 'cameras.remove.button.cancel', value: 'cancel' },
 				{ text: 'cameras.remove.button.accept', value: 'ok', isPrimary: true }
