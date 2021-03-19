@@ -27,6 +27,12 @@ export class DetailComponent implements OnInit {
 
 		this._http.getFolderId(this.cameraId).subscribe(data => {
 			this.imageList = data.result.map<Image>(item => ({ name: item }));
+
+			this.imageList.forEach(item => {
+				this._http.getPicture(this.cameraId, item.name).subscribe(data => {
+					item.data = 'data:image/jpg;base64,'+ data.result;
+				});
+			});
 		});
 	}
 
