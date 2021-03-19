@@ -38,6 +38,7 @@ app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.d
 
 // App - Backend routes
 app.post('/api/user/login', authentication.login);
+app.post('/api/user/register', authentication.register);
 
 app.get('/api/subscription', authentication.getUserId, subscriptions.selectAll);
 app.get('/api/subscription/:id', authentication.getUserId, authentication.getCameraId, subscriptions.selectOne);

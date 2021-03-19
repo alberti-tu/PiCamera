@@ -19,6 +19,20 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
     }
 }
 
+export async function register(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        const id: string = await database.insertUser(req.body.username, req.body.password);
+
+        if (id != null) {
+            res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
+        } else {
+            res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: false });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
 export async function getUserId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
     try {
         const token: Token = decodeToken(req.headers.authorization);

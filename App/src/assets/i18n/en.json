@@ -33,7 +33,7 @@
     "login.button": "Log in",
     "login.link": "here.",
     "login.password": "Password",
-    "login.register": "Sign up free",
+    "login.register": "Sign up",
     "login.username": "Username",
     "logout.header": "Do you want to log out?",
     "logout.message": "The next time you log in, you must enter your username and password",

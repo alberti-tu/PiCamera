@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 	public showPassword1: boolean;
 	public showPassword2: boolean;
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) { }
+	constructor(private _alert: AlertService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) { }
 
 	public ngOnInit(): void {
 		this.form = this._formBuilder.group({
@@ -33,13 +33,16 @@ export class RegisterComponent implements OnInit {
 		}
 
 		const username = this.form.value.username;
-		const password = this._auth.hash(this.form.value.password1);
+		const password = this.form.value.password1
 
-		console.log(username, password);
-
-		// TODO: http POST /api/register
-
-		this._router.navigateByUrl('login')
+		this._http.register(username, password).subscribe(data => {
+			if (data.result) {
+				this._alert.showToast('toast.info.success');
+				this._router.navigateByUrl('login');
+			} else {
+				this._alert.showToast('toast.error.badRequest');
+			}
+		});
 	}
 
 	public password1Button(): any {
