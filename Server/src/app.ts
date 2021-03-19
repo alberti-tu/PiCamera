@@ -11,8 +11,9 @@ import { configuration } from './config';
 import * as authentication from './middlewares/authentication.middlewares';
 import * as camera from './middlewares/camera.middlewares';
 import * as database from './middlewares/database.middlewares';
-import * as subscriptions from './middlewares/subscriptions.middlewares';
+import * as picture from './middlewares/picture.middlewares';
 import * as socket from './middlewares/socket.middlewares';
+import * as subscriptions from './middlewares/subscriptions.middlewares';
 
 database.init();
 
@@ -29,7 +30,13 @@ const server = http.createServer(app).listen(configuration.server.port, () => {
 const io: Server = SocketIO(server);
 io.on('connection', (client: Socket) => socket.connection(io, client));
 
-// Backend routes
+// Client - Backend routes
+app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
+app.post('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.insert);
+
+app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.decodeCameraId, camera.picture);
+
+// App - Backend routes
 app.post('/api/user/login', authentication.login);
 
 app.get('/api/subscription', authentication.getUserId, subscriptions.selectAll);
@@ -43,12 +50,12 @@ app.post('/api/settings/camera/:id', authentication.getUserId, authentication.ge
 
 app.get('/api/settings/filters', authentication.getUserId, camera.filtersList);
 
-app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
-app.post('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.insert);
+app.get('/api/picture/:id', authentication.getUserId, authentication.getCameraId, picture.getFolderId);
+app.post('/api/picture/:id', authentication.getUserId, authentication.getCameraId, picture.savePicture);
+app.get('/api/picture/:id/:name', authentication.getUserId, authentication.getCameraId, picture.getPicture);
+app.delete('/api/picture/:id/:name', authentication.getUserId, authentication.getCameraId, picture.removePicture);
 
-app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.decodeCameraId, camera.picture);
-
-// Frontend routes
+// App - Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 app.get('*', (req, res) => {
     if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) res.sendFile( resolveClient('App/out/' + req.url, 1) );

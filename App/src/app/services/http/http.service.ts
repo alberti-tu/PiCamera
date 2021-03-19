@@ -46,8 +46,21 @@ export class HttpService {
 	public getFilters(): Observable<Message<string[]>> {
 		return this.http.get<Message<string[]>>(environment.url + '/api/settings/filters');
 	}
-	
-	public savePicture(): Observable<Message<boolean>> {
-		return this.http.get<Message<boolean>>(environment.url + '/api/settings/filters');
+
+	public getFolderId(id: string): Observable<Message<string[]>> {
+		return this.http.get<Message<string[]>>(environment.url + '/api/picture/' + id);
+	}
+
+	public savePicture(id: string, data: string): Observable<Message<boolean>> {
+		const body = { data };
+		return this.http.post<Message<boolean>>(environment.url + '/api/picture/' + id, body);
+	}
+
+	public getPicture(id: string, name: string): Observable<Message<string>> {
+		return this.http.get<Message<string>>(environment.url + '/api/picture/' + id + '/' + name);
+	}
+
+	public removePicture(id: string, name: string): Observable<Message<boolean>> {
+		return this.http.delete<Message<boolean>>(environment.url + '/api/picture/' + id + '/' + name);
 	}
 }
