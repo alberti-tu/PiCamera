@@ -26,7 +26,7 @@ export interface Token {
     exp: number;
 }
 
-export interface FrameStream {
+export interface Image {
     id: string;
     data: string;
 }

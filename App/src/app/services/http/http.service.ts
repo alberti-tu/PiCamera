@@ -63,4 +63,5 @@ export class HttpService {
 	public removePicture(cameraId: string, name: string): Observable<Message<boolean>> {
 		return this.http.delete<any>(environment.url + '/api/picture/' + cameraId + '/' + name);
 	}
+
 }

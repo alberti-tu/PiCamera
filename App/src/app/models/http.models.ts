@@ -5,15 +5,15 @@ export interface Message<T> {
 }
 
 export interface CameraSubscription {
-    id: string;
-    name: string;
-    camera_id: string;
+    id?: string;
+    name?: string;
+    camera_id?: string;
 }
 
-export interface FrameStream {
-    id: string;
-    name: string;
-    data: string;
+export interface Image {
+    id?: string;
+    name?: string;
+    data?: string;
 }
 
 export interface CameraOptions {

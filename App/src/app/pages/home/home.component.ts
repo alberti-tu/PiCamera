@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FrameStream } from 'src/app/models/http.models';
+import { Image } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
@@ -10,7 +10,7 @@ import { SocketService } from 'src/app/services/socket/socket.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-	public imageList: FrameStream[] = [];
+	public imageList: Image[] = [];
 	public errorImage: string = 'assets/images/error_404.jpg';
 
 	constructor(private _alert: AlertService, private _http: HttpService, private _socket: SocketService) { }
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this._socket.connect();
 
 		this._socket.getSubscriptions().subscribe(event => {
-			this.imageList = event.map<FrameStream>(item => ({ id: item, name: null, data: this.errorImage }));
+			this.imageList = event.map<Image>(item => ({ id: item, name: null, data: this.errorImage }));
 
 			this._http.getAllSubscriptions().subscribe(data => {
 				this.imageList.forEach(image => {
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	public savePicture(frame: FrameStream): void {
+	public savePicture(frame: Image): void {
 		const data = frame.data.replace('data:image/jpg;base64,', '');
 		this._http.savePicture(frame.id, data).subscribe(data => {
 			if (data.result) {

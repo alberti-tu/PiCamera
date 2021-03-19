@@ -30,4 +30,5 @@ export class TranslationService {
 	public availableLanguages(): string[] {
 		return Object.values(Locale);
 	}
+
 }

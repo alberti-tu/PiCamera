@@ -1,11 +1,11 @@
 import { Observable, Subject } from 'rxjs';
 import { Server, Socket } from 'socket.io';
-import { FrameStream } from '../models/http.models';
+import { Image } from '../models/http.models';
 import { decodeToken } from '../services/authentication.services';
 
 import * as database from './database.middlewares';
 
-const dataStream = new Subject<FrameStream>();
+const dataStream = new Subject<Image>();
 const userStream = new Subject<string>();
 
 export enum SocketEvent {
@@ -55,8 +55,8 @@ export async function connection(io: Server, socket: Socket) {
     });
 }
 
-export function getStream(): Observable<FrameStream> {
-    return new Observable<FrameStream>(observer => {
+export function getStream(): Observable<Image> {
+    return new Observable<Image>(observer => {
         dataStream.subscribe(data => observer.next(data));
     });
 }
