@@ -60,6 +60,7 @@
     "toast.error.logout": "La sesión ha expirado, por favor, vuelva a iniciar sesión",
     "toast.error.notAdded": "No se ha podido añadir el elemento solicitado",
     "toast.error.notFound": "No se ha podido encontrar la información solicitada",
+    "toast.error.register": "Este nombre de usuario no está disponible",
     "toast.info.logout": "La sesión se ha cerrado correctamente",
     "toast.info.success": "Datos guardados correctamente"
 }

@@ -26,7 +26,7 @@ export async function register(req: Request<any>, res: Response<Message<boolean>
         if (id != null) {
             res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
         } else {
-            res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: false });
+            res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: false });
         }
     } catch {
         res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
@@ -63,6 +63,6 @@ export async function decodeCameraId(req: Request<any>, res: Response<Message<an
         res.locals = { ...res.locals, cameraId: decryptAES(res.locals.cameraId, configuration.server.sharedKey) };
         next();
     } catch {
-        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+        res.status(401).send({ code: 400, message: HttpMessage.Successful, result: null });
     }
 }

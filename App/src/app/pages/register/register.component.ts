@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
 				this._alert.showToast('toast.info.success');
 				this._router.navigateByUrl('login');
 			} else {
-				this._alert.showToast('toast.error.badRequest');
+				this._alert.showToast('toast.error.register');
 			}
 		});
 	}
