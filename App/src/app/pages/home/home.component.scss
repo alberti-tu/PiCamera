@@ -40,11 +40,13 @@
             }
 
             img {
-                cursor: pointer;
+				transition: all 250ms;
 
                 align-self: center;
                 height: 2em;
                 width: 2em;
+
+				cursor: pointer;
     
                 &:hover {
                     transform: scale(1.25);

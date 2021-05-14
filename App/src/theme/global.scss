@@ -9,8 +9,10 @@ body {
 }
 
 button {
-	cursor: pointer;
+	transition: all 250ms;	
 	padding: 0rem;
+
+	cursor: pointer;
 
 	&:focus {
 		outline: none;
@@ -53,6 +55,7 @@ mat-dialog-container {
 
 .shadow {
 	box-shadow: 0rem 0.375rem 0.75rem #00000033;
+	transition: all 250ms;
 
 	&:hover {
 		box-shadow: 0rem 0.375rem 1.125rem #00000066;
