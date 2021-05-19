@@ -15,10 +15,10 @@
 		"config:client": "cd Client && npm run config",
 		"config:server": "cd Server && npm run config",
 		
-		"install": "cd Server && npm i && cd ../Client && npm i && cd ../App && npm i",
-		"install:app": "cd App && npm i",
-		"install:client": "cd Client && npm i",
-		"install:server": "cd Server && npm i"
+		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
+		"install:app": "cd App && npm i --force",
+		"install:client": "cd Client && npm i --force",
+		"install:server": "cd Server && npm i --force"
 	},
 	"repository": {
 		"type": "git",
