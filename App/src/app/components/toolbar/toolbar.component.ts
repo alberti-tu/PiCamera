@@ -20,7 +20,7 @@ export class ToolbarComponent implements OnInit, AfterViewInit {
 		{ name: 'page.home', icon: 'home.svg', path: 'home' },
 		{ name: 'page.cameras', icon: 'camera.svg', path: 'cameras' },
 		{ name: 'page.photos', icon: 'picture.svg', path: 'photos' },
-		// { name: 'page.settings', icon: 'settings.svg', path: null },
+		{ name: 'page.settings', icon: 'settings.svg', path: 'settings' },
 		{ name: 'page.logout', icon: 'logout.svg', path: null },
 	];
 
