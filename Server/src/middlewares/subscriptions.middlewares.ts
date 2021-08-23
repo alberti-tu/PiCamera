@@ -42,7 +42,7 @@ export async function insert(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.updateSubscriptions(req.body.id, req.body.name);
+        const result = await database.updateSubscriptions(req.body);
 
         if (result.affectedRows == 1) {
             res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });

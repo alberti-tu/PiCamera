@@ -42,8 +42,8 @@ export async function insertUser(username: string, password: string): Promise<st
     }
 }
 
-export async function updateUser(id: string, username: string, password: string) {
-    return await database.query<StatusDatabase>('UPDATE users SET username = ?, password = ? WHERE id = ?', [username, password, id]);
+export async function updateUser(user: UserDTO) {
+    return await database.query<StatusDatabase>('UPDATE users SET username = ?, password = ? WHERE id = ?', [user.username, user.password, user.id]);
 }
 
 export async function deleteUser(id: string): Promise<StatusDatabase> {
@@ -91,8 +91,8 @@ export async function insertSubscriptions(userId: string, cameraId: string): Pro
     }
 }
 
-export async function updateSubscriptions(id: string, name: string): Promise<StatusDatabase> {
-    return await database.query<StatusDatabase>('UPDATE subscriptions SET name = ? WHERE id = ?', [ name, id ]);
+export async function updateSubscriptions(subscription: SubscriptionDTO): Promise<StatusDatabase> {
+    return await database.query<StatusDatabase>('UPDATE subscriptions SET name = ? WHERE id = ?', [ subscription.name, subscription.id ]);
 }
 
 export async function deleteSubscriptions(id: string): Promise<StatusDatabase> {

@@ -16,7 +16,16 @@ export class HttpService {
 
 	public register(username: string, password: string): Observable<Message<string>> {
 		const body = { username, password };
-		return this.http.post<any>(environment.url + '/api/user/register', body);
+		return this.http.post<any>(environment.url + '/api/user', body);
+	}
+
+	public update(username?: string, password?: string): Observable<Message<boolean>> {
+		const body = { username, password };
+		return this.http.put<any>(environment.url + '/api/user', body);
+	}
+
+	public remove(): Observable<Message<boolean>> {
+		return this.http.delete<any>(environment.url + '/api/user');
 	}
 
 	public getAllSubscriptions(): Observable<Message<CameraSubscription[]>> {

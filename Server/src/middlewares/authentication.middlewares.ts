@@ -33,6 +33,35 @@ export async function register(req: Request<any>, res: Response<Message<boolean>
     }
 }
 
+export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+		req.body.id = res.locals.userId;
+        const result = await database.updateUser(req.body);
+
+        if (result.affectedRows == 1) {
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+        } else {
+            res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
+export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        const result = await database.deleteUser(res.locals.userId);
+
+        if (result.affectedRows == 1) {
+            res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+        } else {
+            res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+    }
+}
+
 export async function getUserId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
     try {
         const token: Token = decodeToken(req.headers.authorization);

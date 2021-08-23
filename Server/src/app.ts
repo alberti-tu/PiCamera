@@ -38,7 +38,10 @@ app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.d
 
 // App - Backend routes
 app.post('/api/user/login', authentication.login);
-app.post('/api/user/register', authentication.register);
+
+app.post('/api/user', authentication.register);
+app.put('/api/user', authentication.getUserId, authentication.update);
+app.delete('/api/user', authentication.getUserId, authentication.remove);
 
 app.get('/api/subscription', authentication.getUserId, subscriptions.selectAll);
 app.get('/api/subscription/:id', authentication.getUserId, authentication.getCameraId, subscriptions.selectOne);
@@ -53,6 +56,7 @@ app.get('/api/settings/filters', authentication.getUserId, camera.filtersList);
 
 app.get('/api/picture/:id', authentication.getUserId, authentication.getCameraId, picture.getFolderId);
 app.post('/api/picture/:id', authentication.getUserId, authentication.getCameraId, picture.savePicture);
+
 app.get('/api/picture/:id/:name', authentication.getUserId, authentication.getCameraId, picture.getPicture);
 app.delete('/api/picture/:id/:name', authentication.getUserId, authentication.getCameraId, picture.removePicture);
 
