@@ -3,22 +3,22 @@
 	"version": "2.0.0",
 	"description": "Security camera network on NodeJS and Raspberry Pi",
 	"scripts": {
-		"start:app": "cd App && npm start",
-		"start:client": "cd Client && npm start",
-		"start:server": "cd Server && npm start",
-		
-		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
-		"build:app": "cd App && npm run build",
-		"build:client": "cd Client && npm run build",
-		"build:server": "cd Server && npm run build",
+		"app:start": "cd App && npm start",
+		"app:build": "cd App && npm run build",
+		"app:install": "cd App && npm i --force",
 
-		"config:client": "cd Client && npm run config",
-		"config:server": "cd Server && npm run config",
-		
-		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
-		"install:app": "cd App && npm i --force",
-		"install:client": "cd Client && npm i --force",
-		"install:server": "cd Server && npm i --force"
+		"client:start":"cd Client && npm start",
+		"client:build":"cd Client && npm run build",
+		"client:config":"cd Client && npm run config",
+		"client:install":"cd Client && npm i --force",
+
+		"server:start":"cd Server && npm start",
+		"server:build":"cd Server && npm run build",
+		"server:config":"cd Server && npm run config",
+		"server:install":"cd Server && npm i --force",
+
+		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
+		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force"
 	},
 	"repository": {
 		"type": "git",

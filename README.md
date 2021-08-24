@@ -45,9 +45,9 @@ npm run install
 Or install only NPM dependences of selected project
 ```bash
 cd PiCamera
-npm run install:server
-npm run install:client
-npm run install:app
+npm run server:install
+npm run client:install
+npm run app:install
 ```
 
 ## 2. Configuration
@@ -58,13 +58,13 @@ The commands in steps [2.1 Server](#2.1-Server) and [2.2 Camera node](#2.2-Camer
 
 Set HTTP server, database and server password
 ```bash
-npm run config:server
+npm run server:config
 ```
 ### 2.2 Camera node
 
 Set URL connection and server password
 ```bash
-npm run config:client
+npm run client:config
 ```
 
 ## 3. Build project
@@ -76,9 +76,9 @@ npm run build
 
 Or build a selected project
 ```bash
-npm run build:server
-npm run build:client
-npm run build:app
+npm run server:build
+npm run client:build
+npm run app:build
 ```
 
 NOTE: You have to build at least the **App** project with the global build command or with the specific one.
@@ -87,12 +87,12 @@ NOTE: You have to build at least the **App** project with the global build comma
 
 Command to launch server
 ```bash
-npm run start:server
+npm run server:start
 ```
 
 Command to launch camera node
 ```bash
-npm run start:client
+npm run client:start
 ```
 
 If you want to finish execution press **ctrl + c** on the linux shell
@@ -108,5 +108,5 @@ After downloaded the features execute steps [1.2 Project setup](#1.2-Project-set
 NOTE: If the changes only affect to **App** project is not necessary stop the server instance. Just execute this:
 
 ```bash
-npm run build:app
+npm run app:build
 ```
