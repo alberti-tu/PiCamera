@@ -36,6 +36,15 @@
 			}
 		}
 
+		.changePassword {
+			background-color: #f0f0f0;
+			border-radius: 16px;
+			border: dashed 4px #e61a1a;
+
+			input {
+				background-color: #f0f0f0;
+			}
+		}
 		.formButton {
 			display: flex;
 			flex-direction: column;

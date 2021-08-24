@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 		}
 
 		const username = this.form.value.username;
-		const password = this.form.value.password1
+		const password = this.form.value.password1;
 
 		this._http.register(username, password).subscribe(data => {
 			if (data.result) {
