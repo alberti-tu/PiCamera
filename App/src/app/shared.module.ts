@@ -13,20 +13,20 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-    exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        TranslateModule,
+	exports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		RouterModule,
+		TranslateModule,
 
-        MatButtonModule,
-        MatDialogModule,
-        MatListModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSliderModule,
-        MatToolbarModule
-    ]
+		MatButtonModule,
+		MatDialogModule,
+		MatListModule,
+		MatSelectModule,
+		MatSidenavModule,
+		MatSliderModule,
+		MatToolbarModule
+	]
 })
 export class SharedModule { }

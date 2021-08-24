@@ -1,65 +1,65 @@
 .home-container {
-    position: relative;
-    height: 100vh;
+	position: relative;
+	height: 100vh;
 
-    .list {
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
-        justify-content: center;
+	.list {
+		display: flex;
+		flex-wrap: wrap;
+		overflow: hidden;
+		justify-content: center;
 
-        margin: 2rem 0rem;
-    }
+		margin: 2rem 0rem;
+	}
 
-    .item {
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
+	.item {
+		display: flex;
+		flex-wrap: wrap;
+		overflow: hidden;
 
-        border-radius: 0.5rem;
-        margin: 2rem;
+		border-radius: 0.5rem;
+		margin: 2rem;
 
-        width: 1280px;
+		width: 1280px;
 
-        .header {
-            display: flex;
-            justify-content: space-between;
+		.header {
+			display: flex;
+			justify-content: space-between;
 
-            width: 100%;
-            padding: 1rem;
+			width: 100%;
+			padding: 1rem;
 
-            p {
-                align-self: center;
-                margin: 0rem 1rem 0rem 0rem;
-                line-height: 1.25em;
-                font-size: 1.25em;
-                font-weight: 400;
+			p {
+				align-self: center;
+				margin: 0rem 1rem 0rem 0rem;
+				line-height: 1.25em;
+				font-size: 1.25em;
+				font-weight: 400;
 
-                overflow: hidden;
-                overflow-wrap: anywhere;
-            }
+				overflow: hidden;
+				overflow-wrap: anywhere;
+			}
 
-            img {
+			img {
 				transition: all 250ms;
 
-                align-self: center;
-                height: 2em;
-                width: 2em;
+				align-self: center;
+				height: 2em;
+				width: 2em;
 
 				cursor: pointer;
-    
-                &:hover {
-                    transform: scale(1.25);
-                }
-    
-                &:active {
-                    transform: translateY(0.125rem);
-                }
-            }
-        }
+	
+				&:hover {
+					transform: scale(1.25);
+				}
+	
+				&:active {
+					transform: translateY(0.125rem);
+				}
+			}
+		}
 
-        img {
-            width: 100%;
-        }
-    }
+		img {
+			width: 100%;
+		}
+	}
 }

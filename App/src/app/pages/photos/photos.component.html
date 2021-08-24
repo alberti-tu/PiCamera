@@ -1,15 +1,15 @@
 <div class="photos-container">
-    <app-toolbar [header]="'page.photos'"></app-toolbar>
+	<app-toolbar [header]="'page.photos'"></app-toolbar>
 
-    <div *ngIf="cameras.length != 0" class="list">
-        <div class="item shadow" *ngFor="let item of cameras" (click)="open(item)">
-            <p class="header">{{ item.name }}</p>
-            <p class="description">{{ item.camera_id }}</p>
-        </div>
-    </div>
+	<div *ngIf="cameras.length != 0" class="list">
+		<div class="item shadow" *ngFor="let item of cameras" (click)="open(item)">
+			<p class="header">{{ item.name }}</p>
+			<p class="description">{{ item.camera_id }}</p>
+		</div>
+	</div>
 
-    <div *ngIf="cameras.length == 0" class="empty">
-        <img src="assets/icons/camera.svg">
-        <p>{{ 'photos.empty' | translate }} <a href="/cameras" translate>photos.link</a></p>
-    </div>
+	<div *ngIf="cameras.length == 0" class="empty">
+		<img src="assets/icons/camera.svg">
+		<p>{{ 'photos.empty' | translate }} <a href="/cameras" translate>photos.link</a></p>
+	</div>
 </div>

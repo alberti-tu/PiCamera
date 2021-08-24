@@ -5,16 +5,16 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
-    declarations: [
-        DialogComponent,
-        SideMenuComponent,
-        ToolbarComponent
-    ],
-    exports: [
-        DialogComponent,
-        SideMenuComponent,
-        ToolbarComponent
-    ],
-    imports: [ SharedModule ]
+	declarations: [
+		DialogComponent,
+		SideMenuComponent,
+		ToolbarComponent
+	],
+	exports: [
+		DialogComponent,
+		SideMenuComponent,
+		ToolbarComponent
+	],
+	imports: [SharedModule]
 })
 export class ComponentsModule { }

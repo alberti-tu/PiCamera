@@ -1,12 +1,12 @@
 <div #toolbar class="toolbar-container primary">
-    <app-side-menu *ngIf="back == false" [pages]="pages" class="action">
-        <img src="assets/icons/menu.svg">
-    </app-side-menu>
+	<app-side-menu *ngIf="back == false" [pages]="pages" class="action">
+		<img src="assets/icons/menu.svg">
+	</app-side-menu>
 
-    <div *ngIf="back == true" class="action">
-        <img src="assets/icons/back.svg" (click)="backButton()">
-    </div>
+	<div *ngIf="back == true" class="action">
+		<img src="assets/icons/back.svg" (click)="backButton()">
+	</div>
 
-    <p *ngIf="header != null" translate>{{ header }}</p>
-    <p *ngIf="header == null" translate>app.name</p>
+	<p *ngIf="header != null" translate>{{ header }}</p>
+	<p *ngIf="header == null" translate>app.name</p>
 </div>

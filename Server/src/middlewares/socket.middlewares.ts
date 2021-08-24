@@ -17,60 +17,60 @@ export enum SocketEvent {
 
 export async function connection(io: Server, socket: Socket) {
 
-    let userId: string = '';
-    let list: string[] = [];
+	let userId: string = '';
+	let list: string[] = [];
 
 	if (socket.handshake.query && socket.handshake.query.token) {
-        try {
-            userId = decodeToken(socket.handshake.query.token).id;
-            await database.checkUser(userId);
-        } catch {
-            socket.emit(SocketEvent.unauthorized);
-            socket.disconnect(true);
-        }
-    } else {
-        socket.emit(SocketEvent.unauthorized);
-        socket.disconnect(true);
-    }
+		try {
+			userId = decodeToken(socket.handshake.query.token).id;
+			await database.checkUser(userId);
+		} catch {
+			socket.emit(SocketEvent.unauthorized);
+			socket.disconnect(true);
+		}
+	} else {
+		socket.emit(SocketEvent.unauthorized);
+		socket.disconnect(true);
+	}
 
-    const subscriptions = await database.selectAllSubscriptions(userId);
-    list = subscriptions.map<string>(item => item.camera_id);
-    socket.emit(SocketEvent.subscriptions, list);
+	const subscriptions = await database.selectAllSubscriptions(userId);
+	list = subscriptions.map<string>(item => item.camera_id);
+	socket.emit(SocketEvent.subscriptions, list);
 
-    getSubscriptionList().subscribe(async user_id => {
-        if (userId == user_id) {
-            const subscriptions = await database.selectAllSubscriptions(user_id);
-            list = subscriptions.map<string>(item => item.camera_id);
-            socket.emit(SocketEvent.subscriptions, list);
-        }
-    });
+	getSubscriptionList().subscribe(async user_id => {
+		if (userId == user_id) {
+			const subscriptions = await database.selectAllSubscriptions(user_id);
+			list = subscriptions.map<string>(item => item.camera_id);
+			socket.emit(SocketEvent.subscriptions, list);
+		}
+	});
 
-    getStream().subscribe(image => {
-        const subscription = list.find(item => item == image.id)
+	getStream().subscribe(image => {
+		const subscription = list.find(item => item == image.id)
 
-        if (subscription != null) {
-            image.data = image.data != null ? image.data : null;
-            socket.emit(SocketEvent.image, image);
-        }
-    });
+		if (subscription != null) {
+			image.data = image.data != null ? image.data : null;
+			socket.emit(SocketEvent.image, image);
+		}
+	});
 }
 
 export function getStream(): Observable<Image> {
-    return new Observable<Image>(observer => {
-        dataStream.subscribe(data => observer.next(data));
-    });
+	return new Observable<Image>(observer => {
+		dataStream.subscribe(data => observer.next(data));
+	});
 }
 
 export function setStream(id: string, data: string): void {
-    dataStream.next({ id: id, data: data });
+	dataStream.next({ id: id, data: data });
 }
 
 export function getSubscriptionList(): Observable<string> {
-    return new Observable<string>(observer => {
-        userStream.subscribe(data => observer.next(data));
-    });
+	return new Observable<string>(observer => {
+		userStream.subscribe(data => observer.next(data));
+	});
 }
 
 export function setSubscriptionList(id: string) {
-    userStream.next(id);
+	userStream.next(id);
 }

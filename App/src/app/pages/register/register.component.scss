@@ -1,76 +1,76 @@
 .register-container {
-    position: relative;
-    height: 100vh;
+	position: relative;
+	height: 100vh;
 
-    .logo {
-        display: flex;
-        justify-content: space-around;
+	.logo {
+		display: flex;
+		justify-content: space-around;
 
-        padding: 1rem 2rem;
-        
-        img {
-            height: 10em;
-        }
+		padding: 1rem 2rem;
+		
+		img {
+			height: 10em;
+		}
 
-        p {
-            align-self: center;
-            line-height: 2em;
-            font-size: 2em;
-    
-            margin: 0;
-        }
-    }
+		p {
+			align-self: center;
+			line-height: 2em;
+			font-size: 2em;
 
-    form {
-        max-width: 1000px;
-        margin: 0 auto;
+			margin: 0;
+		}
+	}
 
-        .formField {
-            display: flex;
-            flex-direction: column;
-            padding: 2rem;
+	form {
+		max-width: 1000px;
+		margin: 0 auto;
 
-            label {
-                font-size: 1.125em;
-            }
+		.formField {
+			display: flex;
+			flex-direction: column;
+			padding: 2rem;
 
-            .input-row {
-                position: relative;
-                display: flex;
-                border-style: none none solid none;
+			label {
+				font-size: 1.125em;
+			}
 
-                justify-content: space-between;
+			.input-row {
+				position: relative;
+				display: flex;
+				border-style: none none solid none;
 
-                input {
-                    font-size: 1.125em;
-                    padding: 1rem;
-                    width: 100%;
-                }
-    
-                img {
-                    height: 2em;
-                    align-self: center;
-                    cursor: pointer;
-                }
-            }
-        }
+				justify-content: space-between;
 
-        .formButton {
-            display: flex;
-            flex-direction: column;
-            padding: 4rem 2rem 2rem;
+				input {
+					font-size: 1.125em;
+					padding: 1rem;
+					width: 100%;
+				}
 
-            button {
-                text-transform: uppercase;
-                padding: 0.75rem 1rem;
-                font-size: 1.5em;
-            }
-        }
+				img {
+					height: 2em;
+					align-self: center;
+					cursor: pointer;
+				}
+			}
+		}
 
-        .errorMessage {
-            font-weight: bold;
-            font-size: 1em;
-            color: red;
-        }
-    }
+		.formButton {
+			display: flex;
+			flex-direction: column;
+			padding: 4rem 2rem 2rem;
+
+			button {
+				text-transform: uppercase;
+				padding: 0.75rem 1rem;
+				font-size: 1.5em;
+			}
+		}
+
+		.errorMessage {
+			font-weight: bold;
+			font-size: 1em;
+			color: red;
+		}
+	}
 }

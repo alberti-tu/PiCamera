@@ -1,53 +1,53 @@
 export interface State {
-    name: string;
-    transition1: string;
-    transition2: string;
-    action: (data?: any) => Promise<any>;
-    input?: string;
-    output?: any;
+	name: string;
+	transition1: string;
+	transition2: string;
+	action: (data?: any) => Promise<any>;
+	input?: string;
+	output?: any;
 }
 
 export class StateMachine {
 
-    public logs: boolean = false;
-    private _states: State[] = [];
-    
-    constructor(states: State[]) {
-        this._states = states;
-    }
+	public logs: boolean = false;
+	private _states: State[] = [];
 
-    public async run(start?: string): Promise<void> {
-        let currentState: string = start || this._states[0].name;
+	constructor(states: State[]) {
+		this._states = states;
+	}
 
-        while (true) {
-            const state: State = this._states.find(item => item.name == currentState);
+	public async run(start?: string): Promise<void> {
+		let currentState: string = start || this._states[0].name;
 
-            if (state == undefined) {
-                this._print('exit');
-                break;
-            }
+		while (true) {
+			const state: State = this._states.find(item => item.name == currentState);
 
-            this._print(currentState);
+			if (state == undefined) {
+				this._print('exit');
+				break;
+			}
 
-            try {
-                const input = this.selectInputState(state.input);
-                state.output = await state.action(input);
-                currentState = state.transition1;
-            } catch {
-                state.output = null;
-                currentState = state.transition2;
-            }
-        }
-    }
+			this._print(currentState);
 
-    public selectInputState(name: string): any {
-        const state: State = this._states.find(item => item.name == name);
-        return state != null ? state.output : null;
-    }
+			try {
+				const input = this.selectInputState(state.input);
+				state.output = await state.action(input);
+				currentState = state.transition1;
+			} catch {
+				state.output = null;
+				currentState = state.transition2;
+			}
+		}
+	}
 
-    private _print(name: string) {
-        if (this.logs == true) {
-            console.log('[' + new Date().toLocaleString() + '] --> ' + name);  
-        }
-    }
+	public selectInputState(name: string): any {
+		const state: State = this._states.find(item => item.name == name);
+		return state != null ? state.output : null;
+	}
+
+	private _print(name: string) {
+		if (this.logs == true) {
+			console.log('[' + new Date().toLocaleString() + '] --> ' + name);
+		}
+	}
 }

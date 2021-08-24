@@ -6,68 +6,67 @@ const argsDefault: string[] = ['-w', '1280', '-h', '720', '-t', '800', '-n', '-o
 
 export class Camera {
 
-    private static instance: Camera = null;
-    private _isAvailable: boolean = true;
-    private _args: string[] = [];
+	private static instance: Camera = null;
+	private _isAvailable: boolean = true;
+	private _args: string[] = [];
 
-    protected constructor() { }
+	protected constructor() { }
 
-    public static getInstance(): Camera {
-        if (!Camera.instance) {
-            Camera.instance = new Camera();
-        }
-        return Camera.instance;
-    }
+	public static getInstance(): Camera {
+		if (!Camera.instance) {
+			Camera.instance = new Camera();
+		}
+		return Camera.instance;
+	}
 
-    public isAvailable(): boolean {
-        return this._isAvailable;
-    }
+	public isAvailable(): boolean {
+		return this._isAvailable;
+	}
 
-    public takePicture(): Promise<string> {
-        this._isAvailable = false;
-        if (configuration.production) {
-            return new Promise((resolve, reject) => {
-                const child = spawn('raspistill', this._args);
-    
-                const raw = [];
-    
-                child.stdout.on('data', (data: string) => raw.push(data));
-                child.stdout.on('error', (err: any) => reject(err));
-                child.stdout.on('close', () => {
-                    this._isAvailable = true;
-                    resolve(Buffer.concat(raw).toString('base64'));
-                });
-            });
-        } else {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    this._isAvailable = true;
-                    resolve(null);
-                }, 1000);
-            });
-        }
-    }
+	public takePicture(): Promise<string> {
+		this._isAvailable = false;
+		if (configuration.production) {
+			return new Promise((resolve, reject) => {
+				const child = spawn('raspistill', this._args);
 
-    public setPictureOptions(options: CameraOptions): void {
-        if (!options) {
-            return;
-        }
+				const raw = [];
 
-        this._args = [];
+				child.stdout.on('data', (data: string) => raw.push(data));
+				child.stdout.on('error', (err: any) => reject(err));
+				child.stdout.on('close', () => {
+					this._isAvailable = true;
+					resolve(Buffer.concat(raw).toString('base64'));
+				});
+			});
+		} else {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					this._isAvailable = true;
+					resolve(null);
+				}, 1000);
+			});
+		}
+	}
 
-        if (options.filter) {
-            this._args = this._args.concat(['-ex', options.filter.toString()]);
-        }
+	public setPictureOptions(options: CameraOptions): void {
+		if (!options) {
+			return;
+		}
 
-        if (options.quality) {
-            this._args = this._args.concat(['-q', options.quality.toString()]);
-        }
+		this._args = [];
 
-        if (options.rotation) {
-            this._args = this._args.concat(['-rot', options.rotation.toString()]);
-        }
+		if (options.filter) {
+			this._args = this._args.concat(['-ex', options.filter.toString()]);
+		}
 
-        this._args = this._args.concat(argsDefault);
-    }
+		if (options.quality) {
+			this._args = this._args.concat(['-q', options.quality.toString()]);
+		}
+
+		if (options.rotation) {
+			this._args = this._args.concat(['-rot', options.rotation.toString()]);
+		}
+
+		this._args = this._args.concat(argsDefault);
+	}
 }
-        

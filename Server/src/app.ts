@@ -24,7 +24,7 @@ app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb' }));
 
 const server = http.createServer(app).listen(configuration.server.port, () => {
-    console.log('Server is listening on http://[...]:' + configuration.server.port);
+	console.log('Server is listening on http://[...]:' + configuration.server.port);
 });
 
 const io: Server = SocketIO(server);
@@ -63,13 +63,13 @@ app.delete('/api/picture/:id/:name', authentication.getUserId, authentication.ge
 // App - Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
 app.get('*', (req, res) => {
-    if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) res.sendFile( resolveClient('App/out/' + req.url, 1) );
-    else res.sendFile( resolveClient('App/out/index.html', 1) );
+	if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) res.sendFile(resolveClient('App/out/' + req.url, 1));
+	else res.sendFile(resolveClient('App/out/index.html', 1));
 });
 
 function resolveClient(url: string, back: number = 0): string {
-    back = back >= 0 ? back : (-1) * back; 
-    const base = path.resolve().split('/');
-    base.splice(base.length - back)
-    return base.join('/') + '/' + url;
+	back = back >= 0 ? back : (-1) * back;
+	const base = path.resolve().split('/');
+	base.splice(base.length - back)
+	return base.join('/') + '/' + url;
 }

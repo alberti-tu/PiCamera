@@ -1,19 +1,19 @@
 <div class="detail-container">
-    <app-toolbar [header]="cameraName" [back]="true"></app-toolbar>
+	<app-toolbar [header]="cameraName" [back]="true"></app-toolbar>
 
-    <div class="list">
-        <div class="item shadow" *ngFor="let image of imageList">
-            <div class="header">
-                <p>{{ image.name }}</p>
-                <img src="assets/icons/trash.svg" (click)="remove(image)">
-            </div>
-            
-            <img [src]="image.data">
-        </div>
-    </div>
+	<div class="list">
+		<div class="item shadow" *ngFor="let image of imageList">
+			<div class="header">
+				<p>{{ image.name }}</p>
+				<img src="assets/icons/trash.svg" (click)="remove(image)">
+			</div>
 
-    <div *ngIf="imageList.length == 0" class="empty">
-        <img src="assets/icons/picture.svg">
-        <p>{{ 'cameras.detail.empty' | translate }} <a href="/home" translate>cameras.detail.link</a></p>
-    </div>
+			<img [src]="image.data">
+		</div>
+	</div>
+
+	<div *ngIf="imageList.length == 0" class="empty">
+		<img src="assets/icons/picture.svg">
+		<p>{{ 'cameras.detail.empty' | translate }} <a href="/home" translate>cameras.detail.link</a></p>
+	</div>
 </div>

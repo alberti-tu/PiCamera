@@ -7,26 +7,26 @@ import { configuration } from "./config";
 import * as http from "./services/http.services";
 
 function stream(options?: CameraDTO): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-        camera.setPictureOptions(options);
+	return new Promise<void>((resolve, reject) => {
+		camera.setPictureOptions(options);
 
-        if (camera.isAvailable()) {
-            camera.takePicture()
-                .then(async data => {
-                    const getSettings = await http.sendPicture(options.timestamp, data != null ? data : null);
-                    getSettings ? reject(null) : resolve(null);
-                })
-                .catch(() => reject(null));
-        }
-    });
+		if (camera.isAvailable()) {
+			camera.takePicture()
+				.then(async data => {
+					const getSettings = await http.sendPicture(options.timestamp, data != null ? data : null);
+					getSettings ? reject(null) : resolve(null);
+				})
+				.catch(() => reject(null));
+		}
+	});
 }
 
 const camera = Camera.getInstance();
 
 const states: State[] = [
-    { name: 'setup', transition1: 'camera', transition2: 'register', action: (data) => http.setup() },
-    { name: 'register', transition1: 'setup', transition2: null, action: (data) => http.register() },
-    { name: 'camera', transition1: 'camera', transition2: 'setup', action: (data) => stream(data), input: 'setup' }
+	{ name: 'setup', transition1: 'camera', transition2: 'register', action: (data) => http.setup() },
+	{ name: 'register', transition1: 'setup', transition2: null, action: (data) => http.register() },
+	{ name: 'camera', transition1: 'camera', transition2: 'setup', action: (data) => stream(data), input: 'setup' }
 ];
 
 console.log('Camera Id: ' + getSerialNumber());

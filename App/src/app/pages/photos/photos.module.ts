@@ -7,19 +7,19 @@ import { PhotosComponent } from "./photos.component";
 import { DetailComponent } from "./detail/detail.component";
 
 const routes: Routes = [
-    { path: '', component: PhotosComponent },
-    { path: ':id', component: DetailComponent }
+	{ path: '', component: PhotosComponent },
+	{ path: ':id', component: DetailComponent }
 ];
 
 @NgModule({
-    declarations: [
-        PhotosComponent,
-        DetailComponent
-    ],
-    imports: [
-        ComponentsModule,
-        SharedModule,
-        RouterModule.forChild(routes)
-    ]
+	declarations: [
+		PhotosComponent,
+		DetailComponent
+	],
+	imports: [
+		ComponentsModule,
+		SharedModule,
+		RouterModule.forChild(routes)
+	]
 })
-export class PhotosModule {}
+export class PhotosModule { }
