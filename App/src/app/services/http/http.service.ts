@@ -19,12 +19,16 @@ export class HttpService {
 		return this.http.post<any>(environment.url + '/api/user', body);
 	}
 
-	public update(username?: string, password?: string): Observable<Message<boolean>> {
+	public getUser(): Observable<Message<any>> {
+		return this.http.get<any>(environment.url + '/api/user');
+	}
+
+	public updateUser(username?: string, password?: string): Observable<Message<boolean>> {
 		const body = { username, password };
 		return this.http.put<any>(environment.url + '/api/user', body);
 	}
 
-	public remove(): Observable<Message<boolean>> {
+	public removeUser(): Observable<Message<boolean>> {
 		return this.http.delete<any>(environment.url + '/api/user');
 	}
 

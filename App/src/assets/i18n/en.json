@@ -54,6 +54,10 @@
 	"register.password-1": "Password",
 	"register.password-2": "Repeat password",
 	"register.username": "Username",
+	"settings.form.button": "Save",
+	"settings.form.password-1": "Password",
+	"settings.form.password-2": "Repeat password",
+	"settings.form.username": "Username",
 	"settings.remove.button": "Delete user",
 	"settings.remove.button.accept": "Accept",
 	"settings.remove.button.cancel": "Cancel",
@@ -66,6 +70,7 @@
 	"toast.error.notAdded": "The requested item could not be added",
 	"toast.error.notFound": "The requested information could not be found",
 	"toast.error.register": "This username is not available",
+	"toast.error.update": "Data could not be updated",
 	"toast.info.logout": "The session has been successfully closed",
 	"toast.info.success": "Data saved successfuly"
 }

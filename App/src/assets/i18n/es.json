@@ -54,6 +54,10 @@
 	"register.password-1": "Contraseña",
 	"register.password-2": "Repetir contraseña",
 	"register.username": "Nombre de usuario",
+	"settings.form.button": "Guardar",
+	"settings.form.password-1": "Contraseña",
+	"settings.form.password-2": "Repetir contraseña",
+	"settings.form.username": "Nombre de usuario",
 	"settings.remove.button": "Eliminar usuario",
 	"settings.remove.button.accept": "Aceptar",
 	"settings.remove.button.cancel": "Cancelar",
@@ -66,6 +70,7 @@
 	"toast.error.notAdded": "No se ha podido añadir el elemento solicitado",
 	"toast.error.notFound": "No se ha podido encontrar la información solicitada",
 	"toast.error.register": "Este nombre de usuario no está disponible",
+	"toast.error.update": "No se han podido actualizar los datos",
 	"toast.info.logout": "La sesión se ha cerrado correctamente",
 	"toast.info.success": "Datos guardados correctamente"
 }

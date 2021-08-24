@@ -26,16 +26,21 @@ export async function checkUser(id: string): Promise<boolean> {
 	return result[0]['COUNT(*)'] == 1 ? true : false;
 }
 
-export async function selectUser(username: string, password: string): Promise<UserDTO> {
+export async function getUserId(username: string, password: string): Promise<UserDTO> {
 	const users = await database.query<UserDTO[]>('SELECT id FROM users WHERE username = ? AND password = ? LIMIT 1', [username, password]);
+	return users != null ? users[0] : null;
+}
+
+export async function selectUser(id: string): Promise<UserDTO> {
+	const users = await database.query<UserDTO[]>('SELECT * FROM users WHERE id = ? LIMIT 1', [id]);
 	return users != null ? users[0] : null;
 }
 
 export async function insertUser(username: string, password: string): Promise<string> {
 	try {
 		const id = crypto.createHash('sha256').update(new Date().getTime().toString()).digest('hex');
-		const hash = crypto.createHash('sha256').update(password).digest('hex');
-		await database.query<StatusDatabase>('INSERT INTO users VALUES (?,?,?)', [id, username, hash]);
+		password = crypto.createHash('sha256').update(password).digest('hex');
+		await database.query<StatusDatabase>('INSERT INTO users VALUES (?,?,?)', [id, username, password]);
 		return id;
 	} catch {
 		return null;
@@ -43,6 +48,7 @@ export async function insertUser(username: string, password: string): Promise<st
 }
 
 export async function updateUser(user: UserDTO) {
+	user.password = crypto.createHash('sha256').update(user.password).digest('hex');
 	return await database.query<StatusDatabase>('UPDATE users SET username = ?, password = ? WHERE id = ?', [user.username, user.password, user.id]);
 }
 

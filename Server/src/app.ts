@@ -38,8 +38,9 @@ app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.d
 
 // App - Backend routes
 app.post('/api/user/login', authentication.login);
-
 app.post('/api/user', authentication.register);
+
+app.get('/api/user', authentication.getUserId, authentication.selectOne)
 app.put('/api/user', authentication.getUserId, authentication.update);
 app.delete('/api/user', authentication.getUserId, authentication.remove);
 

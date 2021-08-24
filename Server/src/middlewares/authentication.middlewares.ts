@@ -7,10 +7,25 @@ import * as database from './database.middlewares';
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
 	try {
-		const user = await database.selectUser(req.body.username, req.body.password);
+		const user = await database.getUserId(req.body.username, req.body.password);
 
 		if (user != null) {
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: encodeToken(user) });
+		} else {
+			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
+		}
+	} catch {
+		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+	}
+}
+
+export async function selectOne(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+	try {
+		const user = await database.selectUser(res.locals.userId);
+
+		if (user != null) {
+			delete user.id;
+			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: user });
 		} else {
 			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
 		}
