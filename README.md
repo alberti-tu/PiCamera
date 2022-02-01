@@ -16,7 +16,6 @@ Package                                 | Version
 Installing NodeJS and NPM for Linux systems
 
 ```bash
-chmod +x node_setup.sh
 sudo ./node_setup.sh 14
 ```
 
