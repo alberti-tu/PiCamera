@@ -20,7 +20,7 @@
 		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
 		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
 
-		"setup": "chmod +x node_setup.sh && sudo ./node_setup.sh 14"
+		"setup": "sudo ./node_setup.sh 14"
 	},
 	"repository": {
 		"type": "git",
