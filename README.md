@@ -16,15 +16,8 @@ Package                                 | Version
 Installing NodeJS and NPM for Linux systems
 
 ```bash
-sudo apt update -y
-sudo apt upgrade -y
-
-sudo apt install nodejs npm -y
-
-sudo npm install -g npm
-sudo npm cache clean -f
-sudo npm install -g n
-sudo n stable
+chmod +x node_setup.sh
+sudo ./node_setup.sh 14
 ```
 
 Installing MariaDB server and set execution permitions
