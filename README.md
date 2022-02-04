@@ -7,7 +7,7 @@ Package                                 | Version
 [Angular CLI](https://cli.angular.io)   | 11.2.3
 [Axios](https://github.com/axios/axios) | 0.21.1
 [Express](https://expressjs.com)        | 4.17.1
-[Maria DB](https://mariadb.org)         | 10.1.44
+[Maria DB](https://mariadb.org)         | 10.5.12
 [Node JS](https://nodejs.org)           | 14.15.1
 
 ## 1. Installation
@@ -19,11 +19,11 @@ Installing NodeJS and NPM for Linux systems
 sudo ./node_setup.sh 14
 ```
 
-Installing MariaDB server and set execution permitions
+Installing MariaDB server and configure the access user
 
 ```bash
 sudo apt install mariadb-server -y
-sudo mysql --user="root" --database="mysql" --execute="update user set plugin='' where User='root'; flush privileges;"
+sudo mysql_secure_installation
 ```
 
 ### 1.2 Project setup
@@ -48,7 +48,7 @@ The commands in steps [2.1 Server](#2.1-Server) and [2.2 Camera node](#2.2-Camer
 
 ### 2.1 Server
 
-Set HTTP server, database and server password
+Set HTTP server, database connection and server password
 ```bash
 npm run server:config
 ```
