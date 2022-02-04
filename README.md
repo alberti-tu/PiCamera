@@ -8,7 +8,7 @@ Package                                 | Version
 [Axios](https://github.com/axios/axios) | 0.21.1
 [Express](https://expressjs.com)        | 4.17.1
 [Maria DB](https://mariadb.org)         | 10.5.12
-[Node JS](https://nodejs.org)           | 14.15.1
+[Node JS](https://nodejs.org)           | 16.13.1
 
 ## 1. Installation
 
@@ -16,7 +16,7 @@ Package                                 | Version
 Installing NodeJS and NPM for Linux systems
 
 ```bash
-sudo ./node_setup.sh 14
+sudo ./node_setup.sh
 ```
 
 Installing MariaDB server and configure the access user
