@@ -13,11 +13,6 @@ Package                                 | Version
 ## 1. Installation
 
 ### 1.1 System setup
-Installing NodeJS and NPM for Linux systems
-
-```bash
-sudo ./node_setup.sh
-```
 
 Installing MariaDB server and configure the access user
 
@@ -28,15 +23,20 @@ sudo mysql_secure_installation
 
 ### 1.2 Project setup
 
-Installing all NPM dependences
+Installing NodeJS and NPM for Linux systems
+
 ```bash
 cd PiCamera
+sudo ./node_setup.sh
+```
+
+Installing all NPM dependences
+```bash
 npm run install
 ```
 
 Or install only NPM dependences of selected project
 ```bash
-cd PiCamera
 npm run server:install
 npm run client:install
 npm run app:install
