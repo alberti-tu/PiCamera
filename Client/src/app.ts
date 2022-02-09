@@ -29,8 +29,8 @@ const states: State[] = [
 	{ name: 'camera', transition1: 'camera', transition2: 'setup', action: (data) => stream(data), input: 'setup' }
 ];
 
-console.log('Camera Id: ' + getSerialNumber());
-console.log('Camera hub: ' + configuration.protocol + '://' + configuration.host + ':' + configuration.port + '\n');
+console.log('Camera Id: ' + http.id);
+console.log('Camera hub: ' + http.url + '\n');
 
 const stateMachine = new StateMachine(states);
 stateMachine.logs = !configuration.production;

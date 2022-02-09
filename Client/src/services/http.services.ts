@@ -4,8 +4,8 @@ import { configuration } from '../config';
 import { encryptAES } from './authentication.services';
 import { CameraOptions, Message } from '../models/http.models';
 
-const url = configuration.protocol + '://' + configuration.host + ':' + configuration.port;
-const id = getSerialNumber();
+export const url = configuration.protocol + '://' + configuration.host + ':' + configuration.port;
+export const id = getSerialNumber();
 
 export function setup(): Promise<CameraOptions> {
 	return new Promise<CameraOptions>((resolve, reject) => {
