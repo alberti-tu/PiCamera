@@ -1,10 +1,12 @@
-import SocketIO, { Server, Socket } from 'socket.io';
-import bodyParser from 'body-parser';
-import express from 'express';
-import helmet from 'helmet';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+import express, { Express } from 'express';
+import helmet from 'helmet';
 import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import path from 'path';
+import SocketIO, { Server, Socket } from 'socket.io';
 
 import { configuration } from './config';
 
@@ -23,8 +25,8 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb' }));
 
-const server = http.createServer(app).listen(configuration.server.port, () => {
-	console.log('Server is listening on http://[...]:' + configuration.server.port);
+const server = http.createServer(app).listen(configuration.server.http.port, () => {
+	console.log('Server is listening on http://[...]:' + configuration.server.http.port);
 });
 
 const io: Server = SocketIO(server);
