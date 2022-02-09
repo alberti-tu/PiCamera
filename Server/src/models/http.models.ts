@@ -15,9 +15,20 @@ export enum HttpMessage {
 
 export interface ServerOptions {
 	directory: string;
-	port: number;
+	http?: HttpOptions;
+	https?: HttpsOptions;
 	sharedKey: string;
 	timeout: string;
+}
+
+export interface HttpOptions {
+	port: number;
+}
+
+export interface HttpsOptions {
+	cert: string;
+	key: string;
+	port: number;
 }
 
 export interface Token {
