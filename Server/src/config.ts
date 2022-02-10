@@ -16,14 +16,20 @@ export const configuration: Configuration = {
 	},
 	server: {
 		directory: 'camera',
-		http: {
-			port: 8080
-		},
-		https: {
-			cert: 'certificate/server.cert',
-			key: 'certificate/server.key',
-			port: 8443
-		},
+		instances: [
+			{
+				port: 8080,
+				type: 'http'
+			},
+			{
+				options: {
+					cert: 'certificate/server.cert',
+					key: 'certificate/server.key',
+				},
+				port: 8443,
+				type: 'https'
+			}
+		],
 		sharedKey: 'mycamera',  // Password to accept camera registration
 		timeout: '1d'           // Expiration time of the authentication token
 	}
