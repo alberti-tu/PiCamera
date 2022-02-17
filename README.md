@@ -48,7 +48,7 @@ The commands in steps [2.1 Server](#2.1-Server) and [2.2 Camera node](#2.2-Camer
 
 ### 2.1 Server
 
-Set HTTP server, database connection and server password
+Set HTTP server options, database connection and server password
 ```bash
 npm run server:config
 ```
@@ -57,6 +57,14 @@ npm run server:config
 Set URL connection and server password
 ```bash
 npm run client:config
+```
+
+### 2.3 Generate SSL certificates (Optional)
+
+Copy your .cert and .key files into the folders you set in previous configuration. If you want to autosign your own certificate execute the following commands.
+```bash
+mkdir [certificate path]
+npm run certificate --cert=[file cert path] --key=[file key path]
 ```
 
 ## 3. Build project
