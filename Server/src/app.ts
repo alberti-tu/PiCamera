@@ -85,7 +85,7 @@ function createServer(app: Express, config: ServerInstance): void {
 	if (config.type == 'http') {
 		try {
 			const server = http.createServer(app).listen(config.port, () => {
-				console.log('\nServer is listening on http://[...]:' + config.port);
+				console.log('Server is listening on http://[...]:' + config.port);
 			});
 	
 			const io = SocketIO(server);
