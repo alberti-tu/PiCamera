@@ -95,16 +95,16 @@ function createServer(app: Express, config: ServerInstance): void {
 		}
 	} else if (config.options) {
 		try {
-			fs.statSync(config.options?.key).isFile();
-			fs.statSync(config.options?.cert).isFile();
+			fs.statSync('../' + config.options?.key).isFile();
+			fs.statSync('../' + config.options?.cert).isFile();
 		} catch {
 			console.log('\nERROR: SSL certificates can not be loaded');
-			console.log('From the project root directory')
-			console.log('Execute: openssl req -nodes -new -x509 -keyout ' + config.options?.key + ' -out ' + config.options?.cert + ' -days 365');
+			console.log('From the project root directory');
+			console.log('Execute: npm run certificate --cert=' + config.options?.cert + ' --key=' + config.options?.key);
 		}
 
 		try {
-			const options = { key: fs.readFileSync(config.options?.key), cert: fs.readFileSync(config.options?.cert) };
+			const options = { key: fs.readFileSync('../' + config.options?.key), cert: fs.readFileSync('../' + config.options?.cert) };
 
 			const server = https.createServer(options, app).listen(config.port, () => {
 				console.log('Server is listening on https://[...]:' + config.port);
