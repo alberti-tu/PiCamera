@@ -28,6 +28,7 @@ export interface ServerInstance {
 }
 
 export interface HttpsOptions {
+	ca?: string;
 	cert: string;
 	key: string;
 }

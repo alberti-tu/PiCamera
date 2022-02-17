@@ -106,7 +106,9 @@ function createServer(app: Express, config: ServerInstance): void {
 		} catch {
 			console.log('\nERROR: SSL certificates can not be loaded');
 			console.log('From the project root directory');
-			console.log('Execute: npm run certificate --cert=' + config.options?.cert + ' --key=' + config.options?.key);
+			console.log('Execute: npm run letsencrypt --host=[host]');
+			console.log('or');
+			console.log('Execute: npm run openssl --cert=' + config.options?.cert + ' --key=' + config.options?.key);
 		}
 
 		try {
