@@ -112,7 +112,11 @@ function createServer(app: Express, config: ServerInstance): void {
 		}
 
 		try {
-			const options = { key: fs.readFileSync('../' + config.options?.key), cert: fs.readFileSync('../' + config.options?.cert) };
+			const options = {
+				ca: fs.existsSync('../' + config.options?.ca) && fs.readFileSync('../' + config.options?.ca),
+				cert: fs.readFileSync('../' + config.options?.cert),
+				key: fs.readFileSync('../' + config.options?.key)
+			};
 
 			const server = https.createServer(options, app).listen(config.port, () => {
 				console.log('Server is listening on https://[...]:' + config.port);
