@@ -23,6 +23,7 @@ export interface ServerOptions {
 export interface ServerInstance {
 	options?: HttpsOptions;
 	port: number;
+	redirect?: number;
 	type: 'http' | 'https';
 }
 

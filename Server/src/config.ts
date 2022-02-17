@@ -19,6 +19,7 @@ export const configuration: Configuration = {
 		instances: [
 			{
 				port: 8080,
+				redirect: 8443,
 				type: 'http'
 			},
 			{

@@ -20,7 +20,9 @@ export async function init() {
 		}
 	}
 	catch {
-		console.log('\nERROR Database: Connection refuse\nPlease, check connection database object\nExecute: npm run server:config');
+		console.log('\nERROR Database: Connection refuse');
+		console.log('From the project root directory');
+		console.log('Execute: npm run server:config');
 		process.exit(1);
 	}
 }

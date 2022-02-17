@@ -30,6 +30,19 @@ configuration.server.instances.forEach(item => {
 	createServer(app, item);
 })
 
+// Redirect ports
+app.use((req, res, next) => {
+	const [host, port] = req.headers.host.split(':')
+	const current = configuration.server.instances.find(item => item.port == +port)
+
+	if (req.secure || current?.redirect == undefined || current?.port == current?.redirect) {
+		next();
+	} else {
+		const redirect = configuration.server.instances.find(item => item.port == current.redirect)
+		res.redirect(redirect.type + '://' + host + ':' + redirect.port + req.url);
+	}
+});
+
 // Client - Backend routes
 app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
 app.post('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.insert);
@@ -72,21 +85,22 @@ function createServer(app: Express, config: ServerInstance): void {
 	if (config.type == 'http') {
 		try {
 			const server = http.createServer(app).listen(config.port, () => {
-				console.log('Server is listening on http://[...]:' + config.port);
+				console.log('\nServer is listening on http://[...]:' + config.port);
 			});
 	
 			const io = SocketIO(server);
 			io.on('connection', client => socket.connection(io, client));
 		} catch {
-			console.log('Error: Can not create the instance of ' + config.type + ' server at ' + config.port + ' port');
+			console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
 		}
 	} else if (config.options) {
 		try {
 			fs.statSync(config.options?.key).isFile();
 			fs.statSync(config.options?.cert).isFile();
 		} catch {
-			console.log('SSL certificates can not be founded!\nFrom the Server root directory, execute: ');
-			console.log('\topenssl req -nodes -new -x509 -keyout ' + config.options?.key + ' -out ' + config.options?.cert + ' -days 365');
+			console.log('\nERROR: SSL certificates can not be loaded');
+			console.log('From the project root directory')
+			console.log('Execute: openssl req -nodes -new -x509 -keyout ' + config.options?.key + ' -out ' + config.options?.cert + ' -days 365');
 		}
 
 		try {
@@ -99,10 +113,10 @@ function createServer(app: Express, config: ServerInstance): void {
 			const io = SocketIO(server);
 			io.on('connection', client => socket.connection(io, client));
 		} catch {
-			console.log('Error: Can not create the instance of ' + config.type + ' server at ' + config.port + ' port');
+			console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
 		}
 	} else {
-		console.log('Error: Can not get options for the instance of ' + config.type + ' server at ' + config.port + ' port');
+		console.log('\nError: Can not get options for the instance of ' + config.type + ' server at port ' + config.port);
 	}
 }
 
