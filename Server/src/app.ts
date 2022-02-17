@@ -89,37 +89,50 @@ app.get('*', (req, res) => {
 });
 
 async function createServer(app: Express, config: ServerInstance): Promise<void> {
-	if (config.type == 'http') {
-		try {
-			const server = http.createServer(app).listen(config.port, () => {
-				console.log('Server is listening on http://[...]:' + config.port);
-			});
+	switch(config.type) {
+		case 'http':
+			try {
+				const server = http.createServer(app).listen(config.port, () => {
+					console.log('Server is listening on http://[...]:' + config.port);
+				});
+
+				const io = SocketIO(server);
+				io.on('connection', client => socket.connection(io, client));
+			} catch {
+				console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
+			}
+			break;
+		case 'https':
+			try {
+				const certificate = await getCertificate(config.options);
 	
-			const io = SocketIO(server);
-			io.on('connection', client => socket.connection(io, client));
-		} catch {
-			console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
+				const server = https.createServer(certificate, app).listen(config.port, () => {
+					console.log('Server is listening on https://[...]:' + config.port);
+				});
+	
+				const io = SocketIO(server);
+				io.on('connection', client => socket.connection(io, client));
+			} catch {
+				console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
+			}
+			break;
+	}
+}
+
+async function getCertificate(path: HttpsOptions): Promise<HttpsOptions> {
+	try {
+		return {
+			ca: fs.existsSync(path.ca) && fs.readFileSync(path.ca),
+			cert: fs.readFileSync(path.cert),
+			key: fs.readFileSync(path.key),
 		}
-	} else if (config.options) {
-		const certificate = await new Promise<HttpsOptions>((resolve, reject) => {
+	} catch {
+		return await new Promise<HttpsOptions>((resolve, reject) => {
 			pem.createCertificate({ days: 365, selfSigned: true }, (err, keys) => {
 				err && reject(err);
-				resolve({ key: keys.serviceKey, cert: keys.certificate })
+				resolve({ cert: keys.certificate, key: keys.serviceKey })
 			});
 		});
-
-		try {
-			const server = https.createServer(certificate, app).listen(config.port, () => {
-				console.log('Server is listening on https://[...]:' + config.port);
-			});
-
-			const io = SocketIO(server);
-			io.on('connection', client => socket.connection(io, client));
-		} catch {
-			console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
-		}
-	} else {
-		console.log('\nError: Can not get options for the instance of ' + config.type + ' server at port ' + config.port);
 	}
 }
 

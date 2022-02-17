@@ -28,9 +28,9 @@ export interface ServerInstance {
 }
 
 export interface HttpsOptions {
-	ca?: string;
-	cert: string;
-	key: string;
+	ca?: Buffer | string;
+	cert: Buffer | string;
+	key: Buffer | string;
 }
 
 export interface Token {
