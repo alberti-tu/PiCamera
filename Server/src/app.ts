@@ -6,10 +6,11 @@ import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import pem from 'pem';
 import SocketIO from 'socket.io';
 
 import { configuration } from './config';
-import { ServerInstance } from './models/http.models';
+import { HttpsOptions, ServerInstance } from './models/http.models';
 
 import * as authentication from './middlewares/authentication.middlewares';
 import * as camera from './middlewares/camera.middlewares';
@@ -87,7 +88,7 @@ app.get('*', (req, res) => {
 	else res.sendFile(resolveClient('App/out/index.html', 1));
 });
 
-function createServer(app: Express, config: ServerInstance): void {
+async function createServer(app: Express, config: ServerInstance): Promise<void> {
 	if (config.type == 'http') {
 		try {
 			const server = http.createServer(app).listen(config.port, () => {
@@ -100,25 +101,15 @@ function createServer(app: Express, config: ServerInstance): void {
 			console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
 		}
 	} else if (config.options) {
-		try {
-			fs.statSync(config.options?.key).isFile();
-			fs.statSync(config.options?.cert).isFile();
-		} catch {
-			console.log('\nERROR: SSL certificates can not be loaded');
-			console.log('From the project root directory');
-			console.log('Execute: npm run letsencrypt --host=[host]');
-			console.log('or');
-			console.log('Execute: npm run openssl --cert=' + config.options?.cert + ' --key=' + config.options?.key);
-		}
+		const certificate = await new Promise<HttpsOptions>((resolve, reject) => {
+			pem.createCertificate({ days: 365, selfSigned: true }, (err, keys) => {
+				err && reject(err);
+				resolve({ key: keys.serviceKey, cert: keys.certificate })
+			});
+		});
 
 		try {
-			const options = {
-				ca: fs.existsSync(config.options?.ca) && fs.readFileSync(config.options?.ca),
-				cert: fs.readFileSync(config.options?.cert),
-				key: fs.readFileSync(config.options?.key)
-			};
-
-			const server = https.createServer(options, app).listen(config.port, () => {
+			const server = https.createServer(certificate, app).listen(config.port, () => {
 				console.log('Server is listening on https://[...]:' + config.port);
 			});
 

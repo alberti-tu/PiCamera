@@ -6,23 +6,18 @@
 		"app:start": "cd App && npm start",
 		"app:build": "cd App && npm run build",
 		"app:install": "cd App && npm i --force",
-
-		"client:start":"cd Client && npm start",
-		"client:build":"cd Client && npm run build",
-		"client:config":"cd Client && npm run config",
-		"client:install":"cd Client && npm i --force",
-
-		"server:start":"cd Server && npm start",
-		"server:build":"cd Server && npm run build",
-		"server:config":"cd Server && npm run config",
-		"server:install":"cd Server && npm i --force",
-
+		"client:start": "cd Client && npm start",
+		"client:build": "cd Client && npm run build",
+		"client:config": "cd Client && npm run config",
+		"client:install": "cd Client && npm i --force",
+		"server:start": "cd Server && npm start",
+		"server:build": "cd Server && npm run build",
+		"server:config": "cd Server && npm run config",
+		"server:install": "cd Server && npm i --force",
 		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
 		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
-
 		"letsencrypt": "sudo certbot certonly --standalone -d $npm_config_host",
 		"openssl": "openssl req -nodes -new -x509 -keyout $npm_config_key -out $npm_config_cert -days 365",
-
 		"setup": "sudo ./node_setup.sh"
 	},
 	"repository": {

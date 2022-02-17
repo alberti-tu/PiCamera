@@ -24,15 +24,16 @@ export const configuration: Configuration = {
 			},
 			{
 				options: {
-					cert: 'certificate/server.cert',
-					key: 'certificate/server.key',
+					ca: '/etc/letsencrypt/live/[host]/chain.pem',
+					cert: '/etc/letsencrypt/live/[host]/cert.pem',
+					key: '/etc/letsencrypt/live/[host]/key.pem',
 				},
 				port: 8443,
 				type: 'https'
 			}
 		],
 		sharedKey: 'mycamera',  // Password to accept camera registration
-		timeout: '1d'           // Expiration time of the authentication token
+		timeout: '365d'         // Expiration time of the authentication token
 	}
 }
 
