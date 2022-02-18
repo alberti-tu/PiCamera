@@ -33,17 +33,19 @@ configuration.server.instances.forEach(item => {
 
 // Redirect ports
 app.use((req, res, next) => {
-	const [host, port] = req.headers.host.split(':')
+	const [host, port] = req.headers.host.split(':');
+
+	const protocol = req.secure ? 'https' : 'http';
+
 	const server = configuration.server.instances.find(item => {
-		if (port == undefined) {
-			const type = req.secure ? 'https' : 'http';
-			return item.type == type && item.redirect;
-		} else {
+		if (port) {
 			return item.port == +port;
+		} else {
+			return item.port == (protocol == item.type ? 443 : 80);
 		}
 	});
 
-	if (req.secure || server?.redirect == undefined || server?.port == server?.redirect) {
+	if (req.secure || !server?.redirect || server?.port == server?.redirect) {
 		next();
 	} else {
 		res.redirect('https://' + host + ':' + server.redirect + req.url);
