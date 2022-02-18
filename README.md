@@ -61,11 +61,20 @@ npm run client:config
 
 ### 2.3 Generate SSL certificates (Optional)
 
-Copy your .cert and .key files into the folders you set in previous configuration. If you want to autosign your own certificate execute the following commands.
+Copy your .cert and .key files to the folders you configured in the previous setup. If you don't have a valid one, you can generate them with Let's Encrypt. For the verification process to work, remember to forward TCP ports 80 and 443 to your IP address.
+
 ```bash
-mkdir [certificate path]
-npm run certificate --cert=[file cert path] --key=[file key path]
+sudo apt install certbot
+sudo npm run letsencrypt --host=[domain]
 ```
+
+However, you can self-sign your certificate with the following command.
+
+```bash
+npm run openssl --cert=[file cert path] --key=[file key path]
+```
+
+If you don't provide a valid certificate or there is an access error, PiCamera will generate a self-signed certificate for the HTTPS servers.
 
 ## 3. Build project
 
@@ -101,6 +110,7 @@ If you want to finish execution press **ctrl + c** on the linux shell
 In the near future will be new updates, in order to download the new features execute the following commands:
 
 ```bash
+git reset --hard
 git pull
 ```
 After downloaded the features execute steps [1.2 Project setup](#1.2-Project-setup), [3. Build project](#3.-Build-project) and [4. Launch project](#4.-Launch-project).
