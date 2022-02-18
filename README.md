@@ -27,7 +27,7 @@ Installing NodeJS and NPM for Linux systems
 
 ```bash
 cd PiCamera
-sudo ./node_setup.sh
+sudo npm run setup
 ```
 
 Installing all NPM dependences
