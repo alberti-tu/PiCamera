@@ -25,6 +25,7 @@ apt update -y
 echo ""
 echo "Step 2: Removing current Node version"
 echo ""
+rm -r /usr/lib/node_modules/
 apt remove nodejs -y
 
 echo ""
