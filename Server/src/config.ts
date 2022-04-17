@@ -18,17 +18,13 @@ export const configuration: Configuration = {
 		directory: 'camera',
 		instances: [
 			{
-				port: 8080,
-				redirect: 8443,
+				port: 80,
+				redirect: 443,
 				type: 'http'
 			},
 			{
-				options: {
-					ca: '/etc/letsencrypt/live/[host]/chain.pem',
-					cert: '/etc/letsencrypt/live/[host]/cert.pem',
-					key: '/etc/letsencrypt/live/[host]/key.pem',
-				},
-				port: 8443,
+				domain: null,	// Domain of the Let's encrypt certificate
+				port: 443,
 				type: 'https'
 			}
 		],

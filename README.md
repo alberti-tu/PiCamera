@@ -42,6 +42,17 @@ npm run client:install
 npm run app:install
 ```
 
+### 1.3 Generate SSL certificates (Optional)
+
+This project allows you to generate a valid certificate for free by Let's Encrypt. For the verification process to work, remember to forward TCP ports 80 and 443 to your IP address.
+
+```bash
+sudo apt install certbot
+sudo npm run letsencrypt --host=[domain]
+```
+
+If you don't provide a valid certificate, PiCamera will generate a self-signed certificate for the HTTPS servers.
+
 ## 2. Configuration
 
 The commands in steps [2.1 Server](#2.1-Server) and [2.2 Camera node](#2.2-Camera-node) will open a nano shell editor. After editing the document press **ctrl + o** to save changes and **ctrl + x** to close.
@@ -58,23 +69,6 @@ Set URL connection and server password
 ```bash
 npm run client:config
 ```
-
-### 2.3 Generate SSL certificates (Optional)
-
-Copy your .cert and .key files to the folders you configured in the previous setup. If you don't have a valid one, you can generate them with Let's Encrypt. For the verification process to work, remember to forward TCP ports 80 and 443 to your IP address.
-
-```bash
-sudo apt install certbot
-sudo npm run letsencrypt --host=[domain]
-```
-
-However, you can self-sign your certificate with the following command.
-
-```bash
-npm run openssl --cert=[file cert path] --key=[file key path]
-```
-
-If you don't provide a valid certificate or there is an access error, PiCamera will generate a self-signed certificate for the HTTPS servers.
 
 ## 3. Build project
 

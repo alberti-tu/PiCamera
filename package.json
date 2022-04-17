@@ -10,14 +10,13 @@
 		"client:build": "cd Client && npm run build",
 		"client:config": "cd Client && npm run config",
 		"client:install": "cd Client && npm i --force",
-		"server:start": "cd Server && npm start",
+		"server:start": "cd Server && sudo npm start",
 		"server:build": "cd Server && npm run build",
 		"server:config": "cd Server && npm run config",
 		"server:install": "cd Server && npm i --force",
 		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
 		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
-		"letsencrypt": "sudo certbot certonly --standalone -d $npm_config_host",
-		"openssl": "openssl req -nodes -new -x509 -keyout $npm_config_key -out $npm_config_cert -days 365",
+		"letsencrypt": "sudo certbot certonly --standalone -d $npm_config_host && sudo chmod -R 755 /etc/letsencrypt/live/ && sudo chmod -R 755 /etc/letsencrypt/archive/",
 		"setup": "sudo ./node_setup.sh"
 	},
 	"repository": {

@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { getSerialNumber } from './utils.services';
+import { getPortNumber, getSerialNumber } from './utils.services';
 import { configuration } from '../config';
 import { encryptAES } from './authentication.services';
 import { CameraOptions, Message } from '../models/http.models';
 
-export const url = configuration.protocol + '://' + configuration.host + ':' + configuration.port;
+export const url = configuration.protocol + '://' + configuration.host + ':' + getPortNumber(configuration.protocol, configuration.port);
 export const id = getSerialNumber();
 
 export function setup(): Promise<CameraOptions> {

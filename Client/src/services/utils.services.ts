@@ -1,5 +1,13 @@
 import os, { NetworkInterfaceInfo } from 'os';
 
+export function getPortNumber(protocol: 'http' | 'https', port?: number): number {
+	if (port != null) {
+		return port;
+	} else {
+		return protocol == 'http' ? 80 : 443;
+	}
+}
+
 export function getSerialNumber(): string {
 	const mac: string[] = getArray<NetworkInterfaceInfo[]>(os.networkInterfaces())
 		.filter(item => !item[0].internal)

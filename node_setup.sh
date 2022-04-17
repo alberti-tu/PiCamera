@@ -25,6 +25,7 @@ apt update -y
 echo ""
 echo "Step 2: Removing current Node version"
 echo ""
+rm -r /usr/lib/node_modules/
 apt remove nodejs -y
 
 echo ""
@@ -34,6 +35,8 @@ curl -fsSL https://deb.nodesource.com/setup_$VERSION.x | sudo bash -
 echo "Step 4: Updating Node"
 echo ""
 apt install nodejs -y
+
+setcap 'cap_net_bind_service=+ep' /usr/bin/node
 
 echo ""
 echo "Step 5: Updating NPM"
