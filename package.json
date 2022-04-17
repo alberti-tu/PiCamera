@@ -17,7 +17,7 @@
 		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
 		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
 		"letsencrypt": "sudo certbot certonly --standalone -d $npm_config_host && sudo chmod -R 755 /etc/letsencrypt/live/ && sudo chmod -R 755 /etc/letsencrypt/archive/",
-		"setup": "sudo ./node_setup.sh && sudo ./encrypt_setup.sh"
+		"setup": "sudo ./node_setup.sh"
 	},
 	"repository": {
 		"type": "git",
