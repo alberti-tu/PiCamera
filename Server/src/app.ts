@@ -106,7 +106,7 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 			break;
 		case 'https':
 			try {
-				const certificate = await getCertificate(config.options);
+				const certificate = await getCertificate(config.domain);
 	
 				const server = https.createServer(certificate, app).listen(config.port, () => {
 					console.log('Server is listening on https://[...]:' + config.port);
@@ -121,12 +121,12 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 	}
 }
 
-async function getCertificate(path: HttpsOptions): Promise<HttpsOptions> {
+async function getCertificate(domain: string): Promise<HttpsOptions> {
 	try {
 		return {
-			ca: fs.existsSync(path.ca) && fs.readFileSync(path.ca),
-			cert: fs.readFileSync(path.cert),
-			key: fs.readFileSync(path.key),
+			ca: fs.readFileSync('/etc/letsencrypt/live/' + domain + '/chain.pem'),
+			cert: fs.readFileSync('/etc/letsencrypt/live/' + domain + '/cert.pem'),
+			key: fs.readFileSync('/etc/letsencrypt/live/' + domain + '/privkey.pem'),
 		}
 	} catch {
 		return await new Promise<HttpsOptions>((resolve, reject) => {
