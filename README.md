@@ -47,6 +47,7 @@ npm run app:install
 This project allows you to generate a valid certificate for free by Let's Encrypt. For the verification process to work, remember to forward TCP ports 80 and 443 to your IP address.
 
 ```bash
+sudo apt install certbot
 sudo npm run letsencrypt --host=[domain]
 ```
 
