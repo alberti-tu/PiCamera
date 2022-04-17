@@ -35,6 +35,8 @@ echo "Step 4: Updating Node"
 echo ""
 apt install nodejs -y
 
+setcap 'cap_net_bind_service=+ep' /usr/bin/node
+
 echo ""
 echo "Step 5: Updating NPM"
 npm i -g npm
