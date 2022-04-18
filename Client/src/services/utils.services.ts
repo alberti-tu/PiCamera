@@ -1,10 +1,10 @@
 import os, { NetworkInterfaceInfo } from 'os';
 
 export function getPortNumber(protocol: 'http' | 'https', port?: number): number {
-	if (port != null) {
-		return port;
-	} else {
+	if (port == null || isNaN(port)) {
 		return protocol == 'http' ? 80 : 443;
+	} else {
+		return port;
 	}
 }
 

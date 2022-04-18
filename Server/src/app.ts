@@ -34,16 +34,9 @@ configuration.server.instances.forEach(item => {
 // Redirect ports
 app.use((req, res, next) => {
 	const [host, port] = req.headers.host.split(':');
-
 	const protocol = req.secure ? 'https' : 'http';
 
-	const server = configuration.server.instances.find(item => {
-		if (port) {
-			return item.port == +port;
-		} else {
-			return item.port == (protocol == item.type ? 443 : 80);
-		}
-	});
+	const server = configuration.server.instances.find(item => getPortNumber(protocol, +port) == item.port);
 
 	if (req.secure || !server?.redirect || server?.port == server?.redirect) {
 		next();
@@ -135,6 +128,14 @@ async function getCertificate(domain: string): Promise<HttpsOptions> {
 				resolve({ cert: keys.certificate, key: keys.serviceKey })
 			});
 		});
+	}
+}
+
+function getPortNumber(protocol: 'http' | 'https', port?: number): number {
+	if (port == null || isNaN(port)) {
+		return protocol == 'http' ? 80 : 443;
+	} else {
+		return port;
 	}
 }
 
