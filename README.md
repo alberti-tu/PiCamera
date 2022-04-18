@@ -6,9 +6,9 @@ Package                                 | Version
 ----------------------------------------|--------
 [Angular CLI](https://cli.angular.io)   | 11.2.3
 [Axios](https://github.com/axios/axios) | 0.21.1
-[Express](https://expressjs.com)        | 4.17.1
+[Express](https://expressjs.com)        | 4.17.3
 [Maria DB](https://mariadb.org)         | 10.5.12
-[Node JS](https://nodejs.org)           | 16.13.1
+[Node JS](https://nodejs.org)           | 16.14.2
 
 ## 1. Installation
 
@@ -48,7 +48,7 @@ This project allows you to generate a valid certificate for free by Let's Encryp
 
 ```bash
 sudo apt install certbot
-sudo npm run letsencrypt --host=[domain]
+sudo npm run certificate --host=[domain]
 ```
 
 If you don't provide a valid certificate, PiCamera will generate a self-signed certificate for the HTTPS servers.
