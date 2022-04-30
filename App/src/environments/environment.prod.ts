@@ -1,4 +1,3 @@
 export const environment = {
-	production: true,
-	url: location.origin
+	production: true
 };
