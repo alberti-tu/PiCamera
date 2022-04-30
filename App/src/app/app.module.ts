@@ -1,8 +1,24 @@
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { HttpInterceptorService } from './services/interceptor/http-interceptor.service';
+import { HttpService } from './services/http/http.service';
+import { TranslationService } from './services/translation/translation.service';
+
 import { AppComponent } from './app.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
+const routes: Routes = [
+	{ path: '**', redirectTo: 'home', pathMatch: 'full' }
+]
 
 @NgModule({
 	declarations: [
@@ -10,9 +26,16 @@ import { AppComponent } from './app.component';
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule
+		RouterModule.forRoot(routes),
+		TranslateModule.forRoot({
+			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
+		})
 	],
-	providers: [],
+	providers: [
+		HttpService,
+        TranslationService,
+        { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
