@@ -7,7 +7,8 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import pem from 'pem';
-import SocketIO from 'socket.io';
+
+import { Server } from 'socket.io';
 
 import { configuration } from './config';
 import { HttpsOptions, ServerInstance } from './models/http.models';
@@ -91,7 +92,7 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 					console.log('Server is listening on http://[...]:' + config.port);
 				});
 
-				const io = SocketIO(server);
+				const io: Server = require('socket.io')(server);
 				io.on('connection', client => socket.connection(io, client));
 			} catch {
 				console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);
@@ -105,7 +106,7 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 					console.log('Server is listening on https://[...]:' + config.port);
 				});
 	
-				const io = SocketIO(server);
+				const io: Server = require('socket.io')(server);
 				io.on('connection', client => socket.connection(io, client));
 			} catch {
 				console.log('\nError: Can not create the instance of ' + config.type + ' server at port ' + config.port);

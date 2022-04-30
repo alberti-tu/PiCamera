@@ -22,7 +22,7 @@ export async function connection(io: Server, socket: Socket) {
 
 	if (socket.handshake.query && socket.handshake.query.token) {
 		try {
-			userId = decodeToken(socket.handshake.query.token).id;
+			userId = decodeToken(socket.handshake.query.token.toString()).id;
 			await database.checkUser(userId);
 		} catch {
 			socket.emit(SocketEvent.unauthorized);
