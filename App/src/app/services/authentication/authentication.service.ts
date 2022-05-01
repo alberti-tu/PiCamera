@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { SHA256, enc } from 'crypto-js';
+import { AppURL } from 'src/app/constants/routes';
 
 const key = 'token';
 
@@ -20,7 +21,7 @@ export class AuthenticationService implements CanActivate {
 
 	public setToken(value: string): void {
 		localStorage.setItem(key, value);
-		this.router.navigateByUrl('/home');
+		this.router.navigateByUrl(AppURL.home);
 	}
 
 	public getToken(): string | null {
@@ -29,7 +30,7 @@ export class AuthenticationService implements CanActivate {
 
 	public removeToken(): void {
 		localStorage.removeItem(key);
-		this.router.navigateByUrl('/login');
+		this.router.navigateByUrl(AppURL.login);
 	}
 
 	public hash(value: string): string {

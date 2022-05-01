@@ -12,12 +12,14 @@ import { TranslationService } from './services/translation/translation.service';
 
 import { AppComponent } from './app.component';
 
+import { AppURL } from './constants/routes';
+
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
 const routes: Routes = [
-	{ path: '**', redirectTo: 'home', pathMatch: 'full' }
+	{ path: '**', redirectTo: AppURL.home, pathMatch: 'full' }
 ]
 
 @NgModule({
