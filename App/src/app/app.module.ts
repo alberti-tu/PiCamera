@@ -1,4 +1,4 @@
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,7 +11,6 @@ import { HttpService } from './services/http/http.service';
 import { TranslationService } from './services/translation/translation.service';
 
 import { AppComponent } from './app.component';
-
 import { AppURL } from './constants/routes';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,6 +18,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 const routes: Routes = [
+	{ path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+	{ path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+	{ path: 'cameras', canActivate: [AuthenticationService], loadChildren: () => import('./pages/cameras/cameras.module').then(m => m.CamerasModule) },
+	{ path: 'home', canActivate: [AuthenticationService], loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+	{ path: 'photos', canActivate: [AuthenticationService], loadChildren: () => import('./pages/photos/photos.module').then(m => m.PhotosModule) },
+	{ path: 'settings', canActivate: [AuthenticationService], loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule) },
 	{ path: '**', redirectTo: AppURL.home, pathMatch: 'full' }
 ]
 
@@ -28,6 +33,7 @@ const routes: Routes = [
 	],
 	imports: [
 		BrowserModule,
+		HttpClientModule,
 		RouterModule.forRoot(routes),
 		TranslateModule.forRoot({
 			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
