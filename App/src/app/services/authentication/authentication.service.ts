@@ -21,7 +21,7 @@ export class AuthenticationService implements CanActivate {
 
 	public setToken(value: string): void {
 		localStorage.setItem(key, value);
-		this.router.navigateByUrl(AppURL.home);
+		this.router.navigateByUrl(AppURL.HOME);
 	}
 
 	public getToken(): string | null {
@@ -30,7 +30,7 @@ export class AuthenticationService implements CanActivate {
 
 	public removeToken(): void {
 		localStorage.removeItem(key);
-		this.router.navigateByUrl(AppURL.login);
+		this.router.navigateByUrl(AppURL.LOGIN);
 	}
 
 	public hash(value: string): string {

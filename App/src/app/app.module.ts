@@ -24,7 +24,7 @@ const routes: Routes = [
 	{ path: 'home', canActivate: [AuthenticationService], loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
 	{ path: 'photos', canActivate: [AuthenticationService], loadChildren: () => import('./pages/photos/photos.module').then(m => m.PhotosModule) },
 	{ path: 'settings', canActivate: [AuthenticationService], loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule) },
-	{ path: '**', redirectTo: AppURL.home, pathMatch: 'full' }
+	{ path: '**', redirectTo: AppURL.HOME, pathMatch: 'full' }
 ]
 
 @NgModule({

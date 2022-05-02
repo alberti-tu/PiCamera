@@ -1,4 +1,4 @@
 export const environment = {
 	production: false,
-	url: 'https://localhost'
+	url: 'https://myhouselan.ddns.net'
 };
