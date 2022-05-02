@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidator } from 'src/app/components/utils';
+import { CustomValidator } from 'src/app/global/utils';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { getPath } from 'src/app/components/utils';
+import { getPath } from 'src/app/global/utils';
 import { ApiURL } from 'src/app/constants/routes';
 import { CameraOptions, CameraSubscription, Message } from 'src/app/models/http.models';
 import { environment } from 'src/environments/environment';
