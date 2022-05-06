@@ -33,6 +33,20 @@ button {
 	}
 }
 
+img {
+	align-self: center;
+}
+
+input {
+	background-color: transparent;
+	border: none;
+	padding: 0rem;
+
+	&:focus {
+		outline: none;
+	}
+}
+
 p {
 	white-space: pre-line;
 	margin: 0;

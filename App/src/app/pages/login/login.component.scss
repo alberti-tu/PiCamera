@@ -1,8 +1,50 @@
 .login-container {
-	form {
-		.formField {
-			.errorMessage {
+	border: solid 1px black;
+	border-radius: 10px;
 
+	.form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		width: 100%;
+
+		form {
+			height: 100%;
+			width: 100%;
+		}
+		
+		.formField {
+			position: relative;
+			padding: 2rem 1.5rem;
+
+			.input-row {
+				display: flex;
+				flex-direction: row;
+
+				border-bottom: solid 2px grey;
+				margin: 0.5rem 0rem;
+				padding: 0.5rem;
+
+				transition: all 0.2s ease-in-out;
+
+				&:hover {
+					border-bottom: solid 2px black;
+				}
+
+				img {
+					height: 32px;
+				}
+
+				input {
+					padding-left: 0.5rem;
+					width: 100%;
+				}
+			}
+
+			.errorMessage {
+				font-weight: 600;
+				color: red;
 			}
 		}
 

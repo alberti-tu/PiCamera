@@ -1,0 +1,12 @@
+{
+    "error": {
+        "minLength": "Longitud insuficiente",
+        "required": "Campo obligatorio",
+        "whiteSpace": "No puede contener espacios"
+    },
+    "login": {
+        "button": "Entrar",
+        "password": "Contraseña",
+        "username": "Usuario"
+    }
+}

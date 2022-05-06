@@ -1,36 +1,37 @@
 <div class="page login-container">
-	<form [formGroup]="form" (submit)="sendForm()">
-		<div class="formField">
-			<label translate>login.username</label>
-			<div class="input-row">
-				<input formControlName="username" type="text">
+	<div class="form">
+		<form [formGroup]="form" (submit)="sendForm()">
+			<div class="formField">
+				<label translate>login.username</label>
+				<div class="input-row">
+					<img src="assets/icons/user.svg">
+					<input formControlName="username" type="text">
+				</div>
+
+				<div class="errorMessage" *ngIf="hasError('username', 'required')" translate>error.required</div>
+				<div class="errorMessage" *ngIf="hasError('username', 'minlength')" translate>error.minLength</div>
+				<div class="errorMessage" *ngIf="hasError('username', 'whiteSpace')" translate>error.whiteSpace</div>
 			</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'required')" translate>error.required</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'minlength')" translate>error.minLength</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'whiteSpace')" translate>error.whiteSpace</div>
-		</div>
 
-		<div class="formField">
-			<label translate>login.password</label>
-			<div class="input-row">
-				<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
-				<img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
+			<div class="formField">
+				<label translate>login.password</label>
+				<div class="input-row">
+					<img src="assets/icons/lock-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
+					<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
+				</div>
+
+				<div class="errorMessage" *ngIf="hasError('password', 'required')" translate>error.required</div>
+				<div class="errorMessage" *ngIf="hasError('password', 'minlength')" translate>error.minLength</div>
+				<div class="errorMessage" *ngIf="hasError('password', 'whiteSpace')" translate>error.whiteSpace</div>
 			</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'required')" translate>error.required</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'minlength')" translate>error.minLength</div>
-			<div class="errorMessage" *ngIf="hasError('username', 'whiteSpace')" translate>error.whiteSpace</div>
-		</div>
 
-		<div class="formButton">
-			<button type="submit" [disabled]="!form.valid">
-				<span translate>login.button</span>
-			</button>
-		</div>
+			<button type="submit" [disabled]="!form.valid" translate>login.button</button>
 
-		<!--
-		<div class="register">
-			<p>{{ 'login.register' | translate }} <a href="/register" translate>login.link</a></p>
-		</div>
-		-->
-	</form>
+			<!--
+			<div class="register">
+				<p>{{ 'login.register' | translate }} <a href="/register" translate>login.link</a></p>
+			</div>
+			-->
+		</form>
+	</div>
 </div>
