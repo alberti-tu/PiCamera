@@ -1,5 +1,5 @@
 <div class="page login-container">
-	<div class="form">
+	<div class="form shadow">
 		<form [formGroup]="form" (submit)="sendForm()">
 			<div class="formField">
 				<label translate>login.username</label>
@@ -25,13 +25,11 @@
 				<div class="errorMessage" *ngIf="hasError('password', 'whiteSpace')" translate>error.whiteSpace</div>
 			</div>
 
-			<button type="submit" [disabled]="!form.valid" translate>login.button</button>
+			<button class="formButton" type="submit" [disabled]="!form.valid" translate>login.button</button>
 
-			<!--
 			<div class="register">
-				<p>{{ 'login.register' | translate }} <a href="/register" translate>login.link</a></p>
+				<a href="/register" translate>login.link</a>
 			</div>
-			-->
 		</form>
 	</div>
 </div>

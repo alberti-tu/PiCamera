@@ -33,6 +33,14 @@ button {
 	}
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	width: 100%;
+}
+
 img {
 	align-self: center;
 }
@@ -66,6 +74,11 @@ p {
 }
 
 .page {
+	display: flex;
+	flex-direction: column;
+
+	align-content: center;
+
 	max-width: 1024px;
 	margin: 0 auto;
 }
