@@ -1,6 +1,5 @@
 {
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "defaultProject": "App",
     "newProjectRoot": "projects",
     "projects": {
         "App": {
@@ -110,5 +109,8 @@
             "sourceRoot": "src"
         }
     },
-    "version": 1
+    "version": 1,
+    "cli": {
+      "analytics": false
+    }
 }
