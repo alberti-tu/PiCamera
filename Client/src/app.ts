@@ -1,5 +1,4 @@
 import { State, StateMachine } from "./services/state-machine.services";
-import { getSerialNumber } from "./services/utils.services";
 import { CameraDTO } from "./models/http.models";
 import { Camera } from "./services/camera.services";
 import { configuration } from "./config";
@@ -14,9 +13,9 @@ function stream(options?: CameraDTO): Promise<void> {
 			camera.takePicture()
 				.then(async data => {
 					const getSettings = await http.sendPicture(options.timestamp, data != null ? data : null);
-					getSettings ? reject(null) : resolve(null);
+					getSettings ? reject() : resolve();
 				})
-				.catch(() => reject(null));
+				.catch(() => reject());
 		}
 	});
 }
@@ -24,9 +23,9 @@ function stream(options?: CameraDTO): Promise<void> {
 const camera = Camera.getInstance();
 
 const states: State[] = [
-	{ name: 'setup', transition1: 'camera', transition2: 'register', action: (data) => http.setup() },
-	{ name: 'register', transition1: 'setup', transition2: null, action: (data) => http.register() },
-	{ name: 'camera', transition1: 'camera', transition2: 'setup', action: (data) => stream(data), input: 'setup' }
+	{ name: 'setup', resolve: 'camera', rejected: 'register', action: (data) => http.setup() },
+	{ name: 'register', resolve: 'setup', rejected: undefined, action: (data) => http.register() },
+	{ name: 'camera', resolve: 'camera', rejected: 'setup', action: (data) => stream(data), input: 'setup' }
 ];
 
 console.log('Camera Id: ' + http.id);

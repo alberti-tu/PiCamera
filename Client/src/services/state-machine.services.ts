@@ -1,7 +1,7 @@
 export interface State {
 	name: string;
-	transition1: string;
-	transition2: string;
+	resolve: string;
+	rejected: string;
 	action: (data?: any) => Promise<any>;
 	input?: string;
 	output?: any;
@@ -23,31 +23,30 @@ export class StateMachine {
 			const state: State = this._states.find(item => item.name == currentState);
 
 			if (state == undefined) {
-				this._print('exit');
+				this._print('exit', true);
 				break;
 			}
 
 			this._print(currentState);
 
 			try {
-				const input = this.selectInputState(state.input);
-				state.output = await state.action(input);
-				currentState = state.transition1;
+				const data = this.selectInputState(state?.input);
+				state.output = await state.action(data);
+				currentState = state.resolve;
 			} catch {
-				state.output = null;
-				currentState = state.transition2;
+				state.output = undefined;
+				currentState = state.rejected;
 			}
 		}
 	}
 
 	public selectInputState(name: string): any {
-		const state: State = this._states.find(item => item.name == name);
-		return state != null ? state.output : null;
+		return this._states.find(item => item.name == name)?.output;
 	}
 
-	private _print(name: string) {
-		if (this.logs == true) {
-			console.log('[' + new Date().toLocaleString() + '] --> ' + name);
+	private _print(message: string, isError?: boolean) {
+		if (this.logs || isError) {
+			console.log('[' + new Date().toLocaleString() + '] --> ' + message);
 		}
 	}
 }
