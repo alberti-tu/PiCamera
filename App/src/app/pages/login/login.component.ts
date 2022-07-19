@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from 'src/app/global/utils';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -11,10 +11,10 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class LoginComponent {
 
-	public form: UntypedFormGroup;
+	public form: FormGroup;
 	public showPassword: boolean;
 
-	constructor(private _auth: AuthenticationService, private _formBuilder: UntypedFormBuilder, private _http: HttpService) {
+	constructor(private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) {
 		this.form = this._formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ]
