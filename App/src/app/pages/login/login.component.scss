@@ -7,7 +7,7 @@
 
 		.formField {
 			position: relative;
-			padding: 2rem 1.5rem;
+			padding: 2rem;
 
 			.input-row {
 				display: flex;
@@ -15,7 +15,7 @@
 
 				border-bottom: solid 1px grey;
 				margin: 0.5rem 0rem;
-				padding: 0.5rem;
+				padding: 0.75rem;
 
 				transition: all 0.2s ease-in-out;
 
@@ -29,7 +29,7 @@
 
 				input {
 					font-size: 1.25rem;
-					padding-left: 0.5rem;
+					padding-left: 0.75rem;
 					width: 100%;
 				}
 			}
@@ -45,12 +45,18 @@
 
 			padding: 1rem 3rem;
 			font-size: 1.25rem;
+
+			background: #0095f6;
+			color: white;
+
+			&:hover {
+				background: lighten(#0095f6, 10%);
+			}
 		}
 
 		.register {
 			text-align: center;
 			font-size: 1.125rem;
-			padding: 2rem 0rem 0rem;
 
 			a:hover {
 				text-decoration: underline;

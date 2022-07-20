@@ -15,8 +15,8 @@
 
 			<div class="formField">
 				<label translate>login.password</label>
-				<div class="input-row">
-					<img src="assets/icons/lock-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
+				<div class="input-row" style="cursor: pointer">
+					<img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
 					<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
 				</div>
 
@@ -25,7 +25,7 @@
 				<div class="errorMessage" *ngIf="hasError('password', 'whiteSpace')" translate>error.whiteSpace</div>
 			</div>
 
-			<button class="formButton" type="submit" [disabled]="!form.valid" translate>login.button</button>
+			<button class="formButton shadow" type="submit" [disabled]="!form.valid" translate>login.button</button>
 
 			<div class="register">
 				<a href="/register" translate>login.link</a>
