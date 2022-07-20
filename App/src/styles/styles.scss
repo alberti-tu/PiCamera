@@ -1,0 +1,13 @@
+@import 'colors';
+@import 'general';
+@import 'tags';
+
+body {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 1rem!important;
+	
+	height: 100vh;
+	margin: 0;
+	
+	-webkit-tap-highlight-color: transparent;
+}

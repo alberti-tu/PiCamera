@@ -53,7 +53,7 @@
                         "polyfills": "src/polyfills.ts",
                         "scripts": [],
                         "styles": [
-                            "src/styles.scss"
+                            "src/styles/styles.scss"
                         ],
                         "tsConfig": "tsconfig.app.json"
                     }
@@ -89,7 +89,7 @@
                         "polyfills": "src/polyfills.ts",
                         "scripts": [],
                         "styles": [
-                            "src/styles.scss"
+                            "src/styles/styles.scss"
                         ],
                         "tsConfig": "tsconfig.spec.json"
                     }

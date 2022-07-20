@@ -1,0 +1,54 @@
+a {
+	&:link {
+		color: $dark;
+		text-decoration: none;
+	}
+	
+	&:visited {
+		color: $dark;
+		text-decoration: none;
+	}
+}
+
+button {
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	&:disabled {
+		background: $grey-light!important;
+		transform: none;
+		cursor: default;
+	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	width: 100%;
+}
+
+img {
+	align-self: center;
+}
+
+input {
+	background-color: transparent;
+	border: none;
+	padding: 0rem;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+p {
+	white-space: pre-line;
+	margin: 0;
+}

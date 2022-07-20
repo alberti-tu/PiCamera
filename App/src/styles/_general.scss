@@ -1,0 +1,36 @@
+.focus {
+	transition: all 250ms;
+	cursor: pointer;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	&:active {
+		transform: scale(0.98);
+	}
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+
+	align-content: center;
+
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+.shadow {
+	box-shadow: 0rem 0.375rem 0.75rem rgba($shadow, 0.2);
+	transition: all 250ms;
+	margin: 1em 1em 2em;
+
+	&:hover {
+		box-shadow: 0rem 0.375rem 1.125rem rgba($shadow, 0.4);
+	}
+
+	&:disabled {
+		box-shadow: 0rem 0.375rem 0.75rem rgba($shadow, 0.2);
+	}
+}
