@@ -1,0 +1,41 @@
+// Default toast
+.toast-container {
+	position: absolute;
+	top: 0;
+	right: 0rem;
+	
+	max-height: 70px;
+	min-height: 70px;
+	min-width: 260px;
+	
+	display: inline-flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	
+	margin: 2rem;
+	padding: 1.5rem;
+	
+	border-radius: 4px;
+	font-size: 0.9rem;
+	
+	background: white;
+	box-shadow: 6px 6px 12px #00000040;
+	z-index: 100;
+
+	&.default {
+		border-left: 6px solid black;
+	}
+	
+	&.success {
+		border-left: 6px solid green;
+	}
+	
+	&.warning {
+		border-left: 6px solid yellow;
+	}
+	
+	&.danger {
+		border-left: 6px solid red;
+	}
+}

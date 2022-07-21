@@ -1,4 +1,7 @@
 {
+	"button": {
+		"close": "Cerrar"
+	},
     "error": {
         "minLength": "Longitud insuficiente",
         "required": "Campo obligatorio",
@@ -6,8 +9,25 @@
     },
     "login": {
         "button": "Entrar",
-        "link": "Regístrate gratis",
+        "link": "Nuevo usuario",
         "password": "Contraseña",
         "username": "Usuario"
+    },
+    "toast": {
+        "error": {
+            "badRequest": "No se ha podido realizar esa acción, por favor, vuelva a intentarlo",
+            "confirmPassword": "La contraseña no es correcta",
+            "differentPassword": "Los campos de contraseña no son iguales",
+            "login": "Usuario y/o contraseña incorrecto",
+            "logout": "La sesión ha expirado, por favor, vuelva a iniciar sesión",
+            "notAdded": "No se ha podido añadir el elemento solicitado",
+            "notFound": "No se ha podido encontrar la información solicitada",
+            "register": "Este nombre de usuario no está disponible",
+            "update": "No se han podido actualizar los datos"
+        },
+        "info": {
+            "logout": "La sesión se ha cerrado correctamente",
+            "success": "Datos guardados correctamente"
+        }
     }
 }
