@@ -52,7 +52,7 @@ export class RegisterComponent {
 
 	public sendForm(): void {
 		if (this.form.value.password1 != this.form.value.password2) {
-			this._alert.showToast('toast.error.differentPassword');
+			this._alert.showToast('toast.error.differentPassword', { delay: 5000, state: 'danger' });
 			return;
 		}
 
