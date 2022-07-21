@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ToastState } from 'src/app/components/toast/toast.component';
 import { Toast, ToastSettings } from 'src/app/models/toast.models';
 
 @Injectable({ providedIn: 'root' })
@@ -10,12 +9,12 @@ export class AlertService {
 
 	constructor() {	}
 
-	public showToast(header: string, message: string, settings?: ToastSettings) {
+	public showToast(message: string, settings?: ToastSettings) {
 		settings = settings || {};
 		settings.show = true;
 		settings.state = settings.state || 'default';
 
-		const toast: Toast = { id: new Date().getTime(), header, message, settings };
+		const toast: Toast = { id: new Date().getTime(), message, settings };
 
 		this.toast$.next(toast)
 

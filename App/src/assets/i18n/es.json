@@ -14,6 +14,12 @@
         "username": "Usuario"
     },
     "toast": {
+		"state": {
+			"default": "Notificación",
+			"success": "Correcto",
+			"warning": "Alerta",
+			"danger": "Error"
+		},
         "error": {
             "badRequest": "No se ha podido realizar esa acción, por favor, vuelva a intentarlo",
             "confirmPassword": "La contraseña no es correcta",

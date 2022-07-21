@@ -43,7 +43,7 @@ export class LoginComponent {
 				this.form.reset();
 			} else {
 				this._auth.removeToken();
-				//this._alert.showToast('toast.error.login', 'danger', 5000);
+				this._alert.showToast('toast.error.login', { delay: 5000, state: 'danger' });
 			}
 		});
 	}
