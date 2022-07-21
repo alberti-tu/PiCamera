@@ -26,7 +26,7 @@ export class LoginComponent {
 
 	public hasError(name: string, error: string): boolean {
 		const control = this.form.get(name);
-		return control && control.touched && control.errors && control.errors[error];
+		return control && control?.touched && control.errors && control.errors[error];
 	}
 
 	public passwordButton(): void {
@@ -39,11 +39,11 @@ export class LoginComponent {
 
 		this._http.login(username, password).subscribe(data => {
 			if (data.result) {
-				this._auth.setToken(data.result);
 				this.form.reset();
+				this._auth.setToken(data.result);
 			} else {
 				this._auth.removeToken();
-				this._alert.showToast('toast.error.login', { delay: 5000, state: 'danger' });
+				this._alert.showToast('toast.error.login', { delay: 5000, state: 'danger' });		
 			}
 		});
 	}

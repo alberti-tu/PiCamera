@@ -24,7 +24,7 @@ export class ToastComponent implements OnInit {
 	constructor(private _alert: AlertService) { }
 
 	public ngOnInit(): void {
-		this._alert.toast$.asObservable().subscribe(value =>	this.toast = value);
+		this._alert.getToast().asObservable().subscribe(value => this.toast = value);
 	}
 
 	public close(item?: Toast): void {   
