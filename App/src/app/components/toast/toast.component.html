@@ -4,6 +4,6 @@
 		<img class="btn-close" src="/assets/icons/cross.svg" (click)="close(toast)">
 	</div>
 	<div class="body">
-		<p translate>{{ toast?.message }}</p>
+		<p>{{ toast?.message || '' | translate }}</p>
 	</div>
 </div>

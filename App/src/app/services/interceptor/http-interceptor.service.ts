@@ -21,13 +21,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 		}
 
 		return next.handle(request).pipe(
-			/*
-			tap((response: HttpResponse<Message<any>>) => {
+			tap(response => {
 				if (response instanceof HttpResponse && !environment.production) {
 					console.log(response.body);
 				}
 			}),
-			*/
 			catchError((response: HttpResponse<Message<any>>) => {
 				if (response instanceof HttpErrorResponse) {
 					switch (response.status) {
