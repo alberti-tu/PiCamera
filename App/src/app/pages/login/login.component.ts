@@ -39,7 +39,6 @@ export class LoginComponent {
 
 		this._http.login(username, password).subscribe(data => {
 			if (data.result) {
-				this.form.reset();
 				this._auth.setToken(data.result);
 			} else {
 				this._auth.removeToken();
