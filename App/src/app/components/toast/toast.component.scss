@@ -1,41 +1,55 @@
-// Default toast
 .toast-container {
 	position: absolute;
 	top: 0;
-	right: 0rem;
+	right: 0;
+
+	max-width: 40vw;
+	width: 512px;
 	
-	max-height: 70px;
-	min-height: 70px;
-	min-width: 260px;
-	
-	display: inline-flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	align-items: center;
-	
-	margin: 2rem;
-	padding: 1.5rem;
-	
-	border-radius: 4px;
-	font-size: 0.9rem;
+	margin: 1rem;
+	padding: 0.8rem 1.2rem;
 	
 	background: white;
-	box-shadow: 6px 6px 12px #00000040;
+	box-shadow: 6px 6px 12px rgba(#000000, 0.2);
+	border-radius: 10px  0px 0px 10px;
+
 	z-index: 100;
 
+	.header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 0.5rem;
+
+		p {
+			font-size: 1.25rem;
+			font-weight: 600;
+			margin-right: 2rem;
+		}
+
+		img {
+			height: 20px;
+			cursor: pointer;
+		}
+	}
+
+	.body {
+		//margin: 1.2rem;
+	}
+
 	&.default {
-		border-left: 6px solid black;
+		border-right: 16px solid #000000;
 	}
 	
 	&.success {
-		border-left: 6px solid green;
+		border-right: 16px solid #339900;
 	}
 	
 	&.warning {
-		border-left: 6px solid yellow;
+		border-right: 16px solid #ffcc00;
 	}
 	
 	&.danger {
-		border-left: 6px solid red;
+		border-right: 16px solid #cc3300;
 	}
 }

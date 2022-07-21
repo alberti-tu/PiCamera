@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ToastState } from 'src/app/components/toast/toast.component';
+import { Toast, ToastSettings } from 'src/app/models/toast.models';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
 
-	public toastDisplay$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-	public toastMessage$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-	public toastState$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+	public toast$: BehaviorSubject<Toast> = new BehaviorSubject<Toast>({});
 
-	constructor() { }
+	constructor() {	}
 
-	public async showToast(message: string, state: ToastState = 'default', delay?: number): Promise<void> {
-		this.toastState$.next(state);
-		this.toastMessage$.next(message);
-		this.toastDisplay$.next(true);
+	public showToast(header: string, message: string, settings?: ToastSettings) {
+		settings = settings || {};
+		settings.show = true;
+		settings.state = settings.state || 'default';
 
-		if(delay && delay > 0) {
-			setTimeout(() => this.closeToast(), delay);
+		const toast: Toast = { id: new Date().getTime(), header, message, settings };
+
+		this.toast$.next(toast)
+
+		if(settings?.delay && settings.delay > 0) {
+			setTimeout(() => this.closeToast(toast), settings.delay);
 		}
 	}
 
-	public closeToast(): void {
-		this.toastDisplay$.next(false);
+	public closeToast(item: Toast): void {
+		if (item?.settings) {
+			item.settings.show = false;
+			this.toast$.next(item);
+		}
 	}
 
 }

@@ -1,6 +1,9 @@
-<div [@toastTrigger]="(alert.toastDisplay$ | async) ? 'open' : 'close'"  class="toast-container {{ alert.toastState$ | async }}">
-	<div style="max-width: 160px;" translate>{{ alert.toastMessage$ | async }}</div>
-	<a class="close-btn" (click)="dismiss()">
-		<small translate>button.close</small>
-	</a>
+<div [@toastTrigger]="toast?.settings?.show ? 'open' : 'close'"  class="toast-container {{ toast?.settings?.state }}">
+	<div class="header">
+		<p>{{ toast?.header }}</p>
+		<img class="btn-close" src="/assets/icons/cross.svg" (click)="close(toast)">
+	</div>
+	<div class="body">
+		<p>{{ toast?.message }}</p>
+	</div>
 </div>
