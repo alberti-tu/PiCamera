@@ -2,7 +2,7 @@
 	<div class="background"></div>
 	<div class="form-container">
 		<div class="form">
-			<img class="logo" src="assets/icons/logo.svg">
+			<img class="logo" src="assets/icons/user-add.svg">
 			<h1 class="header" translate>register.title</h1>
 
 			<form [formGroup]="form" (submit)="sendForm()">
@@ -43,6 +43,10 @@
 				</div>
 	
 				<button class="formButton shadow" type="submit" [disabled]="!form.valid" translate>register.button</button>
+
+				<div class="link-container">
+					<a href="/login" translate>register.link</a>
+				</div>
 			</form>
 		</div>
 	</div>

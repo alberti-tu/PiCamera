@@ -89,14 +89,14 @@
 				background: lighten(#0095f6, 10%);
 			}
 		}
+	}
 
-		.register {
-			text-align: center;
-			font-size: 1.125rem;
+	.link-container {
+		text-align: center;
+		font-size: 1.125rem;
 
-			a:hover {
-				text-decoration: underline;
-			}
+		a:hover {
+			text-decoration: underline;
 		}
 	}
 }

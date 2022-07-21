@@ -16,10 +16,11 @@
     },
     "register": {
         "button": "Registrarse",
+		"link": "Inicio de sessión",
         "password-1": "Contraseña",
         "password-2": "Repetir contraseña",
         "title": "Nuevo usuario",
-        "username": "Nombre de usuario"
+        "username": "Usuario"
     },
     "toast": {
         "error": {
