@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AlertService } from 'src/app/services/alert/alert.service';
+
+export type ToastState = 'default' | 'success' | 'warning' | 'danger'
 
 @Component({
 	selector: 'app-toast',
@@ -15,16 +18,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class ToastComponent implements OnInit {
 
-	public toastClass: string = 'default';
-	public message: string = 'toast.error.login';
-	public showToast: boolean = false;
+	constructor(public alert: AlertService) { }
 
-	constructor() { }
+	public ngOnInit(): void {}
 
-	public ngOnInit(): void {
-		setTimeout(() => {
-			this.showToast = true;
-		}, 5000);
+	public dismiss(): void {    
+		this.alert.closeToast();  
 	}
 
 }
