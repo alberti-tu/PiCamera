@@ -1,7 +1,7 @@
 {
-	"button": {
-		"close": "Cerrar"
-	},
+    "button": {
+        "close": "Cerrar"
+    },
     "error": {
         "minLength": "Longitud insuficiente",
         "required": "Campo obligatorio",
@@ -11,15 +11,17 @@
         "button": "Entrar",
         "link": "Nuevo usuario",
         "password": "Contraseña",
+        "title": "PiCamera",
         "username": "Usuario"
     },
+    "register": {
+        "button": "Registrarse",
+        "password-1": "Contraseña",
+        "password-2": "Repetir contraseña",
+        "title": "Nuevo usuario",
+        "username": "Nombre de usuario"
+    },
     "toast": {
-		"state": {
-			"default": "Notificación",
-			"success": "Correcto",
-			"warning": "Alerta",
-			"danger": "Error"
-		},
         "error": {
             "badRequest": "No se ha podido realizar esa acción, por favor, vuelva a intentarlo",
             "confirmPassword": "La contraseña no es correcta",
@@ -34,6 +36,12 @@
         "info": {
             "logout": "La sesión se ha cerrado correctamente",
             "success": "Datos guardados correctamente"
+        },
+        "state": {
+            "danger": "Error",
+            "default": "Notificación",
+            "success": "Correcto",
+            "warning": "Alerta"
         }
     }
 }
