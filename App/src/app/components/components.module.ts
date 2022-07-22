@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared.module';
 
 import { ToastComponent } from './toast/toast.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
 	declarations: [
-		ToastComponent
+		ToastComponent,
+  		ToolbarComponent
 	],
 	exports: [
-		ToastComponent
+		ToastComponent,
+		ToolbarComponent
 	],
 	imports: [SharedModule]
 })
