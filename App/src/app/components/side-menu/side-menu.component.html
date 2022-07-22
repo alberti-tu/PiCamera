@@ -1,0 +1,14 @@
+<div class="side-menu-container">
+	<div class="button-menu" (click)="open($event)">
+		<img src="/assets/icons/menu.svg">
+	</div>
+
+	<div [@menuTrigger]="showMenu ? 'open' : 'close'" class="side-menu">
+		<div class="backdrop" (click)="close($event)"></div>
+
+		<div class="menu-container">
+			<p class="menu-item">test 1</p>
+			<p class="menu-item">test 2</p>
+		</div>
+	</div>
+</div>

@@ -3,15 +3,18 @@ import { SharedModule } from 'src/app/shared.module';
 
 import { ToastComponent } from './toast/toast.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 @NgModule({
 	declarations: [
 		ToastComponent,
-  		ToolbarComponent
+  		ToolbarComponent,
+    	SideMenuComponent
 	],
 	exports: [
 		ToastComponent,
-		ToolbarComponent
+		ToolbarComponent,
+		SideMenuComponent
 	],
 	imports: [SharedModule]
 })
