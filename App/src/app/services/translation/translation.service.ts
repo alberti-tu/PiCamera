@@ -10,21 +10,21 @@ export enum Locale {
 @Injectable({ providedIn: 'root' })
 export class TranslationService {
 
-	constructor(@Inject(DOCUMENT) private document: Document, private translate: TranslateService) {
-		this.useLanguage(this.translate.getBrowserLang());
+	constructor(@Inject(DOCUMENT) private _document: Document, private _translate: TranslateService) {
+		this.useLanguage(this._translate.getBrowserLang());
 	}
 
 	public get(key: string): Promise<string> {
 		return new Promise<string>(resolve => {
-			this.translate.stream(key).subscribe(data => resolve(data));
+			this._translate.stream(key).subscribe(data => resolve(data));
 		});
 	}
 
 	public useLanguage(language?: string): void {
 		language = this.availableLanguages().find(item => item == language) || Locale.english;
 
-		this.document.documentElement.lang = language;
-		this.translate.use(language);
+		this._document.documentElement.lang = language;
+		this._translate.use(language);
 	}
 
 	public availableLanguages(): string[] {
