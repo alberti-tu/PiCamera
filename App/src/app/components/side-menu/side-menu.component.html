@@ -8,7 +8,7 @@
 	<div class="menu-list">
 		<a *ngFor="let page of pages" href="{{ page?.link }}">
 			<div class="menu-item" *ngIf="page?.link">
-				<img *ngIf="page?.icon" src="/assets/icons/{{ page?.icon }}.svg">
+				<img *ngIf="page?.icon" src="/assets/icons/{{ page?.icon }}.svg" alt="{{ page?.icon }}.svg">
 				<p *ngIf="page?.name" translate>{{ page?.name }}</p>
 			</div>
 		</a>

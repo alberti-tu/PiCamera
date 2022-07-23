@@ -21,7 +21,7 @@ export interface MenuItem {
 })
 export class SideMenuComponent {
 
-	@Input() pages: MenuItem[] = [];
+	@Input() public pages: MenuItem[] = [];
 
 	public showMenu: boolean;
 
