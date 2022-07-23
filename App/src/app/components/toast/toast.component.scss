@@ -44,14 +44,14 @@
 	}
 	
 	&.success {
-		border-right: 16px solid $success-green;
+		border-right: 16px solid $success;
 	}
 	
 	&.warning {
-		border-right: 16px solid $warning-yellow;
+		border-right: 16px solid $warning;
 	}
 	
 	&.danger {
-		border-right: 16px solid $danger-red;
+		border-right: 16px solid $danger;
 	}
 }

@@ -73,7 +73,7 @@
 			}
 
 			.errorMessage {
-				color: $danger-red;
+				color: $danger;
 			}
 		}
 
@@ -84,11 +84,11 @@
 			padding: 1rem 3rem;
 			font-size: 1.25rem;
 
-			background: $primary-blue;
+			background: $primary;
 			color: $light;
 
 			&:hover {
-				background: lighten($primary-blue, 10%);
+				background: lighten($primary, 10%);
 			}
 		}
 	}
