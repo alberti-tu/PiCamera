@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .register-container {
 	height: 100vh;
 	max-width: 540px;
@@ -39,7 +41,7 @@
 		border-radius: 10px;
 		padding: 2rem 0rem;
 
-		background: white;
+		background: $light;
 
 		.formField {
 			position: relative;
@@ -49,14 +51,14 @@
 				display: flex;
 				flex-direction: row;
 
-				border-bottom: solid 1px grey;
+				border-bottom: solid 1px $grey-dark;
 				margin: 0.5rem 0rem;
 				padding: 0.75rem;
 
 				transition: all 0.2s ease-in-out;
 
 				&:hover {
-					border-bottom: solid 1px black;
+					border-bottom: solid 1px $dark;
 				}
 
 				img {
@@ -71,7 +73,7 @@
 			}
 
 			.errorMessage {
-				color: red;
+				color: $danger-red;
 			}
 		}
 
@@ -82,11 +84,11 @@
 			padding: 1rem 3rem;
 			font-size: 1.25rem;
 
-			background: #0095f6;
-			color: white;
+			background: $primary-blue;
+			color: $light;
 
 			&:hover {
-				background: lighten(#0095f6, 10%);
+				background: lighten($primary-blue, 10%);
 			}
 		}
 	}

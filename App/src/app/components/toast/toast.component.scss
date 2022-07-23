@@ -1,3 +1,5 @@
+@import '../../../styles/colors';
+
 .toast-container {
 	position: absolute;
 	top: 0;
@@ -9,8 +11,8 @@
 	margin: 1rem;
 	padding: 0.8rem 1.2rem;
 	
-	background: white;
-	box-shadow: 6px 6px 12px rgba(#000000, 0.2);
+	background: $light;
+	box-shadow: 6px 6px 12px rgba($shadow, 0.2);
 	border-radius: 10px  0px 0px 10px;
 
 	z-index: 100;
@@ -38,18 +40,18 @@
 	}
 
 	&.default {
-		border-right: 16px solid #000000;
+		border-right: 16px solid $dark;
 	}
 	
 	&.success {
-		border-right: 16px solid #339900;
+		border-right: 16px solid $success-green;
 	}
 	
 	&.warning {
-		border-right: 16px solid #ffcc00;
+		border-right: 16px solid $warning-yellow;
 	}
 	
 	&.danger {
-		border-right: 16px solid #cc3300;
+		border-right: 16px solid $danger-red;
 	}
 }

@@ -6,8 +6,7 @@ export const environment: Environment = {
 		{ name: 'menu.home', icon: 'home', link: AppURL.HOME },
 		{ name: 'menu.cameras', icon: 'camera', link: AppURL.CAMERAS },
 		{ name: 'menu.photos', icon: 'picture', link: AppURL.PHOTOS },
-		{ name: 'menu.settings', icon: 'settings', link: AppURL.SETTINGS },
-		{ name: 'menu.logout', icon: 'logout', link: AppURL.LOGIN },
+		{ name: 'menu.settings', icon: 'settings', link: AppURL.SETTINGS }
 	],
 	production: false,
 	url: 'https://myhouselan.ddns.net'
