@@ -1,9 +1,11 @@
 <div class="toolbar-container">
-	<side-menu class="toolbar-button" [pages]="pages">
-		<img src="/assets/icons/menu.svg" alt="menu.svg">
+	<side-menu [pages]="pages">
+		<div class="toolbar-button">
+			<img src="/assets/icons/menu.svg" alt="menu.svg">
+		</div>
 	</side-menu>
 
-	<div class="toolbar-button">
+	<div class="toolbar-button" (click)="logout()">
 		<img src="/assets/icons/logout.svg" alt="logout.svg">
 	</div>
 </div>

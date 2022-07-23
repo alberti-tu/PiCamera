@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
 import { MenuItem } from '../side-menu/side-menu.component';
 
@@ -11,6 +12,10 @@ export class ToolbarComponent {
 
 	public pages: MenuItem[] = environment.pages;
 
-	constructor() { }
+	constructor(private _auth: AuthenticationService) { }
+
+	public logout(): void {
+		this._auth.removeToken();
+	}
 
 }
