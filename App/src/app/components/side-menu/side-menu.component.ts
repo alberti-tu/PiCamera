@@ -1,5 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+export interface MenuItem {
+	name?: string;
+	icon?: string;
+	link?: string;
+}
 
 @Component({
 	selector: 'side-menu',
@@ -14,6 +20,8 @@ import { Component } from '@angular/core';
 	]
 })
 export class SideMenuComponent {
+
+	@Input() pages: MenuItem[] = [];
 
 	public showMenu: boolean;
 

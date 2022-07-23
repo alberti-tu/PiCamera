@@ -1,3 +1,21 @@
 .toolbar-container {
+	.button-menu {
+		display: flex;
+		
+		height: min-content;
+		width: min-content;
+		
+		padding: 0.75rem;
+		
+		cursor: pointer;
+		
+		&:hover {
+			border-radius: 50%;
+			background: rgba(#000000, 0.1);
+		}
 
+		img {
+			height: 32px;
+		}
+	}
 }

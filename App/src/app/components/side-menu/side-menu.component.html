@@ -1,14 +1,16 @@
-<div class="side-menu-container">
-	<div class="button-menu" (click)="open($event)">
-		<img src="/assets/icons/menu.svg">
-	</div>
+<div (click)="open($event)">
+	<ng-content></ng-content>
+</div>
 
-	<div [@menuTrigger]="showMenu ? 'open' : 'close'" class="side-menu">
-		<div class="backdrop" (click)="close($event)"></div>
+<div class="side-menu-container" [@menuTrigger]="showMenu ? 'open' : 'close'">
+	<div class="backdrop" (click)="close($event)"></div>
 
-		<div class="menu-container">
-			<p class="menu-item">test 1</p>
-			<p class="menu-item">test 2</p>
-		</div>
+	<div class="menu-list">
+		<a *ngFor="let page of pages" href="{{ page?.link }}">
+			<div class="menu-item" *ngIf="page?.link">
+				<img *ngIf="page?.icon" src="/assets/icons/{{ page?.icon }}.svg">
+				<p *ngIf="page?.name" translate>{{ page?.name }}</p>
+			</div>
+		</a>
 	</div>
 </div>
