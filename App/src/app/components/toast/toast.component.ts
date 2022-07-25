@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { Toast } from 'src/app/models/toast.models';
+import { Toast } from 'src/app/models/alerts.models';
 
 export type ToastState = 'default' | 'success' | 'warning' | 'danger'
 

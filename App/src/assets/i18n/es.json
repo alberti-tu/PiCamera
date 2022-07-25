@@ -14,6 +14,14 @@
         "title": "PiCamera",
         "username": "Usuario"
     },
+    "logout": {
+        "button": {
+            "accept": "Aceptar",
+            "cancel": "Cancelar"
+        },
+        "header": "Cierre de sesión",
+        "message": "La próxima vez que accedas deberás introducir tu usuario y contraseña"
+    },
     "menu": {
         "cameras": "Cámaras",
         "home": "Inicio",

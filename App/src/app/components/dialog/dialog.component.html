@@ -1,0 +1,10 @@
+<div *ngIf="dialog?.settings?.show" class="dialog-container">
+	<div class="backdrop"></div>
+	<div class="dialog">
+		<p class="dialog-header">{{ dialog?.header || '' | translate }}</p>
+		<p class="dialog-message">{{ dialog?.message || '' | translate }}</p>
+		<div class="dialog-buttons">
+			<button *ngFor="let item of dialog?.buttons">{{ item?.text || '' | translate }}</button>
+		</div>
+	</div>
+</div>
