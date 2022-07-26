@@ -4,11 +4,11 @@ export interface Dialog {
 	id?: number;
 	header?: string;
 	message?: string;
-	buttons?: DialogButtons[];
+	buttons?: DialogButton[];
 	settings?: DialogSettings;
 }
 
-export interface DialogButtons {
+export interface DialogButton {
 	isPrimary?: boolean;
 	text?: string;
 	value?: string

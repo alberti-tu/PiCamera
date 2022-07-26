@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dialog, DialogButtons, DialogSettings, Toast, ToastSettings } from 'src/app/models/alerts.models';
+import { Dialog, DialogButton, DialogSettings, Toast, ToastSettings } from 'src/app/models/alerts.models';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
@@ -18,7 +18,7 @@ export class AlertService {
 		return this._toast;
 	}
 
-	public async showDialog(header: string, message: string, buttons: DialogButtons[] = [], settings: DialogSettings = {}) {
+	public async showDialog(header: string, message: string, buttons: DialogButton[] = [], settings: DialogSettings = {}) {
 		await this._dialogControl();
 
 		settings.show = true;
@@ -40,6 +40,13 @@ export class AlertService {
 
 		if(settings?.delay && settings.delay > 0) {
 			setTimeout(() => this.closeToast(toast), settings.delay);
+		}
+	}
+
+	public closeDialog(item: Dialog): void {
+		if (item?.settings) {
+			item.settings.show = false;
+			this._toast.next(item);
 		}
 	}
 

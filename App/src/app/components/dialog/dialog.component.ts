@@ -17,4 +17,11 @@ export class DialogComponent implements OnInit {
 		this._alert.getDialog().asObservable().subscribe(value => this.dialog = value);
 	}
 
+	public close(item?: Dialog): void {
+		if (!item) {
+			return;
+		} 
+
+		this._alert.closeDialog(item); 
+	}
 }
