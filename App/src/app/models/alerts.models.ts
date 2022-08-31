@@ -1,4 +1,4 @@
-import { ToastState } from "../components/toast/toast.component";
+import { ToastState } from "../services/alert/components/toast/toast.component";
 
 export interface Dialog {
 	id?: number;

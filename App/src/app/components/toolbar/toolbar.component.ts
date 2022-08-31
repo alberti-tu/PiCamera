@@ -20,9 +20,9 @@ export class ToolbarComponent {
 			{ text: 'logout.button.cancel', value: 'cancel' },
 			{ text: 'logout.button.accept', value: 'accept', isPrimary: true }
 		];
-		this._alert.showDialog('logout.header', 'logout.message', buttons);
+		// this._alert.showDialog('logout.header', 'logout.message', buttons);
 
-		// this._auth.removeToken();
+		this._auth.removeToken();
 	}
 
 }

@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { AppURL } from './constants/routes';
+import { AlertModule } from './services/alert/components/alert.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -36,6 +37,7 @@ const routes: Routes = [
 		AppComponent
 	],
 	imports: [
+		AlertModule,
 		ComponentsModule,
 		BrowserModule,
 		BrowserAnimationsModule,

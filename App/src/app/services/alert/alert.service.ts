@@ -1,80 +1,48 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Dialog, DialogButton, DialogSettings, Toast, ToastSettings } from 'src/app/models/alerts.models';
+import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector } from '@angular/core';
+import { BehaviorSubject, combineLatest, forkJoin, map, merge, Observable } from 'rxjs';
+import { Toast, ToastSettings } from 'src/app/models/alerts.models';
+import { BackdropComponent } from './components/backdrop/backdrop.component';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
 
-	private _dialog: BehaviorSubject<Dialog> = new BehaviorSubject<Dialog>({ id: 0 });
-	private _toast: BehaviorSubject<Toast> = new BehaviorSubject<Toast>({ id: 0 });
+	private _backdropRef: ComponentRef<BackdropComponent>;
 
-	constructor() {	}
+	private _toastController: BehaviorSubject<Toast[]> = new BehaviorSubject<Toast[]>([]);
+	private _currentToast: Toast[] = [];
 
-	public getDialog(): BehaviorSubject<Dialog> {
-		return this._dialog;
-	}
+	constructor(private _app: ApplicationRef, private _factory: ComponentFactoryResolver, private _injector: Injector) {
+		this._backdropRef = this._factory.resolveComponentFactory(BackdropComponent).create(this._injector);
 
-	public getToast(): BehaviorSubject<Toast> {
-		return this._toast;
-	}
+		const toast$ = this._toastController.asObservable();
 
-	public async showDialog(header: string, message: string, buttons: DialogButton[] = [], settings: DialogSettings = {}) {
-		await this._dialogControl();
-
-		settings.show = true;
-
-		const dialog: Dialog = { id: new Date().getTime(), header, message, buttons, settings };
-
-		this._dialog.next(dialog);
-	}
-
-	public async showToast(message: string, settings: ToastSettings = {}) {
-		await this._toastControl();
-
-		settings.show = true;
-		settings.state = settings.state || 'default';
-
-		const toast: Toast = { id: new Date().getTime(), message, settings };
-
-		this._toast.next(toast);
-
-		if(settings?.delay && settings.delay > 0) {
-			setTimeout(() => this.closeToast(toast), settings.delay);
-		}
-	}
-
-	public closeDialog(item: Dialog): void {
-		if (item?.settings) {
-			item.settings.show = false;
-			this._toast.next(item);
-		}
-	}
-
-	public closeToast(item: Toast): void {
-		if (item?.settings) {
-			item.settings.show = false;
-			this._toast.next(item);
-		}
-	}
-
-	private async _dialogControl(): Promise<void> {
-		return new Promise(resolve => {
-			this._dialog.asObservable().subscribe(value => {
-				if (value.id == 0 || value.settings?.show == false) {
-					setTimeout(() => resolve(), 400);
-				}
-			});
+		const controller = combineLatest([toast$, toast$])
+		.pipe(
+			map(([toast, dialog]) => ({ toast, dialog }))
+		);
+		
+		controller.subscribe(data => {
+			data?.toast?.length || data.dialog?.length ? this._createBackdrop() : this._removeBackdrop();
 		});
 	}
 
-	private async _toastControl(): Promise<void> {
-		return new Promise(resolve => {
-			this._toast.asObservable().subscribe(value => {
-				if (value.id == 0 || value.settings?.show == false) {
-					setTimeout(() => resolve(), 400);
-				}
-			});
-		});
+	public showToast(message: string, settings: ToastSettings = { state: 'default' }): void {
+		const toast: Toast = { id: new Date().getTime(), message, settings: {...settings, show: true }  };
+		this._toastController.next(this._currentToast.concat(toast))
+	}
+
+	public getToast(): Observable<Toast[]> {
+		return this._toastController.asObservable();
+	}
+
+	private _createBackdrop(): void {
+		this._app.attachView(this._backdropRef.hostView);
+		const element = (this._backdropRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+		document.body.appendChild(element);
+	}
+
+	private _removeBackdrop(): void {
+		this._app.detachView(this._backdropRef.hostView);
 	}
 
 }

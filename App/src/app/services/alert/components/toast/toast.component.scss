@@ -1,10 +1,6 @@
-@import '../../../styles/colors';
+@import '../../../../../styles/colors';
 
 .toast-container {
-	position: absolute;
-	top: 0;
-	right: 0;
-
 	max-width: 40vw;
 	width: 512px;
 	
@@ -15,7 +11,7 @@
 	box-shadow: 0rem 0.375rem 0.75rem rgba($shadow, 0.2);
 	border-radius: 10px  0px 0px 10px;
 
-	z-index: 100;
+	pointer-events: auto;
 
 	.header {
 		display: flex;

@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AlertService } from 'src/app/services/alert/alert.service';
 import { Toast } from 'src/app/models/alerts.models';
 
 export type ToastState = 'default' | 'success' | 'warning' | 'danger'
 
 @Component({
-	selector: 'app-toast',
+	selector: 'toast',
 	templateUrl: './toast.component.html',
 	styleUrls: ['./toast.component.scss'],
 	animations: [
@@ -17,22 +16,15 @@ export type ToastState = 'default' | 'success' | 'warning' | 'danger'
 		])
 	]
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent {
 
-	public toast?: Toast;
+	@Input() public data?: Toast;
 
-	constructor(private _alert: AlertService) { }
-
-	public ngOnInit(): void {
-		this._alert.getToast().asObservable().subscribe(value => this.toast = value);
-	}
+	constructor() { }
 
 	public close(item?: Toast): void {   
 		if (!item) {
 			return;
 		} 
-
-		this._alert.closeToast(item);  
 	}
-
 }
