@@ -2,8 +2,9 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { RouterModule, Routes } from '@angular/router';
+
+import { ToastrModule } from 'ngx-toastr';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -16,7 +17,6 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { AppURL } from './constants/routes';
-import { AlertModule } from './services/alert/components/alert.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -37,12 +37,12 @@ const routes: Routes = [
 		AppComponent
 	],
 	imports: [
-		AlertModule,
-		ComponentsModule,
 		BrowserModule,
 		BrowserAnimationsModule,
+		ComponentsModule,
 		HttpClientModule,
 		RouterModule.forRoot(routes),
+		ToastrModule.forRoot(),
 		TranslateModule.forRoot({
 			loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
 		})

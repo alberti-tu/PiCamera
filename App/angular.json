@@ -53,7 +53,8 @@
                         "polyfills": "src/polyfills.ts",
                         "scripts": [],
                         "styles": [
-                            "src/styles/styles.scss"
+                            "src/styles/styles.scss",
+							"node_modules/ngx-toastr/toastr.css"
                         ],
                         "tsConfig": "tsconfig.app.json"
                     }
@@ -89,7 +90,8 @@
                         "polyfills": "src/polyfills.ts",
                         "scripts": [],
                         "styles": [
-                            "src/styles/styles.scss"
+                            "src/styles/styles.scss",
+							"node_modules/ngx-toastr/toastr.css"
                         ],
                         "tsConfig": "tsconfig.spec.json"
                     }

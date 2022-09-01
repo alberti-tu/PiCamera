@@ -1,9 +1,0 @@
-<div [@toastTrigger]="data?.settings?.show ? 'open' : 'close'"  class="toast-container {{ data?.settings?.state }}">
-	<div class="header">
-		<p>{{ 'toast.state.' + data?.settings?.state | translate }}</p>
-		<img class="btn-close" src="/assets/icons/cross.svg" (click)="close(data)">
-	</div>
-	<div class="body">
-		<p>{{ data?.message || '' | translate }}</p>
-	</div>
-</div>

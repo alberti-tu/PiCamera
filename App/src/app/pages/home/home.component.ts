@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
 	selector: 'app-home',
@@ -8,10 +7,8 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 })
 export class HomeComponent implements OnInit {
 
-	constructor(private _alert: AlertService) {
-		this._alert.showToast('my toast');
-	}
+	constructor() {	}
 
-	ngOnInit(): void { }
+	ngOnInit(): void {	}
 
 }
