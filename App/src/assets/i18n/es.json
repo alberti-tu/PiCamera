@@ -54,8 +54,8 @@
             "success": "Datos guardados correctamente"
         },
         "state": {
-            "danger": "Error",
-            "default": "Notificación",
+            "error": "Error",
+            "info": "Notificación",
             "success": "Correcto",
             "warning": "Alerta"
         }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
@@ -17,7 +18,7 @@ export class RegisterComponent {
 	public showPassword1: boolean;
 	public showPassword2: boolean;
 
-	constructor(private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) {
+	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) {
 		this.form = this._formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password1: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
@@ -51,6 +52,7 @@ export class RegisterComponent {
 
 	public sendForm(): void {
 		if (this.form.value.password1 != this.form.value.password2) {
+			this._alert.showToast('toast.error.differentPassword', 'error');
 			return;
 		}
 
@@ -59,8 +61,10 @@ export class RegisterComponent {
 
 		this._http.register(username, password).subscribe(data => {
 			if (data.result) {
+				this._alert.showToast('toast.info.success', 'success');
 				this._router.navigateByUrl(AppURL.LOGIN);
 			} else {
+				this._alert.showToast('toast.error.register', 'error');
 			}
 		});
 	}
