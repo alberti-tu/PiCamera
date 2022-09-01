@@ -7,8 +7,8 @@ const argsDefault: string[] = ['-w', '1280', '-h', '720', '-t', '800', '-n', '-o
 export class Camera {
 
 	private static instance: Camera = null;
-	private _isAvailable: boolean = true;
-	private _args: string[] = [];
+	private isCurrentAvailable: boolean = true;
+	private args: string[] = [];
 
 	protected constructor() { }
 
@@ -20,28 +20,28 @@ export class Camera {
 	}
 
 	public isAvailable(): boolean {
-		return this._isAvailable;
+		return this.isCurrentAvailable;
 	}
 
 	public takePicture(): Promise<string> {
-		this._isAvailable = false;
+		this.isCurrentAvailable = false;
 		if (configuration.production) {
 			return new Promise((resolve, reject) => {
-				const child = spawn('raspistill', this._args);
+				const child = spawn('raspistill', this.args);
 
 				const raw = [];
 
 				child.stdout.on('data', (data: string) => raw.push(data));
 				child.stdout.on('error', (err: any) => reject(err));
 				child.stdout.on('close', () => {
-					this._isAvailable = true;
+					this.isCurrentAvailable = true;
 					resolve(Buffer.concat(raw).toString('base64'));
 				});
 			});
 		} else {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
-					this._isAvailable = true;
+					this.isCurrentAvailable = true;
 					resolve(null);
 				}, 1000);
 			});
@@ -53,20 +53,20 @@ export class Camera {
 			return;
 		}
 
-		this._args = [];
+		this.args = [];
 
 		if (options.filter) {
-			this._args = this._args.concat(['-ex', options.filter.toString()]);
+			this.args = this.args.concat(['-ex', options.filter.toString()]);
 		}
 
 		if (options.quality) {
-			this._args = this._args.concat(['-q', options.quality.toString()]);
+			this.args = this.args.concat(['-q', options.quality.toString()]);
 		}
 
 		if (options.rotation) {
-			this._args = this._args.concat(['-rot', options.rotation.toString()]);
+			this.args = this.args.concat(['-rot', options.rotation.toString()]);
 		}
 
-		this._args = this._args.concat(argsDefault);
+		this.args = this.args.concat(argsDefault);
 	}
 }

@@ -8,7 +8,7 @@ const key = 'token';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements CanActivate {
 
-	constructor(private _router: Router) { }
+	constructor(private router: Router) { }
 
 	public canActivate(): boolean {
 		if (this.getToken() != null) {
@@ -21,7 +21,7 @@ export class AuthenticationService implements CanActivate {
 
 	public setToken(value: string): void {
 		localStorage.setItem(key, value);
-		this._router.navigateByUrl(AppURL.HOME);
+		this.router.navigateByUrl(AppURL.HOME);
 	}
 
 	public getToken(): string | null {
@@ -30,7 +30,7 @@ export class AuthenticationService implements CanActivate {
 
 	public removeToken(): void {
 		localStorage.removeItem(key);
-		this._router.navigateByUrl(AppURL.LOGIN);
+		this.router.navigateByUrl(AppURL.LOGIN);
 	}
 
 	public hash(value: string): string {

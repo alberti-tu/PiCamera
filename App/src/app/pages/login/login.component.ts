@@ -15,8 +15,8 @@ export class LoginComponent {
 	public form: FormGroup;
 	public showPassword: boolean;
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService) {
-		this.form = this._formBuilder.group({
+	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService) {
+		this.form = this.formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ]
 		});
@@ -35,14 +35,14 @@ export class LoginComponent {
 
 	public sendForm(): void {
 		const username = this.form.value.username;
-		const password = this._auth.hash(this.form.value.password);
+		const password = this.auth.hash(this.form.value.password);
 
-		this._http.login(username, password).subscribe(data => {
+		this.http.login(username, password).subscribe(data => {
 			if (data.result) {
-				this._auth.setToken(data.result);
+				this.auth.setToken(data.result);
 			} else {
-				this._alert.showToast('toast.error.login', 'error');
-				this._auth.removeToken();	
+				this.alert.showToast('toast.error.login', 'error');
+				this.auth.removeToken();	
 			}
 		});
 	}

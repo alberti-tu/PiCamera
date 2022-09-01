@@ -13,11 +13,11 @@ export class ToolbarComponent {
 
 	public pages: MenuItem[] = environment.pages;
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService) { }
+	constructor(private alert: AlertService, private auth: AuthenticationService) { }
 
 	public logout(): void {
-		this._alert.showToast('toast.info.logout', 'success');
-		this._auth.removeToken();
+		this.alert.showToast('toast.info.logout', 'success');
+		this.auth.removeToken();
 	}
 
 }

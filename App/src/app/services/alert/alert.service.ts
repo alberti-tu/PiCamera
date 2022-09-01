@@ -7,27 +7,27 @@ export type ToastrType = 'info' | 'success' | 'warning' | 'error'
 @Injectable({ providedIn: 'root' })
 export class AlertService {
 
-	constructor(private _toastr: ToastrService, private _translate: TranslateService) { }
+	constructor(private toastr: ToastrService, private translate: TranslateService) { }
 
 	public async showToast(message: string, type: ToastrType = 'info') {
-		const title = await this._getTranslation('toast.state.' + type)
-		message = await this._getTranslation(message);
+		const title = await this.getTranslation('toast.state.' + type)
+		message = await this.getTranslation(message);
 
 		switch (type) {
 			case 'success':
-				return this._toastr.success(message, title);
+				return this.toastr.success(message, title);
 			case 'warning':
-				return this._toastr.warning(message, title);
+				return this.toastr.warning(message, title);
 			case 'error':
-				return this._toastr.error(message, title);
+				return this.toastr.error(message, title);
 			default:
-				return this._toastr.info(message, title);
+				return this.toastr.info(message, title);
 		}
 	}
 
-	private _getTranslation(key: string): Promise<string> {
+	private getTranslation(key: string): Promise<string> {
 		return new Promise<string>(resolve => {
-			this._translate.stream(key).subscribe(data => resolve(data));
+			this.translate.stream(key).subscribe(data => resolve(data));
 		});
 	}
 }

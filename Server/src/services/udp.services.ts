@@ -19,45 +19,45 @@ export enum ServiceTypeUDP {
 
 export class ServiceUDP {
 
-	private _data: BehaviorSubject<PayloadUDP> = new BehaviorSubject<PayloadUDP>(null);
-	private _socket: Socket;
-	private _type: string;
+	private data: BehaviorSubject<PayloadUDP> = new BehaviorSubject<PayloadUDP>(null);
+	private socket: Socket;
+	private type: string;
 
 	constructor(options?: OptionsUDP) {
-		this._socket = createSocket('udp4');
+		this.socket = createSocket('udp4');
 
-		this._socket.on('error', () => this.close());
+		this.socket.on('error', () => this.close());
 
-		this._socket.on('message', (message, info) => {
+		this.socket.on('message', (message, info) => {
 			const payload: PayloadUDP = { address: info.address, port: info.port, message: message.toString() };
 
-			this._data.next(payload);
+			this.data.next(payload);
 
 			if (options && options.logs) {
-				this._print(payload);
+				this.print(payload);
 			}
 		});
 
 		if (options && options.port) {
-			this._type = ServiceTypeUDP.Server;
+			this.type = ServiceTypeUDP.Server;
 
-			this._socket.on('listening', () => {
-				console.log(this._type + ' port: ' + this._socket.address().port + '\n');
+			this.socket.on('listening', () => {
+				console.log(this.type + ' port: ' + this.socket.address().port + '\n');
 			});
 
-			this._socket.bind(options.port);
+			this.socket.bind(options.port);
 		} else {
-			this._type = ServiceTypeUDP.Client;
+			this.type = ServiceTypeUDP.Client;
 		}
 	}
 
 	public send(address: string, port: number, message: string): void {
-		this._socket.send(message, port, address);
+		this.socket.send(message, port, address);
 	}
 
 	public stream(): Observable<PayloadUDP> {
 		return new Observable<PayloadUDP>(observer => {
-			this._data.subscribe(payload => {
+			this.data.subscribe(payload => {
 				if (payload != null) {
 					observer.next(payload)
 				}
@@ -66,12 +66,12 @@ export class ServiceUDP {
 	}
 
 	public close(): void {
-		this._socket.close(() => console.log(this._type + ' is closed'));
+		this.socket.close(() => console.log(this.type + ' is closed'));
 	}
 
-	private _print(payload: PayloadUDP): void {
+	private print(payload: PayloadUDP): void {
 		const length = payload.message != null ? payload.message.length : 0;
-		console.log('+-------- ' + this._type + ' -------+');
+		console.log('+-------- ' + this.type + ' -------+');
 		console.log('From: ' + payload.address + ':' + payload.port);
 		console.log('Size: ' + length + (length == 1 ? ' Byte' : ' Bytes'));
 		console.log('+---------------------------+\n');

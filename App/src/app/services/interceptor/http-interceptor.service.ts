@@ -10,11 +10,11 @@ import { AlertService } from '../alert/alert.service';
 @Injectable({ providedIn: 'root' })
 export class HttpInterceptorService implements HttpInterceptor {
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService) { }
+	constructor(private alert: AlertService, private auth: AuthenticationService) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-		const token = this._auth.getToken();
+		const token = this.auth.getToken();
 
 		if (token != null) {
 		  request = request.clone({ setHeaders: { authorization: token } });
@@ -30,14 +30,14 @@ export class HttpInterceptorService implements HttpInterceptor {
 				if (response instanceof HttpErrorResponse) {
 					switch (response.status) {
 						case 401:
-							this._alert.showToast('toast.error.logout', 'error');
-							this._auth.removeToken();
+							this.alert.showToast('toast.error.logout', 'error');
+							this.auth.removeToken();
 							break;
 						case 404:
-							this._alert.showToast('toast.error.notFound', 'error');
+							this.alert.showToast('toast.error.notFound', 'error');
 							break;
 						default:
-							this._alert.showToast('toast.error.badRequest', 'error');
+							this.alert.showToast('toast.error.badRequest', 'error');
 					}
 				}
 				return of(response);

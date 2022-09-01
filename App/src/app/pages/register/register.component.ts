@@ -18,8 +18,8 @@ export class RegisterComponent {
 	public showPassword1: boolean;
 	public showPassword2: boolean;
 
-	constructor(private _alert: AlertService, private _auth: AuthenticationService, private _formBuilder: FormBuilder, private _http: HttpService, private _router: Router) {
-		this.form = this._formBuilder.group({
+	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
+		this.form = this.formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password1: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password2: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
@@ -43,7 +43,7 @@ export class RegisterComponent {
 	}
 
 	public ngOnInit(): void {
-		this.form = this._formBuilder.group({
+		this.form = this.formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password1: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password2: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
@@ -52,19 +52,19 @@ export class RegisterComponent {
 
 	public sendForm(): void {
 		if (this.form.value.password1 != this.form.value.password2) {
-			this._alert.showToast('toast.error.differentPassword', 'error');
+			this.alert.showToast('toast.error.differentPassword', 'error');
 			return;
 		}
 
 		const username = this.form.value.username;
 		const password = this.form.value.password1;
 
-		this._http.register(username, password).subscribe(data => {
+		this.http.register(username, password).subscribe(data => {
 			if (data.result) {
-				this._alert.showToast('toast.info.success', 'success');
-				this._router.navigateByUrl(AppURL.LOGIN);
+				this.alert.showToast('toast.info.success', 'success');
+				this.router.navigateByUrl(AppURL.LOGIN);
 			} else {
-				this._alert.showToast('toast.error.register', 'error');
+				this.alert.showToast('toast.error.register', 'error');
 			}
 		});
 	}

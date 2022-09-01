@@ -10,24 +10,24 @@ export interface State {
 export class StateMachine {
 
 	public logs: boolean = false;
-	private _states: State[] = [];
+	private states: State[] = [];
 
 	constructor(states: State[]) {
-		this._states = states;
+		this.states = states;
 	}
 
 	public async run(start?: string): Promise<void> {
-		let currentState: string = start || this._states[0].name;
+		let currentState: string = start || this.states[0].name;
 
 		while (true) {
-			const state: State = this._states.find(item => item.name == currentState);
+			const state: State = this.states.find(item => item.name == currentState);
 
 			if (state == undefined) {
-				this._print('exit', true);
+				this.print('exit', true);
 				break;
 			}
 
-			this._print(currentState);
+			this.print(currentState);
 
 			try {
 				const data = this.selectInputState(state?.input);
@@ -41,10 +41,10 @@ export class StateMachine {
 	}
 
 	public selectInputState(name: string): any {
-		return this._states.find(item => item.name == name)?.output;
+		return this.states.find(item => item.name == name)?.output;
 	}
 
-	private _print(message: string, isError?: boolean) {
+	private print(message: string, isError?: boolean) {
 		if (this.logs || isError) {
 			console.log('[' + new Date().toLocaleString() + '] --> ' + message);
 		}
