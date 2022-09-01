@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { TranslationService } from '../translation/translation.service';
 
 export type ToastrType = 'info' | 'success' | 'warning' | 'error'
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
 
-	constructor(private _toastr: ToastrService, protected _translation: TranslationService) { }
+	constructor(private _toastr: ToastrService, private _translate: TranslateService) { }
 
 	public async showToast(message: string, type: ToastrType = 'info') {
-		const title = await this._translation.get('toast.state.' + type)
-		message = await this._translation.get(message);
+		const title = await this._getTranslation('toast.state.' + type)
+		message = await this._getTranslation(message);
 
 		switch (type) {
 			case 'success':
@@ -23,5 +23,11 @@ export class AlertService {
 			default:
 				return this._toastr.info(message, title);
 		}
+	}
+
+	private _getTranslation(key: string): Promise<string> {
+		return new Promise<string>(resolve => {
+			this._translate.stream(key).subscribe(data => resolve(data));
+		});
 	}
 }

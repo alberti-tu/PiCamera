@@ -10,7 +10,7 @@ import { AlertService } from '../alert/alert.service';
 @Injectable({ providedIn: 'root' })
 export class HttpInterceptorService implements HttpInterceptor {
 
-	constructor(/*private _alert: AlertService,*/ private _auth: AuthenticationService) { }
+	constructor(private _alert: AlertService, private _auth: AuthenticationService) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -29,16 +29,15 @@ export class HttpInterceptorService implements HttpInterceptor {
 			catchError((response: HttpResponse<Message<any>>) => {
 				if (response instanceof HttpErrorResponse) {
 					switch (response.status) {
-						case 400:
-							//this._alert.showToast('toast.error.badRequest', 'error');
-							break;
 						case 401:
-							//this._alert.showToast('toast.error.logout', 'error');
+							this._alert.showToast('toast.error.logout', 'error');
 							this._auth.removeToken();
 							break;
 						case 404:
-							//this._alert.showToast('toast.error.notFound', 'error');
+							this._alert.showToast('toast.error.notFound', 'error');
 							break;
+						default:
+							this._alert.showToast('toast.error.badRequest', 'error');
 					}
 				}
 				return of(response);
