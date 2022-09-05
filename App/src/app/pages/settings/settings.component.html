@@ -1,2 +1,54 @@
 <toolbar></toolbar>
-<p>settings works!</p>
+
+<div class="page settings-container">
+	<form [formGroup]="form" (submit)="sendForm()">
+		<div class="formField">
+			<label translate>settings.form.username</label>
+			<div class="input-row">
+				<input formControlName="username" type="text">
+			</div>
+			<div *ngIf="hasError('username', 'required')" class="errorMessage" translate>error.required</div>
+			<div *ngIf="hasError('username', 'minlength')" class="errorMessage" translate>error.minLength</div>
+			<div *ngIf="hasError('username', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
+		</div>
+
+		<div class="formField">
+			<label translate>settings.form.password</label>
+			<div class="input-row">
+				<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
+				<img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
+			</div>
+			<div *ngIf="hasError('password', 'required')" class="errorMessage" translate>error.required</div>
+			<div *ngIf="hasError('password', 'minlength')" class="errorMessage" translate>error.minLength</div>
+			<div *ngIf="hasError('password', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
+		</div>
+
+		<div class="changePassword">
+			<div class="formField">
+				<label translate>settings.form.password-1</label>
+				<div class="input-row">
+					<input formControlName="password1" type="{{ showPassword1 ? 'text' : 'password' }}">
+					<img src="assets/icons/eye-{{ showPassword1 ? 'close' : 'open'}}.svg" (click)="password1Button()">
+				</div>
+				<div *ngIf="hasError('password1', 'required')" class="errorMessage" translate>error.required</div>
+				<div *ngIf="hasError('password1', 'minlength')" class="errorMessage" translate>error.minLength</div>
+				<div *ngIf="hasError('password1', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
+			</div>
+	
+			<div class="formField">
+				<label translate>settings.form.password-2</label>
+				<div class="input-row">
+					<input formControlName="password2" type="{{ showPassword2 ? 'text' : 'password' }}">
+					<img src="assets/icons/eye-{{ showPassword2 ? 'close' : 'open'}}.svg" (click)="password2Button()">
+				</div>
+	
+				<div *ngIf="hasError('password2', 'required')" class="errorMessage" translate>error.required</div>
+				<div *ngIf="hasError('password2', 'minlength')" class="errorMessage" translate>error.minLength</div>
+				<div *ngIf="hasError('password2', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
+			</div>
+		</div>
+
+		<button class="formButton shadow" type="submit" [disabled]="!form.valid" translate>button.save</button>
+		<button class="formButton danger shadow" (click)="remove()" translate>settings.remove.button</button>
+	</form>
+</div>

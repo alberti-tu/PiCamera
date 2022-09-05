@@ -4,7 +4,7 @@ This project was generated with:
 
 Package                                 | Version
 ----------------------------------------|--------
-[Angular CLI](https://cli.angular.io)   | 11.2.3
+[Angular CLI](https://cli.angular.io)   | 14.0.6
 [Axios](https://github.com/axios/axios) | 0.21.1
 [Express](https://expressjs.com)        | 4.17.3
 [Maria DB](https://mariadb.org)         | 10.5.15

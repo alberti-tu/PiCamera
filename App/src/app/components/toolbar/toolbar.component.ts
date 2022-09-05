@@ -16,7 +16,7 @@ export class ToolbarComponent {
 	constructor(private alert: AlertService, private auth: AuthenticationService) { }
 
 	public logout(): void {
-		this.alert.showToast('toast.info.logout', 'success');
+		this.alert.showToast('toast.info.logout', 'info');
 		this.auth.removeToken();
 	}
 

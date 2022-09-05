@@ -1,0 +1,61 @@
+@import '../../../styles/colors';
+
+.settings-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	padding: 2rem 0rem;
+
+	.formField {
+		position: relative;
+		padding: 1rem 2rem;
+
+		.input-row {
+			display: flex;
+			flex-direction: row;
+
+			border-bottom: solid 1px $grey-dark;
+			margin: 0.5rem 0rem;
+			padding: 0.75rem;
+
+			transition: all 0.2s ease-in-out;
+
+			&:hover {
+				border-bottom: solid 1px $dark;
+			}
+
+			img {
+				height: 32px;
+			}
+
+			input {
+				font-size: 1.25rem;
+				padding-left: 0.75rem;
+				width: 100%;
+			}
+		}
+
+		.errorMessage {
+			color: $danger;
+		}
+	}
+
+	.formButton {
+		align-self: center;
+
+		padding: 1rem 3rem;
+		font-size: 1.25rem;
+
+		background: $primary;
+		color: $light;
+
+		&:hover {
+			background: lighten($primary, 10%);
+		}
+
+		&.danger {
+			background: $danger
+		}
+	}
+}

@@ -61,7 +61,7 @@ export class RegisterComponent {
 
 		this.http.register(username, password).subscribe(data => {
 			if (data.result) {
-				this.alert.showToast('toast.info.success', 'success');
+				this.alert.showToast('toast.success.register', 'success');
 				this.router.navigateByUrl(AppURL.LOGIN);
 			} else {
 				this.alert.showToast('toast.error.register', 'error');

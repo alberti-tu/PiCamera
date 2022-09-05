@@ -1,6 +1,11 @@
 {
     "button": {
-        "close": "Cerrar"
+        "accept": "Aceptar",
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "save": "Guardar",
+        "signIn": "Entrar",
+        "signUp": "Registrarse"
     },
     "error": {
         "minLength": "Longitud insuficiente",
@@ -8,17 +13,12 @@
         "whiteSpace": "No puede contener espacios"
     },
     "login": {
-        "button": "Entrar",
         "link": "Nuevo usuario",
         "password": "Contraseña",
         "title": "PiCamera",
         "username": "Usuario"
     },
     "logout": {
-        "button": {
-            "accept": "Aceptar",
-            "cancel": "Cancelar"
-        },
         "header": "Cierre de sesión",
         "message": "La próxima vez que accedas deberás introducir tu usuario y contraseña"
     },
@@ -30,12 +30,24 @@
         "settings": "Ajustes"
     },
     "register": {
-        "button": "Registrarse",
         "link": "Inicio de sessión",
         "password-1": "Contraseña",
         "password-2": "Repetir contraseña",
         "title": "Nuevo usuario",
         "username": "Usuario"
+    },
+    "settings": {
+        "form": {
+            "password": "Contraseña actual",
+            "password-1": "Contraseña",
+            "password-2": "Repetir contraseña",
+            "username": "Nombre de usuario"
+        },
+        "remove": {
+            "button": "Eliminar usuario",
+            "header": "¿Estás seguro de querer eliminar tu usuario?",
+            "message": "Esta acción no se puede deshacer"
+        }
     },
     "toast": {
         "error": {
@@ -51,13 +63,17 @@
         },
         "info": {
             "logout": "La sesión se ha cerrado correctamente",
-            "success": "Datos guardados correctamente"
+            "saved": "Datos guardados correctamente"
         },
         "state": {
             "error": "Error",
             "info": "Notificación",
             "success": "Correcto",
             "warning": "Alerta"
+        },
+        "success": {
+            "deleteUser": "Todos sus datos han sido eliminados correctamente",
+            "register": "Se ha creado el usuario correctamente"
         }
     }
 }

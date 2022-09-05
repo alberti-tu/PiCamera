@@ -9,5 +9,5 @@ export const environment: Environment = {
 		{ name: 'menu.settings', icon: 'settings', link: AppURL.SETTINGS }
 	],
 	production: false,
-	url: 'https://myhouselan.ddns.net'
+	url: 'http://localhost:8080'
 };
