@@ -9,6 +9,12 @@
 	background: $secondary;
 	box-shadow: 0rem 0.375rem 0.75rem rgba($shadow, 0.2);
 
+	.header {
+		align-self: center;
+		color: $light;
+		margin: 0;
+	}
+
 	.toolbar-button {
 		display: flex;
 		
