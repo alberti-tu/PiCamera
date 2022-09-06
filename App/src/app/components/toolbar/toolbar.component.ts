@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
+import { LogoutComponent } from '../dialogs/logout/logout.component';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({
@@ -20,9 +21,13 @@ export class ToolbarComponent {
 		this.header = page?.name || 'PiCamera';
 	}
 
-	public logout(): void {
-		this.alert.showToast('toast.info.logout', 'info');
-		this.auth.removeToken();
+	public async logout(): Promise<void> {
+		(await this.alert.showDialog(LogoutComponent)).afterClosed$.subscribe(result => {
+			if (result != undefined) {
+				this.alert.showToast('toast.info.logout', 'info');
+				this.auth.removeToken();
+			}
+		});
 	}
 
 }

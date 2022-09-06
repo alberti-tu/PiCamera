@@ -1,0 +1,18 @@
+ngneat-dialog {
+
+	// backdrop styles
+	.ngneat-dialog-backdrop {
+		padding: 0rem;
+
+		// dialog content, where your component/template is placed
+		.ngneat-dialog-content {
+			max-height: 80vh;
+			max-width: 80vw;
+
+			// 'X' icon for closing the dialog
+			.ngneat-close-dialog {
+				display: none;
+			}
+		}
+	}
+}

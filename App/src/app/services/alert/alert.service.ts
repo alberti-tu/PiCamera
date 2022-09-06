@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
+import { DialogConfig, DialogRef, DialogService } from '@ngneat/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
+import { ActiveToast, ToastrService } from 'ngx-toastr';
 
 export type ToastrType = 'info' | 'success' | 'warning' | 'error'
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
 
-	constructor(private toastr: ToastrService, private translate: TranslateService) { }
+	constructor(private dialog: DialogService, private toastr: ToastrService, private translate: TranslateService) { }
 
-	public async showToast(message: string, type: ToastrType = 'info') {
+	public async showDialog(component: any, configuration?: Partial<DialogConfig<unknown>>): Promise<DialogRef> {
+		return this.dialog.open(component, configuration);
+	}
+
+	public async showToast(message: string, type: ToastrType = 'info'): Promise<ActiveToast<any>> {
 		const title = await this.getTranslation('toast.state.' + type)
 		message = await this.getTranslation(message);
 

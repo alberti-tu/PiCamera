@@ -17,6 +17,7 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 import { AppURL } from './constants/routes';
+import { DialogModule } from '@ngneat/dialog';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -40,6 +41,7 @@ const routes: Routes = [
 		BrowserModule,
 		BrowserAnimationsModule,
 		ComponentsModule,
+		DialogModule.forRoot(),
 		HttpClientModule,
 		RouterModule.forRoot(routes),
 		ToastrModule.forRoot(),

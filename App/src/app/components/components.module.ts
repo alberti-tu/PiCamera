@@ -3,15 +3,18 @@ import { SharedModule } from 'src/app/shared.module';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { LogoutComponent } from './dialogs/logout/logout.component';
 
 @NgModule({
 	declarations: [
+		LogoutComponent,
 		SideMenuComponent,
-		ToolbarComponent
+		ToolbarComponent,
 	],
 	exports: [
+		LogoutComponent,
 		SideMenuComponent,
-		ToolbarComponent
+		ToolbarComponent,
 	],
 	imports: [SharedModule]
 })
