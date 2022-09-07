@@ -25,7 +25,7 @@
 .shadow {
 	box-shadow: 0rem 0.375rem 0.75rem rgba($shadow, 0.2);
 	transition: all 250ms;
-	margin: 1em 1em 2em;
+	margin: 0.75em;
 
 	&:hover {
 		box-shadow: 0rem 0.375rem 1.125rem rgba($shadow, 0.4);

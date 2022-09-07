@@ -19,7 +19,7 @@
         "username": "Usuario"
     },
     "logout": {
-        "header": "Cierre de sesión",
+        "title": "Cierre de sesión",
         "message": "La próxima vez que accedas deberás introducir tu usuario y contraseña"
     },
     "menu": {

@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Data } from '@angular/router';
+import { DialogRef } from '@ngneat/dialog';
+import { IButton } from 'src/app/models/global';
 
 @Component({
 	selector: 'app-logout',
 	templateUrl: './logout.component.html',
 	styleUrls: ['./logout.component.scss']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent {
 
-	constructor() { }
+	public buttons: IButton[] = [
+		{ name: 'button.accept', type: 'secondary', value: 'accept' },
+		{ name: 'button.cancel', type: 'primary', value: 'cancel' },
+	]
 
-	ngOnInit(): void {
+	constructor(private dialog: DialogRef<Data, string>) { }
+
+	public dialogResult(button: IButton): void {
+		this.dialog.close(button?.value)
 	}
 
 }
