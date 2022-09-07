@@ -4,7 +4,7 @@ import { Data, Router } from '@angular/router';
 import { DialogRef } from '@ngneat/dialog';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
-import { IButton, IDialogResult } from 'src/app/models/global';
+import { IButton, IDialogResult, IUser } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -19,7 +19,7 @@ export class CheckPasswordComponent implements OnInit {
 	public form: FormGroup;
 	public showPassword: boolean = false;
 
-	public user: any = null;
+	public user: IUser | undefined = undefined;
 
 	public buttons: IButton[] = [
 		{ name: 'button.cancel', type: 'secondary', value: 'cancel' },

@@ -5,7 +5,7 @@ import { CheckPasswordComponent } from 'src/app/components/dialogs/check-passwor
 import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
-import { IDialogData, IDialogResult } from 'src/app/models/global';
+import { IDialogData, IDialogResult, IUser } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
 	public showPassword1: boolean = false;
 	public showPassword2: boolean = false;
 
-	public user: any = null;
+	public user: IUser | undefined = undefined;
 	public password: string | undefined = undefined;
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
