@@ -37,22 +37,4 @@
 			color: $danger;
 		}
 	}
-
-	.formButton {
-		align-self: center;
-
-		padding: 1rem 3rem;
-		font-size: 1.25rem;
-
-		background: $primary;
-		color: $light;
-
-		&:hover {
-			background: lighten($primary, 10%);
-		}
-
-		&.danger {
-			background: $danger
-		}
-	}
 }
