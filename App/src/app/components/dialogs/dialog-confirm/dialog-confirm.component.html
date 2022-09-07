@@ -1,0 +1,9 @@
+<div class="dialog-container">
+	<h1 class="title" translate>{{ data?.title }}</h1>
+	<p class="message" translate>{{ data?.message }}</p>
+	<div class="buttons">
+		<button *ngFor="let item of data?.buttons" class="{{item?.type}} shadow" (click)="dialogResult(item)" translate>
+			{{ item?.name }}
+		</button>
+	</div>
+</div>

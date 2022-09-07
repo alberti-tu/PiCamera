@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CheckPasswordComponent } from 'src/app/components/dialogs/check-password/check-password.component';
+import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
-import { IDialogResult } from 'src/app/models/global';
+import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -37,7 +38,7 @@ export class SettingsComponent implements OnInit {
 			this.form.get('username')?.setValue(this.user?.username);
 
 			(await this.alert.showDialog(CheckPasswordComponent, { data: this.user })).afterClosed$.subscribe((result: IDialogResult<string>) => {
-				if (result.button?.value == 'accept') {
+				if (result?.button?.value == 'accept') {
 					this.password = result.data;
 				} else {
 					this.router.navigateByUrl(AppURL.HOME);
@@ -64,35 +65,24 @@ export class SettingsComponent implements OnInit {
 		});
 	}
 
-	public remove(): void {
-		/*
-		const options: DialogData = {
-			header: 'settings.remove.header',
+	public async remove(): Promise<void> {
+		const data: IDialogData = {
+			title: 'settings.remove.title',
 			message: 'settings.remove.message',
 			buttons: [
-				{ text: 'settings.remove.button.cancel', value: 'cancel' },
-				{ text: 'settings.remove.button.accept', value: 'ok', isPrimary: true }
+				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+				{ name: 'button.accept', type: 'primary', value: 'accept' },
 			]
 		};
-		this.alert.showDialog(options).subscribe(result => {
-			if (result == null || result.button == 'cancel') {
-				return;
-			}
 
-			this.http.removeUser().subscribe(data => {
-				if (data.result) {
-					this.alert.showToast('toast.success.deleteUser', 'success');
-					this.auth.removeToken();
-				}
-			});
-
-		});
-		*/
-
-		this.http.removeUser().subscribe(data => {
-			if (data?.result) {
-				this.alert.showToast('toast.success.deleteUser', 'success');
-				this.auth.removeToken();
+		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+			if (result?.button?.value == 'accept') {
+				this.http.removeUser().subscribe(data => {
+					if (data.result) {
+						this.alert.showToast('toast.success.deleteUser', 'success');
+						this.auth.removeToken();
+					}
+				});
 			}
 		});
 	}

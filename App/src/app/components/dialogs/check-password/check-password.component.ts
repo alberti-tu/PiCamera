@@ -26,16 +26,14 @@ export class CheckPasswordComponent implements OnInit {
 		{ name: 'button.accept', type: 'primary', value: 'accept' },
 	]
 
-	constructor(private alert: AlertService, private auth: AuthenticationService, private dialog: DialogRef<Data, IDialogResult<string>>, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
+	constructor(private alert: AlertService, private auth: AuthenticationService, private dialog: DialogRef<Data, IDialogResult<string>>, private formBuilder: FormBuilder, private router: Router) {
 		this.form = this.formBuilder.group({
 			password: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ]
 		});
 	}
 
 	public ngOnInit(): void {
-		this.http.getUser().subscribe(data => {
-			this.user = data?.result;	
-		})
+		this.user = this.dialog.data;	
 	}
 
 	public dialogResult(button: IButton): void {

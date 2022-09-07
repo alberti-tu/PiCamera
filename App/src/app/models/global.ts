@@ -4,6 +4,12 @@ export interface IButton {
 	value?: string,
 }
 
+export interface IDialogData {
+	title?: string,
+	message?: string,
+	buttons?: IButton[]
+}
+
 export interface IDialogResult<T> {
 	button?: IButton,
 	data?: T

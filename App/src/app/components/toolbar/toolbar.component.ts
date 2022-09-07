@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
-import { LogoutComponent } from '../dialogs/logout/logout.component';
+import { DialogConfirmComponent } from '../dialogs/dialog-confirm/dialog-confirm.component';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({
@@ -22,8 +23,17 @@ export class ToolbarComponent {
 	}
 
 	public async logout(): Promise<void> {
-		(await this.alert.showDialog(LogoutComponent)).afterClosed$.subscribe(result => {
-			if (result == 'accept')  {
+		const data: IDialogData = {
+			title: 'logout.title',
+			message: 'logout.message',
+			buttons: [
+				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+				{ name: 'button.accept', type: 'primary', value: 'accept' },
+			]
+		};
+
+		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+			if (result?.button?.value == 'accept') {
 				this.alert.showToast('toast.info.logout', 'info');
 				this.auth.removeToken();
 			}
