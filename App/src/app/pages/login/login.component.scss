@@ -4,6 +4,8 @@
 	height: 100vh;
 	max-width: 540px;
 
+	padding: 0rem;
+
 	.background {
 		position: fixed;
 		top: 0;
@@ -80,6 +82,8 @@
 	.link-container {
 		text-align: center;
 		font-size: 1.125rem;
+
+		margin: 1rem 0rem;
 
 		a:hover {
 			text-decoration: underline;
