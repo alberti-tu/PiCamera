@@ -23,7 +23,7 @@ export class ToolbarComponent {
 
 	public async logout(): Promise<void> {
 		(await this.alert.showDialog(LogoutComponent)).afterClosed$.subscribe(result => {
-			if (result == 'accept') {
+			if (result == 'accept')  {
 				this.alert.showToast('toast.info.logout', 'info');
 				this.auth.removeToken();
 			}

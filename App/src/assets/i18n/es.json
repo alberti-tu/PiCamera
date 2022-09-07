@@ -37,6 +37,9 @@
         "username": "Usuario"
     },
     "settings": {
+		"dialog": {
+			"title": "Se requiere autenticación"
+		},
         "form": {
             "password": "Contraseña actual",
             "password-1": "Contraseña",

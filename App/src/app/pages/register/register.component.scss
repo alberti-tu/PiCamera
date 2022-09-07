@@ -21,76 +21,43 @@
 	.form-container {
 		padding: 2rem;
 		margin: auto;
-		z-index: 10;
-	}
+		z-index: 1;
 
-	.logo {
-		margin: 0 auto;
-		height: 96px;
-	}
-
-	.header {
-		text-align: center;
-		margin: 1.25rem;
-		cursor: default;
-	}
-
-	.form {
-		display: flex;
-    	flex-direction: column;
-		justify-content: center;
-
-		border-radius: 10px;
-		padding: 2rem 0rem;
-
-		background: $light;
-
-		.formField {
-			padding: 1rem 2rem;
-
-			.input-row {
-				display: flex;
-				flex-direction: row;
-
-				border-bottom: solid 1px $grey-dark;
-				margin: 0.5rem 0rem;
-				padding: 0.75rem;
-
-				transition: all 0.2s ease-in-out;
-
-				&:hover {
-					border-bottom: solid 1px $dark;
-				}
-
-				img {
-					height: 32px;
-				}
-
-				input {
-					font-size: 1.25rem;
-					padding-left: 0.75rem;
-					width: 100%;
-				}
+		.form-card {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+	
+			border-radius: 10px;
+			padding: 2rem 0rem;
+	
+			background: $light;
+	
+			.logo {
+				margin: 0 auto;
+				height: 96px;
+			}
+		
+			.header {
+				text-align: center;
+				margin: 1.25rem;
+				cursor: default;
 			}
 
-			.errorMessage {
-				color: $danger;
+			button {
+				padding: 1rem 3rem;
 			}
-		}
 
-		button {
-			padding: 1rem 3rem;
-		}
-	}
-
-	.link-container {
-		text-align: center;
-		font-size: 1.125rem;
-
-		margin: 1rem 0rem;
-
-		a:hover {
-			text-decoration: underline;
+			.link-container {
+				text-align: center;
+				font-size: 1.125rem;
+		
+				margin: 1rem 0rem;
+		
+				a:hover {
+					text-decoration: underline;
+				}
+			}
 		}
 	}
 }

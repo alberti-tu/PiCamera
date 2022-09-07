@@ -11,8 +11,8 @@ import { IButton } from 'src/app/models/global';
 export class LogoutComponent {
 
 	public buttons: IButton[] = [
-		{ name: 'button.accept', type: 'secondary', value: 'accept' },
-		{ name: 'button.cancel', type: 'primary', value: 'cancel' },
+		{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+		{ name: 'button.accept', type: 'primary', value: 'accept' },
 	]
 
 	constructor(private dialog: DialogRef<Data, string>) { }

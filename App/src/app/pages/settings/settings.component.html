@@ -12,17 +12,6 @@
 			<div *ngIf="hasError('username', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
 		</div>
 
-		<div class="formField">
-			<label translate>settings.form.password</label>
-			<div class="input-row">
-				<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
-				<img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
-			</div>
-			<div *ngIf="hasError('password', 'required')" class="errorMessage" translate>error.required</div>
-			<div *ngIf="hasError('password', 'minlength')" class="errorMessage" translate>error.minLength</div>
-			<div *ngIf="hasError('password', 'whiteSpace')" class="errorMessage" translate>error.whiteSpace</div>
-		</div>
-
 		<div class="changePassword">
 			<div class="formField">
 				<label translate>settings.form.password-1</label>
@@ -48,7 +37,7 @@
 			</div>
 		</div>
 
-		<button class="primary shadow" type="submit" [disabled]="!form.valid" translate>button.save</button>
-		<button class="danger shadow" (click)="remove()" translate>settings.remove.button</button>
+		<button type="submit" class="primary shadow" [disabled]="!form.valid" translate>button.save</button>
+		<button type="button" class="danger shadow" (click)="remove()" translate>settings.remove.button</button>
 	</form>
 </div>

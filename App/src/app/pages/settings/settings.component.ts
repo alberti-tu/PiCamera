@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CheckPasswordComponent } from 'src/app/components/dialogs/check-password/check-password.component';
+import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
+import { IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -13,41 +17,43 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class SettingsComponent implements OnInit {
 
 	public form: FormGroup;
-	public showPassword: boolean = false;
 	public showPassword1: boolean = false;
 	public showPassword2: boolean = false;
 
 	public user: any = null;
+	public password: string | undefined = undefined;
 
-	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService) {
+	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
 		this.form = this.formBuilder.group({
 			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
-			password: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password1: [ '', [ Validators.minLength(8), CustomValidator.whiteSpace ] ],
 			password2: [ '', [ Validators.minLength(8), CustomValidator.whiteSpace ] ],
 		});
 	}
 
 	public ngOnInit(): void {
-		this.http.getUser().subscribe(data => {
+		this.http.getUser().subscribe(async data => {
 			this.user = data?.result;
-			this.form.get('username')?.setValue(this.user?.username);	
-		})
+			this.form.get('username')?.setValue(this.user?.username);
+
+			(await this.alert.showDialog(CheckPasswordComponent, { data: this.user })).afterClosed$.subscribe((result: IDialogResult<string>) => {
+				if (result.button?.value == 'accept') {
+					this.password = result.data;
+				} else {
+					this.router.navigateByUrl(AppURL.HOME);
+				}
+			});
+		});
 	}
 
 	public sendForm(): void {
-		if (this.user?.password != this.auth.hash(this.form.value.password)) {
-			this.alert.showToast('toast.error.confirmPassword', 'error');
-			return;
-		}
-
 		if (this.form.value.password1 != this.form.value.password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');
 			return;
 		}
 
 		const username = this.form.value.username;
-		const password = this.form.value.password1 || this.form.value.password;
+		const password = this.form.value.password1 || this.password;
 
 		this.http.updateUser(username, password).subscribe(data => {
 			if (data?.result) {
@@ -89,10 +95,6 @@ export class SettingsComponent implements OnInit {
 				this.auth.removeToken();
 			}
 		});
-	}
-
-	public passwordButton(): void {
-		this.showPassword = !this.showPassword;
 	}
 
 	public password1Button(): void {
