@@ -73,7 +73,7 @@
         },
         "remove": {
             "button": "Eliminar usuario",
-            "header": "¿Estás seguro de querer eliminar tu usuario?",
+            "title": "¿Estás seguro de querer eliminar tu usuario?",
             "message": "Esta acción no se puede deshacer"
         }
     },

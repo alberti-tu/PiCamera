@@ -10,7 +10,7 @@ export const configuration: Configuration = {
 	database: {
 		database: 'PiCamera',
 		user: 'root',
-		password: null,
+		password: 'admin',
 		host: 'localhost',
 		port: 3306
 	},
@@ -18,15 +18,17 @@ export const configuration: Configuration = {
 		directory: 'camera',
 		instances: [
 			{
-				port: 80,
-				redirect: 443,
+				port: 8080,
+				//redirect: 443,
 				type: 'http'
 			},
+			/*
 			{
 				domain: null,	// Domain of the Let's encrypt certificate
 				port: 443,
 				type: 'https'
 			}
+			*/
 		],
 		sharedKey: 'mycamera',  // Password to accept camera registration
 		timeout: '365d'         // Expiration time of the authentication token

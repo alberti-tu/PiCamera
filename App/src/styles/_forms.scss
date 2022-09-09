@@ -20,12 +20,22 @@
 
 	img {
 		height: 32px;
+		padding-left: 0.75rem;
+
+		&:first-child {
+			padding: 0;
+		}
 	}
 
 	input {
 		font-size: 1.25rem;
-		padding-left: 0.75rem;
 		width: 100%;
+
+		padding-left: 0.75rem;
+
+		&:first-child {
+			padding: 0;
+		}
 	}
 }
 
