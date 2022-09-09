@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getPath } from 'src/app/global/utils';
 import { ApiURL } from 'src/app/constants/routes';
-import { CameraOptions, CameraSubscription, Message } from 'src/app/models/http.models';
+import { ICameraOptions, ICameraSubscription, Message } from 'src/app/models/http.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -34,11 +34,11 @@ export class HttpService {
 		return this.http.delete<any>(environment.url + getPath(ApiURL.USER));
 	}
 
-	public getAllSubscriptions(): Observable<Message<CameraSubscription[]>> {
+	public getAllSubscriptions(): Observable<Message<ICameraSubscription[]>> {
 		return this.http.get<any>(environment.url + getPath(ApiURL.SUBSCRIPTION));
 	}
 
-	public getOneSubscription(id: string): Observable<Message<CameraSubscription>> {
+	public getOneSubscription(id: string): Observable<Message<ICameraSubscription>> {
 		return this.http.get<any>(environment.url + getPath(ApiURL.SUBSCRIPTION_BY_ID, { id }));
 	}
 
@@ -55,11 +55,11 @@ export class HttpService {
 		return this.http.delete<any>(environment.url + getPath(ApiURL.SUBSCRIPTION_BY_ID, { id }));
 	}
 
-	public getSettings(id: string): Observable<Message<CameraOptions>> {
+	public getSettings(id: string): Observable<Message<ICameraOptions>> {
 		return this.http.get<any>(environment.url + getPath(ApiURL.CAMERA_BY_ID, { id }));
 	}
 
-	public saveSettings(id: string, body: CameraOptions): Observable<Message<boolean>> {
+	public saveSettings(id: string, body: ICameraOptions): Observable<Message<boolean>> {
 		return this.http.post<any>(environment.url + getPath(ApiURL.CAMERA_BY_ID, { id }), body);
 	}
 

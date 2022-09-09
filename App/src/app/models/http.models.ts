@@ -4,7 +4,13 @@ export interface Message<T> {
 	result: T;
 }
 
-export interface CameraSubscription {
+export interface ICameraOptions {
+	filter?: string;
+	quality?: number;
+	rotation?: number;
+}
+
+export interface ICameraSubscription {
 	id?: string;
 	name?: string;
 	camera_id?: string;
@@ -16,8 +22,7 @@ export interface Image {
 	data?: string;
 }
 
-export interface CameraOptions {
-	filter?: string;
-	quality?: number;
-	rotation?: number;
+export interface IUser {
+	username?: string;
+	password?: string;
 }

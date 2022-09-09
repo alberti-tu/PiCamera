@@ -23,7 +23,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 		return next.handle(request).pipe(
 			tap(response => {
 				if (response instanceof HttpResponse && !environment.production) {
-					console.log(response.body);
+					response.body && console.log(response.body);
 				}
 			}),
 			catchError((response: HttpResponse<Message<any>>) => {

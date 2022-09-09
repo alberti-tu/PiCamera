@@ -1,5 +1,12 @@
 <toolbar></toolbar>
 <div class="page cameras-container">
-	<p>It works!</p>
+	<form [formGroup]="form" (submit)="sendForm()">
+		<div class="input-card">
+			<div class="input-row">
+				<input formControlName="camera" type="text" [placeholder]="'cameras.input' | translate">
+			</div>
+			<button type="submit" class="primary shadow" [disabled]="!form.valid" translate>button.save</button>
+		</div>
+	</form>
 </div>
 

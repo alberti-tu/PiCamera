@@ -29,7 +29,7 @@
 					<div class="errorMessage" *ngIf="hasError('password', 'whiteSpace')" translate>error.whiteSpace</div>
 				</div>
 	
-				<button class="primary shadow" type="submit" [disabled]="!form.valid" translate>button.signIn</button>
+				<button type="submit" class="primary shadow" [disabled]="!form.valid" translate>button.signIn</button>
 	
 				<div class="link-container">
 					<a href="/register" translate>login.link</a>

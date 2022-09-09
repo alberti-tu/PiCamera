@@ -7,6 +7,31 @@
         "signIn": "Entrar",
         "signUp": "Registrarse"
     },
+    "cameras": {
+        "detail": {
+            "empty": "Parece que no tienes imágenes guardadas.\nPara tomar una accede",
+            "filter": "Filtro",
+            "link": "aquí.",
+            "list.auto": "Auto",
+            "list.backlight": "Luz de fondo",
+            "list.beach": "Playa",
+            "list.fireworks": "Fuegos artificiales",
+            "list.night": "Noche",
+            "list.snow": "Nieve",
+            "list.sports": "Deportes",
+            "list.spotlight": "Destacar",
+            "list.verylong": "Exposición larga",
+            "quality": "Calidad",
+            "rotation": "Rotación"
+        },
+        "edit": {
+            "description": "Nombre de la cámara",
+            "title": "Editar cámara"
+        },
+        "empty": "Parece que no tienes cámaras asigadas a ti.\nPara añadirlas introduce su identificador.",
+        "input": "Identificador de cámara",
+        "remove": "¿Estás seguro de borrar esta cámara?"
+    },
     "error": {
         "minLength": "Longitud insuficiente",
         "required": "Campo obligatorio",
@@ -19,8 +44,8 @@
         "username": "Usuario"
     },
     "logout": {
-        "title": "Cierre de sesión",
-        "message": "La próxima vez que accedas deberás introducir tu usuario y contraseña"
+        "message": "La próxima vez que accedas deberás introducir tu usuario y contraseña",
+        "title": "Cierre de sesión"
     },
     "menu": {
         "cameras": "Cámaras",
@@ -37,9 +62,9 @@
         "username": "Usuario"
     },
     "settings": {
-		"dialog": {
-			"title": "Se requiere autenticación"
-		},
+        "dialog": {
+            "title": "Se requiere autenticación"
+        },
         "form": {
             "password": "Contraseña actual",
             "password-1": "Contraseña",

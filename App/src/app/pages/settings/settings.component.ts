@@ -5,7 +5,8 @@ import { CheckPasswordComponent } from 'src/app/components/dialogs/check-passwor
 import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
-import { IDialogData, IDialogResult, IUser } from 'src/app/models/global';
+import { IDialogData, IDialogResult } from 'src/app/models/global';
+import { IUser } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -78,7 +79,7 @@ export class SettingsComponent implements OnInit {
 		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.http.removeUser().subscribe(data => {
-					if (data.result) {
+					if (data?.result) {
 						this.alert.showToast('toast.success.deleteUser', 'success');
 						this.auth.removeToken();
 					}

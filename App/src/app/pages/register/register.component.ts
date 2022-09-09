@@ -60,7 +60,7 @@ export class RegisterComponent {
 		const password = this.form.value.password1;
 
 		this.http.register(username, password).subscribe(data => {
-			if (data.result) {
+			if (data?.result) {
 				this.alert.showToast('toast.success.register', 'success');
 				this.router.navigateByUrl(AppURL.LOGIN);
 			} else {

@@ -14,8 +14,3 @@ export interface IDialogResult<T> {
 	button?: IButton;
 	data?: T;
 }
-
-export interface IUser {
-	username?: string;
-	password?: string;
-}

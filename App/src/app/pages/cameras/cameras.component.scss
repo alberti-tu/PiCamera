@@ -1,0 +1,11 @@
+.cameras-container {
+	.input-card {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		button {
+			margin: 0rem 0rem 0rem 2rem;
+		}
+	}
+}
