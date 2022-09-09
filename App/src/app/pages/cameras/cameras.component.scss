@@ -4,8 +4,13 @@
 		flex-direction: row;
 		justify-content: space-between;
 
-		button {
-			margin: 0rem 0rem 0rem 2rem;
+		margin: 0rem 1.5rem;
+	}
+
+	// Only Mobile
+	@media (max-width: 640px) {
+		.input-card {
+			flex-direction: column;
 		}
 	}
 }
