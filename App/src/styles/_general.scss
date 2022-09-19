@@ -1,3 +1,17 @@
+.card-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.card {
+	background: $light;
+	border-radius: 10px;
+	padding: 1rem;
+	margin: 1rem;
+}
+
 .focus {
 	transition: all 250ms;
 	cursor: pointer;

@@ -30,7 +30,10 @@
         },
         "empty": "Parece que no tienes cámaras asigadas a ti.\nPara añadirlas introduce su identificador.",
         "input": "Identificador de cámara",
-        "remove": "¿Estás seguro de borrar esta cámara?"
+        "remove": {
+            "description": "Para volverla a añadir tendrás que introducir su identificador",
+            "title": "¿Estás seguro de borrar esta cámara?"
+        }
     },
     "error": {
         "minLength": "Longitud insuficiente",
@@ -73,8 +76,8 @@
         },
         "remove": {
             "button": "Eliminar usuario",
-            "title": "¿Estás seguro de querer eliminar tu usuario?",
-            "message": "Esta acción no se puede deshacer"
+            "message": "Esta acción no se puede deshacer",
+            "title": "¿Estás seguro de querer eliminar tu usuario?"
         }
     },
     "toast": {
@@ -90,8 +93,9 @@
             "update": "No se han podido actualizar los datos"
         },
         "info": {
+            "deleted": "Datos eliminados correctamente",
             "logout": "La sesión se ha cerrado correctamente",
-            "saved": "Datos guardados correctamente"
+            "saved": "Datos añadidos correctamente"
         },
         "state": {
             "error": "Error",

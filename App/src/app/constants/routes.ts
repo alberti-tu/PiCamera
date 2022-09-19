@@ -1,5 +1,6 @@
 export enum AppURL {
 	CAMERAS = '/cameras',
+	CAMERAS_DETAIL = '/cameras/[id]',
 	HOME = '/home',
 	LOGIN = '/login',
 	PHOTOS = '/photos',

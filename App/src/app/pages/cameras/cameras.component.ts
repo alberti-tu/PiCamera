@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
+import { AppURL } from 'src/app/constants/routes';
+import { getPath } from 'src/app/global/utils';
+import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -25,21 +29,55 @@ export class CamerasComponent implements OnInit {
 		this.getData();
 	}
 
-	public sendForm(): void {
-		this.http.addSubscription(this.form.value.camera).subscribe(data => {
-			if (data?.result) {
-				this.getData();
-				this.form.reset();
-			} else {
-				this.alert.showToast('toast.error.notAdded', 'error');
-			}
-		});
-	}
-
 	public getData(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
 			this.cameras = data?.result;
 		});
 	}
 
+	public openDetail(camera: ICameraSubscription, event?: MouseEvent): void {
+		event?.stopPropagation();
+
+		if (camera?.camera_id != undefined) {
+			this.router.navigateByUrl(getPath(AppURL.CAMERAS_DETAIL, { id: camera?.camera_id }));
+		}
+	}
+
+	public sendForm(): void {
+		this.http.addSubscription(this.form.value.camera).subscribe(data => {
+			if (data?.result) {
+				this.getData();
+				this.form.reset();
+				this.alert.showToast('toast.info.saved', 'info');
+			} else {
+				this.alert.showToast('toast.error.notAdded', 'error');
+			}
+		});
+	}
+
+	public async removeCamera(camera: ICameraSubscription, event?: MouseEvent): Promise<void> {
+		event?.stopPropagation();
+
+		const data: IDialogData = {
+			title: 'cameras.remove.title',
+			message: 'cameras.remove.description',
+			buttons: [
+				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+				{ name: 'button.accept', type: 'primary', value: 'accept' },
+			]
+		};
+
+		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+			if (result?.button?.value == 'accept') {
+				if (camera?.id != undefined) {
+					this.http.removeSubscription(camera?.id).subscribe(data => {
+						if (data.result) {
+							this.cameras = this.cameras?.filter(item => item?.camera_id != camera?.camera_id);
+							this.alert.showToast('toast.info.deleted', 'info');
+						}
+					});
+				}
+			}
+		});
+	}
 }

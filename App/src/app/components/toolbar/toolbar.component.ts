@@ -19,7 +19,7 @@ export class ToolbarComponent {
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private router : Router) {
 		const page = environment.pages.find(item => item.link?.includes(this.router.url));
-		this.header = page?.name || 'PiCamera';
+		this.header = page?.name || 'menu.' + this.router.url.split('/')[1];
 	}
 
 	public async logout(): Promise<void> {

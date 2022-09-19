@@ -11,6 +11,8 @@ a {
 }
 
 button {
+	display: flex;
+
 	align-self: center;
 
 	padding: 1rem 2rem;
@@ -18,10 +20,11 @@ button {
 
 	border: none;
 	border-radius: 10px;
-	cursor: pointer;
-
+	
 	background: $grey-light;
 	color: $light;
+
+	cursor: pointer;
 
 	&:hover {
 		background: lighten($grey-light, 10%);
