@@ -76,6 +76,7 @@ export class CamerasComponent implements OnInit {
 					id: 'name',
 					label: 'cameras.edit.description',
 					type: 'text',
+					value: camera?.name,
 					requisites: [ Validators.required, CustomValidator.whiteSpace ]
 				},
 			],
