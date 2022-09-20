@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { IFormField } from 'src/app/components/form/form.component';
@@ -17,13 +17,20 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class CamerasComponent implements OnInit {
 
-	public cameras: ICameraSubscription[] = [];
-	public form: FormGroup;
+	public fields: IFormField[];
+	public form?: Record<string, string> = undefined;
 
-	constructor(private alert: AlertService, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
-		this.form = this.formBuilder.group({
-			camera: [ '', Validators.required ]
-		});
+	public cameras: ICameraSubscription[] = [];
+
+	constructor(private alert: AlertService, private http: HttpService, private router: Router) {
+		this.fields = [
+			{
+				id: 'camera',
+				label: 'cameras.input',
+				type: 'text',
+				requisites: [ Validators.required ]
+			}
+		];
 	}
 
 	public ngOnInit(): void {
@@ -36,11 +43,14 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
-	public sendForm(): void {
-		this.http.addSubscription(this.form.value.camera).subscribe(data => {
+	public SaveCamera(): void {
+		if (this.form == undefined) {
+			return;
+		}
+
+		this.http.addSubscription(this.form['camera']).subscribe(data => {
 			if (data?.result) {
 				this.getData();
-				this.form.reset();
 				this.alert.showToast('toast.info.saved', 'info');
 			} else {
 				this.alert.showToast('toast.error.notAdded', 'error');
@@ -61,7 +71,14 @@ export class CamerasComponent implements OnInit {
 
 		const dialog: IDialogData = {
 			title: 'cameras.edit.title',
-			message: 'cameras.edit.description',
+			form: [
+				{
+					id: 'name',
+					label: 'cameras.edit.description',
+					type: 'text',
+					requisites: [ Validators.required, CustomValidator.whiteSpace ]
+				},
+			],
 			buttons: [
 				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
 				{ name: 'button.accept', type: 'primary', value: 'accept' },
@@ -71,14 +88,14 @@ export class CamerasComponent implements OnInit {
 		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<Record<string, string>>) => {
 			if (result?.button?.value == 'accept') {
 				if (camera?.id != undefined && result?.data != undefined) {
-					/*
-					this.http.updateSubscription(camera?.id, result?.data).subscribe(data => {
+					const name = result?.data['name'];
+
+					this.http.updateSubscription(camera?.id, name).subscribe(data => {
 						if (data?.result) {
-							camera.name = result?.data;
+							camera.name = name;
 							this.alert.showToast('toast.info.saved', 'info');
 						}
 					});
-					*/
 				}
 			}
 		});

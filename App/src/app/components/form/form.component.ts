@@ -44,9 +44,7 @@ export class FormComponent implements OnInit {
 	}
 
 	public submit(data: any): void {
-		if (this.form.valid == true) {
-			this.result.emit(data);
-		}
+		this.result.emit(this.form.valid ? data : undefined)
 	}
 
 	public getPasswordButton(item: IFormField): boolean {

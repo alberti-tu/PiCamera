@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit {
 			{
 				id: 'username',
 				label: 'settings.form.username',
+				icon: 'user',
 				type: 'text',
 				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
