@@ -5,49 +5,12 @@
 			<img class="logo" src="assets/icons/user-add.svg">
 			<h1 class="header" translate>register.title</h1>
 
-			<form [formGroup]="form" (submit)="sendForm()">
-				<div class="formField">
-					<label translate>register.username</label>
-					<div class="input-row">
-						<img src="assets/icons/user.svg">
-						<input formControlName="username" type="text">
-					</div>
-	
-					<div class="errorMessage" *ngIf="hasError('username', 'required')" translate>error.required</div>
-					<div class="errorMessage" *ngIf="hasError('username', 'minlength')" translate>error.minLength</div>
-					<div class="errorMessage" *ngIf="hasError('username', 'whiteSpace')" translate>error.whiteSpace</div>
-				</div>
-	
-				<div class="formField">
-					<label translate>register.password-1</label>
-					<div class="input-row" style="cursor: pointer">
-						<img src="assets/icons/eye-{{ showPassword1 ? 'close' : 'open'}}.svg" (click)="password1Button()">
-						<input formControlName="password1" type="{{ showPassword1 ? 'text' : 'password' }}">
-					</div>
-	
-					<div class="errorMessage" *ngIf="hasError('password1', 'required')" translate>error.required</div>
-					<div class="errorMessage" *ngIf="hasError('password1', 'minlength')" translate>error.minLength</div>
-					<div class="errorMessage" *ngIf="hasError('password1', 'whiteSpace')" translate>error.whiteSpace</div>
-				</div>
+			<form-container [fields]="fields" (result)="form = $event"></form-container>
+			<button class="primary shadow" [disabled]="!form" (click)="register()" translate>button.signUp</button>
 
-				<div class="formField">
-					<label translate>register.password-2</label>
-					<div class="input-row" style="cursor: pointer">
-						<img src="assets/icons/eye-{{ showPassword2 ? 'close' : 'open'}}.svg" (click)="password2Button()">
-						<input formControlName="password2" type="{{ showPassword2 ? 'text' : 'password' }}">
-					</div>
-	
-					<div class="errorMessage" *ngIf="hasError('password2', 'required')" translate>error.required</div>
-					<div class="errorMessage" *ngIf="hasError('password2', 'minlength')" translate>error.minLength</div>
-					<div class="errorMessage" *ngIf="hasError('password2', 'whiteSpace')" translate>error.whiteSpace</div>
-				</div>
-	
-				<button type="submit" class="primary shadow" [disabled]="!form.valid" translate>button.signUp</button>
-
-				<div class="link-container">
-					<a href="/login" translate>register.link</a>
-				</div>
-			</form>
+			<div class="link-container">
+				<a href="/login" translate>register.link</a>
+			</div>
 		</div>
 	</div>
 </div>
