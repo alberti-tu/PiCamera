@@ -4,37 +4,13 @@
 		<div class="form-card">
 			<img class="logo" src="assets/icons/logo.svg">
 			<h1 class="header" translate>login.title</h1>
-			<form [formGroup]="form" (submit)="sendForm()">
-				<div class="formField">
-					<label translate>login.username</label>
-					<div class="input-row">
-						<img src="assets/icons/user.svg">
-						<input formControlName="username" type="text">
-					</div>
-	
-					<div class="errorMessage" *ngIf="hasError('username', 'required')" translate>error.required</div>
-					<div class="errorMessage" *ngIf="hasError('username', 'minlength')" translate>error.minLength</div>
-					<div class="errorMessage" *ngIf="hasError('username', 'whiteSpace')" translate>error.whiteSpace</div>
-				</div>
-	
-				<div class="formField">
-					<label translate>login.password</label>
-					<div class="input-row" style="cursor: pointer">
-						<img src="assets/icons/eye-{{ showPassword ? 'close' : 'open'}}.svg" (click)="passwordButton()">
-						<input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}">
-					</div>
-	
-					<div class="errorMessage" *ngIf="hasError('password', 'required')" translate>error.required</div>
-					<div class="errorMessage" *ngIf="hasError('password', 'minlength')" translate>error.minLength</div>
-					<div class="errorMessage" *ngIf="hasError('password', 'whiteSpace')" translate>error.whiteSpace</div>
-				</div>
-	
-				<button type="submit" class="primary shadow" [disabled]="!form.valid" translate>button.signIn</button>
-	
-				<div class="link-container">
-					<a href="/register" translate>login.link</a>
-				</div>
-			</form>
+			
+			<form-container [fields]="fields" (result)="form = $event"></form-container>
+			<button class="primary shadow" [disabled]="!form" (click)="login()" translate>button.signIn</button>
+
+			<div class="link-container">
+				<a href="/register" translate>login.link</a>
+			</div>
 		</div>
 	</div>
 </div>

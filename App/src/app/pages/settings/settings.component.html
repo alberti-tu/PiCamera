@@ -2,6 +2,6 @@
 
 <div class="page settings-container">
 	<form-container [fields]="fields" (result)="form = $event"></form-container>
-	<button class="primary shadow" [disabled]="!form" translate>button.save</button>
+	<button class="primary shadow" [disabled]="!form" (click)="save()" translate>button.save</button>
 	<button class="danger shadow" (click)="remove()" translate>settings.remove.button</button>
 </div>

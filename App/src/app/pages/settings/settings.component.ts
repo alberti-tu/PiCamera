@@ -84,10 +84,14 @@ export class SettingsComponent implements OnInit {
 		});
 	}
 
-	public sendForm(): void {
-		const username = this.form?.['username'];
-		const password1 = this.form?.['password1'];
-		const password2 = this.form?.['password1'];
+	public save(): void {
+		if (this.form == undefined) {
+			return;
+		}
+
+		const username = this.form['username'];
+		const password1 = this.form['password1'];
+		const password2 = this.form['password1'];
 
 		if (password1 != password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { IFormField } from 'src/app/components/form/form.component';
 import { CustomValidator } from 'src/app/global/utils';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -12,32 +13,36 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class LoginComponent {
 
-	public form: FormGroup;
-	public showPassword: boolean;
+	public fields: IFormField[];
+	public form?: Record<string, string> = undefined;
 
-	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService) {
-		this.form = this.formBuilder.group({
-			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
-			password: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ]
-		});
-
-		this.showPassword = false;
+	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService) {
+		this.fields = [
+			{
+				id: 'username',
+				label: 'login.username',
+				icon: 'user',
+				type: 'text',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
+			},
+			{
+				id: 'password',
+				label: 'login.password',
+				type: 'password',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
+			}
+		]
 	}
 
-	public hasError(name: string, error: string): boolean {
-		const control = this.form.get(name);
-		return control && control?.touched && control.errors && control.errors[error];
-	}
+	public login(): void {
+		if (this.form == undefined) {
+			return;
+		}
 
-	public passwordButton(): void {
-		this.showPassword = !this.showPassword;
-	}
+		const username = this.form['username'];
+		const password = this.form['password'];
 
-	public sendForm(): void {
-		const username = this.form.value.username;
-		const password = this.auth.hash(this.form.value.password);
-
-		this.http.login(username, password).subscribe(data => {
+		this.http.login(username, this.auth.hash(password)).subscribe(data => {
 			if (data?.result) {
 				this.auth.setToken(data?.result);
 			} else {
