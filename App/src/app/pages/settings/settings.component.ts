@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CheckPasswordComponent } from 'src/app/components/dialogs/check-password/check-password.component';
-import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
 import { IDialogData, IDialogResult } from 'src/app/models/global';
@@ -38,9 +37,30 @@ export class SettingsComponent implements OnInit {
 			this.user = data?.result;
 			this.form.get('username')?.setValue(this.user?.username);
 
-			(await this.alert.showDialog(CheckPasswordComponent, { data: this.user })).afterClosed$.subscribe((result: IDialogResult<string>) => {
-				if (result?.button?.value == 'accept') {
-					this.password = result.data;
+			const dialog: IDialogData = {
+				title: 'settings.dialog.title',
+				form: [
+					{
+						id: 'password',
+						label: 'settings.form.password',
+						type: 'password',
+						requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
+					}
+				],
+				buttons: [
+					{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+					{ name: 'button.accept', type: 'primary', value: 'accept' },
+				]
+			};
+	
+			(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<Record<string, string>>) => {
+				if (result.data != undefined && result?.button?.value == 'accept') {
+					if (this.user?.password == this.auth.hash(result.data['password'])) {
+						this.password = result.data['password'];
+					} else {
+						this.alert.showToast('toast.error.confirmPassword', 'error');
+						this.ngOnInit();
+					}
 				} else {
 					this.router.navigateByUrl(AppURL.HOME);
 				}
@@ -76,7 +96,7 @@ export class SettingsComponent implements OnInit {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.http.removeUser().subscribe(data => {
 					if (data?.result) {

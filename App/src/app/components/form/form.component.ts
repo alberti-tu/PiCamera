@@ -34,13 +34,13 @@ export class FormComponent implements OnInit {
 			if (item.id == undefined) {
 				return state;
 			}
-			return { ...state, [item.id]: [ item.value, item.requisites ]}
-		}, {}) 
+			return { ...state, [item.id]: [ item.value || '', item.requisites ]}
+		}, {});
 
 		this.form = this.formBuilder.group(group);
 
 		this.form.valueChanges.subscribe(result => {
-			if (this.form.valid) {
+			if (this.form.valid == true) {
 				this.result.emit(result);
 			}
 		});

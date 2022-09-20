@@ -4,12 +4,12 @@
 
 		<div *ngSwitchCase="'password'" class="input-row" style="cursor: pointer">
 			<img src="assets/icons/eye-{{ getPasswordButton(item) ? 'close' : 'open'}}.svg" (click)="setPasswordButton(item)">
-			<input type="{{ getPasswordButton(item) ? 'text' : 'password' }}" formControlName="{{ item?.id }}" placeholder="{{ item?.placeholder }}">
+			<input type="{{ getPasswordButton(item) ? 'text' : 'password' }}" formControlName="{{ item?.id }}">
 		</div>
 
 		<div *ngSwitchDefault class="input-row">
 			<img *ngIf="item?.icon" src="assets/icons/{{item?.icon}}.svg">
-			<input type="text" formControlName="{{ item?.id }}" placeholder="{{ item?.placeholder }}">
+			<input type="text" formControlName="{{ item?.id }}">
 		</div>
 
 		<div class="errorMessage" *ngIf="hasError(item?.id, 'required')" translate>error.required</div>

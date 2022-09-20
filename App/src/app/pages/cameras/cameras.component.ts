@@ -62,19 +62,14 @@ export class CamerasComponent implements OnInit {
 		const dialog: IDialogData = {
 			title: 'cameras.edit.title',
 			message: 'cameras.edit.description',
-			form: [
-				{ id: 'username', value: 'test', label: 'My label 1', type: 'text', icon: 'user' },
-				{ id: 'password', value: 'hey', label: 'My label 2', type: 'password', requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] },
-			],
 			buttons: [
 				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
 				{ name: 'button.accept', type: 'primary', value: 'accept' },
 			]
 		};
 
-		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<IFormField[]>) => {
+		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<Record<string, string>>) => {
 			if (result?.button?.value == 'accept') {
-				console.log(result)
 				if (camera?.id != undefined && result?.data != undefined) {
 					/*
 					this.http.updateSubscription(camera?.id, result?.data).subscribe(data => {

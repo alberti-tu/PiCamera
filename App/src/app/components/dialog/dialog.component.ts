@@ -32,8 +32,10 @@ export class DialogComponent {
 	}
 
 	public dialogResult(button: IButton): void {
-		if (this.data?.form == undefined || this.form != undefined) {
+		if (button.type == 'primary' && (this.data?.form == undefined || this.form != undefined)) {
 			this.dialog.close({ button, data: this.form })
+		} else if (button.type != 'primary') {
+			this.dialog.close({ button })
 		}
 	}
 
