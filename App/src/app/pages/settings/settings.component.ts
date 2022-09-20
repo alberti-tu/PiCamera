@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { IFormField } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
 import { IDialogData, IDialogResult } from 'src/app/models/global';
@@ -17,25 +18,39 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class SettingsComponent implements OnInit {
 
-	public form: FormGroup;
-	public showPassword1: boolean = false;
-	public showPassword2: boolean = false;
+	public fields: IFormField[];
+	public form?: Record<string, string> = undefined;
 
-	public user: IUser | undefined = undefined;
-	public password: string | undefined = undefined;
+	public user?: IUser = undefined;
+	public password?: string = undefined;
 
-	constructor(private alert: AlertService, private auth: AuthenticationService, private formBuilder: FormBuilder, private http: HttpService, private router: Router) {
-		this.form = this.formBuilder.group({
-			username: [ '', [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] ],
-			password1: [ '', [ Validators.minLength(8), CustomValidator.whiteSpace ] ],
-			password2: [ '', [ Validators.minLength(8), CustomValidator.whiteSpace ] ],
-		});
+	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService, private router: Router) {
+		this.fields = [
+			{
+				id: 'username',
+				label: 'settings.form.username',
+				type: 'text',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
+			},
+			{
+				id: 'password1',
+				label: 'settings.form.password-1',
+				type: 'password',
+				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ]
+			},
+			{
+				id: 'password2',
+				label: 'settings.form.password-2',
+				type: 'password',
+				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ]
+			}
+		];
 	}
 
 	public ngOnInit(): void {
 		this.http.getUser().subscribe(async data => {
 			this.user = data?.result;
-			this.form.get('username')?.setValue(this.user?.username);
+			this.fields[0].value = data?.result?.username;
 
 			const dialog: IDialogData = {
 				title: 'settings.dialog.title',
@@ -69,13 +84,16 @@ export class SettingsComponent implements OnInit {
 	}
 
 	public sendForm(): void {
-		if (this.form.value.password1 != this.form.value.password2) {
+		const username = this.form?.['username'];
+		const password1 = this.form?.['password1'];
+		const password2 = this.form?.['password1'];
+
+		if (password1 != password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');
 			return;
 		}
 
-		const username = this.form.value.username;
-		const password = this.form.value.password1 || this.password;
+		const password = password1 || this.password;
 
 		this.http.updateUser(username, password).subscribe(data => {
 			if (data?.result) {
@@ -108,16 +126,4 @@ export class SettingsComponent implements OnInit {
 		});
 	}
 
-	public password1Button(): void {
-		this.showPassword1 = !this.showPassword1;
-	}
-
-	public password2Button(): void {
-		this.showPassword2 = !this.showPassword2;
-	}
-
-	public hasError(name: string, error: string): boolean {
-		const control = this.form.get(name);
-		return control && control.touched && control.errors && control.errors[error];
-	}
 }

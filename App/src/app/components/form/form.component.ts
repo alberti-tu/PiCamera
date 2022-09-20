@@ -39,12 +39,14 @@ export class FormComponent implements OnInit {
 
 		this.form = this.formBuilder.group(group);
 
-		this.form.valueChanges.subscribe(result => {
-			if (this.form.valid == true) {
-				this.result.emit(result);
-			}
-		});
+		this.form.valueChanges.subscribe(result => this.submit(result));
+		this.submit(this.form.value);
+	}
 
+	public submit(data: any): void {
+		if (this.form.valid == true) {
+			this.result.emit(data);
+		}
 	}
 
 	public getPasswordButton(item: IFormField): boolean {
