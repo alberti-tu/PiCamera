@@ -6,25 +6,27 @@
 		flex-direction: row;
 		justify-content: space-between;
 
-		margin: 1rem 1.5rem 5rem;
+		margin: 1rem 1.5rem;
 	}
 
 	.camera-item {
 		padding: 0rem;
-		min-width: 256px;
+		margin: 2rem;
+
+		max-width: 448px;
+		width: 100%;
 
 		cursor: default;
 
 		.header {
 			display: flex;
-			justify-content: right;
+			justify-content: space-between;
 
 			background: $secondary;
 			border-radius: 10px 10px 0px 0px;
 			padding: 1rem;
 
 			button {
-				float: right;
 				padding: 0.5rem;
 	
 				img {
@@ -36,7 +38,7 @@
 
 		.body {
 			font-size: 1.25rem;
-			padding: 1rem;
+			padding: 2rem 1rem 1rem;
 		}
 
 	}
@@ -45,7 +47,10 @@
 	@media (max-width: 640px) {
 		.input-card {
 			flex-direction: column;
-			margin-bottom: 3rem;
+		}
+
+		.camera-item {
+			max-width: none;
 		}
 	}
 }

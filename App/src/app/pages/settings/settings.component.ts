@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
 	}
 
 	public async remove(): Promise<void> {
-		const data: IDialogData = {
+		const dialog: IDialogData = {
 			title: 'settings.remove.title',
 			message: 'settings.remove.message',
 			buttons: [
@@ -76,7 +76,7 @@ export class SettingsComponent implements OnInit {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.http.removeUser().subscribe(data => {
 					if (data?.result) {

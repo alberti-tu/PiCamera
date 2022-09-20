@@ -10,8 +10,12 @@
 	</form>
 
 	<div class="card-container">
-		<div *ngFor="let item of cameras" class="card camera-item shadow" (click)="openDetail(item, $event)">
+		<div *ngFor="let item of cameras" class="card camera-item shadow" (click)="openCamera(item, $event)">
 			<div class="header">
+				<button class="primary" (click)="editCamera(item, $event)">
+					<img src="assets/icons/edit.svg">
+				</button>
+
 				<button class="danger" (click)="removeCamera(item, $event)">
 					<img src="assets/icons/cross.svg">
 				</button>
@@ -21,4 +25,3 @@
 		</div>
 	</div>
 </div>
-

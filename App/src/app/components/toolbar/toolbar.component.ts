@@ -23,7 +23,7 @@ export class ToolbarComponent {
 	}
 
 	public async logout(): Promise<void> {
-		const data: IDialogData = {
+		const dialog: IDialogData = {
 			title: 'logout.title',
 			message: 'logout.message',
 			buttons: [
@@ -32,7 +32,7 @@ export class ToolbarComponent {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.alert.showToast('toast.info.logout', 'info');
 				this.auth.removeToken();

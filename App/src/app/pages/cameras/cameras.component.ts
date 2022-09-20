@@ -35,14 +35,6 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
-	public openDetail(camera: ICameraSubscription, event?: MouseEvent): void {
-		event?.stopPropagation();
-
-		if (camera?.camera_id != undefined) {
-			this.router.navigateByUrl(getPath(AppURL.CAMERAS_DETAIL, { id: camera?.camera_id }));
-		}
-	}
-
 	public sendForm(): void {
 		this.http.addSubscription(this.form.value.camera).subscribe(data => {
 			if (data?.result) {
@@ -55,10 +47,44 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
+	public openCamera(camera: ICameraSubscription, event?: MouseEvent): void {
+		event?.stopPropagation();
+
+		if (camera?.camera_id != undefined) {
+			this.router.navigateByUrl(getPath(AppURL.CAMERAS_DETAIL, { id: camera?.camera_id }));
+		}
+	}
+
+	public async editCamera(camera: ICameraSubscription, event?: MouseEvent): Promise<void> {
+		event?.stopPropagation();
+
+		const dialog: IDialogData = {
+			title: 'cameras.edit.title',
+			message: 'cameras.edit.description',
+			buttons: [
+				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
+				{ name: 'button.accept', type: 'primary', value: 'accept' },
+			]
+		};
+
+		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<string>) => {
+			if (result?.button?.value == 'accept') {
+				if (camera?.id != undefined && result?.data != undefined) {
+					this.http.updateSubscription(camera?.id, result?.data).subscribe(data => {
+						if (data?.result) {
+							camera.name = result?.data;
+							this.alert.showToast('toast.info.saved', 'info');
+						}
+					});
+				}
+			}
+		});
+	}
+
 	public async removeCamera(camera: ICameraSubscription, event?: MouseEvent): Promise<void> {
 		event?.stopPropagation();
 
-		const data: IDialogData = {
+		const dialog: IDialogData = {
 			title: 'cameras.remove.title',
 			message: 'cameras.remove.description',
 			buttons: [
@@ -67,11 +93,11 @@ export class CamerasComponent implements OnInit {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				if (camera?.id != undefined) {
 					this.http.removeSubscription(camera?.id).subscribe(data => {
-						if (data.result) {
+						if (data?.result) {
 							this.cameras = this.cameras?.filter(item => item?.camera_id != camera?.camera_id);
 							this.alert.showToast('toast.info.deleted', 'info');
 						}
