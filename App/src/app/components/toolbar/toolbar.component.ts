@@ -4,7 +4,7 @@ import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
-import { DialogConfirmComponent } from '../dialogs/dialog-confirm/dialog-confirm.component';
+import { DialogComponent } from '../dialog/dialog.component';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({
@@ -32,7 +32,7 @@ export class ToolbarComponent {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.alert.showToast('toast.info.logout', 'info');
 				this.auth.removeToken();
