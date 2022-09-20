@@ -10,7 +10,7 @@ import { IButton, IDialogData, IDialogResult } from 'src/app/models/global';
 })
 export class DialogConfirmComponent {
 
-	public data: IDialogData | undefined = undefined;
+	public data?: IDialogData = undefined;
 
 	constructor(private dialog: DialogRef<Data, IDialogResult<unknown>>) {
 		this.data = this.dialog.data;

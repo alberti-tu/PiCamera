@@ -1,3 +1,5 @@
+import { IFormField } from "../components/form/form.component";
+
 export interface IButton {
 	name?: string;
 	type?: 'primary' | 'secondary' | 'default'
@@ -7,6 +9,7 @@ export interface IButton {
 export interface IDialogData {
 	title?: string;
 	message?: string;
+	form?: IFormField[];
 	buttons?: IButton[]
 }
 

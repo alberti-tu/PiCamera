@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DialogConfirmComponent } from 'src/app/components/dialogs/dialog-confirm/dialog-confirm.component';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { IFormField } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
-import { getPath } from 'src/app/global/utils';
+import { CustomValidator, getPath } from 'src/app/global/utils';
 import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -61,21 +62,28 @@ export class CamerasComponent implements OnInit {
 		const dialog: IDialogData = {
 			title: 'cameras.edit.title',
 			message: 'cameras.edit.description',
+			form: [
+				{ id: 'username', value: 'test', label: 'My label 1', type: 'text', icon: 'user' },
+				{ id: 'password', value: 'hey', label: 'My label 2', type: 'password', requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ] },
+			],
 			buttons: [
 				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
 				{ name: 'button.accept', type: 'primary', value: 'accept' },
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<string>) => {
+		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<IFormField[]>) => {
 			if (result?.button?.value == 'accept') {
+				console.log(result)
 				if (camera?.id != undefined && result?.data != undefined) {
+					/*
 					this.http.updateSubscription(camera?.id, result?.data).subscribe(data => {
 						if (data?.result) {
 							camera.name = result?.data;
 							this.alert.showToast('toast.info.saved', 'info');
 						}
 					});
+					*/
 				}
 			}
 		});
@@ -93,7 +101,7 @@ export class CamerasComponent implements OnInit {
 			]
 		};
 
-		(await this.alert.showDialog(DialogConfirmComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
+		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				if (camera?.id != undefined) {
 					this.http.removeSubscription(camera?.id).subscribe(data => {
