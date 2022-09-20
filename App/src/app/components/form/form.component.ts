@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export interface IFormField {
 	id?: string;
 	label?: string;
-	placeholder?: string;
 	requisites?: any[];
 	value?: string;
 	icon?: string;
