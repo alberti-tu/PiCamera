@@ -70,7 +70,7 @@ export class SettingsComponent implements OnInit {
 			};
 	
 			(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<Record<string, string>>) => {
-				if (result.data != undefined && result?.button?.value == 'accept') {
+				if (result?.data != undefined && result?.button?.value == 'accept') {
 					if (this.user?.password == this.auth.hash(result.data['password'])) {
 						this.password = result.data['password'];
 					} else {
