@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -14,12 +14,15 @@ import { MenuItem } from '../side-menu/side-menu.component';
 })
 export class ToolbarComponent {
 
-	public header: string = '';
+	@Input() public header?: string;
+
 	public pages: MenuItem[] = environment.pages;
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private router : Router) {
-		const page = environment.pages.find(item => item.link?.includes(this.router.url));
-		this.header = page?.name || 'menu.' + this.router.url.split('/')[1];
+		if (this.header == undefined) {
+			const page = environment.pages.find(item => item.link?.includes(this.router.url));
+			this.header = page?.name;
+		}
 	}
 
 	public async logout(): Promise<void> {

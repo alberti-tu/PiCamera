@@ -16,6 +16,12 @@ export interface ICameraSubscription {
 	camera_id?: string;
 }
 
+export interface ICameraOptions {
+	filter?: string;
+	quality?: number;
+	rotation?: number;
+}
+
 export interface Image {
 	id?: string;
 	name?: string;
