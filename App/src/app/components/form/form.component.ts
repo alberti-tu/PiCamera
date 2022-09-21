@@ -2,12 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 export interface IFormField {
-	id?: string;
+	id: string;
 	label?: string;
 	requisites?: any[];
+	max?: string
+	min?: string
+	step?: string
 	value?: string;
 	icon?: string;
-	type?: 'text' | 'password'
+	type?: string;
 }
 
 @Component({
@@ -21,20 +24,14 @@ export class FormComponent implements OnInit {
 	@Input() public fields?: IFormField[];
 
 	public form: FormGroup;
-	private showPassword: Record<string, boolean>;
+	private showPassword: Record<string, boolean> = {};
 
 	constructor(private formBuilder: FormBuilder) {
 		this.form = this.formBuilder.group({});
-		this.showPassword = {};
 	}
 	
 	public ngOnInit(): void {
-		const group = this.fields?.reduce<any>((state, item) => {
-			if (item.id == undefined) {
-				return state;
-			}
-			return { ...state, [item.id]: [ item.value || '', item.requisites ]}
-		}, {});
+		const group = this.fields?.reduce<any>((state, item) => ({ ...state, [item.id]: [ item.value || '', item.requisites ]}), {});
 
 		this.form = this.formBuilder.group(group);
 
@@ -47,18 +44,10 @@ export class FormComponent implements OnInit {
 	}
 
 	public getPasswordButton(item: IFormField): boolean {
-		if (item?.id != undefined) {
-			return this.showPassword[item.id];
-		} else {
-			return false;
-		}
+		return this.showPassword[item.id];
 	}
 
 	public setPasswordButton(item: IFormField): void {
-		if (item?.id == undefined) {
-			return;
-		}
-
 		this.showPassword[item.id] = !this.showPassword[item.id];
 	}
 

@@ -28,6 +28,24 @@ form {
 		border-bottom: solid 1px $dark;
 	}
 
+	&.password {
+		cursor: pointer;
+	}
+
+	&.range {
+		display: flex;
+		align-items: center;
+
+		border-bottom: none;
+
+		.bubble {
+			font-size: 1.25rem;
+			text-align: right;
+			height: 24px;
+			width: 3rem;
+		}
+	}
+
 	img {
 		height: 32px;
 		padding-left: 0.75rem;
@@ -45,6 +63,38 @@ form {
 
 		&:first-child {
 			padding: 0;
+		}
+
+		&[type="range"] {
+			-webkit-appearance: none;
+
+			height: 12px;
+
+			background: lighten($grey-light, 10%);
+			border-radius: 10px;
+			
+			cursor: pointer;
+
+			&:hover {
+				background: $grey-light;
+			}
+
+			&::-webkit-slider-thumb {
+				-webkit-appearance: none;
+
+				height: 24px;
+				width: 24px;
+
+				background: $secondary;
+				border-radius: 50%;
+			}
+
+			&::-moz-range-thumb {
+				background: red;
+				height: 10px;
+				width: 10px;
+				cursor: pointer;
+			}
 		}
 	}
 }

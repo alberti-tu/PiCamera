@@ -1,5 +1,6 @@
-<toolbar [header]="camera.name"></toolbar>
+<toolbar [header]="item.name"></toolbar>
 
 <div class="page detail-container">
-	<p>It works!</p>
+	<form-container [fields]="fields" (result)="form = $event"></form-container>
+	<button class="primary shadow" [disabled]="!form" (click)="save()" translate>button.save</button>
 </div>
