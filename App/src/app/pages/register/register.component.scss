@@ -18,7 +18,7 @@
 		background-size: cover;
 	}
 
-	.form-container {
+	.card-container {
 		padding: 2rem;
 		margin: auto;
 		z-index: 1;
@@ -42,6 +42,10 @@
 				text-align: center;
 				margin: 1.25rem;
 				cursor: default;
+			}
+
+			form-container{
+				margin: 0rem 2rem;
 			}
 
 			button {
