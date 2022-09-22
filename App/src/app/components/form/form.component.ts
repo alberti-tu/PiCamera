@@ -20,7 +20,7 @@ export interface IFormField {
 })
 export class FormComponent implements OnInit {
 
-	@Output() public result = new EventEmitter<Record<string, string>>();
+	@Output() public result = new EventEmitter<Record<string, string | number>>();
 	@Input() public fields?: IFormField[];
 
 	public form: FormGroup;
@@ -31,16 +31,29 @@ export class FormComponent implements OnInit {
 	}
 	
 	public ngOnInit(): void {
-		const group = this.fields?.reduce<any>((state, item) => ({ ...state, [item.id]: [ item.value || '', item.requisites ]}), {});
-
-		this.form = this.formBuilder.group(group);
+		this.form = this.formBuilder.group(this.initializeForm(this.fields));
 
 		this.form.valueChanges.subscribe(result => this.submit(result));
 		this.submit(this.form.value);
 	}
 
 	public submit(data: any): void {
-		this.result.emit(this.form.valid ? data : undefined)
+		if (this.form.valid) {
+			Object.keys(data).map(key => {
+				const type = this.fields?.find(item => item.id == key)?.type;
+
+				switch (type) {
+					case 'number':
+					case 'range':
+						data[key] = +data[key];
+						break;
+				}
+			});
+
+			this.result.emit(data);
+		} else {
+			this.result.emit(undefined);
+		}
 	}
 
 	public getPasswordButton(item: IFormField): boolean {
@@ -58,5 +71,13 @@ export class FormComponent implements OnInit {
 
 		const control = this.form.get(name);
 		return control && control?.touched && control.errors && control.errors[error];
+	}
+
+	private initializeForm(fields?: IFormField[]): any {
+		if (fields != undefined) {
+			return fields?.reduce<any>((state, item) => ({ ...state, [item.id]: [ item.value || '', item.requisites ]}), {});
+		} else {
+			return {};
+		}
 	}
 }

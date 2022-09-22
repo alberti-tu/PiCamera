@@ -14,7 +14,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class LoginComponent {
 
 	public fields: IFormField[];
-	public form?: Record<string, string> = undefined;
+	public form?: Record<string, string | number> = undefined;
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService) {
 		this.fields = [
@@ -39,8 +39,8 @@ export class LoginComponent {
 			return;
 		}
 
-		const username = this.form['username'];
-		const password = this.form['password'];
+		const username = this.form['username'].toString();
+		const password = this.form['password'].toString();
 
 		this.http.login(username, this.auth.hash(password)).subscribe(data => {
 			if (data?.result) {

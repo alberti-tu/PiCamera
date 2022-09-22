@@ -5,6 +5,7 @@ export interface Message<T> {
 }
 
 export interface ICameraOptions {
+	[key: string]: string | number | undefined;
 	filter?: string;
 	quality?: number;
 	rotation?: number;
@@ -14,12 +15,6 @@ export interface ICameraSubscription {
 	id?: string;
 	name?: string;
 	camera_id?: string;
-}
-
-export interface ICameraOptions {
-	filter?: string;
-	quality?: number;
-	rotation?: number;
 }
 
 export interface Image {

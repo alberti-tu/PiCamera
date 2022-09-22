@@ -24,11 +24,10 @@ export interface IDialogResult<T> {
 export class DialogComponent {
 
 	public data?: IDialogData = undefined;
-	public form?: Record<string, string>;
+	public form?: Record<string, string | number> = undefined;
 
-	constructor(private dialog: DialogRef<Data, IDialogResult<Record<string, string>>>) {
+	constructor(private dialog: DialogRef<Data, IDialogResult<Record<string, string | number>>>) {
 		this.data = this.dialog.data;
-		this.form = undefined;
 	}
 
 	public dialogResult(button: IButton): void {

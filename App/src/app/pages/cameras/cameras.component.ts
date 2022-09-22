@@ -18,7 +18,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class CamerasComponent implements OnInit {
 
 	public fields: IFormField[];
-	public form?: Record<string, string> = undefined;
+	public form?: Record<string, string | number> = undefined;
 
 	public cameras: ICameraSubscription[] = [];
 
@@ -48,7 +48,7 @@ export class CamerasComponent implements OnInit {
 			return;
 		}
 
-		this.http.addSubscription(this.form['camera']).subscribe(data => {
+		this.http.addSubscription(this.form['camera'].toString()).subscribe(data => {
 			if (data?.result) {
 				this.getData();
 				this.alert.showToast('toast.info.saved', 'info');

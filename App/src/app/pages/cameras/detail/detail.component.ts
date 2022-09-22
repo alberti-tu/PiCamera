@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IFormField } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
-import { ICameraOptions, ICameraSubscription } from 'src/app/models/http.models';
+import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
@@ -15,11 +15,10 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class DetailComponent implements OnInit {
 
 	public item: ICameraSubscription = {};
-	public options?: ICameraOptions = { filter: 'auto', quality: 0, rotation: 0 };
 	public filters: string[] = [];
 
 	public fields: IFormField[];
-	public form?: Record<string, string> = undefined;
+	public form?: Record<string, string | number> = undefined;
 
 	constructor(private route: ActivatedRoute, private alert: AlertService, private http: HttpService, private router: Router) {
 		this.fields = [
@@ -65,7 +64,13 @@ export class DetailComponent implements OnInit {
 		});
 
 		this.http.getSettings(this.item.camera_id).subscribe(data => {
-			this.options = data?.result;
+			Object.keys(data?.result).forEach(key => {
+				const field = this.fields.find(field => field.id == key)
+				
+				if (field != undefined) {
+					field.value = data?.result[key]?.toString();
+				}
+			})
 		});
 
 		this.http.getFilters().subscribe(data => {
@@ -78,7 +83,7 @@ export class DetailComponent implements OnInit {
 			return;
 		}
 
-		this.form['rotation'] = (+this.form['rotation'] % 360).toString();
+		this.form['rotation'] = +this.form['rotation'] % 360;
 
 		this.http.saveSettings(this.item.camera_id, this.form).subscribe(data => {
 			if (data?.result) {

@@ -19,7 +19,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class SettingsComponent implements OnInit {
 
 	public fields: IFormField[];
-	public form?: Record<string, string> = undefined;
+	public form?: Record<string, string | number> = undefined;
 
 	public user?: IUser = undefined;
 	public password?: string = undefined;
@@ -89,9 +89,9 @@ export class SettingsComponent implements OnInit {
 			return;
 		}
 
-		const username = this.form['username'];
-		const password1 = this.form['password1'];
-		const password2 = this.form['password1'];
+		const username = this.form['username'].toString();
+		const password1 = this.form['password1'].toString();
+		const password2 = this.form['password1'].toString();
 
 		if (password1 != password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');
