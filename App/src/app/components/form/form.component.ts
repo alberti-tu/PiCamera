@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IKeyValue } from 'src/app/models/global';
 
 export interface IFormField {
 	id: string;
 	icon?: string;
 	label?: string;
-	max?: string
-	min?: string
+	max?: string;
+	min?: string;
+	params?: IKeyValue[];
 	requisites?: any[];
-	step?: string
+	step?: string;
 	type?: string;
 	value?: string;
 }

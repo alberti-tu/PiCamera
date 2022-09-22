@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { environment } from 'src/environments/environment';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent, IDialogData, IDialogResult } from '../dialog/dialog.component';
 import { MenuItem } from '../side-menu/side-menu.component';
 
 @Component({

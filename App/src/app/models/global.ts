@@ -6,14 +6,7 @@ export interface IButton {
 	value?: string;
 }
 
-export interface IDialogData {
-	title?: string;
-	message?: string;
-	form?: IFormField[];
-	buttons?: IButton[]
-}
-
-export interface IDialogResult<T> {
-	button?: IButton;
-	data?: T;
+export interface IKeyValue {
+	key: string;
+	value?: string;
 }

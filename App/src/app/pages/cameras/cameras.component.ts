@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { DialogComponent, IDialogData, IDialogResult } from 'src/app/components/dialog/dialog.component';
 import { IFormField } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator, getPath } from 'src/app/global/utils';
-import { IDialogData, IDialogResult } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
