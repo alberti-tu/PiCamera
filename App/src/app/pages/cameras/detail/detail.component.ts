@@ -3,6 +3,7 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IFormField } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
+import { IKeyValue } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -15,7 +16,6 @@ import { HttpService } from 'src/app/services/http/http.service';
 export class DetailComponent implements OnInit {
 
 	public item: ICameraSubscription = {};
-	public filters: string[] = [];
 
 	public fields: IFormField[];
 	public form?: Record<string, string | number> = undefined;
@@ -74,7 +74,11 @@ export class DetailComponent implements OnInit {
 		});
 
 		this.http.getFilters().subscribe(data => {
-			this.filters = data?.result;
+			const field = this.fields.find(field => field.id == 'filter')
+			
+			if (field != undefined) {
+				field.params = data?.result?.map<IKeyValue>(param => ({ key: param, value: param }));
+			}
 		});
 	}
 
