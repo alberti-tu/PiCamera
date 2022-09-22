@@ -70,7 +70,7 @@ form {
 
 			height: 12px;
 
-			background: lighten($grey-light, 10%);
+			background: lighten($grey-light, 20%);
 			border-radius: 10px;
 			
 			cursor: pointer;
@@ -87,13 +87,6 @@ form {
 
 				background: $secondary;
 				border-radius: 50%;
-			}
-
-			&::-moz-range-thumb {
-				background: red;
-				height: 10px;
-				width: 10px;
-				cursor: pointer;
 			}
 		}
 	}

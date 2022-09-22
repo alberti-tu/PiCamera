@@ -30,20 +30,20 @@ export class SettingsComponent implements OnInit {
 				id: 'username',
 				label: 'settings.form.username',
 				icon: 'user',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'text',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
 			{
 				id: 'password1',
 				label: 'settings.form.password-1',
+				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
-				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
 			{
 				id: 'password2',
 				label: 'settings.form.password-2',
+				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
-				requisites: [ Validators.minLength(8), CustomValidator.whiteSpace ]
 			}
 		];
 	}
@@ -59,8 +59,8 @@ export class SettingsComponent implements OnInit {
 					{
 						id: 'password',
 						label: 'settings.form.password',
+						requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 						type: 'password',
-						requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 					}
 				],
 				buttons: [

@@ -20,16 +20,16 @@ export class LoginComponent {
 		this.fields = [
 			{
 				id: 'username',
-				label: 'login.username',
 				icon: 'user',
+				label: 'login.username',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'text',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
 			{
 				id: 'password',
 				label: 'login.password',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			}
 		]
 	}

@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 export interface IFormField {
 	id: string;
+	icon?: string;
 	label?: string;
-	requisites?: any[];
 	max?: string
 	min?: string
+	requisites?: any[];
 	step?: string
-	value?: string;
-	icon?: string;
 	type?: string;
+	value?: string;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export interface IFormField {
 	templateUrl: './form.component.html',
 	styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
 
 	@Output() public result = new EventEmitter<Record<string, string | number>>();
 	@Input() public fields?: IFormField[];
@@ -35,6 +35,10 @@ export class FormComponent implements OnInit {
 
 		this.form.valueChanges.subscribe(result => this.submit(result));
 		this.submit(this.form.value);
+	}
+
+	public ngOnChanges(changes: SimpleChanges): void {
+		console.log(changes['fields'].currentValue);
 	}
 
 	public submit(data: any): void {
@@ -75,7 +79,7 @@ export class FormComponent implements OnInit {
 
 	private initializeForm(fields?: IFormField[]): any {
 		if (fields != undefined) {
-			return fields?.reduce<any>((state, item) => ({ ...state, [item.id]: [ item.value || '', item.requisites ]}), {});
+			return fields.reduce<any>((state, item) => ({ ...state, [item.id]: [ item?.value || '', item?.requisites ]}), {});
 		} else {
 			return {};
 		}

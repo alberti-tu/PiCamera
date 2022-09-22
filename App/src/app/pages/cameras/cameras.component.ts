@@ -27,8 +27,8 @@ export class CamerasComponent implements OnInit {
 			{
 				id: 'camera',
 				label: 'cameras.input',
+				requisites: [ Validators.required ],
 				type: 'text',
-				requisites: [ Validators.required ]
 			}
 		];
 	}
@@ -75,9 +75,9 @@ export class CamerasComponent implements OnInit {
 				{
 					id: 'name',
 					label: 'cameras.edit.description',
+					requisites: [ Validators.required, CustomValidator.whiteSpace ],
 					type: 'text',
 					value: camera?.name,
-					requisites: [ Validators.required, CustomValidator.whiteSpace ]
 				},
 			],
 			buttons: [

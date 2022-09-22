@@ -2,7 +2,7 @@
 	<div *ngFor="let item of fields" class="formField" [ngSwitch]="item?.type">
 		<label translate>{{ item?.label }}</label>
 
-		<div *ngSwitchCase="'range'" class="input-row range">
+		<div *ngSwitchCase="'range'" class="input-row {{ item.type }}">
 			<img *ngIf="item?.icon" src="assets/icons/{{item?.icon}}.svg">
 			<input type="{{ item.type }}" formControlName="{{ item.id }}" value="{{ item?.value }}" max="{{ item?.max }}" min="{{ item?.min }}" step="{{ item?.step }}">
 			<p class="bubble">{{ form.value[item.id] }}</p>

@@ -21,22 +21,22 @@ export class RegisterComponent {
 		this.fields = [
 			{
 				id: 'username',
-				label: 'register.username',
 				icon: 'user',
+				label: 'register.username',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'text',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
 			{
 				id: 'password1',
 				label: 'register.password-1',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			},
 			{
 				id: 'password2',
 				label: 'register.password-2',
+				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
-				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ]
 			}
 		]
 	}
