@@ -1,19 +1,24 @@
 import { Component } from '@angular/core';
 import { Data } from '@angular/router';
 import { DialogRef } from '@ngneat/dialog';
-import { IButton } from 'src/app/models/global';
 import { IFormField } from '../form/form.component';
 
 export interface IDialogData {
 	title?: string;
 	message?: string;
 	form?: IFormField[];
-	buttons?: IButton[]
+	buttons?: IDialogButton[]
 }
 
 export interface IDialogResult<T> {
-	button?: IButton;
+	button?: IDialogButton;
 	data?: T;
+}
+
+export interface IDialogButton {
+	name?: string;
+	type?: 'primary' | 'secondary' | 'default'
+	value?: string;
 }
 
 @Component({
@@ -30,7 +35,7 @@ export class DialogComponent {
 		this.data = this.dialog.data;
 	}
 
-	public dialogResult(button: IButton): void {
+	public dialogResult(button: IDialogButton): void {
 		if (button.type == 'primary' && (this.data?.form == undefined || this.form != undefined)) {
 			this.dialog.close({ button, data: this.form })
 		} else if (button.type != 'primary') {
