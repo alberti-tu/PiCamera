@@ -2,6 +2,12 @@
 	<div *ngFor="let item of fields" class="formField" [ngSwitch]="item?.type">
 		<label translate>{{ item?.label }}</label>
 
+		<div *ngSwitchCase="'dropdown'" class="input-row {{ item.type }} shadow">
+			<select formControlName="{{ item.id }}" value="{{ item?.value }}">
+				<option *ngFor="let option of item?.params" value="{{ option.key }}" translate>{{ option?.value }}</option>
+			</select>
+		</div>
+
 		<div *ngSwitchCase="'range'" class="input-row {{ item.type }}">
 			<img *ngIf="item?.icon" src="assets/icons/{{item?.icon}}.svg">
 			<input type="{{ item.type }}" formControlName="{{ item.id }}" value="{{ item?.value }}" max="{{ item?.max }}" min="{{ item?.min }}" step="{{ item?.step }}">

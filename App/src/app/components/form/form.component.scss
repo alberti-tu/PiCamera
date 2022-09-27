@@ -32,6 +32,31 @@ form {
 		cursor: pointer;
 	}
 
+	&.dropdown {
+		border-bottom: none;
+		padding: 0.75rem 0rem;
+		border-radius: 10px;
+
+		select {
+			background: $light;
+			border: none;
+			font-size: 1.125rem;
+			padding: 0rem 1rem;
+			margin-right: 1rem;
+			width: 100%;
+
+			cursor: pointer;
+
+			&:focus {
+				outline: none;
+			}
+
+			option {
+				background-color: $light;
+			}
+		}
+	}
+
 	&.range {
 		display: flex;
 		align-items: center;
@@ -72,7 +97,7 @@ form {
 
 			background: lighten($grey-light, 20%);
 			border-radius: 10px;
-			
+
 			cursor: pointer;
 
 			&:hover {

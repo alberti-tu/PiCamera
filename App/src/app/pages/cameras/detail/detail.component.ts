@@ -25,7 +25,7 @@ export class DetailComponent implements OnInit {
 			{
 				id: 'filter',
 				label: 'cameras.detail.filter',
-				type: 'text',
+				type: 'dropdown',
 				value: 'auto',
 				requisites: [ Validators.required ]
 			},

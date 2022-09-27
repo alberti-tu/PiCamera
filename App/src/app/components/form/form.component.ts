@@ -11,7 +11,7 @@ export interface IFormField {
 	params?: IKeyValue[];
 	requisites?: any[];
 	step?: string;
-	type?: string;
+	type?: 'text' | 'password' | 'number' | 'range' | 'dropdown';
 	value?: string;
 }
 
