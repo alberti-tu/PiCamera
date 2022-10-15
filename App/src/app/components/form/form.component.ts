@@ -4,7 +4,7 @@ import { IKeyValue } from 'src/app/models/global';
 
 export interface IFormButton {
 	name?: string;
-	type?: 'submit' | 'button' | 'default'
+	type?: 'submit' | 'button'
 	value?: string;
 }
 
