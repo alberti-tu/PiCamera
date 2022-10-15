@@ -12,13 +12,13 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class PhotosComponent implements OnInit {
 
-	public cameras: ICameraSubscription[] = [];
+	public subscriptions: ICameraSubscription[] = [];
 
 	constructor(private http: HttpService, private router: Router) { }
 
 	public ngOnInit(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
-			this.cameras = data?.result;
+			this.subscriptions = data?.result;
 		});
 	}
 

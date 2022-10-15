@@ -57,6 +57,12 @@
         "photos": "Fotos",
         "settings": "Ajustes"
     },
+    "photos": {
+        "remove": {
+            "description": "Una vez eliminada la imagen no se podrá recuperar",
+            "title": "¿Estás seguro de borrar esta foto?"
+        }
+    },
     "register": {
         "link": "Inicio de sessión",
         "password-1": "Contraseña",

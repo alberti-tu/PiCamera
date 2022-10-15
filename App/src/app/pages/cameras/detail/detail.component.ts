@@ -15,7 +15,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class DetailComponent implements OnInit {
 
-	public item: ICameraSubscription = {};
+	public subscription: ICameraSubscription = {};
 
 	public buttons: IFormButton[];
 	public fields: IFormField[];
@@ -57,17 +57,17 @@ export class DetailComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.item.camera_id = this.route.snapshot.params['id'];
+		this.subscription.camera_id = this.route.snapshot.params['id'];
 
-		if (this.item.camera_id == undefined) {
+		if (this.subscription.camera_id == undefined) {
 			return;
 		}
 
-		this.http.getOneSubscription(this.item.camera_id).subscribe(data => {
-			this.item = data?.result;
+		this.http.getOneSubscription(this.subscription.camera_id).subscribe(data => {
+			this.subscription = data?.result;
 		});
 
-		this.http.getSettings(this.item.camera_id).subscribe(data => {
+		this.http.getSettings(this.subscription.camera_id).subscribe(data => {
 			Object.keys(data?.result).forEach(key => {
 				const field = this.fields.find(field => field.id == key)
 				
@@ -87,13 +87,13 @@ export class DetailComponent implements OnInit {
 	}
 
 	public save(result?: IFormResult): void {
-		if (this.item?.camera_id == undefined || result?.form == undefined) {
+		if (this.subscription?.camera_id == undefined || result?.form == undefined) {
 			return;
 		}
 
 		result.form['rotation'] = +result.form['rotation'] % 360;
 
-		this.http.saveSettings(this.item.camera_id, result.form).subscribe(data => {
+		this.http.saveSettings(this.subscription.camera_id, result.form).subscribe(data => {
 			if (data?.result) {
 				this.alert.showToast('toast.info.saved', 'info');
 				this.router.navigateByUrl(AppURL.CAMERAS);

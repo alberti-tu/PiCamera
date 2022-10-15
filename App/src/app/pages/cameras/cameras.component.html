@@ -1,11 +1,12 @@
 <toolbar></toolbar>
+
 <div class="page cameras-container">
 	<div class="input-card">
 		<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 	</div>
 
-	<div class="card-container">
-		<div *ngFor="let item of cameras" class="card camera-item shadow" (click)="openCamera(item, $event)">
+	<div *ngIf="subscriptions.length != 0" class="card-container">
+		<div *ngFor="let item of subscriptions" class="card camera-item shadow" (click)="openCamera(item, $event)">
 			<div class="header">
 				<button class="primary" (click)="editCamera(item, $event)">
 					<img src="assets/icons/edit.svg">

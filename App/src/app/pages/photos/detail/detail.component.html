@@ -1,5 +1,18 @@
-<toolbar></toolbar>
-<div class="page detail-container">
-	<p>It works!</p>
-</div>
+<toolbar [header]="subscription.name"></toolbar>
 
+<div class="page detail-container">
+	<div *ngIf="pictures.length != 0" class="card-container">
+		<div class="card picture-item" *ngFor="let item of pictures">
+			<div class="header">
+				<p class="name">{{ item?.name }}</p>
+				<button class="danger" (click)="remove(item, $event)">
+					<img src="assets/icons/cross.svg">
+				</button>
+			</div>
+
+			<div class="body">
+				<img src="{{ item.data }}" alt="{{ item.name }}">
+			</div>
+		</div>
+	</div>
+</div>

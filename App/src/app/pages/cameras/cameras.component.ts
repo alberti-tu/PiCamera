@@ -19,7 +19,7 @@ export class CamerasComponent implements OnInit {
 	public buttons: IFormButton[];
 	public fields: IFormField[];
 
-	public cameras: ICameraSubscription[] = [];
+	public subscriptions: ICameraSubscription[] = [];
 
 	constructor(private alert: AlertService, private http: HttpService, private router: Router) {
 		this.buttons = [
@@ -42,7 +42,7 @@ export class CamerasComponent implements OnInit {
 
 	public getData(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
-			this.cameras = data?.result;
+			this.subscriptions = data?.result;
 		});
 	}
 
@@ -122,7 +122,7 @@ export class CamerasComponent implements OnInit {
 				if (camera?.id != undefined) {
 					this.http.removeSubscription(camera?.id).subscribe(data => {
 						if (data?.result) {
-							this.cameras = this.cameras?.filter(item => item?.camera_id != camera?.camera_id);
+							this.subscriptions = this.subscriptions?.filter(item => item?.camera_id != camera?.camera_id);
 							this.alert.showToast('toast.info.deleted', 'info');
 						}
 					});

@@ -8,5 +8,6 @@
 /Client/out
 
 # PiCamera-server
+/Server/camera
 /Server/node_modules
 /Server/out
