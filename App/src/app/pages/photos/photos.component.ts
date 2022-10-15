@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AppURL } from 'src/app/constants/routes';
 import { getPath } from 'src/app/global/utils';
 import { ICameraSubscription } from 'src/app/models/http.models';
-import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
@@ -15,11 +14,11 @@ export class PhotosComponent implements OnInit {
 
 	public cameras: ICameraSubscription[] = [];
 
-	constructor(private alert: AlertService, private http: HttpService, private router: Router) { }
+	constructor(private http: HttpService, private router: Router) { }
 
 	public ngOnInit(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
-			this.cameras = data.result;
+			this.cameras = data?.result;
 		});
 	}
 
