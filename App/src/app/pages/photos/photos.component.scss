@@ -1,0 +1,39 @@
+@import '../../../styles/colors';
+
+.photos-container {
+	.folder-item {
+		padding: 0rem;
+		margin: 2rem;
+
+		max-width: 256px;
+		width: 100%;
+
+		cursor: pointer;
+
+		.id {
+			text-align: right;
+			color: $grey-dark;
+			font-size: 0.75rem;
+			padding: 1rem;
+		}
+
+		img {
+			height: 96px;
+			width: 100%;
+		}
+
+		.name {
+			text-align: center;
+			font-size: 1.25rem;
+			padding: 1.5rem 1rem;
+		}
+
+	}
+
+	// Only Mobile
+	@media (max-width: 640px) {
+		.camera-item {
+			max-width: none;
+		}
+	}
+}

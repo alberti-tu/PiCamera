@@ -37,10 +37,6 @@
 
 	// Only Mobile
 	@media (max-width: 640px) {
-		.input-card {
-			flex-direction: column;
-		}
-
 		.camera-item {
 			max-width: none;
 		}

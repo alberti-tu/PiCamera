@@ -1,5 +1,11 @@
 <toolbar></toolbar>
 <div class="page photos-container">
-	<p>It works!</p>
+	<div *ngIf="cameras.length != 0" class="card-container">
+		<div class="card folder-item shadow" *ngFor="let item of cameras" (click)="open(item)">
+			<p class="id">{{ item?.camera_id }}</p>
+			<img src="/assets/icons/folder.svg" alt="folder.svg">
+			<p class="name">{{ item?.name }}</p>
+		</div>
+	</div>
 </div>
 

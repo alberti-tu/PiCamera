@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppURL } from 'src/app/constants/routes';
+import { getPath } from 'src/app/global/utils';
+import { ICameraSubscription } from 'src/app/models/http.models';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
 	selector: 'app-photos',
@@ -7,8 +13,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-	constructor() { }
+	public cameras: ICameraSubscription[] = [];
 
-	ngOnInit(): void { }
+	constructor(private alert: AlertService, private http: HttpService, private router: Router) { }
 
+	public ngOnInit(): void {
+		this.http.getAllSubscriptions().subscribe(data => {
+			this.cameras = data.result;
+		});
+	}
+
+	public open(camera: ICameraSubscription, event?: MouseEvent): void {
+		event?.stopPropagation();
+
+		if (camera?.camera_id != undefined) {
+			this.router.navigateByUrl(getPath(AppURL.PHOTOS_DETAIL, { id: camera?.camera_id }));
+		}
+	}
 }

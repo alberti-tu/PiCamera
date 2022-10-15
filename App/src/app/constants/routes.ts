@@ -4,6 +4,7 @@ export enum AppURL {
 	HOME = '/home',
 	LOGIN = '/login',
 	PHOTOS = '/photos',
+	PHOTOS_DETAIL = '/photos/[id]',
 	SETTINGS = '/settings',
 	REGISTER = '/register'
 }
