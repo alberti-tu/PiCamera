@@ -29,8 +29,8 @@ export class ToolbarComponent {
 			title: 'logout.title',
 			message: 'logout.message',
 			buttons: [
-				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
-				{ name: 'button.accept', type: 'primary', value: 'accept' },
+				{ name: 'button.cancel', type: 'button', value: 'cancel' },
+				{ name: 'button.accept', type: 'submit', value: 'accept' },
 			]
 		};
 

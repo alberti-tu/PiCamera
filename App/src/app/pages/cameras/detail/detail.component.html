@@ -1,6 +1,5 @@
 <toolbar [header]="item.name"></toolbar>
 
 <div class="page detail-container">
-	<form-container [fields]="fields" (result)="form = $event"></form-container>
-	<button class="primary shadow" [disabled]="!form" (click)="save()" translate>button.save</button>
+	<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogComponent, IDialogData, IDialogResult } from 'src/app/components/dialog/dialog.component';
-import { IFormField } from 'src/app/components/form/form.component';
+import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
 import { IUser } from 'src/app/models/http.models';
@@ -17,13 +17,17 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class SettingsComponent implements OnInit {
 
+	public buttons: IFormButton[];
 	public fields: IFormField[];
-	public form?: Record<string, string | number> = undefined;
 
 	public user?: IUser = undefined;
 	public password?: string = undefined;
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService, private router: Router) {
+		this.buttons = [
+			{ name: 'button.save', type: 'submit', value: 'accept' },
+		];
+
 		this.fields = [
 			{
 				id: 'username',
@@ -63,8 +67,8 @@ export class SettingsComponent implements OnInit {
 					}
 				],
 				buttons: [
-					{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
-					{ name: 'button.accept', type: 'primary', value: 'accept' },
+					{ name: 'button.cancel', type: 'button', value: 'cancel' },
+					{ name: 'button.accept', type: 'submit', value: 'accept' },
 				]
 			};
 	
@@ -83,14 +87,14 @@ export class SettingsComponent implements OnInit {
 		});
 	}
 
-	public save(): void {
-		if (this.form == undefined) {
+	public save(result?: IFormResult): void {
+		if (result?.form == undefined) {
 			return;
 		}
 
-		const username = this.form['username'].toString();
-		const password1 = this.form['password1'].toString();
-		const password2 = this.form['password1'].toString();
+		const username = result.form['username'].toString();
+		const password1 = result.form['password1'].toString();
+		const password2 = result.form['password1'].toString();
 
 		if (password1 != password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');
@@ -113,8 +117,8 @@ export class SettingsComponent implements OnInit {
 			title: 'settings.remove.title',
 			message: 'settings.remove.message',
 			buttons: [
-				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
-				{ name: 'button.accept', type: 'primary', value: 'accept' },
+				{ name: 'button.cancel', type: 'button', value: 'cancel' },
+				{ name: 'button.accept', type: 'submit', value: 'accept' },
 			]
 		};
 

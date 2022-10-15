@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IFormField } from 'src/app/components/form/form.component';
+import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -14,10 +14,14 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class RegisterComponent {
 
+	public buttons: IFormButton[];
 	public fields: IFormField[];
-	public form?: Record<string, string | number> = undefined;
 
 	constructor(private alert: AlertService, private http: HttpService, private router: Router) {
+		this.buttons = [
+			{ name: 'button.signUp', type: 'submit', value: 'accept' },
+		];
+
 		this.fields = [
 			{
 				id: 'username',
@@ -41,14 +45,14 @@ export class RegisterComponent {
 		]
 	}
 
-	public register(): void {
-		if (this.form == undefined) {
+	public register(result?: IFormResult): void {
+		if (result?.form == undefined) {
 			return;
 		}
 
-		const username = this.form['username'].toString();
-		const password1 = this.form['password1'].toString();
-		const password2 = this.form['password2'].toString();
+		const username = result.form['username'].toString();
+		const password1 = result.form['password1'].toString();
+		const password2 = result.form['password2'].toString();
 
 		if (password1 != password2) {
 			this.alert.showToast('toast.error.differentPassword', 'error');

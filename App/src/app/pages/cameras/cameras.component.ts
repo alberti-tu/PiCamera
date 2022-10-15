@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogComponent, IDialogData, IDialogResult } from 'src/app/components/dialog/dialog.component';
-import { IFormField } from 'src/app/components/form/form.component';
+import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator, getPath } from 'src/app/global/utils';
 import { ICameraSubscription } from 'src/app/models/http.models';
@@ -16,12 +16,16 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class CamerasComponent implements OnInit {
 
+	public buttons: IFormButton[];
 	public fields: IFormField[];
-	public form?: Record<string, string | number> = undefined;
 
 	public cameras: ICameraSubscription[] = [];
 
 	constructor(private alert: AlertService, private http: HttpService, private router: Router) {
+		this.buttons = [
+			{ name: 'button.save', type: 'submit', value: 'accept' },
+		];
+
 		this.fields = [
 			{
 				id: 'camera',
@@ -42,12 +46,12 @@ export class CamerasComponent implements OnInit {
 		});
 	}
 
-	public SaveCamera(): void {
-		if (this.form == undefined) {
+	public save(result?: IFormResult): void {
+		if (result?.form == undefined) {
 			return;
 		}
 
-		this.http.addSubscription(this.form['camera'].toString()).subscribe(data => {
+		this.http.addSubscription(result?.form['camera'].toString()).subscribe(data => {
 			if (data?.result) {
 				this.getData();
 				this.alert.showToast('toast.info.saved', 'info');
@@ -80,8 +84,8 @@ export class CamerasComponent implements OnInit {
 				},
 			],
 			buttons: [
-				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
-				{ name: 'button.accept', type: 'primary', value: 'accept' },
+				{ name: 'button.cancel', type: 'button', value: 'cancel' },
+				{ name: 'button.accept', type: 'submit', value: 'accept' },
 			]
 		};
 
@@ -108,8 +112,8 @@ export class CamerasComponent implements OnInit {
 			title: 'cameras.remove.title',
 			message: 'cameras.remove.description',
 			buttons: [
-				{ name: 'button.cancel', type: 'secondary', value: 'cancel' },
-				{ name: 'button.accept', type: 'primary', value: 'accept' },
+				{ name: 'button.cancel', type: 'button', value: 'cancel' },
+				{ name: 'button.accept', type: 'submit', value: 'accept' },
 			]
 		};
 

@@ -26,11 +26,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 					switch (request?.method) {
 						case 'GET':
 						case 'DELETE':
-							console.log(request?.method, 'Response', response?.body);
+							console.log(request?.method + ' - ' + request.urlWithParams, '\nResponse', response?.body);
 							break;
 						case 'POST':
 						case 'PUT':
-							console.log(request?.method, 'Body', request?.body, 'Response', response?.body);
+							console.log(request?.method + ' - ' + request.urlWithParams, '\nBody', request?.body, '\nResponse', response?.body);
 							break;
 					}
 				}

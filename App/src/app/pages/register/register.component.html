@@ -5,8 +5,7 @@
 			<img class="logo" src="assets/icons/user-add.svg">
 			<h1 class="header" translate>register.title</h1>
 
-			<form-container [fields]="fields" (result)="form = $event"></form-container>
-			<button class="primary shadow" [disabled]="!form" (click)="register()" translate>button.signUp</button>
+			<form-container [buttons]="buttons" [fields]="fields" (result)="register($event)"></form-container>
 
 			<div class="link-container">
 				<a href="/login" translate>register.link</a>

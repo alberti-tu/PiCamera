@@ -28,4 +28,16 @@
 		<div class="errorMessage" *ngIf="hasError(item.id, 'minlength')" translate>error.minLength</div>
 		<div class="errorMessage" *ngIf="hasError(item.id, 'whiteSpace')" translate>error.whiteSpace</div>
 	</div>
+
+	<div class="formButtons">
+		<button
+			*ngFor="let item of buttons"
+			type="{{ item.type }}"
+			class="{{item?.type == 'submit' ? 'primary': 'secondary '}} shadow"
+			[disabled]="item?.type == 'submit' && !form.valid"
+			(click)="submit(item)"
+			translate>
+			{{ item?.name }}
+		</button>
+	</div>
 </form>

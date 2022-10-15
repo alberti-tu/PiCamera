@@ -1,17 +1,6 @@
 @import '../../../styles/colors';
 
 .cameras-container {
-	.input-card {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-
-		form-container {
-			margin: 0rem 2rem;
-			flex: 1;
-		}
-	}
-
 	.camera-item {
 		padding: 0rem;
 		margin: 2rem;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { IFormField } from 'src/app/components/form/form.component';
+import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { CustomValidator } from 'src/app/global/utils';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -13,10 +13,14 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class LoginComponent {
 
+	public buttons: IFormButton[];
 	public fields: IFormField[];
-	public form?: Record<string, string | number> = undefined;
 
 	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService) {
+		this.buttons = [
+			{ name: 'button.signIn', type: 'submit', value: 'accept' },
+		];
+
 		this.fields = [
 			{
 				id: 'username',
@@ -31,16 +35,16 @@ export class LoginComponent {
 				requisites: [ Validators.required, Validators.minLength(8), CustomValidator.whiteSpace ],
 				type: 'password',
 			}
-		]
+		];
 	}
 
-	public login(): void {
-		if (this.form == undefined) {
+	public login(result?: IFormResult): void {
+		if (result?.form == undefined) {
 			return;
 		}
 
-		const username = this.form['username'].toString();
-		const password = this.form['password'].toString();
+		const username = result.form['username'].toString();
+		const password = result.form['password'].toString();
 
 		this.http.login(username, this.auth.hash(password)).subscribe(data => {
 			if (data?.result) {

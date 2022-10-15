@@ -1,7 +1,6 @@
 <toolbar></toolbar>
 
 <div class="page settings-container">
-	<form-container [fields]="fields" (result)="form = $event"></form-container>
-	<button class="primary shadow" [disabled]="!form" (click)="save()" translate>button.save</button>
+	<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 	<button class="danger shadow" (click)="remove()" translate>settings.remove.button</button>
 </div>

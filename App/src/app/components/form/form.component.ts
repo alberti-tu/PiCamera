@@ -1,6 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IKeyValue } from 'src/app/models/global';
+
+export interface IFormButton {
+	name?: string;
+	type?: 'submit' | 'button' | 'default'
+	value?: string;
+}
 
 export interface IFormField {
 	id: string;
@@ -15,17 +21,25 @@ export interface IFormField {
 	value?: string;
 }
 
+export interface IFormResult {
+	button?: IFormButton;
+	form?: Record<string, string | number>;
+}
+
 @Component({
 	selector: 'form-container',
 	templateUrl: './form.component.html',
 	styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit, OnChanges {
+export class FormComponent implements OnInit {
 
-	@Output() public result = new EventEmitter<Record<string, string | number>>();
+	@Output() public result = new EventEmitter<IFormResult>();
+
+	@Input() public buttons?: IFormButton[];
 	@Input() public fields?: IFormField[];
 
 	public form: FormGroup;
+
 	private showPassword: Record<string, boolean> = {};
 
 	constructor(private formBuilder: FormBuilder) {
@@ -34,32 +48,10 @@ export class FormComponent implements OnInit, OnChanges {
 	
 	public ngOnInit(): void {
 		this.form = this.formBuilder.group(this.initializeForm(this.fields));
-
-		this.form.valueChanges.subscribe(result => this.submit(result));
-		this.submit(this.form.value);
 	}
 
-	public ngOnChanges(changes: SimpleChanges): void {
-		console.log(changes['fields'].currentValue);
-	}
-
-	public submit(data: any): void {
-		if (this.form.valid) {
-			Object.keys(data).map(key => {
-				const type = this.fields?.find(item => item.id == key)?.type;
-
-				switch (type) {
-					case 'number':
-					case 'range':
-						data[key] = +data[key];
-						break;
-				}
-			});
-
-			this.result.emit(data);
-		} else {
-			this.result.emit(undefined);
-		}
+	public submit(button?: IFormButton): void {
+		this.result.emit({ button, form: this.getForm()});
 	}
 
 	public getPasswordButton(item: IFormField): boolean {
@@ -86,4 +78,27 @@ export class FormComponent implements OnInit, OnChanges {
 			return {};
 		}
 	}
+
+	private getForm(): Record<string, string | number> | undefined {
+		if (this.form.valid == false) {
+			return undefined;
+		}
+
+		const result: Record<string, string | number> = {}
+
+		Object.keys(this.form.value).map(key => {
+			const type = this.fields?.find(item => item.id == key)?.type;
+
+			switch (type) {
+				case 'number':
+				case 'range':
+					result[key] = +this.form.value[key];
+					break;
+				default:
+					result[key] = this.form.value[key];
+			}
+		});
+
+		return result;
+	} 
 }

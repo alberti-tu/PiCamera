@@ -1,24 +1,18 @@
 import { Component } from '@angular/core';
 import { Data } from '@angular/router';
 import { DialogRef } from '@ngneat/dialog';
-import { IFormField } from '../form/form.component';
+import { IFormButton, IFormField, IFormResult } from '../form/form.component';
 
 export interface IDialogData {
 	title?: string;
 	message?: string;
 	form?: IFormField[];
-	buttons?: IDialogButton[]
+	buttons?: IFormButton[]
 }
 
 export interface IDialogResult<T> {
-	button?: IDialogButton;
+	button?: IFormButton;
 	data?: T;
-}
-
-export interface IDialogButton {
-	name?: string;
-	type?: 'primary' | 'secondary' | 'default'
-	value?: string;
 }
 
 @Component({
@@ -29,17 +23,16 @@ export interface IDialogButton {
 export class DialogComponent {
 
 	public data?: IDialogData = undefined;
-	public form?: Record<string, string | number> = undefined;
 
 	constructor(private dialog: DialogRef<Data, IDialogResult<Record<string, string | number>>>) {
 		this.data = this.dialog.data;
 	}
 
-	public dialogResult(button: IDialogButton): void {
-		if (button.type == 'primary' && (this.data?.form == undefined || this.form != undefined)) {
-			this.dialog.close({ button, data: this.form })
-		} else if (button.type != 'primary') {
-			this.dialog.close({ button })
+	public dialogResult(result: IFormResult): void {
+		if (result?.button?.type == 'submit' && (this.data?.form == undefined || result?.form != undefined)) {
+			this.dialog.close({ button: result?.button, data: result?.form })
+		} else if (result?.button?.type != 'submit') {
+			this.dialog.close({ button: result?.button })
 		}
 	}
 

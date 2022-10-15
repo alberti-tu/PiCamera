@@ -1,8 +1,7 @@
 <toolbar></toolbar>
 <div class="page cameras-container">
 	<div class="input-card">
-		<form-container [fields]="fields" (result)="form = $event"></form-container>
-		<button class="primary shadow" [disabled]="!form" (click)="SaveCamera()" translate>button.save</button>
+		<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 	</div>
 
 	<div class="card-container">

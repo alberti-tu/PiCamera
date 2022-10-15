@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IFormField } from 'src/app/components/form/form.component';
+import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
 import { IKeyValue } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
@@ -17,10 +17,14 @@ export class DetailComponent implements OnInit {
 
 	public item: ICameraSubscription = {};
 
+	public buttons: IFormButton[];
 	public fields: IFormField[];
-	public form?: Record<string, string | number> = undefined;
 
 	constructor(private route: ActivatedRoute, private alert: AlertService, private http: HttpService, private router: Router) {
+		this.buttons = [
+			{ name: 'button.save', type: 'submit', value: 'accept' },
+		];
+
 		this.fields = [
 			{
 				id: 'filter',
@@ -82,14 +86,14 @@ export class DetailComponent implements OnInit {
 		});
 	}
 
-	public save(): void {
-		if (this.item?.camera_id == undefined || this.form == undefined) {
+	public save(result?: IFormResult): void {
+		if (this.item?.camera_id == undefined || result?.form == undefined) {
 			return;
 		}
 
-		this.form['rotation'] = +this.form['rotation'] % 360;
+		result.form['rotation'] = +result.form['rotation'] % 360;
 
-		this.http.saveSettings(this.item.camera_id, this.form).subscribe(data => {
+		this.http.saveSettings(this.item.camera_id, result.form).subscribe(data => {
 			if (data?.result) {
 				this.alert.showToast('toast.info.saved', 'info');
 				this.router.navigateByUrl(AppURL.CAMERAS);
