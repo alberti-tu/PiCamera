@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { IKeyValue } from 'src/app/models/global';
 
 export interface IFormButton {
@@ -47,7 +47,15 @@ export class FormComponent implements OnInit {
 	}
 	
 	public ngOnInit(): void {
-		this.form = this.formBuilder.group(this.initializeForm(this.fields));
+		this.fields?.forEach(item => {
+			this.form.addControl(item.id, new FormControl('', item?.requisites));
+
+			setTimeout(() => {
+				this.fields?.forEach(item => {
+					this.form.get(item.id)?.setValue(item.value)
+				});
+			}, 100)
+		});
 	}
 
 	public submit(button?: IFormButton): void {
@@ -69,14 +77,6 @@ export class FormComponent implements OnInit {
 
 		const control = this.form.get(name);
 		return control && control?.touched && control.errors && control.errors[error];
-	}
-
-	private initializeForm(fields?: IFormField[]): any {
-		if (fields != undefined) {
-			return fields.reduce<any>((state, item) => ({ ...state, [item.id]: [ item?.value || '', item?.requisites ]}), {});
-		} else {
-			return {};
-		}
 	}
 
 	private getForm(): Record<string, string | number> | undefined {

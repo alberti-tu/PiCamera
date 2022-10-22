@@ -19,9 +19,9 @@
 			<input type="{{ getPasswordButton(item) ? 'text' : 'password' }}" formControlName="{{ item.id }}" value="{{ item?.value }}">
 		</div>
 
-		<div *ngSwitchDefault class="input-row {{ item.type }}">
+		<div *ngSwitchDefault class="input-row">
 			<img *ngIf="item?.icon" src="assets/icons/{{item?.icon}}.svg">
-			<input type="{{ item.type }}" formControlName="{{ item.id }}" value="{{ item?.value }}" max="{{ item?.max }}" min="{{ item?.min }}" step="{{ item?.step }}">
+			<input type="text" formControlName="{{ item.id }}" value="{{ item?.value }}" max="{{ item?.max }}" min="{{ item?.min }}" step="{{ item?.step }}">
 		</div>
 
 		<div class="errorMessage" *ngIf="hasError(item.id, 'required')" translate>error.required</div>
