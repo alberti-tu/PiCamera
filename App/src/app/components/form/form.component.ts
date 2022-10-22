@@ -48,11 +48,11 @@ export class FormComponent implements OnInit {
 	
 	public ngOnInit(): void {
 		this.fields?.forEach(item => {
-			this.form.addControl(item.id, new FormControl('', item?.requisites));
+			this.form.addControl(item?.id, new FormControl('', item?.requisites));
 
 			setTimeout(() => {
 				this.fields?.forEach(item => {
-					this.form.get(item.id)?.setValue(item.value)
+					this.form.get(item.id)?.setValue(item?.value || '')
 				});
 			}, 100)
 		});
@@ -67,7 +67,7 @@ export class FormComponent implements OnInit {
 	}
 
 	public setPasswordButton(item: IFormField): void {
-		this.showPassword[item.id] = !this.showPassword[item.id];
+		this.showPassword[item.id] = !this.showPassword[item?.id];
 	}
 
 	public hasError(name: string | undefined, error: string): boolean {
