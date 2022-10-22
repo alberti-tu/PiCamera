@@ -1,9 +1,7 @@
 <toolbar></toolbar>
 
 <div class="page cameras-container">
-	<div class="input-card">
-		<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
-	</div>
+	<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 
 	<placeholder [data]="subscriptions" [isLoading]="false"></placeholder>
 
