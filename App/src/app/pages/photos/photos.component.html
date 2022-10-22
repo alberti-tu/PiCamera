@@ -1,7 +1,9 @@
 <toolbar></toolbar>
 
 <div class="page photos-container">
-	<div *ngIf="subscriptions.length != 0" class="card-container">
+	<placeholder [data]="subscriptions" [isLoading]="false"></placeholder>
+
+	<div class="card-container">
 		<div class="card folder-item shadow" *ngFor="let item of subscriptions" (click)="open(item)">
 			<p class="id">{{ item?.camera_id }}</p>
 			<img src="/assets/icons/folder.svg" alt="folder.svg">

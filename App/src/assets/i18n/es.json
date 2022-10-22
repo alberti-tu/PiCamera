@@ -9,18 +9,19 @@
     },
     "cameras": {
         "detail": {
-            "empty": "Parece que no tienes imágenes guardadas.\nPara tomar una accede",
             "filter": "Filtro",
+            "filters": {
+                "auto": "Auto",
+                "backlight": "Luz de fondo",
+                "beach": "Playa",
+                "fireworks": "Fuegos artificiales",
+                "night": "Noche",
+                "snow": "Nieve",
+                "sports": "Deportes",
+                "spotlight": "Destacar",
+                "verylong": "Exposición larga"
+            },
             "link": "aquí.",
-            "list.auto": "Auto",
-            "list.backlight": "Luz de fondo",
-            "list.beach": "Playa",
-            "list.fireworks": "Fuegos artificiales",
-            "list.night": "Noche",
-            "list.snow": "Nieve",
-            "list.sports": "Deportes",
-            "list.spotlight": "Destacar",
-            "list.verylong": "Exposición larga",
             "quality": "Calidad",
             "rotation": "Rotación"
         },
@@ -28,7 +29,6 @@
             "description": "Nombre de la cámara",
             "title": "Editar cámara"
         },
-        "empty": "Parece que no tienes cámaras asigadas a ti.\nPara añadirlas introduce su identificador.",
         "input": "Identificador de cámara",
         "remove": {
             "description": "Para volverla a añadir tendrás que introducir su identificador",
@@ -57,6 +57,7 @@
         "photos": "Fotos",
         "settings": "Ajustes"
     },
+	"placeholder": "No se ha encontrado los elementos solicitados,\npruebe a intentarlo más adelante",
     "photos": {
         "remove": {
             "description": "Una vez eliminada la imagen no se podrá recuperar",

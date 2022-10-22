@@ -1,7 +1,9 @@
 <toolbar [header]="subscription.name"></toolbar>
 
 <div class="page detail-container">
-	<div *ngIf="pictures.length != 0" class="card-container">
+	<placeholder [data]="pictures" [isLoading]="false"></placeholder>
+
+	<div class="card-container">
 		<div class="card picture-item" *ngFor="let item of pictures">
 			<div class="header">
 				<p class="name">{{ item?.name }}</p>

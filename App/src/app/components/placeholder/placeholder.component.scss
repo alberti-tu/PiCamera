@@ -1,0 +1,17 @@
+.placeholder-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	padding: 4rem 1rem;
+
+	img {
+		height: 128px;
+	}
+
+	p {
+		text-align: center;
+		font-size: 1.25rem;
+		margin: 3rem 0rem;
+	}
+}
