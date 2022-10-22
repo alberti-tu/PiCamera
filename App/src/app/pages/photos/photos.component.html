@@ -1,7 +1,7 @@
 <toolbar></toolbar>
 
 <div class="page photos-container">
-	<placeholder [data]="subscriptions" [isLoading]="false"></placeholder>
+	<placeholder [data]="subscriptions"></placeholder>
 
 	<div class="card-container">
 		<div class="card folder-item shadow" *ngFor="let item of subscriptions" (click)="open(item)">

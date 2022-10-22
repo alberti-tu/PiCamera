@@ -7,8 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PlaceholderComponent {
 
-	@Input() public data: any[] = []
-	@Input() public isLoading: boolean = false
+	@Input() public data?: any[] = [];
 
 	constructor() { }
 

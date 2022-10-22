@@ -12,7 +12,7 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class PhotosComponent implements OnInit {
 
-	public subscriptions: ICameraSubscription[] = [];
+	public subscriptions?: ICameraSubscription[] = undefined;
 
 	constructor(private http: HttpService, private router: Router) { }
 

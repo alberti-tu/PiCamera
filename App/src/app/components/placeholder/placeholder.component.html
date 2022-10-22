@@ -1,4 +1,8 @@
-<div *ngIf= "isLoading == false && data?.length == 0" class="placeholder-container">
-	<img src="assets/icons/search.svg">
-	<p translate>placeholder</p>
+<div class="placeholder-container">
+	<div *ngIf="data == undefined" class="spinner"></div>
+
+	<div *ngIf="data?.length == 0" class="empty">
+		<img src="assets/icons/search.svg">
+		<p translate>placeholder</p>
+	</div>
 </div>

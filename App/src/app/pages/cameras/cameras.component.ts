@@ -19,7 +19,7 @@ export class CamerasComponent implements OnInit {
 	public buttons: IFormButton[];
 	public fields: IFormField[];
 
-	public subscriptions: ICameraSubscription[] = [];
+	public subscriptions?: ICameraSubscription[] = undefined;
 
 	constructor(private alert: AlertService, private http: HttpService, private router: Router) {
 		this.buttons = [

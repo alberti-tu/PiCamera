@@ -1,17 +1,38 @@
+@import '../../../styles/colors';
+
 .placeholder-container {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 
-	padding: 4rem 1rem;
-
-	img {
-		height: 128px;
+	.spinner {
+		border: 12px solid lighten($grey-light, 20%);
+		border-top: 12px solid $secondary;
+		border-radius: 50%;
+		width: 64px;
+		height: 64px;
+		animation: spin 1.5s linear infinite;
 	}
 
-	p {
-		text-align: center;
-		font-size: 1.25rem;
-		margin: 3rem 0rem;
+	.empty {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	
+		padding: 4rem 1rem;
+	
+		img {
+			height: 128px;
+		}
+	
+		p {
+			text-align: center;
+			font-size: 1.25rem;
+			margin: 3rem 0rem;
+		}
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
 	}
 }

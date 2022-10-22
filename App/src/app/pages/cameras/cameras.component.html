@@ -3,7 +3,7 @@
 <div class="page cameras-container">
 	<form-container [buttons]="buttons" [fields]="fields" (result)="save($event)"></form-container>
 
-	<placeholder [data]="subscriptions" [isLoading]="false"></placeholder>
+	<placeholder [data]="subscriptions"></placeholder>
 
 	<div class="card-container">
 		<div *ngFor="let item of subscriptions" class="card camera-item shadow" (click)="openCamera(item, $event)">

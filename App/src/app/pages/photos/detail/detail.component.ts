@@ -12,8 +12,8 @@ import { HttpService } from 'src/app/services/http/http.service';
 })
 export class DetailComponent implements OnInit {
 
-	public pictures: Image[] = [];
 	public subscription: ICameraSubscription = {};
+	public pictures?: Image[] = undefined;
 
 	constructor(private route: ActivatedRoute, private alert: AlertService, private http: HttpService, private router: Router) {}
 
@@ -33,7 +33,7 @@ export class DetailComponent implements OnInit {
 
 			this.http.getFolderId(this.subscription.camera_id).subscribe(data => {
 				this.pictures = data.result.map<Image>(item => ({ name: item }));
-	
+
 				this.pictures.forEach(item => {
 					if (this.subscription.camera_id == undefined || item.name == undefined) {
 						return;
