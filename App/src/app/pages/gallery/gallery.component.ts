@@ -6,11 +6,11 @@ import { ICameraSubscription } from 'src/app/models/http.models';
 import { HttpService } from 'src/app/services/http/http.service';
 
 @Component({
-	selector: 'app-photos',
-	templateUrl: './photos.component.html',
-	styleUrls: ['./photos.component.scss']
+	selector: 'app-gallery',
+	templateUrl: './gallery.component.html',
+	styleUrls: ['./gallery.component.scss']
 })
-export class PhotosComponent implements OnInit {
+export class GalleryComponent implements OnInit {
 
 	public subscriptions?: ICameraSubscription[] = undefined;
 
@@ -26,7 +26,7 @@ export class PhotosComponent implements OnInit {
 		event?.stopPropagation();
 
 		if (camera?.camera_id != undefined) {
-			this.router.navigateByUrl(getPath(AppURL.PHOTOS_DETAIL, { id: camera?.camera_id }));
+			this.router.navigateByUrl(getPath(AppURL.GALLERY_DETAIL, { id: camera?.camera_id }));
 		}
 	}
 }

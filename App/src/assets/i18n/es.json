@@ -40,6 +40,12 @@
         "required": "Campo obligatorio",
         "whiteSpace": "No puede contener espacios"
     },
+    "gallery": {
+        "remove": {
+            "description": "Una vez eliminada la imagen no se podrá recuperar",
+            "title": "¿Estás seguro de borrar esta foto?"
+        }
+    },
     "login": {
         "link": "Nuevo usuario",
         "password": "Contraseña",
@@ -52,18 +58,12 @@
     },
     "menu": {
         "cameras": "Cámaras",
+        "gallery": "Galería",
         "home": "Inicio",
         "logout": "Cerrar sesión",
-        "photos": "Fotos",
         "settings": "Ajustes"
     },
-	"placeholder": "No se ha encontrado los elementos solicitados,\npruebe a intentarlo más adelante",
-    "photos": {
-        "remove": {
-            "description": "Una vez eliminada la imagen no se podrá recuperar",
-            "title": "¿Estás seguro de borrar esta foto?"
-        }
-    },
+    "placeholder": "No se ha encontrado los elementos solicitados,\npruebe a intentarlo más adelante",
     "register": {
         "link": "Inicio de sessión",
         "password-1": "Contraseña",

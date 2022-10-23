@@ -40,6 +40,12 @@
         "required": "Mandatory field",
         "whiteSpace": "Cannot contain white spaces"
     },
+    "gallery": {
+        "remove": {
+            "description": "Once the image is deleted, it cannot be recovered",
+            "title": "Are you sure you want to delete this photo?"
+        }
+    },
     "login": {
         "link": "New user",
         "password": "Password",
@@ -52,18 +58,12 @@
     },
     "menu": {
         "cameras": "Cameras",
+        "gallery": "Gallery",
         "home": "Home",
         "logout": "Log out",
-        "photos": "Photos",
         "settings": "Settings"
     },
-	"placeholder": "The requested items were not found,\nplease try again later",
-    "photos": {
-        "remove": {
-            "description": "Once the image is deleted, it cannot be recovered",
-            "title": "Are you sure you want to delete this photo?"
-        }
-    },
+    "placeholder": "The requested items were not found,\nplease try again later",
     "register": {
         "link": "Sign in",
         "password-1": "Password",

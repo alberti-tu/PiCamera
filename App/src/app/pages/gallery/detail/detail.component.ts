@@ -53,8 +53,8 @@ export class DetailComponent implements OnInit {
 		event?.stopPropagation();
 
 		const dialog: IDialogData = {
-			title: 'photos.remove.title',
-			message: 'photos.remove.description',
+			title: 'gallery.remove.title',
+			message: 'gallery.remove.description',
 			buttons: [
 				{ name: 'button.cancel', type: 'button', value: 'cancel' },
 				{ name: 'button.accept', type: 'submit', value: 'accept' },

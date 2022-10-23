@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { SharedModule } from "src/app/shared.module";
-import { PhotosComponent } from './photos.component';
+import { GalleryComponent } from './gallery.component';
 import { DetailComponent } from './detail/detail.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
-	{ path: '', component: PhotosComponent },
+	{ path: '', component: GalleryComponent },
 	{ path: ':id', component: DetailComponent }
 ];
 
 @NgModule({
 	declarations: [
-		PhotosComponent,
-  		DetailComponent
+		GalleryComponent,
+		DetailComponent
 	],
 	imports: [
 		ComponentsModule,
@@ -21,4 +21,4 @@ const routes: Routes = [
 		RouterModule.forChild(routes)
 	]
 })
-export class PhotosModule { }
+export class GalleryModule { }

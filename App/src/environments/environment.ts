@@ -5,7 +5,7 @@ export const environment: Environment = {
 	pages: [
 		{ name: 'menu.home', icon: 'home', link: AppURL.HOME },
 		{ name: 'menu.cameras', icon: 'camera', link: AppURL.CAMERAS },
-		{ name: 'menu.photos', icon: 'picture', link: AppURL.PHOTOS },
+		{ name: 'menu.gallery', icon: 'picture', link: AppURL.GALLERY },
 		{ name: 'menu.settings', icon: 'settings', link: AppURL.SETTINGS }
 	],
 	production: false,

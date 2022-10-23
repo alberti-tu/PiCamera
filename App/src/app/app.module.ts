@@ -28,7 +28,7 @@ const routes: Routes = [
 	{ path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
 	{ path: 'cameras', canActivate: [AuthenticationService], loadChildren: () => import('./pages/cameras/cameras.module').then(m => m.CamerasModule) },
 	{ path: 'home', canActivate: [AuthenticationService], loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
-	{ path: 'photos', canActivate: [AuthenticationService], loadChildren: () => import('./pages/photos/photos.module').then(m => m.PhotosModule) },
+	{ path: 'gallery', canActivate: [AuthenticationService], loadChildren: () => import('./pages/gallery/gallery.module').then(m => m.GalleryModule) },
 	{ path: 'settings', canActivate: [AuthenticationService], loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule) },
 	{ path: '**', redirectTo: AppURL.HOME, pathMatch: 'full' }
 ]
