@@ -1,0 +1,118 @@
+{
+    "button": {
+        "accept": "Accept",
+        "cancel": "Cancel",
+        "close": "Close",
+        "save": "Save",
+        "signIn": "Sign in",
+        "signUp": "Sign up"
+    },
+    "cameras": {
+        "detail": {
+            "filter": "Filter",
+            "filters": {
+                "auto": "Automatic",
+                "backlight": "Backlight",
+                "beach": "Beach",
+                "fireworks": "Fireworks",
+                "night": "Night",
+                "snow": "Snow",
+                "sports": "Sports",
+                "spotlight": "Spotlight",
+                "verylong": "Very long"
+            },
+            "link": "here.",
+            "quality": "Quality",
+            "rotation": "Rotation"
+        },
+        "edit": {
+            "description": "Camera's name",
+            "title": "Edit camera"
+        },
+        "input": "Camera's id",
+        "remove": {
+            "description": "To add it again you will have to enter its identifier",
+            "title": "Are you sure to delete this camera?"
+        }
+    },
+    "error": {
+        "minLength": "Length is not enough",
+        "required": "Mandatory field",
+        "whiteSpace": "Cannot contain white spaces"
+    },
+    "login": {
+        "link": "New user",
+        "password": "Password",
+        "title": "PiCamera",
+        "username": "Username"
+    },
+    "logout": {
+        "message": "The next time you access you must enter your username and password",
+        "title": "Log out"
+    },
+    "menu": {
+        "cameras": "Cameras",
+        "home": "Home",
+        "logout": "Log out",
+        "photos": "Photos",
+        "settings": "Settings"
+    },
+	"placeholder": "The requested items were not found,\nplease try again later",
+    "photos": {
+        "remove": {
+            "description": "Once the image is deleted, it cannot be recovered",
+            "title": "Are you sure you want to delete this photo?"
+        }
+    },
+    "register": {
+        "link": "Sign in",
+        "password-1": "Password",
+        "password-2": "Confirm password",
+        "title": "Sign up",
+        "username": "Username"
+    },
+    "settings": {
+        "dialog": {
+            "title": "Authorization required"
+        },
+        "form": {
+            "password": "Current password",
+            "password-1": "Password",
+            "password-2": "Confirm password",
+            "username": "Username"
+        },
+        "remove": {
+            "button": "Delete user",
+            "message": "This action can not be undone",
+            "title": "Are you sure you want to delete your user?"
+        }
+    },
+    "toast": {
+        "error": {
+            "badRequest": "Could not perform that action, please try again",
+            "confirmPassword": "The password is not correct",
+            "differentPassword": "Password fields are not the same",
+            "login": "Wrong username and/or password",
+            "logout": "Session has expired, please log in again",
+            "notAdded": "The requested item could not be added",
+            "notFound": "The requested information could not be found",
+            "register": "This username is not available",
+            "update": "Failed to update data"
+        },
+        "info": {
+            "deleted": "Data deleted successfully",
+            "logout": "The session has been successfully closed",
+            "saved": "Data added successfully"
+        },
+        "state": {
+            "error": "Error",
+            "info": "Notification",
+            "success": "Success",
+            "warning": "Warning"
+        },
+        "success": {
+            "deleteUser": "All your data has been successfully deleted",
+            "register": "The user has been created successfully"
+        }
+    }
+}
