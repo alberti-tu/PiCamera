@@ -9,5 +9,5 @@ export const environment: Environment = {
 		{ name: 'menu.settings', icon: 'settings', link: AppURL.SETTINGS }
 	],
 	production: false,
-	url: 'http://localhost:8080'
+	url: 'http://localhost'
 };

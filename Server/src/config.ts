@@ -19,16 +19,14 @@ export const configuration: Configuration = {
 		instances: [
 			{
 				port: 80,
-				//redirect: 443,
+				redirect: 443,
 				type: 'http'
 			},
-			/*
 			{
 				domain: null,	// Domain of the Let's encrypt certificate
 				port: 443,
 				type: 'https'
 			}
-			*/
 		],
 		sharedKey: 'mycamera',  // Password to accept camera registration
 		timeout: '365d'         // Expiration time of the authentication token

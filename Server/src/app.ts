@@ -6,7 +6,6 @@ import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
-import pem from 'pem';
 
 import { Server } from 'socket.io';
 
@@ -23,6 +22,7 @@ import * as subscriptions from './middlewares/subscriptions.middlewares';
 database.init();
 
 const app = express();
+const servers: ServerInstance[] = [];
 
 app.use(cors());
 app.use(helmet());
@@ -37,9 +37,9 @@ app.use((req, res, next) => {
 	const [host, port] = req.headers.host.split(':');
 	const protocol = req.secure ? 'https' : 'http';
 
-	const server = configuration.server.instances.find(item => getPortNumber(protocol, +port) == item.port);
+	const server = servers.find(item => getPortNumber(protocol, +port) == item.port);
 
-	if (req.secure || !server?.redirect || server?.port == server?.redirect) {
+	if (req.secure || !server?.redirect || server?.port == server?.redirect || !servers.find(item => item.port == server.redirect)) {
 		next();
 	} else {
 		res.redirect('https://' + host + ':' + server.redirect + req.url);
@@ -95,8 +95,8 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 			try {
 				const server = http.createServer(app).listen(config.port, () => {
 					console.log('Server is listening on http://[...]:' + config.port);
+					servers.push(config);
 				});
-
 
 				const io: Server = require('socket.io')(server, { cors });
 				io.on('connection', client => socket.connection(io, client));
@@ -110,6 +110,7 @@ async function createServer(app: Express, config: ServerInstance): Promise<void>
 	
 				const server = https.createServer(certificate, app).listen(config.port, () => {
 					console.log('Server is listening on https://[...]:' + config.port);
+					servers.push(config);
 				});
 	
 				const io: Server = require('socket.io')(server, { cors });
@@ -129,11 +130,7 @@ async function getCertificate(domain: string): Promise<HttpsOptions> {
 			key: fs.readFileSync('/etc/letsencrypt/live/' + domain + '/privkey.pem'),
 		}
 	} catch {
-		return await new Promise<HttpsOptions>((resolve, reject) => {
-			pem.createCertificate({ days: 365, selfSigned: true }, (error, keys) => {
-				error ? reject(error) : resolve({ cert: keys?.certificate, key: keys?.serviceKey });
-			});
-		});
+		throw null;
 	}
 }
 
