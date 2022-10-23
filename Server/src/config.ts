@@ -10,7 +10,7 @@ export const configuration: Configuration = {
 	database: {
 		database: 'PiCamera',
 		user: 'root',
-		password: 'admin',
+		password: null,
 		host: 'localhost',
 		port: 3306
 	},
@@ -18,7 +18,7 @@ export const configuration: Configuration = {
 		directory: 'camera',
 		instances: [
 			{
-				port: 8080,
+				port: 80,
 				//redirect: 443,
 				type: 'http'
 			},

@@ -8,7 +8,7 @@ interface Configuration {
 
 export const configuration: Configuration = {
 	host: 'localhost',
-	port: null,
+	port: 80,
 	production: true,
 	protocol: 'http',
 	sharedKey: 'mycamera',

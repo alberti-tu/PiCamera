@@ -4,7 +4,20 @@
 	<placeholder [data]="subscriptions"></placeholder>
 
 	<div class="card-container">
+		<div class="card image-item" *ngFor="let item of cameras">
+			<div class="header">
+				<p>{{ item?.name }}</p>
 
+				<button *ngIf="item?.data != undefined" class="primary" (click)="savePicture(item, $event)">
+					<img src="assets/icons/camera.svg">
+				</button>
+			</div>
+
+			<div class="body">
+				<img *ngIf="item?.data != undefined" [src]="item?.data">
+				<img *ngIf="item?.data == undefined" src="assets/images/error_404.jpg">
+			</div>
+		</div>
 	</div>
 </div>
 

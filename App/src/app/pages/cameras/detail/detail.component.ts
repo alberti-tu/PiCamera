@@ -81,7 +81,7 @@ export class DetailComponent implements OnInit {
 			const field = this.fields.find(field => field.id == 'filter')
 			
 			if (field != undefined) {
-				field.params = data?.result?.map<IKeyValue>(param => ({ key: param, value: param }));
+				field.params = data?.result?.map<IKeyValue>(param => ({ key: param, value: 'cameras.detail.filters.' + param }));
 			}
 		});
 	}
