@@ -8,7 +8,7 @@ Package                                 | Version
 [Axios](https://github.com/axios/axios) | 0.21.1
 [Express](https://expressjs.com)        | 4.17.3
 [Maria DB](https://mariadb.org)         | 10.5.15
-[Node JS](https://nodejs.org)           | 16.15.0
+[Node JS](https://nodejs.org)           | 16.18.0
 
 ## 1. Prerequisites
 
@@ -67,8 +67,6 @@ This project allows you to generate a valid certificate for free by Let's Encryp
 sudo apt install certbot
 sudo npm run certificate --host=[domain]
 ```
-
-If you don't provide a valid certificate, PiCamera will generate a self-signed certificate for the HTTPS servers.
 
 ## 3. Configuration
 
