@@ -1,7 +1,8 @@
-import { CameraDTO, SubscriptionDTO, UserDTO } from '../models/database.models';
+import { CameraDTO, FilterDTO, SubscriptionDTO, UserDTO } from '../models/database.models';
 import { Database, StatusDatabase } from '../services/database.services';
 import { configuration } from '../config';
 import crypto from 'crypto';
+import fs from 'fs'
 
 const database = Database.getInstance(configuration.database);
 
@@ -10,13 +11,16 @@ export async function init() {
 		const isCreated: boolean = await database.checkDatabase();
 
 		if (!isCreated) {
-			const queries: string[] = [
-				"CREATE TABLE users (id VARCHAR(64) NOT NULL PRIMARY KEY, username VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL)",
-				"CREATE TABLE cameras (id VARCHAR(6) NOT NULL PRIMARY KEY, filter VARCHAR(64) NOT NULL DEFAULT 'auto', quality DECIMAL(3) UNSIGNED NOT NULL DEFAULT 100, rotation DECIMAL(3) UNSIGNED NOT NULL DEFAULT 0, timestamp DATETIME)",
-				"CREATE TABLE subscriptions (id VARCHAR(64) NOT NULL PRIMARY KEY, name VARCHAR(64) NOT NULL, user_id VARCHAR(64) NOT NULL, camera_id VARCHAR(6) NOT NULL, CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT fk_camera_id FOREIGN KEY (camera_id) REFERENCES cameras (id) ON DELETE CASCADE ON UPDATE RESTRICT)"
-			];
+			fs.readFile('src/database.sql', 'utf-8', (error, data) => {
+				if (error) {
+				  console.error(error);
+				  return;
+				}
 
-			await database.createDatabase(queries);
+				const queries = data?.split('\n')?.filter(item => item?.trim() !== '');
+
+				database.createDatabase(queries);
+			})
 		}
 	}
 	catch {
@@ -111,4 +115,10 @@ export async function updateSubscriptions(subscription: SubscriptionDTO): Promis
 
 export async function deleteSubscriptions(id: string): Promise<StatusDatabase> {
 	return await database.query<StatusDatabase>('DELETE FROM subscriptions WHERE id = ?', [id]);
+}
+
+// TABLES - filters
+
+export async function selectFilters(): Promise<FilterDTO[]> {
+	return await database.query<FilterDTO[]>('SELECT * FROM filteres');
 }

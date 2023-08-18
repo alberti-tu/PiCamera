@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { getPath } from 'src/app/global/utils';
 import { ApiURL } from 'src/app/constants/routes';
-import { ICameraOptions, ICameraSubscription, Message } from 'src/app/models/http.models';
+import { ICameraOptions, ICameraSubscription, IFilters, Message } from 'src/app/models/http.models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -63,7 +63,7 @@ export class HttpService {
 		return this.http.post<any>(environment.url + getPath(ApiURL.CAMERA_BY_ID, { id }), body);
 	}
 
-	public getFilters(): Observable<Message<string[]>> {
+	public getFilters(): Observable<Message<IFilters[]>> {
 		return this.http.get<any>(environment.url + getPath(ApiURL.SETTINGS_FILTERS));
 	}
 

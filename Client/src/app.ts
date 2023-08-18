@@ -23,8 +23,8 @@ function stream(options?: CameraDTO): Promise<void> {
 const camera = Camera.getInstance();
 
 const states: State[] = [
-	{ name: 'setup', resolve: 'camera', rejected: 'register', action: (data) => http.setup() },
-	{ name: 'register', resolve: 'setup', rejected: undefined, action: (data) => http.register() },
+	{ name: 'setup', resolve: 'camera', rejected: 'register', action: () => http.setup() },
+	{ name: 'register', resolve: 'setup', rejected: undefined, action: () => http.register() },
 	{ name: 'camera', resolve: 'camera', rejected: 'setup', action: (data) => stream(data), input: 'setup' }
 ];
 

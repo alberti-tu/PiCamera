@@ -32,15 +32,3 @@ export const configuration: Configuration = {
 		timeout: '365d'         // Expiration time of the authentication token
 	}
 }
-
-export const filters: string[] = [
-	'auto',
-	'night',
-	'backlight',
-	'spotlight',
-	'sports',
-	'snow',
-	'beach',
-	'verylong',
-	'fireworks'
-];

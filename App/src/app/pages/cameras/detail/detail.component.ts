@@ -3,7 +3,6 @@ import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
 import { AppURL } from 'src/app/constants/routes';
-import { IKeyValue } from 'src/app/models/global';
 import { ICameraSubscription } from 'src/app/models/http.models';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -81,7 +80,7 @@ export class DetailComponent implements OnInit {
 			const field = this.fields.find(field => field.id == 'filter')
 			
 			if (field != undefined) {
-				field.params = data?.result?.map<IKeyValue>(param => ({ key: param, value: 'cameras.detail.filters.' + param }));
+				field.params = data?.result?.map(item => ({ key: item?.id, value: item?.label }));
 			}
 		});
 	}

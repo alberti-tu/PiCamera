@@ -65,7 +65,7 @@ export class Database {
 		});
 	}
 
-	public async createDatabase(tables: string[]): Promise<void> {
+	public async createDatabase(tables: string[] = []): Promise<void> {
 		try {
 			const connection = await mariadb.createConnection({ ...this.databaseOptions, database: null });
 

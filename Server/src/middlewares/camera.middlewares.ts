@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { CameraOptions } from '../models/database.models';
+import { CameraOptions, FilterDTO } from '../models/database.models';
 import { HttpMessage, Message } from '../models/http.models';
 import { setStream } from './socket.middlewares';
-import { filters } from '../config';
 
 import * as database from './database.middlewares';
 
@@ -10,7 +9,7 @@ export async function selectOne(req: Request<any>, res: Response<Message<CameraO
 	try {
 		const camera = await database.selectCamera(res.locals.cameraId);
 
-		if (camera != null) {
+		if (!camera) {
 			delete camera.id;
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: camera });
 		} else {
@@ -38,6 +37,7 @@ export async function insert(req: Request<any>, res: Response<Message<boolean>>,
 export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
 	try {
 		req.body.id = res.locals.cameraId;
+
 		const result = await database.updateCamera(req.body);
 
 		if (result.affectedRows == 1) {
@@ -66,19 +66,18 @@ export async function remove(req: Request<any>, res: Response<Message<boolean>>,
 
 export async function picture(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
 	try {
+		const camera = await database.selectCamera(res.locals.cameraId);
 		setStream(res.locals.cameraId, req.body.data);
 
-		const camera = await database.selectCamera(res.locals.cameraId);
-		const hasChanges: boolean = req.body.timestamp != camera.timestamp;
-
-		res.status(200).send({ code: 200, message: HttpMessage.Successful, result: hasChanges });
+		res.status(200).send({ code: 200, message: HttpMessage.Successful, result: req.body.timestamp != camera.timestamp });
 	} catch {
 		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
 	}
 }
 
-export async function filtersList(req: Request<any>, res: Response<Message<string[]>>, next: NextFunction) {
+export async function filtersList(req: Request<any>, res: Response<Message<FilterDTO[]>>, next: NextFunction) {
 	try {
+		const filters = await database.selectFilters();
 		res.status(200).send({ code: 200, message: HttpMessage.Successful, result: filters });
 	} catch {
 		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });

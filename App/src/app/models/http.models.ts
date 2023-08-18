@@ -17,6 +17,11 @@ export interface ICameraSubscription {
 	camera_id?: string;
 }
 
+export interface IFilters {
+	id?: string
+	label?: string
+}
+
 export interface Image {
 	id?: string;
 	name?: string;

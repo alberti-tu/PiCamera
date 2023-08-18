@@ -29,3 +29,8 @@ export interface CameraSubscription {
 	name?: string;
 	camera_id?: string;
 }
+
+export interface FilterDTO {
+	id?: string
+	label?: string
+}

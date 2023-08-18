@@ -10,9 +10,9 @@ export interface State {
 export class StateMachine {
 
 	public logs: boolean = false;
-	private states: State[] = [];
+	private states: State[];
 
-	constructor(states: State[]) {
+	constructor(states: State[] = []) {
 		this.states = states;
 	}
 
@@ -22,7 +22,7 @@ export class StateMachine {
 		while (true) {
 			const state: State = this.states.find(item => item.name == currentState);
 
-			if (state == undefined) {
+			if (!state) {
 				this.print('exit', true);
 				break;
 			}
@@ -30,7 +30,7 @@ export class StateMachine {
 			this.print(currentState);
 
 			try {
-				const data = this.selectInputState(state?.input);
+				const data = this.states.find(item => item.name == state?.input)?.output;
 				state.output = await state.action(data);
 				currentState = state.resolve;
 			} catch {
@@ -38,10 +38,6 @@ export class StateMachine {
 				currentState = state.rejected;
 			}
 		}
-	}
-
-	public selectInputState(name: string): any {
-		return this.states.find(item => item.name == name)?.output;
 	}
 
 	private print(message: string, isError?: boolean) {
