@@ -90,7 +90,7 @@ export async function deleteCamera(id: string): Promise<StatusDatabase> {
 // TABLE - subscriptions
 
 export async function selectAllSubscriptions(userId: string): Promise<SubscriptionDTO[]> {
-	return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ? ORDER BY name DESC', [userId]);
+	return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ? ORDER BY name ASC', [userId]);
 }
 
 export async function selectOneSubscription(userId: string, cameraId: string): Promise<SubscriptionDTO> {
