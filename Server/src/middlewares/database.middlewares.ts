@@ -8,7 +8,7 @@ const database = Database.getInstance(configuration.database);
 
 export async function init() {
 	try {
-		const isCreated: boolean = await database.checkDatabase();
+		const isCreated = await database.checkDatabase();
 
 		if (!isCreated) {
 			fs.readFile('src/database.sql', 'utf-8', (error, data) => {
@@ -90,7 +90,7 @@ export async function deleteCamera(id: string): Promise<StatusDatabase> {
 // TABLE - subscriptions
 
 export async function selectAllSubscriptions(userId: string): Promise<SubscriptionDTO[]> {
-	return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ?', [userId]);
+	return await database.query<SubscriptionDTO[]>('SELECT * FROM subscriptions WHERE user_id = ? ORDER BY name DESC', [userId]);
 }
 
 export async function selectOneSubscription(userId: string, cameraId: string): Promise<SubscriptionDTO> {

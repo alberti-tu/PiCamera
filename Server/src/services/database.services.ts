@@ -65,26 +65,26 @@ export class Database {
 		});
 	}
 
-	public async createDatabase(tables: string[] = []): Promise<void> {
+	public async createDatabase(queries: string[] = []): Promise<void> {
 		try {
 			const connection = await mariadb.createConnection({ ...this.databaseOptions, database: null });
-
 			await connection.query('CREATE DATABASE ' + this.databaseOptions.database);
-			console.log('Database created');
-			await connection.query('USE ' + this.databaseOptions.database);
-
-			for (const query of tables) {
-				await connection.query(query)
+			await connection.end();
+			
+			for (const sql of queries) {
+				await this.query(sql)
 			}
 
-			await connection.end();
+			console.log('Database created');
+
+			this.checkDatabase();
 		} catch {
 			const connection = await mariadb.createConnection(this.databaseOptions);
 
 			await connection.query('DROP DATABASE ' + this.databaseOptions.database);
-			console.log('Drop database ' + this.databaseOptions.database);
 			await connection.end();
 
+			console.log('Drop database ' + this.databaseOptions.database);
 			process.exit(1);
 		}
 	}
