@@ -104,7 +104,7 @@ export async function getCameraId(req: Request<any>, res: Response<Message<any>>
 
 export async function decodeCameraId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
 	try {
-		res.locals.cameraId = decryptAES(res.locals.cameraId, configuration.server.sharedKey);
+		res.locals.cameraId = decryptAES(req.params?.id, configuration.server.sharedKey);
 		next();
 	} catch {
 		res.status(401).send({ code: 400, message: HttpMessage.Successful, result: null });

@@ -49,10 +49,10 @@ app.use((req, res, next) => {
 });
 
 // Client - Backend routes
-app.get('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.selectOne);
-app.post('/api/camera/:id', authentication.getCameraId, authentication.decodeCameraId, camera.insert);
+app.get('/api/camera/:id', authentication.decodeCameraId, camera.selectOne);
+app.post('/api/camera/:id', authentication.decodeCameraId, camera.insert);
 
-app.post('/api/camera/picture/:id', authentication.getCameraId, authentication.decodeCameraId, camera.picture);
+app.post('/api/camera/picture/:id', authentication.decodeCameraId, camera.picture);
 
 // App - Backend routes
 app.post('/api/user/login', authentication.login);

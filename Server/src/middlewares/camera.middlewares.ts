@@ -9,7 +9,7 @@ export async function selectOne(req: Request<any>, res: Response<Message<CameraO
 	try {
 		const camera = await database.selectCamera(res.locals.cameraId);
 
-		if (!camera) {
+		if (camera) {
 			delete camera.id;
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: camera });
 		} else {

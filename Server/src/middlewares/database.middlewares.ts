@@ -120,5 +120,5 @@ export async function deleteSubscriptions(id: string): Promise<StatusDatabase> {
 // TABLES - filters
 
 export async function selectFilters(): Promise<FilterDTO[]> {
-	return await database.query<FilterDTO[]>('SELECT * FROM filteres');
+	return await database.query<FilterDTO[]>('SELECT * FROM filters');
 }
