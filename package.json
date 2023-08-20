@@ -10,7 +10,7 @@
 		"client:build": "cd Client && npm run build",
 		"client:config": "cd Client && npm run config",
 		"client:install": "cd Client && npm i --force",
-		"server:start": "cd Server && sudo npm start",
+		"server:start": "cd Server && npm start",
 		"server:build": "cd Server && npm run build",
 		"server:config": "cd Server && npm run config",
 		"server:install": "cd Server && npm i --force",
