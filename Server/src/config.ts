@@ -24,7 +24,7 @@ export const configuration: Configuration = {
 			},
 			{
 				domain: null,	// Domain of the Let's encrypt certificate
-				port: 443,
+				port: null,		// Default port 443
 				type: 'https'
 			}
 		],

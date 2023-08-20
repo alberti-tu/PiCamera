@@ -28,9 +28,11 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json({ limit: '50mb' }));
 
-configuration.server.instances.forEach(item => {
-	createServer(app, item);
-})
+configuration.server.instances
+	.filter(item => item?.port)
+	.forEach(item => {
+		createServer(app, item);
+	})
 
 // Redirect ports
 app.use((req, res, next) => {
@@ -87,7 +89,7 @@ app.get('*', (req, res) => {
 async function createServer(app: Express, config: ServerInstance): Promise<void> {
 	const cors = {
 		origin: "http://localhost:4200",
-		methods: ["GET", "POST"]
+		methods: ["GET", "POST", "PUT", "DELETE"]
 	}
 
 	switch(config.type) {

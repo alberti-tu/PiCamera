@@ -22,7 +22,7 @@ export interface ServerOptions {
 
 export interface ServerInstance {
 	domain?: string;
-	port: number;
+	port?: number;
 	redirect?: number;
 	type: 'http' | 'https';
 }

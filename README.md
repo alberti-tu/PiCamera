@@ -1,14 +1,6 @@
 # **PiCamera**
 
-This project was generated with:
-
-Package                                 | Version
-----------------------------------------|--------
-[Angular CLI](https://cli.angular.io)   | 14.0.6
-[Axios](https://github.com/axios/axios) | 0.21.1
-[Express](https://expressjs.com)        | 4.17.3
-[Maria DB](https://mariadb.org)         | 10.5.15
-[Node JS](https://nodejs.org)           | 16.18.0
+Security web camera based on NodeJS and Raspberry Pi
 
 ## 1. Prerequisites
 
@@ -44,7 +36,7 @@ Installing NodeJS and NPM for Linux systems
 ```bash
 git clone https://github.com/alberti-tu/PiCamera
 cd PiCamera
-sudo ./node_setup.sh
+npm run setup
 ```
 
 Installing all NPM dependences
@@ -65,7 +57,7 @@ This project allows you to generate a valid certificate for free by Let's Encryp
 
 ```bash
 sudo apt install certbot
-sudo npm run certificate --host=[domain]
+npm run certificate --host=[domain]
 ```
 
 ## 3. Configuration
