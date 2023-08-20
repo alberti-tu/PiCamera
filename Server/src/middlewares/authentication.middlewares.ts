@@ -38,7 +38,7 @@ export async function register(req: Request<any>, res: Response<Message<boolean>
 	try {
 		const id: string = await database.insertUser(req.body.username, req.body.password);
 
-		if (!id) {
+		if (id) {
 			res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
 		} else {
 			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: false });
