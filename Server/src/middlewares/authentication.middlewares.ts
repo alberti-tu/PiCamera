@@ -9,7 +9,7 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
 	try {
 		const user = await database.getUserId(req.body.username, req.body.password);
 
-		if (user != null) {
+		if (user) {
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: encodeToken(user) });
 		} else {
 			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
@@ -23,7 +23,7 @@ export async function selectOne(req: Request<any>, res: Response<Message<any>>, 
 	try {
 		const user = await database.selectUser(res.locals.userId);
 
-		if (!user) {
+		if (user) {
 			delete user.id;
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: user });
 		} else {
@@ -36,7 +36,7 @@ export async function selectOne(req: Request<any>, res: Response<Message<any>>, 
 
 export async function register(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
 	try {
-		const id: string = await database.insertUser(req.body.username, req.body.password);
+		const id = await database.insertUser(req.body.username, req.body.password);
 
 		if (id) {
 			res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
@@ -50,8 +50,7 @@ export async function register(req: Request<any>, res: Response<Message<boolean>
 
 export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
 	try {
-		req.body.id = res.locals.userId;
-		const result = await database.updateUser(req.body);
+		const result = await database.updateUser({ ...req.body, id: res.locals.userId });
 
 		if (result.affectedRows == 1) {
 			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });

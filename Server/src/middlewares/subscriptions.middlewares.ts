@@ -30,7 +30,7 @@ export async function insert(req: Request<any>, res: Response<Message<boolean>>,
 		const result = await database.insertSubscriptions(res.locals.userId, res.locals.cameraId);
 		setSubscriptionList(res.locals.userId);
 
-		if (result != null) {
+		if (result) {
 			res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
 		} else {
 			res.status(204).send({ code: 404, message: HttpMessage.NoContent, result: false });
