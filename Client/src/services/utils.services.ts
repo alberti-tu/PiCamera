@@ -1,4 +1,4 @@
-import os, { NetworkInterfaceInfo } from 'os';
+import os from 'os';
 
 export function getPortNumber(protocol: 'http' | 'https', port?: number): number {
 	if (port == null || isNaN(port)) {

@@ -53,8 +53,8 @@ export class SettingsComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.http.getUser().subscribe(async data => {
-			this.user = data?.result;
-			this.fields[0].value = data?.result?.username;
+			this.user = data;
+			this.fields[0].value = data?.username;
 
 			const dialog: IDialogData = {
 				title: 'settings.dialog.title',
@@ -104,7 +104,7 @@ export class SettingsComponent implements OnInit {
 		const password = password1 || this.password;
 
 		this.http.updateUser(username, password).subscribe(data => {
-			if (data?.result) {
+			if (data) {
 				this.alert.showToast('toast.info.saved', 'success');
 			} else {
 				this.alert.showToast('toast.error.update', 'error');
@@ -125,7 +125,7 @@ export class SettingsComponent implements OnInit {
 		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (result?.button?.value == 'accept') {
 				this.http.removeUser().subscribe(data => {
-					if (data?.result) {
+					if (data) {
 						this.alert.showToast('toast.success.deleteUser', 'success');
 						this.auth.removeToken();
 					}

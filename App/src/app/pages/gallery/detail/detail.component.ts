@@ -25,23 +25,23 @@ export class DetailComponent implements OnInit {
 		}
 
 		this.http.getOneSubscription(this.subscription.camera_id).subscribe(data => {
-			this.subscription = data?.result;
+			this.subscription = data;
 
 			if (this.subscription.camera_id == undefined) {
 				return;
 			}
 
 			this.http.getFolderId(this.subscription.camera_id).subscribe(data => {
-				this.pictures = data.result.map<Image>(item => ({ name: item }));
+				this.pictures = data?.map<Image>(item => ({ name: item }));
 
-				this.pictures.forEach(item => {
+				this.pictures?.forEach(item => {
 					if (this.subscription.camera_id == undefined || item.name == undefined) {
 						return;
 					}
 
 					this.http.getPicture(this.subscription.camera_id, item.name).subscribe(data => {
-						if (data?.result != null) {
-							item.data = 'data:image/jpg;base64,'+ data?.result;
+						if (data != null) {
+							item.data = 'data:image/jpg;base64,'+ data;
 						}
 					});
 				});
@@ -64,7 +64,7 @@ export class DetailComponent implements OnInit {
 		(await this.alert.showDialog(DialogComponent, { data: dialog })).afterClosed$.subscribe((result: IDialogResult<unknown>) => {
 			if (this.subscription?.camera_id != undefined && picture.name != undefined && result?.button?.value == 'accept') {
 				this.http.removePicture(this.subscription.camera_id, picture.name).subscribe(data => {
-					if (data?.result) {
+					if (data) {
 						this.pictures = this.pictures?.filter(item => item?.name != picture?.name);
 						this.alert.showToast('toast.info.deleted', 'info');
 					}

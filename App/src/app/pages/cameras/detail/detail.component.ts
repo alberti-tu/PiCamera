@@ -63,15 +63,15 @@ export class DetailComponent implements OnInit {
 		}
 
 		this.http.getOneSubscription(this.subscription.camera_id).subscribe(data => {
-			this.subscription = data?.result;
+			this.subscription = data;
 		});
 
 		this.http.getSettings(this.subscription.camera_id).subscribe(data => {
-			Object.keys(data?.result).forEach(key => {
+			Object.keys(data).forEach(key => {
 				const field = this.fields.find(field => field.id == key)
 				
 				if (field != undefined) {
-					field.value = data?.result[key]?.toString();
+					field.value = data[key]?.toString();
 				}
 			})
 		});
@@ -80,7 +80,7 @@ export class DetailComponent implements OnInit {
 			const field = this.fields.find(field => field.id == 'filter')
 			
 			if (field != undefined) {
-				field.params = data?.result?.map(item => ({ key: item?.id, value: item?.label }));
+				field.params = data?.map(item => ({ key: item?.id, value: item?.label }));
 			}
 		});
 	}
@@ -93,7 +93,7 @@ export class DetailComponent implements OnInit {
 		result.form['rotation'] = +result.form['rotation'] % 360;
 
 		this.http.saveSettings(this.subscription.camera_id, result.form).subscribe(data => {
-			if (data?.result) {
+			if (data) {
 				this.alert.showToast('toast.info.saved', 'info');
 				this.router.navigateByUrl(AppURL.CAMERAS);
 			}

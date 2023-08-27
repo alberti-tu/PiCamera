@@ -1,9 +1,3 @@
-export interface Message<T> {
-	code: number;
-	message: string;
-	result: T;
-}
-
 export interface ICameraOptions {
 	[key: string]: string | number | undefined;
 	filter?: string;

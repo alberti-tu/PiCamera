@@ -47,12 +47,7 @@ export class LoginComponent {
 		const password = result.form['password'].toString();
 
 		this.http.login(username, this.auth.hash(password)).subscribe(data => {
-			if (data?.result) {
-				this.auth.setToken(data?.result);
-			} else {
-				this.alert.showToast('toast.error.login', 'error');
-				this.auth.removeToken();	
-			}
+			this.auth.setToken(data);
 		});
 	}
 

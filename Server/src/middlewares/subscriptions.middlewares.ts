@@ -1,70 +1,69 @@
 import { Request, Response, NextFunction } from 'express';
 import { CameraSubscription } from '../models/database.models';
-import { HttpMessage, Message } from '../models/http.models';
 import { setSubscriptionList } from './socket.middlewares';
 
 import * as database from './database.middlewares';
 
-export async function selectAll(req: Request<any>, res: Response<Message<CameraSubscription[]>>, next: NextFunction) {
+export async function selectAll(req: Request<any>, res: Response<CameraSubscription[]>, next: NextFunction) {
 	try {
 		const subscriptions = await database.selectAllSubscriptions(res.locals.userId);
 		subscriptions.forEach(item => delete item.user_id);
-		res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscriptions });
+		res.status(200).send(subscriptions);
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function selectOne(req: Request<any>, res: Response<Message<CameraSubscription>>, next: NextFunction) {
+export async function selectOne(req: Request<any>, res: Response<CameraSubscription>, next: NextFunction) {
 	try {
 		const subscription = await database.selectOneSubscription(res.locals.userId, res.locals.cameraId);
 		delete subscription.user_id;
-		res.status(200).send({ code: 200, message: HttpMessage.Successful, result: subscription });
+		res.status(200).send(subscription);
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function insert(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function insert(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const result = await database.insertSubscriptions(res.locals.userId, res.locals.cameraId);
 		setSubscriptionList(res.locals.userId);
 
 		if (result) {
-			res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
+			res.status(201).send(true);
 		} else {
-			res.status(204).send({ code: 404, message: HttpMessage.NoContent, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function update(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const result = await database.updateSubscriptions(req.body);
 
 		if (result.affectedRows == 1) {
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+			res.status(200).send(true);
 		} else {
-			res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function remove(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const result = await database.deleteSubscriptions(req.params.subscription);
 		setSubscriptionList(res.locals.userId);
 
 		if (result.affectedRows == 1) {
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+			res.status(200).send(true);
 		} else {
-			res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }

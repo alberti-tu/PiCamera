@@ -18,7 +18,7 @@ export class GalleryComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
-			this.subscriptions = data?.result;
+			this.subscriptions = data;
 		});
 	}
 

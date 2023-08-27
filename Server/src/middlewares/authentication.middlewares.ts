@@ -1,82 +1,83 @@
 import { Request, Response, NextFunction } from 'express';
-import { HttpMessage, Message, Token } from '../models/http.models';
 import { decodeToken, decryptAES, encodeToken } from '../services/authentication.services';
 import { configuration } from '../config';
 
 import * as database from './database.middlewares';
 
-export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
+import { UserDTO } from '../models/database.models';
+
+export async function login(req: Request<any>, res: Response<string>, next: NextFunction) {
 	try {
 		const user = await database.getUserId(req.body.username, req.body.password);
 
 		if (user) {
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: encodeToken(user) });
+			res.status(200).send(encodeToken(user));
 		} else {
-			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
+			res.status(401).send(null);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function selectOne(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+export async function selectOne(req: Request<any>, res: Response<UserDTO>, next: NextFunction) {
 	try {
 		const user = await database.selectUser(res.locals.userId);
 
 		if (user) {
 			delete user.id;
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: user });
+			res.status(200).send(user);
 		} else {
-			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: null });
+			res.status(404).send(null);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function register(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function register(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const id = await database.insertUser(req.body.username, req.body.password);
 
 		if (id) {
-			res.status(201).send({ code: 201, message: HttpMessage.NewItem, result: true });
+			res.status(201).send(true);
 		} else {
-			res.status(200).send({ code: 404, message: HttpMessage.NotFound, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function update(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function update(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const result = await database.updateUser({ ...req.body, id: res.locals.userId });
 
 		if (result.affectedRows == 1) {
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+			res.status(200).send(true);
 		} else {
-			res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function remove(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+export async function remove(req: Request<any>, res: Response<boolean>, next: NextFunction) {
 	try {
 		const result = await database.deleteUser(res.locals.userId);
 
 		if (result.affectedRows == 1) {
-			res.status(200).send({ code: 200, message: HttpMessage.Successful, result: true });
+			res.status(200).send(true);
 		} else {
-			res.status(204).send({ code: 204, message: HttpMessage.NoContent, result: false });
+			res.status(404).send(false);
 		}
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function getUserId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+export async function getUserId(req: Request<any>, res: Response<any>, next: NextFunction) {
 	try {
 		const token = decodeToken(req.headers.authorization);
 		const result = await database.checkUser(token.id);
@@ -85,27 +86,27 @@ export async function getUserId(req: Request<any>, res: Response<Message<any>>, 
 			res.locals.userId = token.id;
 			next();
 		} else {
-			res.status(401).send({ code: 401, message: HttpMessage.Unauthorized, result: null });
+			res.status(401).send(null);
 		}
 	} catch {
-		res.status(401).send({ code: 401, message: HttpMessage.Unauthorized, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function getCameraId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+export async function getCameraId(req: Request<any>, res: Response<any>, next: NextFunction) {
 	try {
 		res.locals.cameraId = req.params?.id;
 		next();
 	} catch {
-		res.status(400).send({ code: 400, message: HttpMessage.BadRequest, result: null });
+		res.status(400).send(null);
 	}
 }
 
-export async function decodeCameraId(req: Request<any>, res: Response<Message<any>>, next: NextFunction) {
+export async function decodeCameraId(req: Request<any>, res: Response<any>, next: NextFunction) {
 	try {
 		res.locals.cameraId = decryptAES(req.params?.id, configuration.server.sharedKey);
 		next();
 	} catch {
-		res.status(401).send({ code: 400, message: HttpMessage.Successful, result: null });
+		res.status(400).send(null);
 	}
 }

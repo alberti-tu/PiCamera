@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 			this.cameras = event.map<Image>(item => ({ id: item, name: undefined, data: undefined }));
 
 			this.http.getAllSubscriptions().subscribe(data => {
-				this.subscriptions = data?.result;
+				this.subscriptions = data;
 
 				this.cameras?.forEach(camera => {
-					camera.name = data?.result.find(item => item.camera_id == camera.id)?.name;
+					camera.name = data.find(item => item.camera_id == camera.id)?.name;
 				});
 			});
 		});
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		}
 
 		this.http.savePicture(image.id, image.data.replace('data:image/jpg;base64,', '')).subscribe(data => {
-			if (data.result) {
+			if (data) {
 				this.alert.showToast('toast.info.saved', 'info');
 			}
 		});

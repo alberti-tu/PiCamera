@@ -42,7 +42,7 @@ export class CamerasComponent implements OnInit {
 
 	public getData(): void {
 		this.http.getAllSubscriptions().subscribe(data => {
-			this.subscriptions = data?.result;
+			this.subscriptions = data;
 		});
 	}
 
@@ -52,7 +52,7 @@ export class CamerasComponent implements OnInit {
 		}
 
 		this.http.addSubscription(result?.form['camera'].toString()).subscribe(data => {
-			if (data?.result) {
+			if (data) {
 				this.getData();
 				this.alert.showToast('toast.info.saved', 'info');
 			} else {
@@ -95,7 +95,7 @@ export class CamerasComponent implements OnInit {
 					const name = result?.data['name'];
 
 					this.http.updateSubscription(camera?.id, name).subscribe(data => {
-						if (data?.result) {
+						if (data) {
 							camera.name = name;
 							this.alert.showToast('toast.info.saved', 'info');
 						}
@@ -121,7 +121,7 @@ export class CamerasComponent implements OnInit {
 			if (result?.button?.value == 'accept') {
 				if (camera?.id != undefined) {
 					this.http.removeSubscription(camera?.id).subscribe(data => {
-						if (data?.result) {
+						if (data) {
 							this.subscriptions = this.subscriptions?.filter(item => item?.camera_id != camera?.camera_id);
 							this.alert.showToast('toast.info.deleted', 'info');
 						}

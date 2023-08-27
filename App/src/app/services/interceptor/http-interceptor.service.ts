@@ -3,7 +3,6 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, Htt
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { Message } from 'src/app/models/http.models';
 import { environment } from 'src/environments/environment';
 import { AlertService } from '../alert/alert.service';
 
@@ -35,11 +34,15 @@ export class HttpInterceptorService implements HttpInterceptor {
 					}
 				}
 			}),
-			catchError((response: HttpResponse<Message<any>>) => {
+			catchError((response: HttpResponse<any>) => {
 				if (response instanceof HttpErrorResponse) {
 					switch (response.status) {
 						case 401:
-							this.alert.showToast('toast.error.logout', 'error');
+							if (this.auth.getToken() == null) {
+								this.alert.showToast('toast.error.login', 'error');
+							} else {
+								this.alert.showToast('toast.error.logout', 'error');
+							}
 							this.auth.removeToken();
 							break;
 						case 404:
