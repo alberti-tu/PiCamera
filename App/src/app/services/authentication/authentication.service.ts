@@ -3,15 +3,17 @@ import { CanActivate, Router } from '@angular/router';
 import { SHA256, enc } from 'crypto-js';
 import { AppURL } from 'src/app/constants/routes';
 
+import { AlertService } from '../alert/alert.service';
+
 const key = 'token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService implements CanActivate {
 
-	constructor(private router: Router) { }
+	constructor(private alert: AlertService, private router: Router) { }
 
 	public canActivate(): boolean {
-		if (this.getToken() != null) {
+		if (this.getToken()) {
 			return true;
 		} else {
 			this.removeToken();
@@ -21,14 +23,16 @@ export class AuthenticationService implements CanActivate {
 
 	public setToken(value: string): void {
 		localStorage.setItem(key, value);
-		this.router.navigateByUrl(AppURL.HOME);
 	}
 
 	public getToken(): string | null {
 		return localStorage.getItem(key);
 	}
 
-	public removeToken(): void {
+	public removeToken(isError?: boolean): void {
+		if (isError && this.getToken()) {
+			this.alert.showToast('toast.error.logout', 'error');
+		}
 		localStorage.removeItem(key);
 		this.router.navigateByUrl(AppURL.LOGIN);
 	}

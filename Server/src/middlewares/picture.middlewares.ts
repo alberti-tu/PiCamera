@@ -52,7 +52,7 @@ export async function removePicture(req: Request<any>, res: Response<boolean>, n
 		const result = File.removeFile(configuration.server.directory + '/' + res.locals.cameraId, req.params.name);
 
 		if (result) {
-			res.status(201).send(true);
+			res.status(200).send(true);
 		} else {
 			res.status(404).send(null);
 		}

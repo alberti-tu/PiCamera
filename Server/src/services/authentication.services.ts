@@ -34,7 +34,11 @@ export function encodeToken(data: object): string {
 }
 
 export function decodeToken(token: string): Token {
-	return JSON.parse(JSON.stringify(jwt.verify(token, secret)));
+	try {
+		return JSON.parse(JSON.stringify(jwt.verify(token, secret)));
+	} catch {
+		return null
+	}
 }
 
 export function hash(data: string): string {

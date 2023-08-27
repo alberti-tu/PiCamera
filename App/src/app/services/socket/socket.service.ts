@@ -24,7 +24,7 @@ export class SocketService {
 		if (this.socket == undefined) {
 			this.socket = io(environment.url, { query: { token: this.auth.getToken() } });
 
-			this.socket.on(SocketEvent.unauthorized, () => this.auth.removeToken());
+			this.socket.on(SocketEvent.unauthorized, () => this.auth.removeToken(true));
 			this.socket.on(SocketEvent.disconnect, () => this.socket = undefined);
 		} else {
 			console.error('There is a previous socket connected');

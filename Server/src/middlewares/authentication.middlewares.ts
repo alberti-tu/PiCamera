@@ -13,7 +13,7 @@ export async function login(req: Request<any>, res: Response<string>, next: Next
 		if (user) {
 			res.status(200).send(encodeToken(user));
 		} else {
-			res.status(401).send(null);
+			res.status(204).send(null);
 		}
 	} catch {
 		res.status(400).send(null);
@@ -80,11 +80,16 @@ export async function remove(req: Request<any>, res: Response<boolean>, next: Ne
 export async function getUserId(req: Request<any>, res: Response<any>, next: NextFunction) {
 	try {
 		const token = decodeToken(req.headers.authorization);
-		const result = await database.checkUser(token.id);
+		
+		if (token) {
+			const result = await database.checkUser(token.id);
 
-		if (result) {
-			res.locals.userId = token.id;
-			next();
+			if (result) {
+				res.locals.userId = token.id;
+				next();
+			} else {
+				res.status(401).send(null);
+			}
 		} else {
 			res.status(401).send(null);
 		}
@@ -107,6 +112,6 @@ export async function decodeCameraId(req: Request<any>, res: Response<any>, next
 		res.locals.cameraId = decryptAES(req.params?.id, configuration.server.sharedKey);
 		next();
 	} catch {
-		res.status(400).send(null);
+		res.status(401).send(null);
 	}
 }

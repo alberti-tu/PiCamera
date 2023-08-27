@@ -38,12 +38,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 				if (response instanceof HttpErrorResponse) {
 					switch (response.status) {
 						case 401:
-							if (this.auth.getToken() == null) {
-								this.alert.showToast('toast.error.login', 'error');
-							} else {
-								this.alert.showToast('toast.error.logout', 'error');
-							}
-							this.auth.removeToken();
+							this.auth.removeToken(true);
 							break;
 						case 404:
 							this.alert.showToast('toast.error.notFound', 'error');

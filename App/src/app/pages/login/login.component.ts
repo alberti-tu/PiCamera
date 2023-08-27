@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IFormButton, IFormField, IFormResult } from 'src/app/components/form/form.component';
+import { AppURL } from 'src/app/constants/routes';
 import { CustomValidator } from 'src/app/global/utils';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -16,7 +18,7 @@ export class LoginComponent {
 	public buttons: IFormButton[];
 	public fields: IFormField[];
 
-	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService) {
+	constructor(private alert: AlertService, private auth: AuthenticationService, private http: HttpService, private router: Router) {
 		this.buttons = [
 			{ name: 'button.signIn', type: 'submit', value: 'accept' },
 		];
@@ -47,7 +49,12 @@ export class LoginComponent {
 		const password = result.form['password'].toString();
 
 		this.http.login(username, this.auth.hash(password)).subscribe(data => {
-			this.auth.setToken(data);
+			if (data) {
+				this.auth.setToken(data);
+				this.router.navigateByUrl(AppURL.HOME);
+			} else {
+				this.alert.showToast('toast.error.login', 'error');
+			}
 		});
 	}
 

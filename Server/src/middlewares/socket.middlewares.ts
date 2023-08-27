@@ -16,7 +16,6 @@ export enum SocketEvent {
 }
 
 export async function connection(io: Server, socket: Socket) {
-
 	let userId: string = '';
 	let list: string[] = [];
 
