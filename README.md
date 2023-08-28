@@ -31,7 +31,7 @@ sudo mysql_secure_installation
 
 ### 2.2 Project setup
 
-Installing NodeJS and NPM for Linux systems
+Install latest NodeJS and NPM for Linux systems
 
 ```bash
 git clone https://github.com/alberti-tu/PiCamera
@@ -39,12 +39,18 @@ cd PiCamera
 npm run setup
 ```
 
-Installing all NPM dependences
+Or install a selected version of NodeJS
+
+```bash
+npm run setup --version=[version | lts]
+```
+
+Install NPM dependences for all projects
 ```bash
 npm run install
 ```
 
-Or install only NPM dependences of selected project
+Or install NPM dependences of selected project
 ```bash
 npm run server:install
 npm run client:install
