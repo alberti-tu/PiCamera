@@ -15,7 +15,7 @@
 		"server:config": "cd Server && npm run config",
 		"server:install": "cd Server && npm i --force",
 		"build": "cd Server && npm run build && cd ../Client && npm run build && cd ../App && npm run build",
-		"install": "cd Server && npm i --force && cd ../Client && npm i --force && cd ../App && npm i --force",
+		"install": "cd Server && npm i && cd ../Client && npm i && cd ../App && npm i",
 		"certificate": "sudo certbot certonly --standalone -d $npm_config_host && sudo chmod -R 755 /etc/letsencrypt/live /etc/letsencrypt/archive",
 		"setup": "sudo ./node_setup.sh $npm_config_node_version"
 	},
