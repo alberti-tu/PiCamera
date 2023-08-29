@@ -19,6 +19,8 @@ Navigate to `Interface Options` &rarr; `Legacy Camera` &rarr; `Yes`. Press on fi
 
 ## 2. Installation
 
+Process to setup the OS machine based on Linux systems
+
 ### 2.1 System setup
 
 Installing MariaDB server and configure the access user
@@ -36,14 +38,17 @@ Install latest NodeJS and NPM for Linux systems
 ```bash
 git clone https://github.com/alberti-tu/PiCamera
 cd PiCamera
-npm run setup
+sudo ./node_setup.sh
 ```
 
 Or install a selected version of NodeJS
 
 ```bash
-npm run setup --version=[version | lts]
+sudo ./node_setup.sh [version | lts]
 ```
+NOTE: If the server instance will be in a Raspberry Pi, the latest LTS Node version supported is 16, otherwise you can install the default version provided by the script
+
+### 2.3 Install NPM dependences
 
 Install NPM dependences for all projects
 ```bash
@@ -57,7 +62,7 @@ npm run client:install
 npm run app:install
 ```
 
-### 2.3 Generate SSL certificates (Optional)
+### 2.4 Generate SSL certificates (Optional)
 
 This project allows you to generate a valid certificate for free by Let's Encrypt. For the verification process to work, remember to forward TCP ports 80 and 443 to your IP address.
 
@@ -97,8 +102,7 @@ npm run client:build
 npm run app:build
 ```
 
-NOTE: You have to build at least the **App** project with the global build command or with the specific one.
-
+NOTE: You have to build at least the **App** project
 ## 5. Launch project
 
 Command to launch server
@@ -120,7 +124,7 @@ In the near future will be new updates, in order to download the new features ex
 git reset --hard
 git pull
 ```
-After downloaded the features execute steps [2.2 Project setup](#2.2-Project-setup), [4. Build project](#4.-Build-project) and [5. Launch project](#5.-Launch-project).
+After downloaded the features execute steps [2.3 Install NPM dependences](#2.3.-Install-NPM-dependences), [4. Build project](#4.-Build-project) and [5. Launch project](#5.-Launch-project).
 
 NOTE: If the changes only affect to **App** project is not necessary stop the server instance. Just execute this:
 
